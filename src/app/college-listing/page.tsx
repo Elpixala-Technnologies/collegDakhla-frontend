@@ -233,7 +233,7 @@ export default function CollegeList(){
           <section className="collegeList">
             <div className="flex flex-col md:flex-row gap-4 px-4">
               <div className="flex-none w-56"><CollegeFilters/></div>
-              <div className="flex-1">
+              <div className="flex-1  w-full overflow-hidden">
                 <div className="bg-white p-4 mb-4 flex gap-4 items-stretch">
                   <div className="flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-primary">
                     <RiSearchLine />
@@ -258,6 +258,12 @@ export default function CollegeList(){
                           (index+1)==8?<div>
                           <Feature title="Filter By State" tags={stateTags} />
                           </div>:<></>
+                        }
+                        {
+                          (index+1)==12? <div className="m-4 bg-white py-4 px-4">
+                          <h2 className="text-xl font-bold mb-3">Top Colleges in India</h2>
+                          <CarouselComponent/>
+                      </div>:<></>
                         }
                       </>
                       );

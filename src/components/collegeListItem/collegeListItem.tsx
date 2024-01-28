@@ -82,7 +82,7 @@ export default function CollegeListItem({ college }:Props) {
                 <Button href={`/college/${college.id}`} text ="Course & Fees" icon={<PiBooksLight/>} outline rounded fontSize="text-xxs"/>
             </div>
         </div>
-        <div className="flex flex-col gap-4 my-4 items-center">
+        <div className="flex flex-row gap-1 flex-wrap justify-center md:flex-col md:gap-4 md:my-4 items-center">
             <Button href={`/college/${college.id}`} text="Apply Now"  filled fontSize="text-sm"  fontWeight="font-bold" width="w-36" align="text-center"/>
             <Button href={`/college/${college.id}`} text="Download Brochure" outline fontSize="text-sm" width="w-36" align="text-center"/>
             <Button href={`/college/${college.id}`} text="Compare" outline fontSize="text-sm" width="w-36" align="text-center"/>
