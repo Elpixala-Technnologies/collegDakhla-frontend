@@ -35,8 +35,8 @@ export default function CollegeListItem({ college }:Props) {
       <div className="mb-4 p-4 flex flex-col sm:flex-row gap-4 shadow-lg
       bg-white
       ">
-        <div className="relative">
-            <img src={college.image} alt={college.name} className="w-full sm:w-48 h-48 object-fill rounded-sm" />
+        <div className="relative h-40">
+            <img src={college.image} alt={college.name} className="w-full sm:w-48 h-40 object-fill rounded-sm" />
             <div className="absolute inset-0 bg-black bg-opacity-50 rounded-sm"></div>
             <div className="absolute inset-0 text-white flex gap-4 justify-end mx-auto my-2 w-10/12">
                 <div>
@@ -82,7 +82,7 @@ export default function CollegeListItem({ college }:Props) {
                 <Button href={`/college/${college.id}`} text ="Course & Fees" icon={<PiBooksLight/>} outline rounded fontSize="text-xxs"/>
             </div>
         </div>
-        <div className="flex flex-col gap-4 my-4">
+        <div className="flex flex-col gap-4 my-4 items-center">
             <Button href={`/college/${college.id}`} text="Apply Now"  filled fontSize="text-sm"  fontWeight="font-bold" width="w-36" align="text-center"/>
             <Button href={`/college/${college.id}`} text="Download Brochure" outline fontSize="text-sm" width="w-36" align="text-center"/>
             <Button href={`/college/${college.id}`} text="Compare" outline fontSize="text-sm" width="w-36" align="text-center"/>

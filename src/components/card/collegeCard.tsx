@@ -17,7 +17,7 @@ export default function CollegeCard(){
     }
     return (
         <>
-            <div className="flex flex-col w-48 bg-white rounded-lg shadow-lg">
+            <div className="flex flex-col items-stretch min-w-48 bg-white rounded-lg shadow-lg">
                 <div className="relative rounded-t-lg">
                     <img src={college.image} alt={college.name} className="w-full h-20 object-cover rounded-t-lg"/>
                     <div className="absolute inset-0 bg-black bg-opacity-50 rounded-t-lg"></div>

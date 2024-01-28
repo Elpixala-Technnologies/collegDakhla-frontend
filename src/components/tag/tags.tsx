@@ -20,7 +20,7 @@ export default function Tag({
         text,
         icon,
         bgcolor="bg-extra-light-text",
-        color="text-primary",
+        color="text-primary-text",
         rounded=false,
         fontSize="text-xs",
         fontWeight="font-normal",

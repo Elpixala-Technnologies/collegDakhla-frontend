@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-gray-200 text-primary-text font-poppins">
         <Header/>
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-screen-2xl">
           {children}
         </div>
         <Footer/>

@@ -6,6 +6,7 @@ import CollegeFilters from "@/components/collegeFilters/collageFilters";
 import Feature from "@/components/feature/feature";
 import {useEffect, useState} from "react";
 import { MdOutlineSort } from "react-icons/md";
+import { RiSearchLine } from "react-icons/ri";
 
 type College={
   id:string,
@@ -205,18 +206,18 @@ export default function CollegeList(){
         <>
           <section className="heroSection">
             <div className="m-4 p-8 bg-white flex flex-col rounded-sm">
-              <h1 className="text-xl font-bold mb-3">Top Engineering Colleges in India 2024</h1>
+              <h1 className="text-xl font-bold mb-3 text-center">Top Engineering Colleges in India 2024</h1>
               {isTruncated ? (<>
-                <p>{aboutCollege.slice(0, 400)}...</p>
+                <p className={`${isTruncated?'text-center':'text-left'}`}>{aboutCollege.slice(0, 400)}...</p>
               <div className="flex justify-end">
-              <button onClick={toggleTruncate} className="text-blue-500 ml-2">
+              <button onClick={toggleTruncate} className="text-primary ml-2 text-sm font-semibold">
             Read more
           </button>
           </div>
               </>):<>
               <p>{aboutCollege}</p>
               <div className="flex justify-end">
-                <button onClick={toggleTruncate} className="text-blue-500 ml-2">
+                <button onClick={toggleTruncate} className="text-primary ml-2 text-sm font-semibold">
                   Read less
                 </button>
               </div>
@@ -234,8 +235,11 @@ export default function CollegeList(){
               <div className="flex-none w-56"><CollegeFilters/></div>
               <div className="flex-1">
                 <div className="bg-white p-4 mb-4 flex gap-4 items-stretch">
-                  <input className="w-full border-2 border-extra-light-text text-sm px-2 py-1 rounded-sm focus:outline-primary" placeholder={`Search College Name`} onChange={handleSearch}  />
-                  <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-sm cursor-pointer">
+                  <div className="flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-primary">
+                    <RiSearchLine />
+                    <input className="w-full flex-1 text-sm px-2 py-1  outline-none" placeholder={`Search College Name`} onChange={handleSearch}  />
+                  </div>
+                  <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
                   <span>sort</span> <MdOutlineSort/>
                   </div>
                 </div>
@@ -251,19 +255,17 @@ export default function CollegeList(){
                           :<></>
                         }
                         {
-                           (index+1)==8?<div>
-                           <Feature title="Filter By State" tags={stateTags} />
-                         </div>:<></>
+                          (index+1)==8?<div>
+                          <Feature title="Filter By State" tags={stateTags} />
+                          </div>:<></>
                         }
                       </>
                       );
                   }
                 )}
               </div>
-              <div className="max-md:hidden flex-none w-32">Right</div>
             </div>
           </section>
-          
         </>
     )
 }
