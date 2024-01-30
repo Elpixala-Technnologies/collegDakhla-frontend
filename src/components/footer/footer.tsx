@@ -6,13 +6,13 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaLocationDot, FaPhone, FaTwitter 
 export default function Footer() {
 	return (
 		<>
-			<div className="bg-white relative">
-				<div className="h-80 max-w-screen-2xl max-sm:justify-between mx-10 py-5">
-					<div className="footer-top flex items-center mt-5">
-						<div className="basis-1/2">
-							<div className="logo flex-none w-2">
+			<div className="bg-white p-4">
+				<div className="h-90 max-w-screen-2xl max-sm:justify-between mx-auto">
+					<div className="footer-top flex gap-4 justify-between flex-wrap max-sm:flex-col mt-5">
+						<div className=" justify-center">
+							<div className="logo w-2">
 								<Link href="/">
-									<Image src={"/college-dakhla-logo.png"} alt="" width={64} height={64} />
+									<Image src={"/logo.png"} alt="logo" width={500} height={500} />
 								</Link>
 							</div>
 							<div className="address flex items-center my-2">
@@ -28,7 +28,7 @@ export default function Footer() {
 								<span className="text-primary ml-2">+919899880100</span>
 							</div>
 						</div>
-						<div className="basis-1/4 text-primary quick-links">
+						<div className=" text-primary quick-links text-left">
 							<h1 className="text-2xl font-semibold">Quick Links</h1>
 							<ul className="mt-2">
 								<li>
@@ -45,7 +45,7 @@ export default function Footer() {
 								</li>
 							</ul>
 						</div>
-						<div className="basis-1/4 text-primary helpful-links">
+						<div className=" text-primary helpful-links">
 							<h1 className="text-2xl font-semibold">Helpful Links</h1>
 							<ul className="mt-2">
 								<li>
@@ -62,7 +62,7 @@ export default function Footer() {
 								</li>
 							</ul>
 						</div>
-						<div className="basis-1/4 text-primary page">
+						<div className=" text-primary page">
 							<h1 className="text-2xl font-semibold">Page</h1>
 							<ul className="mt-2">
 								<li>
@@ -80,48 +80,40 @@ export default function Footer() {
 							</ul>
 						</div>
 					</div>
-					<div className="footer-middle border my-10">
-
-					</div>
-					<div className="footer-bottom">
-						<div className="flex items-center">
-							<div className="basis-1/2 text-primary text-sm">
-								<div>
-									<span>Copyright © 2022 College Dakhla, All rights reserved.</span>
-								</div>
-								<div className="mt-2">
-									<ul className="list-none flex space-x-4 text-sm">
-										<li>
-											<Link href="/">Terms of Service</Link>
-										</li>
-										<li className="">
-											<Link href="/">Privacy Policy</Link>
-										</li>
-										<li className="">
-											<Link href="/">Cookie Policy</Link>
-										</li>
-										<li className="">
-											<Link href="/">Contact Us</Link>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<div className="social basis-1/3">
-								<div className="social-icons flex items-center space-x-5 justify-end">
-									<span>
-										<Link href="/"><FaInstagram /></Link>
-									</span>
-									<span>
-										<Link href="/"><FaFacebook /></Link>
-									</span>
-									<span>
-										<Link href="/"><FaTwitter /></Link>
-									</span>
-									<span>
-										<Link href="/"><FaLinkedin /></Link>
-									</span>
-								</div>
-							</div>
+					<div className="footer-middle border md:my-10 my-5"></div>
+					<div className="footer-bottom flex flex-wrap justify-between text-primary md:text-sm max-md:flex-col gap-4 text-sm ">
+						<div className="social-icons flex items-center gap-3 md:gap-4 text-xl">
+							<span>
+								<Link href="/"><FaInstagram /></Link>
+							</span>
+							<span>
+								<Link href="/"><FaFacebook /></Link>
+							</span>
+							<span>
+								<Link href="/"><FaTwitter /></Link>
+							</span>
+							<span>
+								<Link href="/"><FaLinkedin /></Link>
+							</span>
+						</div>
+						<div className="bottom-links">
+							<ul className="list-none flex max-sm:flex-col flex-wrap gap-4 max-sm:gap-0">
+								<li>
+									<Link href="/">Terms of Service</Link>
+								</li>
+								<li className="">
+									<Link href="/">Privacy Policy</Link>
+								</li>
+								<li className="">
+									<Link href="/">Cookie Policy</Link>
+								</li>
+								<li className="">
+									<Link href="/">Contact Us</Link>
+								</li>
+							</ul>
+						</div>
+						<div className="copyright">
+							<span>Copyright © 2022 College Dakhla, All rights reserved.</span>
 						</div>
 					</div>
 				</div>
