@@ -6,9 +6,9 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaLocationDot, FaPhone, FaTwitter 
 export default function Footer() {
 	return (
 		<>
-			<div className="bg-gray-900 p-4">
+			<div className="bg-gray-900 md:p-8 p-4 w-full bottom-0 fixed">
 				<div className="h-90 max-w-screen-2xl max-sm:justify-between mx-auto">
-					<div className="footer-top flex gap-4 justify-between flex-wrap max-sm:flex-col mt-5 text-white">
+					<div className="footer-top flex gap-4 justify-between flex-wrap max-sm:flex-col text-white">
 						<div className=" justify-center">
 							<div className="logo pl-[25px]">
 								<Link href="/">
