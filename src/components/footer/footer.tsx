@@ -6,29 +6,34 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaLocationDot, FaPhone, FaTwitter 
 export default function Footer() {
 	return (
 		<>
-			<div className="bg-white p-4">
+			<div className="bg-gray-900 p-4">
 				<div className="h-90 max-w-screen-2xl max-sm:justify-between mx-auto">
-					<div className="footer-top flex gap-4 justify-between flex-wrap max-sm:flex-col mt-5">
+					<div className="footer-top flex gap-4 justify-between flex-wrap max-sm:flex-col mt-5 text-white">
 						<div className=" justify-center">
-							<div className="logo w-2">
+							<div className="logo pl-[25px]">
 								<Link href="/">
-									<Image src={"/logo.png"} alt="logo" width={500} height={500} />
+									<Image
+										src="/logo.png"
+										width={100}
+										height={100}
+										alt="Picture of the author"
+									/>
 								</Link>
 							</div>
 							<div className="address flex items-center my-2">
 								<FaLocationDot />
-								<span className="text-primary ml-2">First Floor, Plot No. 2, Niti Khand 1, Near Mangal Chowk, <br />Indrapuram. Ghaziabad (UP) 201014</span>
+								<span className="ml-2">First Floor, Plot No. 2, Niti Khand 1, Near Mangal Chowk, <br />Indrapuram. Ghaziabad (UP) 201014</span>
 							</div>
 							<div className="email flex items-center my-2">
 								<MdEmail />
-								<span className="text-primary ml-2">director@collegedakhla.com</span>
+								<span className="ml-2">director@collegedakhla.com</span>
 							</div>
 							<div className="contact flex items-center my-2">
 								<FaPhone />
-								<span className="text-primary ml-2">+919899880100</span>
+								<span className="ml-2">+919899880100</span>
 							</div>
 						</div>
-						<div className=" text-primary quick-links text-left">
+						<div className=" text-white quick-links text-left">
 							<h1 className="text-2xl font-semibold">Quick Links</h1>
 							<ul className="mt-2">
 								<li>
@@ -45,7 +50,7 @@ export default function Footer() {
 								</li>
 							</ul>
 						</div>
-						<div className=" text-primary helpful-links">
+						<div className=" text-white helpful-links">
 							<h1 className="text-2xl font-semibold">Helpful Links</h1>
 							<ul className="mt-2">
 								<li>
@@ -62,7 +67,7 @@ export default function Footer() {
 								</li>
 							</ul>
 						</div>
-						<div className=" text-primary page">
+						<div className=" text-white page">
 							<h1 className="text-2xl font-semibold">Page</h1>
 							<ul className="mt-2">
 								<li>
@@ -81,7 +86,7 @@ export default function Footer() {
 						</div>
 					</div>
 					<div className="footer-middle border md:my-10 my-5"></div>
-					<div className="footer-bottom flex flex-wrap justify-between text-primary md:text-sm max-md:flex-col gap-4 text-sm ">
+					<div className="footer-bottom flex flex-wrap justify-between text-white md:text-sm max-md:flex-col gap-4 text-sm ">
 						<div className="social-icons flex items-center gap-3 md:gap-4 text-xl">
 							<span>
 								<Link href="/"><FaInstagram /></Link>
