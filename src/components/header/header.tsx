@@ -33,7 +33,7 @@ export default function Header() {
       <div className="h-12 flex gap-4 items-center mx-auto px-4 max-w-screen-2xl justify-between">
         <div className="logo flex-none w-24">
           <Link href="/">
-            <Image src={"/logo.png"} alt="" width={64} height={64} />
+            <Image src="/logo.png" alt="" width={64} height={64} />
           </Link>
         </div>
         <div className="flex gap-8 flex-1 items-center">
