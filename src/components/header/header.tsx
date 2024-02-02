@@ -29,7 +29,7 @@ export default function Header() {
   useEffect(() => {}, []);
 
   return (
-    <nav className="bg-white relative">
+    <nav className="bg-white relative z-50">
       <div className="h-12 flex gap-4 items-center mx-auto px-4 max-w-screen-2xl justify-between">
         <div className="logo flex-none w-24">
           <Link href="/">

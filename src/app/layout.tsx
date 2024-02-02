@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
+import { ApolloWrapper } from "@/lib/client";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,12 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-200 text-primary-text font-poppins">
-        <Header/>
-        <div className="mx-auto max-w-screen-2xl">
-          {children}
-        </div>
-        <Footer/>
-        </body>
+        <ApolloWrapper>
+          <Header />
+          <div className="mx-auto max-w-screen-2xl">{children}</div>
+          <Footer />
+        </ApolloWrapper>
+      </body>
     </html>
   );
 }
