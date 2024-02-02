@@ -34,7 +34,7 @@ export default function Header() {
         <div className="logo flex-none w-24">
           <Link href="/">
             <Image
-              src={"/college-dakhla-logo.png"}
+              src={""}
               alt=""
               width={64}
               height={64}
