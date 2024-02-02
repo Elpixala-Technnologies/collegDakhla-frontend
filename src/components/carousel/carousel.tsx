@@ -54,7 +54,7 @@ export default function CarouselComponent() {
 			{/* carousel component loop */}
 			{data?.colleges?.data?.slice(0, 10).map((college: any, index: any) => {
 				return (
-					<SwiperSlide>
+					<SwiperSlide key={college.id}>
 						<CollegeCard college={college} />
 					</SwiperSlide>
 				)
