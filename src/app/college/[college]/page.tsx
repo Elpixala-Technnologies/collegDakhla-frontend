@@ -21,15 +21,19 @@ export default function CollageDetail({ params }: { params: { college: string } 
 	const [currentTab, setCurrentTab] = useState("info");
 	const queryParam = useSearchParams()
 
-	// get college data from id 
-	const { loading, error, data } = useQuery(getCollege);
-	const college = data?.college?.data?.attributes
-
 	const tab = queryParam.get('tab')
 	console.log(tab);
 
+	// const router = useRouter();
+	// const receivedData = router.query;
+	// console.log(receivedData);
+
+	// get college data
+	const { loading, error, data } = useQuery(getCollege);
+	const college = data?.college?.data?.attributes
+
 	let collegetest = {
-		id: "2",
+		id: "1",
 		name: "IIT Madras - Indian Institute of Technology - [IITM] Chennai",
 		location: "Chennai",
 		state: "Tamil Nadu",
@@ -73,10 +77,6 @@ export default function CollageDetail({ params }: { params: { college: string } 
 				break;
 		}
 	}
-
-	// const router = useRouter();
-	// const receivedData = router.query;
-	// console.log(receivedData);
 
 	useEffect(() => {
 		if (tab) {
