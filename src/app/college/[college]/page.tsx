@@ -12,6 +12,9 @@ import { useSearchParams } from "next/navigation";
 import { FaRegHeart } from "react-icons/fa";
 import Tag from "@/components/tag/tags";
 import Button from "@/components/button/button";
+import { useQuery } from "@apollo/client";
+import { getCollege } from "@/query/schema";
+import Image from 'next/image'
 
 export default function CollageDetail({ params }: { params: { college: string } }) {
 	// const [college, setCollege]=useState({});
@@ -25,7 +28,11 @@ export default function CollageDetail({ params }: { params: { college: string } 
 	// const receivedData = router.query;
 	// console.log(receivedData);
 
-	let college = {
+	// get college data
+	const { loading, error, data } = useQuery(getCollege);
+	const college = data?.college?.data?.attributes
+
+	let collegetest = {
 		id: "1",
 		name: "IIT Madras - Indian Institute of Technology - [IITM] Chennai",
 		location: "Chennai",
@@ -80,28 +87,28 @@ export default function CollageDetail({ params }: { params: { college: string } 
 		<>
 			<section className="heroSection">
 				<div className="relative">
-					<img src={college.image} alt={college.name} className="w-full h-36 object-cover" />
+					<img src={collegetest.image} alt={collegetest.name} className="w-full h-36 object-cover" />
 					<div className="absolute inset-0 bg-black bg-opacity-50"></div>
 					<div className="absolute inset-0 text-white flex gap-4 mx-auto my-6 w-10/12">
 						<div className="collegeLogo">
-							<img src={college.logo} className="rounded-sm" />
+							<Image src={college?.collegeLogo?.data?.attributes?.url} width={100} height={100} alt={college?.collegeLogo?.data?.attributes?.name} className="rounded-sm" />
 						</div>
 						<div className="flex-1 flex flex-col gap-2">
 							<div className="flex gap-4 items-center">
-								<h1 className="text-lg font-bold">{college.name}</h1>
+								<h1 className="text-lg font-bold">{college?.collegeName ? college?.collegeName : "IIT Madras - Indian Institute of Technology - [IITM] Chennai"}</h1>
 								<div className="border-white border rounded-full p-1 text-sm cursor-pointer text-white"><FaRegHeart /></div>
 							</div>
-							<p className="text-xs">{college.location},{college.state} | {college.rating}/10  (324 Reviews)</p>
+							<p className="text-xs">{college?.city},{college?.state} | {college?.rating ? college?.rating : "8.6"}/10  (324 Reviews)</p>
 							<div className="flex gap-1">
-								<Tag text="Public/Government University" href={"/"} />
-								<Tag text="Estd. 1990" href={"/"} />
+								<Tag text={college?.college_type?.data?.attributes?.type + " University"} href={"/"} />
+								<Tag text={college?.establishmentYear ? college?.establishmentYear : "2000"} href={"/"} />
 							</div>
 						</div>
 						<div>
 							<div>
 								<div className="flex flex-col gap-2">
-									<Button href={`/college/${college.id}`} text="Apply Now" filled fontSize="text-sm" fontWeight="font-bold" width="w-36" align="text-center" />
-									<Button href={`/college/${college.id}`} text="Download Brochure" outline fontSize="text-sm" width="w-36" align="text-center" />
+									<Button href={"/"} text="Apply Now" filled fontSize="text-sm" fontWeight="font-bold" width="w-36" align="text-center" />
+									<Button href={"/"} text="Download Brochure" outline fontSize="text-sm" width="w-36" align="text-center" />
 								</div>
 							</div>
 						</div>
