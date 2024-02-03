@@ -9,24 +9,24 @@ import { RiSearchLine } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 export default function Header() {
-  const [Path, setPath] = useState("");
-  const currentPath = usePathname();
-  const [ShowSearch, setShowSearch] = useState(false);
-  const [ShowOptions, setShowOptions] = useState(false);
+	const [Path, setPath] = useState("");
+	const currentPath = usePathname();
+	const [ShowSearch, setShowSearch] = useState(false);
+	const [ShowOptions, setShowOptions] = useState(false);
 
-  const handleSearch = () => {
-    setShowSearch(!ShowSearch);
-  };
+	const handleSearch = () => {
+		setShowSearch(!ShowSearch);
+	};
 
-  const handleShowOptions = () => {
-    setShowOptions(!ShowOptions);
-  };
+	const handleShowOptions = () => {
+		setShowOptions(!ShowOptions);
+	};
 
-  useEffect(() => {
-    setPath(currentPath.split("/")[1]);
-  }, [currentPath]);
+	useEffect(() => {
+		setPath(currentPath.split("/")[1]);
+	}, [currentPath]);
 
-  useEffect(() => {}, []);
+	useEffect(() => { }, []);
 
   return (
     <nav className="bg-white relative z-50">
@@ -43,144 +43,143 @@ export default function Header() {
             </Tooltip>
           </div>
 
-          <div
-            className={`${
-              ShowSearch ? "block" : "hidden"
-            } w-full md:block md:w-6/12`}
-          >
-            <div className="flex gap-4 items-center border-2 border-extra-light-text text-extra-light-text px-2 py-1 focus-within:border-secondary-text focus-within:text-secondary-text rounded-md">
-              <RiSearchLine />
-              <input
-                className="w-full outline-none text-sm"
-                type="text"
-                placeholder="Search College, Course, Exam and more"
-              />
-            </div>
-          </div>
-        </div>
+					<div
+						className={`${ShowSearch ? "block" : "hidden"
+							} w-full md:block md:w-6/12`}
+					>
+						<div className="flex gap-4 items-center border-2 border-extra-light-text text-extra-light-text px-2 py-1 focus-within:border-secondary-text focus-within:text-secondary-text rounded-md">
+							<RiSearchLine />
+							<input
+								className="w-full outline-none text-sm"
+								type="text"
+								placeholder="Search College, Course, Exam and more"
+							/>
+						</div>
+					</div>
+				</div>
 
-        <div>
-          <LoginQASection />
-        </div>
-        <div className="hidden max-sm:block">
-          <div className="flex gap-4 ">
-            <div className="" onClick={handleSearch}>
-              <RiSearchLine />
-            </div>
-            <div onClick={handleShowOptions}>
-              <GiHamburgerMenu />
-            </div>
-          </div>
-        </div>
-      </div>
+				<div>
+					<LoginQASection />
+				</div>
+				<div className="hidden max-sm:block">
+					<div className="flex gap-4 ">
+						<div className="" onClick={handleSearch}>
+							<RiSearchLine />
+						</div>
+						<div onClick={handleShowOptions}>
+							<GiHamburgerMenu />
+						</div>
+					</div>
+				</div>
+			</div>
 
-      {ShowOptions ? (
-        <>
-          <NavOption></NavOption>
-          <LoginQASection />
-        </>
-      ) : (
-        <></>
-      )}
-    </nav>
+			{ShowOptions ? (
+				<>
+					<NavOption></NavOption>
+					<LoginQASection />
+				</>
+			) : (
+				<></>
+			)}
+		</nav>
 
-    // <nav className="bg-white relative">
-    //     <div className="h-12 flex items-center mx-auto px-4 max-w-screen-2xl max-sm:justify-between">
-    //         <div className="logo flex-none w-24">
-    //             <Link href="/">
-    //                 <Image src={"/college-dakhla-logo.png"} alt="" width={64} height={64} />
-    //             </Link>
-    //         </div>
-    //         <div className="links flex flex-1 text-lg sm:text-base items-center font-medium max-sm:hidden max-md:text-sm">
-    //             <NavOption Path={Path}/>
-    //         </div>
-    //         <div className="sm:text-base">
-    //             <Link href="/">Log In & Sign Up</Link>
-    //         </div>
-    //         <div className="hidden max-sm:block">
-    //             <GiHamburgerMenu onClick={handleOption}/>
-    //             {OpenOption?
-    //             <div className="fixed w-full top-12 right-0 bg-white z-50 shadow-sm">
-    //                 <NavOption Path={Path}/>
-    //             </div>
-    //             :null}
-    //         </div>
-    //     </div>
-    // </nav>
-  );
+		// <nav className="bg-white relative">
+		//     <div className="h-12 flex items-center mx-auto px-4 max-w-screen-2xl max-sm:justify-between">
+		//         <div className="logo flex-none w-24">
+		//             <Link href="/">
+		//                 <Image src={"/college-dakhla-logo.png"} alt="" width={64} height={64} />
+		//             </Link>
+		//         </div>
+		//         <div className="links flex flex-1 text-lg sm:text-base items-center font-medium max-sm:hidden max-md:text-sm">
+		//             <NavOption Path={Path}/>
+		//         </div>
+		//         <div className="sm:text-base">
+		//             <Link href="/">Log In & Sign Up</Link>
+		//         </div>
+		//         <div className="hidden max-sm:block">
+		//             <GiHamburgerMenu onClick={handleOption}/>
+		//             {OpenOption?
+		//             <div className="fixed w-full top-12 right-0 bg-white z-50 shadow-sm">
+		//                 <NavOption Path={Path}/>
+		//             </div>
+		//             :null}
+		//         </div>
+		//     </div>
+		// </nav>
+	);
 }
 
 const NavOption = () => {
-  return (
-    <>
-      <div className="flex flex-col gap-2 w-full p-4 sm:p-0 sm:w-6/12 sm:min-w-96">
-        <div>
-          <Link href={"/college-listing"} className="hover:text-primary">
-            Top Engineering College
-          </Link>
-        </div>
-        <div>
-          <Link href={"/college-listing"} className="hover:text-primary">
-            Top Management College
-          </Link>
-        </div>
-        <div>
-          <Link href={"/college-listing"} className="hover:text-primary">
-            Top Law College
-          </Link>
-        </div>
-        <div>
-          <Link href={"/college-listing"} className="hover:text-primary">
-            Top Commerse College
-          </Link>
-        </div>
-        <div>
-          <Link href={"/college-listing"} className="hover:text-primary">
-            Top Polytecnic College
-          </Link>
-        </div>
-        <div>
-          <Link href={"/college-listing"} className="hover:text-primary">
-            Top Engineering College of India
-          </Link>
-        </div>
-        <div>
-          <Link href={"/college-listing"} className="hover:text-primary">
-            Top Government College
-          </Link>
-        </div>
-        <div>
-          <Link href={"/college-listing"} className="hover:text-primary">
-            Top Private Law College
-          </Link>
-        </div>
-        <div>
-          <Link href={"/college-listing"} className="hover:text-primary">
-            Top BCA College
-          </Link>
-        </div>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<div className="flex flex-col gap-2 w-full p-4 sm:p-0 sm:w-6/12 sm:min-w-96">
+				<div>
+					<Link href={"/college-listing"} className="hover:text-primary">
+						Top Engineering College
+					</Link>
+				</div>
+				<div>
+					<Link href={"/college-listing"} className="hover:text-primary">
+						Top Management College
+					</Link>
+				</div>
+				<div>
+					<Link href={"/college-listing"} className="hover:text-primary">
+						Top Law College
+					</Link>
+				</div>
+				<div>
+					<Link href={"/college-listing"} className="hover:text-primary">
+						Top Commerse College
+					</Link>
+				</div>
+				<div>
+					<Link href={"/college-listing"} className="hover:text-primary">
+						Top Polytecnic College
+					</Link>
+				</div>
+				<div>
+					<Link href={"/college-listing"} className="hover:text-primary">
+						Top Engineering College of India
+					</Link>
+				</div>
+				<div>
+					<Link href={"/college-listing"} className="hover:text-primary">
+						Top Government College
+					</Link>
+				</div>
+				<div>
+					<Link href={"/college-listing"} className="hover:text-primary">
+						Top Private Law College
+					</Link>
+				</div>
+				<div>
+					<Link href={"/college-listing"} className="hover:text-primary">
+						Top BCA College
+					</Link>
+				</div>
+			</div>
+		</>
+	);
 };
 
 const LoginQASection = () => {
-  return (
-    <>
-      <div className="flex gap-8 max-sm:hidden">
-        <div>
-          <Link href="/" className="text-sm hover:text-primary">
-            Log In & Sign Up{" "}
-          </Link>
-        </div>
-        <div>
-          <Link href={"/"} className="text-sm hover:text-primary">
-            Q&A
-          </Link>
-        </div>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<div className="flex gap-8 max-sm:hidden">
+				<div>
+					<Link href="/" className="text-sm hover:text-primary">
+						Log In & Sign Up{" "}
+					</Link>
+				</div>
+				<div>
+					<Link href={"/"} className="text-sm hover:text-primary">
+						Q&A
+					</Link>
+				</div>
+			</div>
+		</>
+	);
 };
 
 // const NavOption = ({ Path }: { Path: string }) => {
