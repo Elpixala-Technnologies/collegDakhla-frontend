@@ -21,6 +21,10 @@ export default function CollageDetail({ params }: { params: { college: string } 
 	const [currentTab, setCurrentTab] = useState("info");
 	const queryParam = useSearchParams()
 
+	// get college data from id 
+	const { loading, error, data } = useQuery(getCollege);
+	const college = data?.college?.data?.attributes
+
 	const tab = queryParam.get('tab')
 	console.log(tab);
 
@@ -73,15 +77,6 @@ export default function CollageDetail({ params }: { params: { college: string } 
 	// const router = useRouter();
 	// const receivedData = router.query;
 	// console.log(receivedData);
-
-	// get college data from id 
-	const { loading, error, data } = useQuery(getCollege);
-
-	const college = data?.college?.data?.attributes
-	//set data
-	const collegeDescription = college?.collegeDescription
-	console.log("desc is " + collegeDescription)
-
 
 	useEffect(() => {
 		if (tab) {

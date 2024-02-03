@@ -101,3 +101,73 @@ export const getColleges = gql`
     }
 	}
 `;
+
+// query to get college data from college id
+export const getCollege = gql`
+	query College {
+    college(id: "2") {
+        data {
+            id
+            attributes {
+                url
+                collegeName
+                country
+                state
+                pincode
+                establishmentYear
+                city
+                createdAt
+                updatedAt
+                publishedAt
+                college_type {
+                    data {
+                        id
+                        attributes {
+                            type
+                        }
+                    }
+                }
+                collegeLogo {
+                    data {
+                        attributes {
+                            name
+                            alternativeText
+                            width
+                            height
+                            size
+                            url
+                        }
+                    }
+                }
+                collegeStream {
+                    data {
+                        id
+                        attributes {
+                            streamName
+                            description
+                            createdAt
+                            updatedAt
+                            publishedAt
+                        }
+                    }
+                }
+                rankedBy {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                approvedBy {
+                    data {
+                        id
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                collegeDescription
+            }
+        }
+    }
+}`
