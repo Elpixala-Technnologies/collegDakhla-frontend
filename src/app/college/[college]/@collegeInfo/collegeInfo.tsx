@@ -36,7 +36,7 @@ export default function CollegeInfo() {
 								</p>
 							</div>
 							{/* Render College name here */}
-							{abc.map(collegeName => (<CollegeDescription name={collegeName} />))}
+							{abc.map(collegeName => (<CollegeDescription key={} name={collegeName} />))}
 						</section>
 						<FeesEligibility />
 						<CoursesOffered />
