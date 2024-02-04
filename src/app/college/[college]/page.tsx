@@ -31,7 +31,7 @@ export default function CollageDetail({ params }: { params: { college: string } 
 	// get college data
 	const { loading, error, data } = useQuery(getCollege);
 	const college = data?.college?.data?.attributes
-	console.log(college.collegeName + " " + college.city);
+	console.log(college?.collegeName + " " + college?.city);
 
 
 	let collegetest = {
