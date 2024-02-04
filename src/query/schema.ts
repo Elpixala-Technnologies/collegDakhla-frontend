@@ -104,8 +104,8 @@ export const getColleges = gql`
 
 // query to get college data from college id
 export const getCollege = gql`
-	query College {
-    college(id: "2") {
+	query College($collegeId : ID!) {
+    college(id: $collegeId) {
         data {
             id
             attributes {

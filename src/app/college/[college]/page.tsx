@@ -15,23 +15,36 @@ import Button from "@/components/button/button";
 import { useQuery } from "@apollo/client";
 import { getCollege } from "@/query/schema";
 import Image from 'next/image'
+import { getStrapiMedia } from "../utils/api-helper"
+import { useRouter } from "next/navigation";
 
-export default function CollageDetail({ params }: { params: { college: string } }) {
-	// const [college, setCollege]=useState({});
+type Props = {
+	params: {
+		college: String
+	}
+}
+export default function CollegeDetail({ params }: Props) {
 	const [currentTab, setCurrentTab] = useState("info");
 	const queryParam = useSearchParams()
 
 	const tab = queryParam.get('tab')
 	console.log(tab);
-
-	// const router = useRouter();
-	// const receivedData = router.query;
-	// console.log(receivedData);
+	let collegeId = params.college
 
 	// get college data
-	const { loading, error, data } = useQuery(getCollege);
+	const { loading, error, data } = useQuery(getCollege, {
+		variables: { collegeId },
+	});
+
 	const college = data?.college?.data?.attributes
-	console.log(college?.collegeName + " " + college?.city);
+	const approvedBy = college?.approvedBy?.data?.attributes?.name
+	const collegeType = college?.college_type?.data?.attributes?.type
+	const imageUrl = getStrapiMedia(
+		college?.collegeLogo?.data?.attributes?.url
+	);
+
+	console.log("college logo url " + imageUrl);
+
 
 
 	let collegetest = {
@@ -51,7 +64,7 @@ export default function CollageDetail({ params }: { params: { college: string } 
 		{ name: "Course & Fees", value: "courseFees" },
 		{ name: "Reviews", value: "reviews" },
 		{ name: "Placement", value: "placement" },
-		{ name: "Scholership", value: "scholership" },
+		{ name: "Scholarship", value: "scholarship" },
 		{ name: "Hostel", value: "hostel" },
 		{ name: "Q&A", value: "qa" }
 	]
@@ -93,7 +106,7 @@ export default function CollageDetail({ params }: { params: { college: string } 
 					<div className="absolute inset-0 bg-black bg-opacity-50"></div>
 					<div className="absolute inset-0 text-white flex gap-4 mx-auto my-6 w-10/12">
 						<div className="collegeLogo">
-							<Image src={college?.collegeLogo?.data?.attributes?.url} width={100} height={100} alt={college?.collegeLogo?.data?.attributes?.name} className="rounded-sm" />
+							<Image src={imageUrl ? imageUrl : ""} width={100} height={100} alt={college?.collegeLogo?.data?.attributes?.name} className="rounded-sm" />
 						</div>
 						<div className="flex-1 flex flex-col gap-2">
 							<div className="flex gap-4 items-center">
@@ -102,8 +115,9 @@ export default function CollageDetail({ params }: { params: { college: string } 
 							</div>
 							<p className="text-xs">{college?.city},{college?.state} | {college?.rating ? college?.rating : "8.6"}/10  (324 Reviews)</p>
 							<div className="flex gap-1">
-								<Tag text={college?.college_type?.data?.attributes?.type + " University"} href={"/"} />
-								<Tag text={college?.establishmentYear ? college?.establishmentYear : "2000"} href={"/"} />
+								<Tag text={(collegeType ? collegeType : "Autonomous") + " University"} href={"/"} />
+								<Tag text={"ESTD " + (college?.establishmentYear ? college?.establishmentYear : "2000")} href={"/"} />
+								<Tag text={approvedBy ? approvedBy : "UGC"} href={""} />
 							</div>
 						</div>
 						<div>
