@@ -171,3 +171,16 @@ export const getCollege = gql`
         }
     }
 }`
+
+// query to get default images
+export const getDefaultImage = gql`
+query UploadFiles {
+    uploadFiles(filters: { name: { eq: "default-college-logo.png" } }) {
+        data {
+            id
+            attributes {
+                url
+            }
+        }
+    }
+}`

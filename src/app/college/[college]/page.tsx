@@ -13,7 +13,7 @@ import { FaRegHeart } from "react-icons/fa";
 import Tag from "@/components/tag/tags";
 import Button from "@/components/button/button";
 import { useQuery } from "@apollo/client";
-import { getCollege } from "@/query/schema";
+import { getCollege, getDefaultImage } from "@/query/schema";
 import Image from 'next/image'
 import { getStrapiMedia } from "../utils/api-helper"
 import { useRouter } from "next/navigation";
@@ -43,20 +43,10 @@ export default function CollegeDetail({ params }: Props) {
 		college?.collegeLogo?.data?.attributes?.url
 	);
 
-	console.log("college logo url " + imageUrl);
-
-
+	const defaultImageUrl = getStrapiMedia("/uploads/default_college_logo_23dfd1f540.png");
 
 	let collegetest = {
-		id: "1",
-		name: "IIT Madras - Indian Institute of Technology - [IITM] Chennai",
-		location: "Chennai",
-		state: "Tamil Nadu",
-		affiliate: "AICTE Aprroved",
-		fee: "200000",
-		rating: "8.6",
 		image: "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch",
-		logo: "https://images.collegedunia.com/public/college_data/images/logos/16227180851622636032186238785288085292955050866043200736746859n.jpg?h=80&w=80&mode=stretch"
 	}
 
 	const tabs = [
@@ -102,11 +92,11 @@ export default function CollegeDetail({ params }: Props) {
 		<>
 			<section className="heroSection">
 				<div className="relative">
-					<img src={collegetest.image} alt={collegetest.name} className="w-full h-36 object-cover" />
+					<img src={collegetest.image} alt={college?.collegeName} className="w-full h-36 object-cover" />
 					<div className="absolute inset-0 bg-black bg-opacity-50"></div>
 					<div className="absolute inset-0 text-white flex gap-4 mx-auto my-6 w-10/12">
 						<div className="collegeLogo">
-							<Image src={imageUrl ? imageUrl : ""} width={100} height={100} alt={college?.collegeLogo?.data?.attributes?.name} className="rounded-sm" />
+							<Image src={imageUrl ? imageUrl : defaultImageUrl!} width={100} height={100} alt={college?.collegeLogo?.data?.attributes?.name} className="rounded-sm" />
 						</div>
 						<div className="flex-1 flex flex-col gap-2">
 							<div className="flex gap-4 items-center">
