@@ -184,3 +184,17 @@ query UploadFiles {
         }
     }
 }`
+
+//query to search for college
+export const searchCollege = gql`
+query Colleges($Search : String!) {
+    colleges(filters: { collegeName: { contains: $Search } }) {
+        data {
+            id
+            attributes {
+                collegeName
+            }
+        }
+    }
+}
+`;

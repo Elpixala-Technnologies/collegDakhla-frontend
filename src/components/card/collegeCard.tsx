@@ -7,7 +7,7 @@ import { FaRegHeart } from "react-icons/fa";
 export default function CollegeCard(props: any) {
 
 	let college = props.college.attributes;
-	const logoURL = college.collegeLogo.data?.attributes.url ? college.collegeLogo.data?.attributes.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
+	const logoURL = college?.collegeLogo?.data?.attributes.url ? college.collegeLogo.data?.attributes.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
 
 
 	return (
@@ -31,7 +31,7 @@ export default function CollegeCard(props: any) {
 						</h4>
 						<p className="text-xxs text-secondary-text">{college.city},{college.state}</p>
 						<p className="text-xs text-secondary-text">Approved By: {college.rankedBy?.data[0]?.attributes ? college.rankedBy?.data[0]?.attributes.name : "UGC"}</p>
-						<p className="text-xs text-secondary-text">{college.college_type.data.attributes.type}</p>
+						<p className="text-xs text-secondary-text">{college?.college_type?.data?.attributes?.type}</p>
 
 					</div>
 					<Link href="/">

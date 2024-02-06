@@ -31,7 +31,7 @@ export default function CollegeListItem({ college }: Props) {
 		maximumFractionDigits: 0,
 	});
 
-	const logoURL = college.attributes.collegeLogo.data?.attributes.url ? college.attributes.collegeLogo.data?.attributes.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
+	const logoURL = college?.attributes?.collegeLogo?.data?.attributes.url ? college.attributes.collegeLogo.data?.attributes.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
 
 	return (
 		<div className="mb-4 p-4 flex flex-col sm:flex-row gap-4 shadow-lg

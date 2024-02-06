@@ -7,8 +7,9 @@ import Feature from "@/components/feature/feature";
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
-import { getColleges } from "@/query/schema";
-import { useQuery } from "@apollo/client";
+import { getColleges, searchCollege } from "@/query/schema";
+import { useLazyQuery, useQuery } from "@apollo/client";
+import Link from "next/link";
 
 type College = {
 	id: string;
@@ -24,8 +25,13 @@ type College = {
 
 export default function CollegeList() {
 
+	const [isTruncated, setIsTruncated] = useState(true);
+	const [Search, setSearch] = useState("");
+	const [List, setList] = useState<College[]>([]);
+	const [isDropdownOpen, setDropdownOpen] = useState(false)
 	// get college data
 	const { loading, error, data } = useQuery(getColleges);
+	const [getSearchQuery, { loading: searchLoading, error: searchError, data: searchData }] = useLazyQuery(searchCollege);
 
 	let stateTags = [
 		{ name: "Maharashtra" },
@@ -38,31 +44,39 @@ export default function CollegeList() {
 		{ name: "Delhi" },
 		{ name: "Gujarat" },
 	];
-	const [isTruncated, setIsTruncated] = useState(true);
-	const [Search, setSearch] = useState("");
-	const [List, setList] = useState<College[]>([]);
+
 
 	const toggleTruncate = () => {
 		setIsTruncated(!isTruncated);
 	};
 
+	const toggleDropdown = () => {
+		setDropdownOpen(!isDropdownOpen);
+	};
+
 	const handleSearch = (event: any) => {
 		setSearch(event.target.value);
+		console.log("inside search", Search);
+		if (Search.length >= 2) {
+			getSearchQuery({ variables: { Search } })
+			console.log("search data is ", searchData)
+			console.log("search error is ", JSON.stringify(searchError, null, 2));
+		}
 	};
 	const aboutCollege =
 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquet interdum accumsan. Nulla tincidunt sem luctus libero porttitor, nec porta lectus blandit. Nam augue leo, tristique at tempor feugiat, tincidunt ac ante. Suspendisse fermentum efficitur massa, vitae elementum neque condimentum a. Nam et eros sed nisl imperdiet vulputate. Aenean tempus, diam nec fermentum laoreet, ipsum magna pulvinar turpis, in ornare nisl augue in sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent gravida purus nunc.";
 
-	useEffect(() => {
-		setList(
-			data?.colleges?.data.filter((item: any) =>
-				item.name.toLowerCase().includes(Search.toLowerCase())
-			)
-		);
-	}, [Search]);
+	// useEffect(() => {
+	// 	setList(
+	// 		data?.colleges?.data.filter((item: any) =>
+	// 			item.collegeName?.toLowerCase().includes(Search.toLowerCase())
+	// 		)
+	// 	);
+	// });
 
-	useEffect(() => {
-		setList(data?.colleges?.data);
-	}, []);
+	// useEffect(() => {
+	// 	setList(data?.colleges?.data);
+	// }, []);
 	return (
 		<>
 			<section className="heroSection">
@@ -111,14 +125,26 @@ export default function CollegeList() {
 						<CollegeFilters />
 					</div>
 					<div className="flex-1  w-full overflow-hidden">
-						<div className="bg-white p-4 mb-4 flex gap-4 items-stretch">
+						<div className="bg-white p-4 mb-4 flex gap-4 items-stretch relative">
 							<div className="flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
 								<RiSearchLine />
 								<input
 									className="w-full flex-1 text-sm px-2 py-1 outline-none"
 									placeholder={`Search College Name`}
 									onChange={handleSearch}
+									onClick={toggleDropdown}
 								/>
+								{isDropdownOpen && (
+									<div className="top-full left-5 absolute bg-white p-2 border border-gray-400 w-1/2 z-10 rounded">
+										{/* Your dropdown content here */}
+										<h2 className="text-base font-bold mb-1">Search Results:</h2>
+										<div className="flex flex-col space-y-4 ">
+											{searchData?.colleges?.data?.map((searchResult: any) => (
+												<Link href={`/college/${searchResult.id}`}>{searchResult.attributes.collegeName}</Link>
+											))}
+										</div>
+									</div>
+								)}
 							</div>
 							<div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
 								<span>sort</span> <MdOutlineSort />
@@ -131,7 +157,7 @@ export default function CollegeList() {
 										key={Math.random() * 1000}
 										college={college}
 									/>
-									{(index+1)%4 == 0 ? (
+									{(index + 1) % 4 == 0 ? (
 										<div>
 											<Feature title="Filter By State" tags={stateTags} />
 										</div>
