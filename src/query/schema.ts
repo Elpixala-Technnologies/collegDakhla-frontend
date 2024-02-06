@@ -189,12 +189,70 @@ query UploadFiles {
 export const searchCollege = gql`
 query Colleges($Search : String!) {
     colleges(filters: { collegeName: { containsi: $Search } }) {
-        data {
-            id
-            attributes {
-                collegeName
-            }
-        }
+			data {
+				id
+				attributes {
+					city
+					collegeName
+					country
+					createdAt
+					establishmentYear
+					pincode
+					publishedAt
+					state
+					updatedAt
+					url
+					collegeLogo {
+						data {
+								id
+								attributes {
+										alternativeText
+										ext
+										height
+										mime
+										name
+										url
+										width
+								}
+						}
+					}
+					collegeStream {
+							data {
+									id
+									attributes {
+											description
+											streamName
+									}
+							}
+					}
+					college_type {
+							data {
+									id
+									attributes {
+											type
+									}
+							}
+					}
+					rankedBy {
+							data {
+									id
+									attributes {
+											description
+											name
+									}
+							}
+					}
+					approvedBy {
+						data {
+								id
+								attributes {
+										description
+										name
+								}
+						}
+					}
+				}
+			}
     }
 }
 `;

@@ -2,7 +2,7 @@
 import CollegeCard from "@/components/card/collegeCard";
 import CarouselComponent from "@/components/carousel/carousel";
 import CollegeListItem from "@/components/collegeListItem/collegeListItem";
-import CollegeFilters from "@/components/collegeFilters/collageFilters";
+import CollegeFilters from "@/components/collegeFilters/collegeFilters";
 import Feature from "@/components/feature/feature";
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
@@ -10,28 +10,30 @@ import { RiSearchLine } from "react-icons/ri";
 import { getColleges, searchCollege } from "@/query/schema";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import Link from "next/link";
+import { log } from "console";
 
-type College = {
-	id: string;
-	name: string;
-	location: string;
-	state: string;
-	affiliate: string;
-	fee: string;
-	rating: string;
-	image: string;
-	logo: string;
-};
+// type College = {
+// 	id: string;
+// 	collegeName: string;
+// 	location: string;
+// 	state: string;
+// 	affiliate: string;
+// 	fee: string;
+// 	rating: string;
+// 	image: string;
+// 	logo: string;
+// };
 
 export default function CollegeList() {
 
 	const [isTruncated, setIsTruncated] = useState(true);
 	const [Search, setSearch] = useState("");
-	const [List, setList] = useState<College[]>([]);
 	const [isDropdownOpen, setDropdownOpen] = useState(false)
 	// get college data
-	const { loading, error, data } = useQuery(getColleges);
-	const [getSearchQuery, { loading: searchLoading, error: searchError, data: searchData }] = useLazyQuery(searchCollege);
+	const { loading, error, data: initialData } = useQuery(getColleges);
+	const [allColleges, setAllColleges] = useState([]);
+	const [filteredData, setFilteredData] = useState([]);
+
 
 	let stateTags = [
 		{ name: "Maharashtra" },
@@ -45,6 +47,17 @@ export default function CollegeList() {
 		{ name: "Gujarat" },
 	];
 
+	useEffect(() => {
+		if (initialData && initialData.colleges.data) {
+			setAllColleges(initialData.colleges.data);
+			setFilteredData(initialData.colleges.data); // Initially, display all data
+		}
+	}, [initialData]);
+
+	// console.log("all colleges data", allColleges);
+	// console.log("filterd data", filteredData);
+
+
 
 	const toggleTruncate = () => {
 		setIsTruncated(!isTruncated);
@@ -56,15 +69,20 @@ export default function CollegeList() {
 
 	const handleSearch = (event: any) => {
 		setSearch(event.target.value);
-		console.log("inside search", Search);
-		if (Search.length >= 2) {
-			getSearchQuery({ variables: { Search } })
-			console.log("search data is ", searchData)
-			console.log("search error is ", JSON.stringify(searchError, null, 2));
+		if (Search.length >= 1) {
+			const filtered = allColleges.filter((item: any) =>
+				item.attributes.collegeName.toLowerCase().includes(Search.toLowerCase())
+			);
+			setFilteredData(filtered);
+			console.log("filteredData is ", filteredData);
+		}
+		else {
+			setFilteredData(initialData.colleges.data)
 		}
 	};
-	const aboutCollege =
-		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquet interdum accumsan. Nulla tincidunt sem luctus libero porttitor, nec porta lectus blandit. Nam augue leo, tristique at tempor feugiat, tincidunt ac ante. Suspendisse fermentum efficitur massa, vitae elementum neque condimentum a. Nam et eros sed nisl imperdiet vulputate. Aenean tempus, diam nec fermentum laoreet, ipsum magna pulvinar turpis, in ornare nisl augue in sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent gravida purus nunc.";
+	const aboutCollege = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquet interdum accumsan. Nulla tincidunt sem luctus libero porttitor, nec porta lectus blandit. Nam augue leo, tristique at tempor feugiat, tincidunt ac ante. Suspendisse fermentum efficitur massa, vitae elementum neque condimentum a. Nam et eros sed nisl imperdiet vulputate. Aenean tempus, diam nec fermentum laoreet, ipsum magna pulvinar turpis, in ornare nisl augue in sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent gravida purus nunc.";
+
+
 
 	// useEffect(() => {
 	// 	setList(
@@ -132,44 +150,18 @@ export default function CollegeList() {
 									className="w-full flex-1 text-sm px-2 py-1 outline-none"
 									placeholder={`Search College Name`}
 									onChange={handleSearch}
-									onClick={toggleDropdown}
 								/>
-								{isDropdownOpen && (
-									<div className="top-full left-5 absolute bg-white p-2 border border-gray-400 w-1/2 z-10 rounded">
-										{/* Your dropdown content here */}
-										<h2 className="text-base font-bold mb-1">Search Results:</h2>
-										<div className="flex flex-col space-y-4 ">
-											{searchData?.colleges?.data?.map((searchResult: any) => (
-												<Link key={searchResult.id} href={`/college/${searchResult.id}`}>{searchResult.attributes.collegeName}</Link>
-											))}
-										</div>
-									</div>
-								)}
 							</div>
 							<div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
 								<span>sort</span> <MdOutlineSort />
 							</div>
 						</div>
-						{data?.colleges?.data?.map((college: any, index: any) => {
-							return (
-								<>
-									<CollegeListItem
-										key={Math.random() * 1000}
-										college={college}
-									/>
-									{(index + 1) % 4 == 0 ? (
-										<div>
-											<Feature title="Filter By State" tags={stateTags} />
-										</div>
-									) : (
-										<></>
-									)}
-								</>
-							);
-						})}
+						<CollegeListItem
+							colleges={filteredData}
+						/>
 					</div>
 				</div>
-			</section>
+			</section >
 		</>
 	);
 }

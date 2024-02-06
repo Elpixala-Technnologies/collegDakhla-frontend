@@ -52,7 +52,7 @@ export default function CollegeFilters(){
     return (
         <>
             <div className="bg-white">
-                <h3 className="uppercase text-xxs px-2 py-2">Found <b>123</b> collages</h3>
+                <h3 className="uppercase text-xxs px-2 py-2">Found <b>123</b> colleges</h3>
                 {
                     SelectedFilter.length>0?(<>
                         <div className="bg-gray-200 px-2 py-2 flex items-center justify-between" onClick={handleOpen}><span>Selected Filters</span> <span>{open?<FaAngleDown/>:<FaAngleUp/>}</span></div>

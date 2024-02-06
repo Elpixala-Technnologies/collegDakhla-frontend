@@ -1,14 +1,10 @@
-import { Card } from "@mui/material";
-import { log } from "console";
 import Link from "next/link";
-import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, PromiseLikeOfReactNode } from "react";
 import { FaRegHeart } from "react-icons/fa";
 
 export default function CollegeCard(props: any) {
 
 	let college = props.college.attributes;
 	const logoURL = college?.collegeLogo?.data?.attributes.url ? college.collegeLogo.data?.attributes.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
-
 
 	return (
 		<>
