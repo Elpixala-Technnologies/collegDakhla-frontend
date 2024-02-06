@@ -140,7 +140,7 @@ export default function CollegeList() {
 										<h2 className="text-base font-bold mb-1">Search Results:</h2>
 										<div className="flex flex-col space-y-4 ">
 											{searchData?.colleges?.data?.map((searchResult: any) => (
-												<Link href={`/college/${searchResult.id}`}>{searchResult.attributes.collegeName}</Link>
+												<Link key={searchResult.id} href={`/college/${searchResult.id}`}>{searchResult.attributes.collegeName}</Link>
 											))}
 										</div>
 									</div>
