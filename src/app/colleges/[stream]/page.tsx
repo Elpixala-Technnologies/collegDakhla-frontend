@@ -34,7 +34,7 @@ export default function Stream({ params }: Props) {
 		setSearch(event.target.value);
 		if (Search.length >= 1) {
 			const filtered = allColleges.filter((item: any) =>
-				item.attributes.collegeName.toLowerCase().includes(Search.toLowerCase())
+				item?.attributes?.collegeName.toLowerCase().includes(Search.toLowerCase())
 			);
 			setFilteredData(filtered);
 			console.log("filteredData is ", filteredData);
@@ -55,7 +55,7 @@ export default function Stream({ params }: Props) {
 		{ name: "Delhi" },
 		{ name: "Gujarat" },
 	];
-	let streamDesc = streamData?.streams?.data[0].attributes.description
+	let streamDesc = streamData?.streams?.data[0]?.attributes?.description
 	streamDesc = streamDesc ? streamDesc : "No stream Description Avaialble"
 	console.log(streamDesc.length)
 	let slicedStreamDesc = streamDesc.slice(0, 1500) + "..."
