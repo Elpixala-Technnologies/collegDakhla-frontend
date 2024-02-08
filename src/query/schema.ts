@@ -274,7 +274,7 @@ query Streams {
 //query to get description of stream
 export const getStream = gql`
 query Streams($streamName : String!) {
-    streams(filters: { streamName: { contains: $streamName } }) {
+    streams(filters: { streamName: { containsi: $streamName } }) {
         data {
             attributes {
                 streamName
