@@ -7,6 +7,8 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import Tooltip from "../tooltip/tooltip";
 import { RiSearchLine } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { getStreams } from "@/query/schema";
+import { useQuery } from "@apollo/client";
 
 export default function Header() {
 	const [Path, setPath] = useState("");
@@ -28,20 +30,20 @@ export default function Header() {
 
 	useEffect(() => { }, []);
 
-  return (
-    <nav className="bg-white relative z-50">
-      <div className="h-12 flex gap-4 items-center mx-auto px-4 max-w-screen-2xl justify-between">
-        <div className="logo flex-none w-24">
-          <Link href="/">
-            <Image src="/logo.png" alt="" width={64} height={64} />
-          </Link>
-        </div>
-        <div className="flex gap-8 flex-1 items-center">
-          <div className="hidden sm:block">
-            <Tooltip>
-              <NavOption></NavOption>
-            </Tooltip>
-          </div>
+	return (
+		<nav className="bg-white relative z-50">
+			<div className="h-12 flex gap-4 items-center mx-auto px-4 max-w-screen-2xl justify-between">
+				<div className="logo flex-none w-24">
+					<Link href="/">
+						<Image src="/logo.png" alt="" width={64} height={64} />
+					</Link>
+				</div>
+				<div className="flex gap-8 flex-1 items-center">
+					<div className="hidden sm:block">
+						<Tooltip>
+							<NavOption></NavOption>
+						</Tooltip>
+					</div>
 
 					<div
 						className={`${ShowSearch ? "block" : "hidden"
@@ -110,54 +112,24 @@ export default function Header() {
 }
 
 const NavOption = () => {
+	// get all streams
+	const { loading, error: streamsError, data: streamsData } = useQuery(getStreams);
+	console.log(streamsData);
+	console.log("agam");
+
+
 	return (
 		<>
 			<div className="flex flex-col gap-2 w-full p-4 sm:p-0 sm:w-6/12 sm:min-w-96">
-				<div>
-					<Link href={"/college-listing"} className="hover:text-primary">
-						Top Engineering College
-					</Link>
-				</div>
-				<div>
-					<Link href={"/college-listing"} className="hover:text-primary">
-						Top Management College
-					</Link>
-				</div>
-				<div>
-					<Link href={"/college-listing"} className="hover:text-primary">
-						Top Law College
-					</Link>
-				</div>
-				<div>
-					<Link href={"/college-listing"} className="hover:text-primary">
-						Top Commerse College
-					</Link>
-				</div>
-				<div>
-					<Link href={"/college-listing"} className="hover:text-primary">
-						Top Polytecnic College
-					</Link>
-				</div>
-				<div>
-					<Link href={"/college-listing"} className="hover:text-primary">
-						Top Engineering College of India
-					</Link>
-				</div>
-				<div>
-					<Link href={"/college-listing"} className="hover:text-primary">
-						Top Government College
-					</Link>
-				</div>
-				<div>
-					<Link href={"/college-listing"} className="hover:text-primary">
-						Top Private Law College
-					</Link>
-				</div>
-				<div>
-					<Link href={"/college-listing"} className="hover:text-primary">
-						Top BCA College
-					</Link>
-				</div>
+				{streamsData?.streams?.data?.map((stream: any, index: any) => {
+					return (
+						<div key={index}>
+							<Link href={{ pathname: `/colleges/${stream.attributes.streamName.toLowerCase()}` }} className="hover:text-primary">
+								Top {stream.attributes.streamName} College
+							</Link>
+						</div>
+					)
+				})}
 			</div>
 		</>
 	);

@@ -1,3 +1,5 @@
-export default function StudyAbroad(){
-    return (<></>);
+export default function StudyAbroad() {
+	return (<>
+		Study Abroad
+	</>);
 }

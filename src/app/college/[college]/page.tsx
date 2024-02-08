@@ -28,8 +28,8 @@ export default function CollegeDetail({ params }: Props) {
 	const queryParam = useSearchParams()
 
 	const tab = queryParam.get('tab')
-	console.log(tab);
 	let collegeId = params.college
+	console.log("college id " + collegeId);
 
 	// get college data
 	const { loading, error, data } = useQuery(getCollege, {
@@ -65,7 +65,7 @@ export default function CollegeDetail({ params }: Props) {
 	const getTabData = () => {
 		switch (currentTab) {
 			case "info":
-				return <CollegeInfo />;
+				return <CollegeInfo info={college} />;
 			case "courseFees":
 				return <CollegeCourseFee />
 			case "reviews":
@@ -90,6 +90,7 @@ export default function CollegeDetail({ params }: Props) {
 	}, [tab])
 	return (
 		<>
+			{/* section for banner of the individual college page */}
 			<section className="heroSection">
 				<div className="relative">
 					<img src={collegetest.image} alt={college?.collegeName} className="w-full h-36 object-cover" />
@@ -103,7 +104,7 @@ export default function CollegeDetail({ params }: Props) {
 								<h1 className="text-lg font-bold">{college?.collegeName ? college?.collegeName : "IIT Madras - Indian Institute of Technology - [IITM] Chennai"}</h1>
 								<div className="border-white border rounded-full p-1 text-sm cursor-pointer text-white"><FaRegHeart /></div>
 							</div>
-							<p className="text-xs">{college?.city},{college?.state} | {college?.rating ? college?.rating : "8.6"}/10  (324 Reviews)</p>
+							<p className="text-xs">{college?.city}, {college?.state} | {college?.rating ? college?.rating : "8.6"}/10  (324 Reviews)</p>
 							<div className="flex gap-1">
 								<Tag text={(collegeType ? collegeType : "Autonomous") + " University"} href={"/"} />
 								<Tag text={"ESTD " + (college?.establishmentYear ? college?.establishmentYear : "2000")} href={"/"} />

@@ -19,7 +19,12 @@ var images = [
 
 ]
 
-export default function CollegeInfo() {
+
+
+export default function CollegeInfo({ info }: any) {
+	console.log(info?.collegeDescription);
+	const collegeDescription = info?.collegeDescription ? info?.collegeDescription : '';
+
 	return (
 		<>
 			<div className="container h-full my-10">
@@ -28,12 +33,7 @@ export default function CollegeInfo() {
 						<section className="bg-gray-50 rounded-xl p-5">
 							<Author></Author>
 							<div className="college-details-wrapper font-poppins text-base	">
-								<p>
-									IIM Bangalore, established in 1973 is the 2nd best management institute in India, according to NIRF ranking. IIMB Flagship MBA and EMBA program has also been ranked 52nd by the FT Global Rankings 2023. IIM Bangalore's 2-year MBA program offers admission through CAT. IIM Bangalore cut-off is around 85 percentile overall for the Written Ability Test (WAT) and Personal Interview (PI) round.
-								</p>
-								<p>
-									IIM Bangalore MBA fees is INR 24,50,000, while the IIM Bangalore average package stood at INR 35.31 LPA for the 2024 batch. IIM Bangalore placement 2023 has also concluded with a 100% placement and with offers from top recruiters like Adani Group, Paytm, Microsoft, Cogoport, Jio Platform, Accenture, and BCG.
-								</p>
+								<div dangerouslySetInnerHTML={{ __html: collegeDescription }}></div>
 							</div>
 							{/* Render College name here */}
 							{abc.map(collegeName => (<CollegeDescription key={Math.random() * 1000} name={collegeName} />))}

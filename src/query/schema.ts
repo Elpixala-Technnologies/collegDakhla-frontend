@@ -256,3 +256,31 @@ query Colleges($Search : String!) {
     }
 }
 `;
+
+//query to get all streams
+export const getStreams = gql`
+query Streams {
+    streams {
+        data {
+            id
+            attributes {
+                streamName
+                description
+            }
+        }
+    }
+}`
+
+//query to get description of stream
+export const getStream = gql`
+query Streams($streamName : String!) {
+    streams(filters: { streamName: { contains: $streamName } }) {
+        data {
+            attributes {
+                streamName
+                description
+            }
+        }
+    }
+}
+`

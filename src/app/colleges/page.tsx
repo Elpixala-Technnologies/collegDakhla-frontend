@@ -3,14 +3,11 @@ import CollegeCard from "@/components/card/collegeCard";
 import CarouselComponent from "@/components/carousel/carousel";
 import CollegeListItem from "@/components/collegeListItem/collegeListItem";
 import CollegeFilters from "@/components/collegeFilters/collegeFilters";
-import Feature from "@/components/feature/feature";
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
-import { getColleges, searchCollege } from "@/query/schema";
-import { useLazyQuery, useQuery } from "@apollo/client";
-import Link from "next/link";
-import { log } from "console";
+import { getColleges } from "@/query/schema";
+import { useQuery } from "@apollo/client";
 
 // type College = {
 // 	id: string;
@@ -80,21 +77,8 @@ export default function CollegeList() {
 			setFilteredData(initialData.colleges.data)
 		}
 	};
-	const aboutCollege = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquet interdum accumsan. Nulla tincidunt sem luctus libero porttitor, nec porta lectus blandit. Nam augue leo, tristique at tempor feugiat, tincidunt ac ante. Suspendisse fermentum efficitur massa, vitae elementum neque condimentum a. Nam et eros sed nisl imperdiet vulputate. Aenean tempus, diam nec fermentum laoreet, ipsum magna pulvinar turpis, in ornare nisl augue in sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent gravida purus nunc.";
+	const aboutStream = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquet interdum accumsan. Nulla tincidunt sem luctus libero porttitor, nec porta lectus blandit. Nam augue leo, tristique at tempor feugiat, tincidunt ac ante. Suspendisse fermentum efficitur massa, vitae elementum neque condimentum a. Nam et eros sed nisl imperdiet vulputate. Aenean tempus, diam nec fermentum laoreet, ipsum magna pulvinar turpis, in ornare nisl augue in sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent gravida purus nunc.";
 
-
-
-	// useEffect(() => {
-	// 	setList(
-	// 		data?.colleges?.data.filter((item: any) =>
-	// 			item.collegeName?.toLowerCase().includes(Search.toLowerCase())
-	// 		)
-	// 	);
-	// });
-
-	// useEffect(() => {
-	// 	setList(data?.colleges?.data);
-	// }, []);
 	return (
 		<>
 			<section className="heroSection">
@@ -105,7 +89,7 @@ export default function CollegeList() {
 					{isTruncated ? (
 						<>
 							<p className={`${isTruncated ? "text-center" : "text-left"}`}>
-								{aboutCollege.slice(0, 400)}...
+								{aboutStream.slice(0, 400)}...
 							</p>
 							<div className="flex justify-end">
 								<button
@@ -118,7 +102,7 @@ export default function CollegeList() {
 						</>
 					) : (
 						<>
-							<p>{aboutCollege}</p>
+							<p>{aboutStream}</p>
 							<div className="flex justify-end">
 								<button
 									onClick={toggleTruncate}
