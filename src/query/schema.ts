@@ -35,67 +35,66 @@ export const getColleges = gql`
 	query Colleges {
     colleges (pagination: { limit: 100 }) {
 			data {
-					id
+				id
 				attributes {
-						city
-						collegeName
-						country
-						createdAt
-						establishmentYear
-						pincode
-						publishedAt
-						state
-						updatedAt
-						url
-						collegeLogo {
-							data {
-									id
-									attributes {
-											alternativeText
-											ext
-											height
-											mime
-											name
-											url
-											width
-									}
+					city
+					collegeName
+					country
+					createdAt
+					establishmentYear
+					pincode
+					publishedAt
+					state
+					updatedAt
+					url
+					collegeLogo {
+						data {
+							id
+							attributes {
+								alternativeText
+								ext
+								height
+								mime
+								name
+								url
+								width
 							}
 						}
-						collegeStream {
-								data {
-										id
-										attributes {
-												description
-												streamName
-										}
-								}
+					}
+					collegeStreams {
+						data {
+							id
+							attributes {
+								streamName
+							}
 						}
-						college_type {
-								data {
-										id
-										attributes {
-												type
-										}
-								}
+					}
+					college_type {
+						data {
+							id
+							attributes {
+								type
+							}
 						}
-						rankedBy {
-								data {
-										id
-										attributes {
-												description
-												name
-										}
-								}
+					}
+					rankedBy {
+						data {
+							id
+							attributes {
+								description
+								name
+							}
 						}
-						approvedBy {
-								data {
-										id
-										attributes {
-												description
-												name
-										}
-								}
+					}
+					approvedBy {
+						data {
+							id
+							attributes {
+									description
+									name
+							}
 						}
+					}
 				}
 			}
     }
@@ -139,15 +138,11 @@ export const getCollege = gql`
                         }
                     }
                 }
-                collegeStream {
+                collegeStreams {
                     data {
                         id
                         attributes {
                             streamName
-                            description
-                            createdAt
-                            updatedAt
-                            publishedAt
                         }
                     }
                 }
@@ -216,14 +211,13 @@ query Colleges($Search : String!) {
 								}
 						}
 					}
-					collegeStream {
-							data {
-									id
-									attributes {
-											description
-											streamName
-									}
+					collegeStreams {
+						data {
+							id
+							attributes {
+								streamName
 							}
+						}
 					}
 					college_type {
 							data {
