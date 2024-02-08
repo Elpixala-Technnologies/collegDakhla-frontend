@@ -278,3 +278,77 @@ query Streams($streamName : String!) {
     }
 }
 `
+
+// query to get colleges based on stream
+export const getStreamColleges = gql`
+	query Colleges ($streamName : String!){
+    colleges (
+        filters: { collegeStreams: { streamName: { containsi: $streamName } } }
+        pagination: { limit: 100 }
+    ) {
+			data {
+				id
+				attributes {
+					city
+					collegeName
+					country
+					createdAt
+					establishmentYear
+					pincode
+					publishedAt
+					state
+					updatedAt
+					url
+					collegeLogo {
+						data {
+							id
+							attributes {
+								alternativeText
+								ext
+								height
+								mime
+								name
+								url
+								width
+							}
+						}
+					}
+					collegeStreams {
+						data {
+							id
+							attributes {
+								streamName
+							}
+						}
+					}
+					college_type {
+						data {
+							id
+							attributes {
+								type
+							}
+						}
+					}
+					rankedBy {
+						data {
+							id
+							attributes {
+								description
+								name
+							}
+						}
+					}
+					approvedBy {
+						data {
+							id
+							attributes {
+									description
+									name
+							}
+						}
+					}
+				}
+			}
+    }
+	}
+`;

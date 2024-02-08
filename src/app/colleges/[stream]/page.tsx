@@ -2,7 +2,7 @@
 import CarouselComponent from "@/components/carousel/carousel";
 import CollegeFilters from "@/components/collegeFilters/collegeFilters";
 import CollegeListItem from "@/components/collegeListItem/collegeListItem";
-import { getColleges, getStream } from "@/query/schema";
+import { getColleges, getStream, getStreamColleges } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
@@ -20,8 +20,6 @@ export default function Stream({ params }: Props) {
 		setIsTruncated(!isTruncated);
 	};
 	const [Search, setSearch] = useState("");
-	// get college data
-	const { loading: collegeLoader, error: collegeError, data: initialData } = useQuery(getColleges);
 	const [allColleges, setAllColleges] = useState([]);
 	const [filteredData, setFilteredData] = useState([]);
 	// get stream data
@@ -29,7 +27,12 @@ export default function Stream({ params }: Props) {
 	const { loading: streamLoader, error: streamError, data: streamData } = useQuery(getStream, {
 		variables: { streamName },
 	});
+	// get college data
+	const { loading: collegeLoader, error: collegeError, data: initialData } = useQuery(getStreamColleges, {
+		variables: {streamName}
+	});
 
+	console.log("stream colleges", initialData)
 	const handleSearch = (event: any) => {
 		setSearch(event.target.value);
 		if (Search.length >= 1) {
