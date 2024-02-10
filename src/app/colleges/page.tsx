@@ -9,41 +9,19 @@ import { RiSearchLine } from "react-icons/ri";
 import { getColleges } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 
-// type College = {
-// 	id: string;
-// 	collegeName: string;
-// 	location: string;
-// 	state: string;
-// 	affiliate: string;
-// 	fee: string;
-// 	rating: string;
-// 	image: string;
-// 	logo: string;
-// };
 
 export default function CollegeList() {
 
 	const [isTruncated, setIsTruncated] = useState(true);
 	const [Search, setSearch] = useState("");
-	const [isDropdownOpen, setDropdownOpen] = useState(false)
+
 	// get college data
 	const { loading, error, data: initialData } = useQuery(getColleges);
 	const [allColleges, setAllColleges] = useState([]);
 	const [filteredData, setFilteredData] = useState([]);
 
-	//console.log("allColleges data ", allColleges);
-
-	// console.log("all colleges data", allColleges);
-	// console.log("filterd data", filteredData);
-
-
-
 	const toggleTruncate = () => {
 		setIsTruncated(!isTruncated);
-	};
-
-	const toggleDropdown = () => {
-		setDropdownOpen(!isDropdownOpen);
 	};
 
 	const handleSearch = (event: any) => {
@@ -54,7 +32,6 @@ export default function CollegeList() {
 				item.attributes.collegeName.toLowerCase().includes(Search.toLowerCase())
 			);
 			setFilteredData(filtered);
-			console.log("filteredData is ", filteredData);
 		}
 		else {
 			setFilteredData(initialData.colleges.data)

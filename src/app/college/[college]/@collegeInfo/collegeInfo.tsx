@@ -19,12 +19,8 @@ var images = [
 
 ]
 
-
-
 export default function CollegeInfo({ info }: any) {
-	console.log(info?.collegeDescription);
 	const collegeDescription = info?.collegeDescription ? info?.collegeDescription : '';
-
 	return (
 		<>
 			<div className="container h-full my-10">

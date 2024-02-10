@@ -13,9 +13,9 @@ import { useQuery } from "@apollo/client";
 // Install Swiper modules
 SwiperCore.use([Navigation]);
 export default function CarouselComponent() {
+	
 	// get college data
 	const { loading, error, data } = useQuery(getColleges);
-	//console.log(data)
 
 	return (<>
 		<Swiper

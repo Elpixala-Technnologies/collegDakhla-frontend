@@ -26,10 +26,8 @@ type Props = {
 export default function CollegeDetail({ params }: Props) {
 	const [currentTab, setCurrentTab] = useState("info");
 	const queryParam = useSearchParams()
-
 	const tab = queryParam.get('tab')
 	let collegeId = params.college
-	console.log("college id " + collegeId);
 
 	// get college data
 	const { loading, error, data } = useQuery(getCollege, {

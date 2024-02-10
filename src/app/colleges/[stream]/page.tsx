@@ -22,17 +22,18 @@ export default function Stream({ params }: Props) {
 	const [Search, setSearch] = useState("");
 	const [allColleges, setAllColleges] = useState([]);
 	const [filteredData, setFilteredData] = useState([]);
+
 	// get stream data
 	const streamName = params.stream;
 	const { loading: streamLoader, error: streamError, data: streamData } = useQuery(getStream, {
 		variables: { streamName },
 	});
+
 	// get college data
 	const { loading: collegeLoader, error: collegeError, data: initialData } = useQuery(getStreamColleges, {
 		variables: { streamName }
 	});
 
-	console.log("stream colleges", initialData)
 	const handleSearch = (event: any) => {
 		setSearch(event.target.value);
 		if (Search.length >= 1) {
@@ -40,7 +41,6 @@ export default function Stream({ params }: Props) {
 				item?.attributes?.collegeName.toLowerCase().includes(Search.toLowerCase())
 			);
 			setFilteredData(filtered);
-			console.log("filteredData is ", filteredData);
 		}
 		else {
 			setFilteredData(initialData.colleges.data)
@@ -60,10 +60,7 @@ export default function Stream({ params }: Props) {
 	];
 	let streamDesc = streamData?.streams?.data[0]?.attributes?.description
 	streamDesc = streamDesc ? streamDesc : "No stream Description Avaialble"
-	console.log(streamDesc.length)
 	let slicedStreamDesc = streamDesc.slice(0, 1500) + "..."
-	console.log("sliced desc ", slicedStreamDesc);
-
 
 	useEffect(() => {
 		if (initialData && initialData.colleges.data) {
@@ -71,9 +68,6 @@ export default function Stream({ params }: Props) {
 			setFilteredData(initialData.colleges.data); // Initially, display all data
 		}
 	}, [initialData]);
-
-
-
 
 	return (
 		<>

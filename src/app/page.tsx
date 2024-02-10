@@ -1,23 +1,7 @@
 "use client";
 import TopCollectionCard from "@/components/card/topCollectionCard";
 import HeroSection from "@/components/heroComponent/heroComponent";
-import Image from "next/image";
-import { useQuery, gql } from "@apollo/client";
-import { collegeTypes } from "@/query/schema";
-import { useEffect } from "react";
 export default function Home() {
-	const { loading, error, data } = useQuery(collegeTypes, {
-		fetchPolicy: "no-cache",
-	});
-	// const { loading, error, data } = useQuery(collegeTypes);
-	console.log(loading);
-	console.log(error);
-	console.log(data);
-
-	useEffect(() => {
-		console.log(data);
-	}, [data]);
-
 	return (
 		<>
 			<div className="max-w-screen-2xl">

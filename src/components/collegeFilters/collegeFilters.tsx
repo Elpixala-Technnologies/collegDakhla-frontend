@@ -11,7 +11,6 @@ export default function CollegeFilters(params?: any) {
 	const [StateFilter, setStateFilter] = useState<string[]>([])
 	const { loading: streamLoader, error: streamsError, data: streamsData } = useQuery(getStreams);
 
-	//console.log(StreamFilter, " filtered data ", filteredData)
 	const states = [
 		{ name: "Maharashtra", count: 3444 },
 		{ name: "Haryana ", count: 12 },
@@ -29,7 +28,6 @@ export default function CollegeFilters(params?: any) {
 
 	const [open, setOpen] = useState(true);
 	const handleOpen = () => setOpen(open ? false : true);
-	console.log("params data ", params.allColleges);
 
 	const handleStreamFilter = (name: string) => {
 		if (SelectedFilter.includes(name)) {
@@ -46,7 +44,6 @@ export default function CollegeFilters(params?: any) {
 		} else {
 			setSelectedFilter([...SelectedFilter, name]);
 			setStateFilter([...StateFilter, name])
-			console.log("state is ", StateFilter);
 		}
 	}
 
@@ -65,15 +62,10 @@ export default function CollegeFilters(params?: any) {
 
 	// render data when streams is changed
 	useEffect(() => {
-		console.log(params.allColleges);
-		console.log(StreamFilter);
-
 		let matchingColleges = params?.allColleges?.filter((college: any) => college?.attributes?.collegeStreams?.data.some((stream: any) =>
 			StreamFilter.includes(stream.attributes.streamName)
 		));
 		params?.setFilteredData(matchingColleges)
-
-		console.log("matching Colleges of stream are ", matchingColleges);
 	}, [StreamFilter]);
 
 	// render data when states are changed
@@ -84,7 +76,6 @@ export default function CollegeFilters(params?: any) {
 			return hasMatchingState;
 		})
 		params?.setFilteredData(matchingColleges)
-		console.log("matching Colleges of state are ", matchingColleges);
 	}, [StateFilter]);
 
 	return (
