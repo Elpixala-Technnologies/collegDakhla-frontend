@@ -31,12 +31,7 @@ export default function CollegeList() {
 	const [allColleges, setAllColleges] = useState([]);
 	const [filteredData, setFilteredData] = useState([]);
 
-	useEffect(() => {
-		if (initialData && initialData.colleges.data) {
-			setAllColleges(initialData.colleges.data);
-			setFilteredData(initialData.colleges.data); // Initially, display all data
-		}
-	}, [initialData]);
+	//console.log("allColleges data ", allColleges);
 
 	// console.log("all colleges data", allColleges);
 	// console.log("filterd data", filteredData);
@@ -53,7 +48,7 @@ export default function CollegeList() {
 
 	const handleSearch = (event: any) => {
 		setSearch(event.target.value);
-		
+
 		if (Search.length >= 1) {
 			const filtered = allColleges.filter((item: any) =>
 				item.attributes.collegeName.toLowerCase().includes(Search.toLowerCase())
@@ -66,6 +61,14 @@ export default function CollegeList() {
 		}
 	};
 	const aboutStream = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquet interdum accumsan. Nulla tincidunt sem luctus libero porttitor, nec porta lectus blandit. Nam augue leo, tristique at tempor feugiat, tincidunt ac ante. Suspendisse fermentum efficitur massa, vitae elementum neque condimentum a. Nam et eros sed nisl imperdiet vulputate. Aenean tempus, diam nec fermentum laoreet, ipsum magna pulvinar turpis, in ornare nisl augue in sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent gravida purus nunc.";
+
+	useEffect(() => {
+		if (initialData && initialData.colleges.data) {
+			setAllColleges(initialData.colleges.data);
+			setFilteredData(initialData.colleges.data); // Initially, display all data
+		}
+
+	}, [initialData]);
 
 	return (
 		<>
@@ -112,7 +115,7 @@ export default function CollegeList() {
 			<section className="collegeList">
 				<div className="flex flex-col md:flex-row gap-4 px-4">
 					<div className="flex-none w-56">
-						<CollegeFilters filteredData={filteredData} setFilteredData={setFilteredData}/>
+						<CollegeFilters allColleges={allColleges} setFilteredData={setFilteredData} />
 					</div>
 					<div className="flex-1  w-full overflow-hidden">
 						<div className="bg-white p-4 mb-4 flex gap-4 items-stretch relative">

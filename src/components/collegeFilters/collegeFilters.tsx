@@ -29,7 +29,7 @@ export default function CollegeFilters(params: any) {
 
 	const [open, setOpen] = useState(true);
 	const handleOpen = () => setOpen(open ? false : true);
-	//console.log("params data ", params.filteredData);
+	console.log("params data ", params.allColleges);
 
 	const handleStreamFilter = (name: string) => {
 		if (SelectedFilter.includes(name)) {
@@ -65,10 +65,10 @@ export default function CollegeFilters(params: any) {
 
 	// render data when streams is changed
 	useEffect(() => {
-		console.log(params.filteredData);
+		console.log(params.allColleges);
 		console.log(StreamFilter);
 
-		let matchingColleges = params.filteredData.filter((college: any) => college?.attributes?.collegeStreams?.data.some((stream: any) =>
+		let matchingColleges = params?.allColleges?.filter((college: any) => college?.attributes?.collegeStreams?.data.some((stream: any) =>
 			StreamFilter.includes(stream.attributes.streamName)
 		));
 		params.setFilteredData(matchingColleges)
@@ -78,7 +78,7 @@ export default function CollegeFilters(params: any) {
 
 	// render data when states are changed
 	useEffect(() => {
-		const matchingColleges = params?.filteredData?.filter((college: any) => {
+		const matchingColleges = params?.allColleges?.filter((college: any) => {
 			const collegeState = college?.attributes?.state;
 			const hasMatchingState = StateFilter.includes(collegeState);
 			return hasMatchingState;

@@ -30,7 +30,7 @@ export default function CollegeListItem(allColleges: any) {
 	return (
 		<>
 			{
-				allColleges.colleges.length > 0 ? <>{
+				allColleges?.colleges?.length > 0 ? <>{
 					allColleges.colleges.map((college: any, index: any) => {
 						return (
 							<>
