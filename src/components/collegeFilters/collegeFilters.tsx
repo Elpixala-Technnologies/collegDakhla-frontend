@@ -1,73 +1,112 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Filter from "./filter/filter"
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
+import { getCollegesFilter, getStreams } from "@/query/schema";
+import { useQuery } from "@apollo/client";
 
-export default function CollegeFilters(){
-    const [SelectedFilter,setSelectedFilter] = useState<string[]>([]);
-    const streams = [
-        {name:"Management",count:7430},
-        {name:"Science",count:6235},
-        {name:"Engineering",count:0},
-        {name:"Arts",count:100},
-        {name:"Commerce",count:10},
-        {name:"Computer Applications",count:3344},
-        {name:"Education",count:653},
-        {name:"Medical",count:233},
-        {name:"Pharmacy",count:4566},
-        {name:"Paramedical",count:1234},
-        {name:"Mass Communication",count:193},
-    ]
-    const states=[
-        {name:"Maharashtra",count:3444},
-        {name:"Haryana",count:12},
-        {name:"Uttar Pradesh",count:45},
-        {name:"Tamil Nadu",count:554},
-        {name:"Karnataka",count:1232},
-        {name:"Delhi NCR",count:55},
-        {name:"Kerala",count:66},
-        {name:"Delhi",count:76},
-        {name:"Gujarat",count:33},
-    ]
+export default function CollegeFilters(params: any) {
+	const [SelectedFilter, setSelectedFilter] = useState<string[]>([]);
+	const [StreamFilter, setStreamFilter] = useState<string[]>([])
+	const [StateFilter, setStateFilter] = useState<string[]>([])
+	const { loading: streamLoader, error: streamsError, data: streamsData } = useQuery(getStreams);
+	// const { loading: filterLoader, error: filterError, data: filteredData } = useQuery(getCollegesFilter, {
+	// 	variables: {
+	// 		stream: StreamFilter,
+	// 		state: StateFilter
+	// 	}
+	// });
 
-    const [open, setOpen] = useState(true);
-    const handleOpen = () => setOpen(open ? false:true);
+	//console.log(StreamFilter, " filtered data ", filteredData)
+	const states = [
+		{ name: "Maharashtra", count: 3444 },
+		{ name: "Haryana ", count: 12 },
+		{ name: "Uttar Pradesh ", count: 45 },
+		{ name: "Rajasthan", count: 33 },
+		{ name: "Himanchal Pradesh", count: 33 },
+		{ name: "Tamil Nadu", count: 554 },
+		{ name: "Karnataka", count: 1232 },
+		{ name: "Delhi NCR", count: 55 },
+		{ name: "Kerala", count: 66 },
+		{ name: "Delhi", count: 76 },
+		{ name: "Gujarat", count: 33 },
+		{ name: "Telengana", count: 33 },
+	]
 
-    const handleSelectFilter =(name:string)=>{
-        if(SelectedFilter.includes(name)){
-            handleUnselectFilter(name);
-        }else{
-            let filter = [...SelectedFilter,name];
-            setSelectedFilter(filter);
-            console.log(SelectedFilter);
-        }
-        
-    }
+	const [open, setOpen] = useState(true);
+	const handleOpen = () => setOpen(open ? false : true);
+	//console.log("params data ", params.filteredData);
 
-    const handleUnselectFilter=(name:string)=>{
-        let filter = SelectedFilter.filter(item => item !== name);
-        setSelectedFilter(filter);
-    }
+	const handleStreamFilter = (name: string) => {
+		if (SelectedFilter.includes(name)) {
+			handleUnselectFilter("stream", name);
+		} else {
+			setSelectedFilter([...SelectedFilter, name]);
+			setStreamFilter([...StreamFilter, name])
+			console.log("streams are ", StreamFilter);
+		}
+	}
 
-    return (
-        <>
-            <div className="bg-white">
-                <h3 className="uppercase text-xxs px-2 py-2">Found <b>123</b> colleges</h3>
-                {
-                    SelectedFilter.length>0?(<>
-                        <div className="bg-gray-200 px-2 py-2 flex items-center justify-between" onClick={handleOpen}><span>Selected Filters</span> <span>{open?<FaAngleDown/>:<FaAngleUp/>}</span></div>
-                        <div className="flex py-2 px-4 flex-wrap gap-2">
-                            {SelectedFilter.map(filter=>{
-                                return <div key={filter} className="px-2 py-1 border border-orange-500 rounded-full text-xs flex gap-1 items-center">
-                                    <span>{filter}</span><span onClick={()=>handleUnselectFilter(filter)}><MdClose/></span></div>
-                            })}
-                        </div>
-                    </>):(<></>)
-                }
-                <Filter name="Stream" filters={streams} handleSelectFilter={handleSelectFilter}/>
-                <Filter name="State" filters={states} handleSelectFilter={handleSelectFilter}/>
-            </div>
-        </>
+	const handleStateFilter = (name: string) => {
+		if (SelectedFilter.includes(name)) {
+			handleUnselectFilter("state", name);
+		} else {
+			setSelectedFilter([...SelectedFilter, name]);
+			setStateFilter([...StateFilter, name])
+			console.log("state is ", StateFilter);
+		}
+	}
 
-    )
+	const handleUnselectFilter = (filter?: string, name?: string) => {
+		let filterData = SelectedFilter.filter(item => item !== name);
+		setSelectedFilter(filterData!);
+
+		if (filter === "stream") {
+			let streamFilterValue = StreamFilter.filter(item => item !== name);
+			setStreamFilter(streamFilterValue!);
+		} else {
+			let stateFilterValue = StateFilter.filter(item => item !== name);
+			setStateFilter(stateFilterValue!);
+		}
+	}
+
+	// render data when streams is changed
+	useEffect(() => {
+		const matchingColleges = params.filteredData.filter((college: any) => college.attributes.collegeStreams.data.some((stream: any) =>
+			StreamFilter.includes(stream.attributes.streamName)
+		));
+		console.log("matching Colleges of stream are ", matchingColleges);
+	}, [StreamFilter]);
+
+	// render data when states are changed
+	useEffect(() => {
+		const matchingColleges = params?.filteredData?.filter((college: any) => {
+			const collegeState = college?.attributes?.state;
+			const hasMatchingState = StateFilter.includes(collegeState);
+			return hasMatchingState;
+		})
+		console.log("matching Colleges of state are ", matchingColleges);
+	}, [StateFilter]);
+
+	return (
+		<>
+			<div className="bg-white">
+				<h3 className="uppercase text-xxs px-2 py-2">Found <b>123</b> colleges</h3>
+				{
+					SelectedFilter.length > 0 ? (<>
+						<div className="bg-gray-200 px-2 py-2 flex items-center justify-between" onClick={handleOpen}><span>Selected Filters</span> <span>{open ? <FaAngleDown /> : <FaAngleUp />}</span></div>
+						<div className="flex py-2 px-4 flex-wrap gap-2">
+							{SelectedFilter.map(filter => {
+								return <div key={filter} className="px-2 py-1 border border-orange-500 rounded-full text-xs flex gap-1 items-center">
+									<span>{filter}</span><span onClick={() => handleUnselectFilter(filter)}><MdClose /></span></div>
+							})}
+						</div>
+					</>) : (<></>)
+				}
+				{params.page != "stream" ? <Filter name="Stream" filters={streamsData?.streams?.data} handleFilter={handleStreamFilter} /> : ""}
+				<Filter name="State" filters={states} handleFilter={handleStateFilter} />
+			</div>
+		</>
+
+	)
 }

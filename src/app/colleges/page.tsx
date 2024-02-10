@@ -31,19 +31,6 @@ export default function CollegeList() {
 	const [allColleges, setAllColleges] = useState([]);
 	const [filteredData, setFilteredData] = useState([]);
 
-
-	let stateTags = [
-		{ name: "Maharashtra" },
-		{ name: "Haryana" },
-		{ name: "Uttar Pradesh" },
-		{ name: "Tamil Nadu" },
-		{ name: "Karnataka" },
-		{ name: "Delhi NCR" },
-		{ name: "Kerala" },
-		{ name: "Delhi" },
-		{ name: "Gujarat" },
-	];
-
 	useEffect(() => {
 		if (initialData && initialData.colleges.data) {
 			setAllColleges(initialData.colleges.data);
@@ -66,6 +53,7 @@ export default function CollegeList() {
 
 	const handleSearch = (event: any) => {
 		setSearch(event.target.value);
+		
 		if (Search.length >= 1) {
 			const filtered = allColleges.filter((item: any) =>
 				item.attributes.collegeName.toLowerCase().includes(Search.toLowerCase())
@@ -124,7 +112,7 @@ export default function CollegeList() {
 			<section className="collegeList">
 				<div className="flex flex-col md:flex-row gap-4 px-4">
 					<div className="flex-none w-56">
-						<CollegeFilters />
+						<CollegeFilters filteredData={filteredData} setFilteredData={setFilteredData}/>
 					</div>
 					<div className="flex-1  w-full overflow-hidden">
 						<div className="bg-white p-4 mb-4 flex gap-4 items-stretch relative">

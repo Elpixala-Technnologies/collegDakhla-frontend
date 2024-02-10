@@ -1,26 +1,9 @@
-// import { Button } from "@mui/material";
 import Link from "next/link";
-import { FaArrowRight } from "react-icons/fa6";
 import Button from "../button/button";
 import { FaRegStar, FaRegUser } from "react-icons/fa";
 import { PiBooksLight } from "react-icons/pi";
 import Feature from "../feature/feature";
 
-// type Props = {
-// 	college: {
-// 		[x: string]: any;
-// 		id: string,
-// 		collegeName: string,
-// 		city: string,
-// 		state: string,
-// 		affiliate: string,
-// 		fee: string,
-// 		rating: string,
-// 		image: string,
-// 		logo: string,
-
-// 	}
-// }
 export default function CollegeListItem(allColleges: any) {
 
 	const collegeFee = parseInt(allColleges?.colleges?.attributes?.fees ? allColleges?.colleges?.attributes?.fees : 200000).toLocaleString('en-IN', {
@@ -51,7 +34,7 @@ export default function CollegeListItem(allColleges: any) {
 					allColleges.colleges.map((college: any, index: any) => {
 						return (
 							<>
-								<div className="mb-4 p-4 flex flex-col sm:flex-row gap-4 shadow-lg bg-white" key={college.id}>
+								<div className="mb-4 p-4 flex flex-col sm:flex-row gap-4 shadow-lg bg-white" key={index}>
 									<div className="relative h-40">
 										<img src={logoURL} alt={college.collegeName} className="w-full sm:w-48 h-40 object-fill rounded-sm" />
 										<div className="absolute inset-0 bg-black bg-opacity-50 rounded-sm"></div>
@@ -61,7 +44,7 @@ export default function CollegeListItem(allColleges: any) {
 													Our Rating
 												</div>
 												<div className="text-end">
-													{college.attributes.rating ? college.attributes.rating : 8.6}/10
+													{college?.attributes?.rating ? college?.attributes?.rating : 8.6}/10
 												</div>
 											</div>
 										</div>
@@ -71,9 +54,9 @@ export default function CollegeListItem(allColleges: any) {
 											<div className="flex flex-row gap-2">
 												<div><img src={college.logo} /></div>
 												<div className="flex flex-col">
-													<h2 className="text-sm font-bold">{college?.attributes.collegeName}</h2>
+													<h2 className="text-sm font-bold">{college?.attributes?.collegeName}</h2>
 													<div className="text-xxs">
-														{college.attributes.city},{college.attributes.state} | {college.attributes?.rankedBy?.data[0]?.attributes?.name ? college.attributes?.rankedBy?.data[0]?.attributes?.name : "UGC"}
+														{college?.attributes?.city},{college?.attributes?.state} | {college?.attributes?.rankedBy?.data[0]?.attributes?.name ? college?.attributes?.rankedBy?.data[0]?.attributes?.name : "UGC"}
 													</div>
 												</div>
 											</div>
@@ -88,7 +71,7 @@ export default function CollegeListItem(allColleges: any) {
 												<p className="text-xxs text-secondary-text font-light">loerm fees</p>
 											</div>
 											<div className="pr-4 mr-4">
-												<p className="text-primary font-semibold text-lg">{college.attributes.rating ? college.attributes.rating : 8.6}/10</p>
+												<p className="text-primary font-semibold text-lg">{college?.attributes?.rating ? college?.attributes?.rating : 8.6}/10</p>
 												<p className="text-xxs text-secondary-text font-light">Based on user review</p>
 											</div>
 										</div>
