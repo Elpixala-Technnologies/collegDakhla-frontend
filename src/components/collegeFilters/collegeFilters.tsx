@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Filter from "./filter/filter"
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { getCollegesFilter, getStreams } from "@/query/schema";
+import { getStreams } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 
 export default function CollegeFilters(params: any) {
@@ -10,12 +10,6 @@ export default function CollegeFilters(params: any) {
 	const [StreamFilter, setStreamFilter] = useState<string[]>([])
 	const [StateFilter, setStateFilter] = useState<string[]>([])
 	const { loading: streamLoader, error: streamsError, data: streamsData } = useQuery(getStreams);
-	// const { loading: filterLoader, error: filterError, data: filteredData } = useQuery(getCollegesFilter, {
-	// 	variables: {
-	// 		stream: StreamFilter,
-	// 		state: StateFilter
-	// 	}
-	// });
 
 	//console.log(StreamFilter, " filtered data ", filteredData)
 	const states = [
