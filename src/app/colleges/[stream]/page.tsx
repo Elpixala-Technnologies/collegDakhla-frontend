@@ -29,7 +29,7 @@ export default function Stream({ params }: Props) {
 	});
 	// get college data
 	const { loading: collegeLoader, error: collegeError, data: initialData } = useQuery(getStreamColleges, {
-		variables: {streamName}
+		variables: { streamName }
 	});
 
 	console.log("stream colleges", initialData)
@@ -126,7 +126,7 @@ export default function Stream({ params }: Props) {
 			<section className="collegeList">
 				<div className="flex flex-col md:flex-row gap-4 px-4">
 					<div className="flex-none w-56">
-						<CollegeFilters page="stream"/>
+						<CollegeFilters page="stream" allColleges={allColleges} setFilteredData={setFilteredData} />
 					</div>
 					<div className="flex-1  w-full overflow-hidden">
 						<div className="bg-white p-4 mb-4 flex gap-4 items-stretch relative">

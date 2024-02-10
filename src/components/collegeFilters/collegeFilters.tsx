@@ -5,7 +5,7 @@ import { MdClose } from "react-icons/md";
 import { getStreams } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 
-export default function CollegeFilters(params: any) {
+export default function CollegeFilters(params?: any) {
 	const [SelectedFilter, setSelectedFilter] = useState<string[]>([]);
 	const [StreamFilter, setStreamFilter] = useState<string[]>([])
 	const [StateFilter, setStateFilter] = useState<string[]>([])
@@ -71,7 +71,7 @@ export default function CollegeFilters(params: any) {
 		let matchingColleges = params?.allColleges?.filter((college: any) => college?.attributes?.collegeStreams?.data.some((stream: any) =>
 			StreamFilter.includes(stream.attributes.streamName)
 		));
-		params.setFilteredData(matchingColleges)
+		params?.setFilteredData(matchingColleges)
 
 		console.log("matching Colleges of stream are ", matchingColleges);
 	}, [StreamFilter]);
@@ -83,7 +83,7 @@ export default function CollegeFilters(params: any) {
 			const hasMatchingState = StateFilter.includes(collegeState);
 			return hasMatchingState;
 		})
-		params.setFilteredData(matchingColleges)
+		params?.setFilteredData(matchingColleges)
 		console.log("matching Colleges of state are ", matchingColleges);
 	}, [StateFilter]);
 
