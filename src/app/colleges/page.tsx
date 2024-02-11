@@ -42,6 +42,9 @@ export default function CollegeList() {
 
 	const handleMobileFilter = () => {
 		setMobileFilter(!MobileFilter)
+		if (MobileFilter) {
+			document.body.style.overflow = 'hidden';
+		}
 	}
 	const aboutStream = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquet interdum accumsan. Nulla tincidunt sem luctus libero porttitor, nec porta lectus blandit. Nam augue leo, tristique at tempor feugiat, tincidunt ac ante. Suspendisse fermentum efficitur massa, vitae elementum neque condimentum a. Nam et eros sed nisl imperdiet vulputate. Aenean tempus, diam nec fermentum laoreet, ipsum magna pulvinar turpis, in ornare nisl augue in sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent gravida purus nunc.";
 
@@ -98,7 +101,7 @@ export default function CollegeList() {
 			<section className="collegeList">
 				<div className="flex flex-col md:flex-row gap-4 px-4">
 					<div className="flex-none w-56">
-						<CollegeFilters allColleges={allColleges} setFilteredData={setFilteredData} isMobile={MobileFilter} handleMobileFilter={handleMobileFilter}/>
+						<CollegeFilters allColleges={allColleges} setFilteredData={setFilteredData} isMobile={MobileFilter} handleMobileFilter={handleMobileFilter} />
 					</div>
 					<div className="flex-1 w-full overflow-hidden">
 						<div className="bg-white p-4 mb-4 flex gap-4 items-stretch relative max-md:flex-col">
