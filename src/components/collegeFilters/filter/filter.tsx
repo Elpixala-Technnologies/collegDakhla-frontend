@@ -22,7 +22,14 @@ export default function Filter(props: any) {
 										Search.trim.length === 0 && props?.filters?.map((filter: any) => {
 											return (
 												<div key={filter.id} className="flex gap-1 items-center my-2 cursor-pointer">
-													<input type="checkbox" name="" id="" className="" onClick={() => props.handleFilter(filter.attributes.streamName)} />
+													<input
+														type="radio"
+														id={filter.id}
+														name={filter.attributes.streamName}
+														checked={props.checked === filter.attributes.streamName}
+														className=""
+														onChange={() => props.handleFilter(filter.attributes.streamName)}
+													/>
 													<span className="text-xxs font-semibold text-secondary-text hover:text-primary">{filter.attributes.streamName}</span>
 												</div>
 											)
@@ -34,7 +41,14 @@ export default function Filter(props: any) {
 									{Search.trim.length === 0 && props?.filters?.map((filter: any) => {
 										return (
 											<div key={filter.name} className="flex gap-1 items-center my-2 cursor-pointer">
-												<input type="checkbox" name="" id="" className="" onClick={() => props.handleFilter(filter.name)} />
+												<input
+													type="radio"
+													id={filter.name}
+													name={filter.name}
+													checked={props.checked === filter.name}
+													className=""
+													onChange={() => props.handleFilter(filter.name)}
+												/>
 												<span className="text-xxs font-semibold text-secondary-text hover:text-primary">{filter.name}</span>
 											</div>
 										)

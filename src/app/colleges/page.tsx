@@ -14,6 +14,8 @@ export default function CollegeList() {
 
 	const [isTruncated, setIsTruncated] = useState(true);
 	const [Search, setSearch] = useState("");
+	const [MobileFilter, setMobileFilter] = useState(false)
+
 
 	// get college data
 	const { loading, error, data: initialData } = useQuery(getColleges);
@@ -37,6 +39,10 @@ export default function CollegeList() {
 			setFilteredData(initialData.colleges.data)
 		}
 	};
+
+	const handleMobileFilter = () => {
+		setMobileFilter(!MobileFilter)
+	}
 	const aboutStream = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquet interdum accumsan. Nulla tincidunt sem luctus libero porttitor, nec porta lectus blandit. Nam augue leo, tristique at tempor feugiat, tincidunt ac ante. Suspendisse fermentum efficitur massa, vitae elementum neque condimentum a. Nam et eros sed nisl imperdiet vulputate. Aenean tempus, diam nec fermentum laoreet, ipsum magna pulvinar turpis, in ornare nisl augue in sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent gravida purus nunc.";
 
 	useEffect(() => {
@@ -92,10 +98,10 @@ export default function CollegeList() {
 			<section className="collegeList">
 				<div className="flex flex-col md:flex-row gap-4 px-4">
 					<div className="flex-none w-56">
-						<CollegeFilters allColleges={allColleges} setFilteredData={setFilteredData} />
+						<CollegeFilters allColleges={allColleges} setFilteredData={setFilteredData} isMobile={MobileFilter} handleMobileFilter={handleMobileFilter}/>
 					</div>
-					<div className="flex-1  w-full overflow-hidden">
-						<div className="bg-white p-4 mb-4 flex gap-4 items-stretch relative">
+					<div className="flex-1 w-full overflow-hidden">
+						<div className="bg-white p-4 mb-4 flex gap-4 items-stretch relative max-md:flex-col">
 							<div className="flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
 								<RiSearchLine />
 								<input
@@ -104,8 +110,15 @@ export default function CollegeList() {
 									onChange={handleSearch}
 								/>
 							</div>
-							<div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
-								<span>sort</span> <MdOutlineSort />
+							<div className="flex gap-4">
+								<div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
+									<span>Sort</span> <MdOutlineSort />
+								</div>
+								<div className="max-md:block hidden">
+									<div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
+										<span onClick={handleMobileFilter}>Filter</span><MdOutlineSort />
+									</div>
+								</div>
 							</div>
 						</div>
 						<CollegeListItem
