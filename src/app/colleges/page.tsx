@@ -6,7 +6,7 @@ import CollegeFilters from "@/components/collegeFilters/collegeFilters";
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
-import { getColleges } from "@/query/schema";
+import { getColleges, getCollegesFilter } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 
 
@@ -16,9 +16,18 @@ export default function CollegeList() {
 	const [Search, setSearch] = useState("");
 	const [MobileFilter, setMobileFilter] = useState(false)
 
-
 	// get college data
 	const { loading, error, data: initialData } = useQuery(getColleges);
+	console.log("initialData is ", initialData);
+
+	const { loading: filterLoader, error: filterError, data: filteredCollege } = useQuery(getCollegesFilter, {
+		variables: {
+			Search
+		}
+	});
+
+	console.log("filteredCollege from page ", filteredCollege)
+
 	const [allColleges, setAllColleges] = useState([]);
 	const [filteredData, setFilteredData] = useState([]);
 

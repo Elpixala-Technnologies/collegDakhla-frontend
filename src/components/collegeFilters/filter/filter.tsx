@@ -40,16 +40,16 @@ export default function Filter(props: any) {
 								<>
 									{Search.trim.length === 0 && props?.filters?.map((filter: any) => {
 										return (
-											<div key={filter.name} className="flex gap-1 items-center my-2 cursor-pointer">
+											<div key={filter?.id} className="flex gap-1 items-center my-2 cursor-pointer">
 												<input
 													type="radio"
 													id={filter.name}
 													name={filter.name}
-													checked={props.checked === filter.name}
+													checked={props.checked === filter?.attributes?.name}
 													className=""
-													onChange={() => props.handleFilter(filter.name)}
+													onChange={() => props.handleFilter(filter?.attributes?.name)}
 												/>
-												<span className="text-xxs font-semibold text-secondary-text hover:text-primary">{filter.name}</span>
+												<span className="text-xxs font-semibold text-secondary-text hover:text-primary">{filter?.attributes?.name}</span>
 											</div>
 										)
 									})}

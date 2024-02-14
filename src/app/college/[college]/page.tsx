@@ -33,6 +33,8 @@ export default function CollegeDetail({ params }: Props) {
 	const { loading, error, data } = useQuery(getCollege, {
 		variables: { collegeId },
 	});
+	console.log(" college id data is ", data);
+
 
 	const college = data?.college?.data?.attributes
 	const approvedBy = college?.approvedBy?.data?.attributes?.name
@@ -40,6 +42,9 @@ export default function CollegeDetail({ params }: Props) {
 	const imageUrl = getStrapiMedia(
 		college?.collegeLogo?.data?.attributes?.url
 	);
+
+	console.log("state is ", college?.state?.data?.attributes?.name);
+
 
 	const defaultImageUrl = getStrapiMedia("/uploads/default_college_logo_23dfd1f540.png");
 
@@ -102,7 +107,7 @@ export default function CollegeDetail({ params }: Props) {
 								<h1 className="text-lg font-bold">{college?.collegeName ? college?.collegeName : "IIT Madras - Indian Institute of Technology - [IITM] Chennai"}</h1>
 								<div className="border-white border rounded-full p-1 text-sm cursor-pointer text-white"><FaRegHeart /></div>
 							</div>
-							<p className="text-xs">{college?.city}, {college?.state} | {college?.rating ? college?.rating : "8.6"}/10  (324 Reviews)</p>
+							<p className="text-xs">{college?.city?.data?.attributes?.name}, {college?.state?.data?.attributes?.name} | {college?.rating ? college?.rating : "8.6"}/10  (324 Reviews)</p>
 							<div className="flex gap-1">
 								<Tag text={(collegeType ? collegeType : "Autonomous") + " University"} href={"/"} />
 								<Tag text={"ESTD " + (college?.establishmentYear ? college?.establishmentYear : "2000")} href={"/"} />

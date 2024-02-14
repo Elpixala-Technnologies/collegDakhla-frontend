@@ -25,7 +25,7 @@ export default function CollegeCard(props: any) {
 						<h4 className="text-primary text-sm font-semibold">
 							{college.collegeName}
 						</h4>
-						<p className="text-xxs text-secondary-text">{college.city},{college.state}</p>
+						<p className="text-xxs text-secondary-text">{college.city?.data?.attributes?.name},{college.state?.data?.attributes?.name}</p>
 						<p className="text-xs text-secondary-text">Approved By: {college.rankedBy?.data[0]?.attributes ? college.rankedBy?.data[0]?.attributes.name : "UGC"}</p>
 						<p className="text-xs text-secondary-text">{college?.college_type?.data?.attributes?.type}</p>
 

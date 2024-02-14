@@ -33,72 +33,96 @@ query Colleges {
 // query to get all colleges
 export const getColleges = gql`
 	query Colleges {
-    colleges (pagination: { limit: 100 }) {
-			data {
-				id
-				attributes {
-					city
-					collegeName
-					country
-					createdAt
-					establishmentYear
-					pincode
-					publishedAt
-					state
-					updatedAt
-					url
-					collegeLogo {
-						data {
-							id
-							attributes {
-								alternativeText
-								ext
-								height
-								mime
-								name
-								url
-								width
-							}
-						}
-					}
-					collegeStreams {
-						data {
-							id
-							attributes {
-								streamName
-							}
-						}
-					}
-					college_type {
-						data {
-							id
-							attributes {
-								type
-							}
-						}
-					}
-					rankedBy {
-						data {
-							id
-							attributes {
-								description
-								name
-							}
-						}
-					}
-					approvedBy {
-						data {
-							id
-							attributes {
-									description
-									name
-							}
-						}
-					}
-				}
-			}
+    colleges(pagination: { limit: 100 }) {
+        data {
+            id
+            attributes {
+                city {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                collegeName
+                createdAt
+                establishmentYear
+                publishedAt
+                updatedAt
+                url
+                collegeLogo {
+                    data {
+                        id
+                        attributes {
+                            alternativeText
+                            ext
+                            height
+                            mime
+                            name
+                            url
+                            width
+                        }
+                    }
+                }
+                college_type {
+                    data {
+                        id
+                        attributes {
+                            type
+                        }
+                    }
+                }
+                rankedBy {
+                    data {
+                        id
+                        attributes {
+                            description
+                            name
+                        }
+                    }
+                }
+                approvedBy {
+                    data {
+                        id
+                        attributes {
+                            description
+                            name
+                        }
+                    }
+                }
+                collegeStreams {
+                    data {
+                        id
+                        attributes {
+                            streamName
+                        }
+                    }
+                }
+                country {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                isTopCollege
+                state {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                pincode
+            }
+        }
+				meta {
+            pagination {
+                total
+            }
+        }
     }
-	}
+}
 `;
 
 // query to get college data from college id
@@ -110,11 +134,29 @@ export const getCollege = gql`
             attributes {
                 url
                 collegeName
-                country
-                state
+                country {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                state {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
                 pincode
                 establishmentYear
-                city
+                city {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
                 createdAt
                 updatedAt
                 publishedAt
@@ -187,14 +229,32 @@ query Colleges($Search : String!) {
 			data {
 				id
 				attributes {
-					city
+					city {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
 					collegeName
-					country
+					country {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
 					createdAt
 					establishmentYear
 					pincode
 					publishedAt
-					state
+					state {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
 					updatedAt
 					url
 					collegeLogo {
@@ -289,14 +349,32 @@ export const getStreamColleges = gql`
 			data {
 				id
 				attributes {
-					city
+					city {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
 					collegeName
-					country
+					country {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
 					createdAt
 					establishmentYear
 					pincode
 					publishedAt
-					state
+					state {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
 					updatedAt
 					url
 					collegeLogo {
@@ -355,26 +433,37 @@ export const getStreamColleges = gql`
 
 //query to get colleges based on filters
 export const getCollegesFilter = gql`
-query Colleges($stream : [String!], $state : [String!]) {
+query Colleges($StreamFilter : String!, $StateFilter :String!) {
     colleges(
         filters: {
-            or: [
-                { collegeStreams: { streamName: { in: $stream } } }
-                { state: { in: $state } }
+            and: [
+                { collegeStreams: { streamName: { containsi : $StreamFilter } } }
+              	{ state: {name: { containsi : $StateFilter } } }
             ]
         }
     ) {
 			data {
 				id
 				attributes {
-					city
+					city {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
 					collegeName
-					country
 					createdAt
 					establishmentYear
 					pincode
 					publishedAt
-					state
+					state {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
 					updatedAt
 					url
 					collegeLogo {
@@ -427,6 +516,25 @@ query Colleges($stream : [String!], $state : [String!]) {
 					}
 				}
 			}
+			meta {
+            pagination {
+                total
+            }
+        }
     }
 }
 `;
+
+//query to get all states
+export const getStates = gql`
+query States {
+    states {
+        data {
+            id
+            attributes {
+                name
+            }
+        }
+    }
+}
+`

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Filter from "./filter/filter"
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { getStreams } from "@/query/schema";
+import { getStreams, getStates, getCollegesFilter } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -18,26 +18,20 @@ export default function CollegeFilters(params?: any) {
 		stream: "",
 		state: ""
 	});
-	const [StreamFilter, setStreamFilter] = useState<string>()
-	const [StateFilter, setStateFilter] = useState<string>()
+	const [StreamFilter, setStreamFilter] = useState<string>("")
+	const [StateFilter, setStateFilter] = useState<string>("")
 	const { loading: streamLoader, error: streamsError, data: streamsData } = useQuery(getStreams);
+	const { loading: statesLoader, error: statesError, data: statesData } = useQuery(getStates);
+	const { loading: filterLoader, error: filterError, data: filteredCollege, refetch } = useQuery(getCollegesFilter, {
+		variables: {
+			StreamFilter,
+			StateFilter,
+		}
+	});
+	console.log("filtered data ", filteredCollege);
+
 	//tab state
 	const [value, setValue] = useState(0);
-
-	const states = [
-		{ name: "Maharashtra", count: 3444 },
-		{ name: "Haryana ", count: 12 },
-		{ name: "Uttar Pradesh ", count: 45 },
-		{ name: "Rajasthan", count: 33 },
-		{ name: "Himanchal Pradesh", count: 33 },
-		{ name: "Tamil Nadu", count: 554 },
-		{ name: "Karnataka", count: 1232 },
-		{ name: "Delhi NCR", count: 55 },
-		{ name: "Kerala", count: 66 },
-		{ name: "Delhi", count: 76 },
-		{ name: "Gujarat", count: 33 },
-		{ name: "Telengana", count: 33 },
-	]
 
 	const handleStreamFilter = (name: string) => {
 		setStreamFilter(name)
@@ -79,32 +73,14 @@ export default function CollegeFilters(params?: any) {
 	};
 
 
-	// render data when streams is changed
+	// render data when filter values are changed
 	useEffect(() => {
-		let matchingColleges = params?.allColleges?.filter((college: any) => college?.attributes?.collegeStreams?.data.some((stream: any) =>
-			StreamFilter?.includes(stream.attributes.streamName)
-		));
-		params?.setFilteredData(matchingColleges)
-	}, [StreamFilter]);
-
-	// render data when states are changed
-	useEffect(() => {
-		console.log("state chnaged");
-		const matchingColleges = params?.allColleges?.filter((college: any) => {
-			const collegeState = college?.attributes?.state;
-			const hasMatchingState = StateFilter?.includes(collegeState);
-			return hasMatchingState;
-		})
-		params?.setFilteredData(matchingColleges)
-
-	}, [StateFilter]);
+		params?.setFilteredData(filteredCollege?.colleges?.data)
+	}, [filteredCollege, filterLoader])
 
 	// check for SelectedFilter
 	useEffect(() => {
-		console.log("filter length ", SelectedFilter.stream.length);
-
 		const hasData = Object.values(SelectedFilter).some(value => !!value);
-
 	}, [SelectedFilter])
 
 	useEffect(() => {
@@ -128,23 +104,11 @@ export default function CollegeFilters(params?: any) {
 	return (
 		<>
 			<div className="bg-white hidden md:block">
-				<h3 className="uppercase text-xxs px-2 py-2">Found <b>123</b> colleges</h3>
+				<h3 className="uppercase text-xxs px-2 py-2">Found <b>{filteredCollege?.colleges?.meta?.pagination?.total}</b> colleges</h3>
 				{
 					SelectedFilter.stream || SelectedFilter.state ? (<>
 						<div className="bg-gray-200 px-2 py-2 flex items-center justify-between" onClick={handleOpen}><span>Selected Filters</span> <span>{open ? <FaAngleDown /> : <FaAngleUp />}</span></div>
 						<div className="flex py-2 px-4 flex-wrap gap-2">
-							{/* {SelectedFilter.stream ?
-								(
-									<div
-										key={SelectedFilter.stream}
-										className="px-2 py-1 border border-orange-500 rounded-full text-xs flex gap-1 items-center"
-									>
-										<span>{SelectedFilter.stream}</span>
-										<span onClick={() => handleUnselectFilter(SelectedFilter.stream)}><MdClose /></span></div>)
-								:
-								<></>
-							} */}
-
 							{Object.entries(SelectedFilter).map(([key, value]) => (
 								(value != "") && (
 									< div
@@ -159,7 +123,7 @@ export default function CollegeFilters(params?: any) {
 					</>) : (<></>)
 				}
 				{params.page != "stream" ? <Filter name="Stream" filters={streamsData?.streams?.data} handleFilter={handleStreamFilter} checked={StreamFilter} /> : ""}
-				<Filter name="State" filters={states} handleFilter={handleStateFilter} checked={StateFilter} />
+				<Filter name="State" filters={statesData?.states?.data} handleFilter={handleStateFilter} checked={StateFilter} />
 			</div >
 			{
 
@@ -233,24 +197,20 @@ export default function CollegeFilters(params?: any) {
 											} index={
 												1
 											}>
-												{states?.map((state: any) => {
+												{statesData.data?.map((state: any) => {
 													return (
 														<div
-															key={state.name
+															key={state.id
 															}
 															className="flex gap-1 items-center my-2 cursor-pointer text-base"
 														>
 															<input
 																type="radio"
-																name={state.name
-																}
-																id={state.name
-																}
+																name={state?.attributes?.name}
+																id={state?.id}
 																className=""
-																checked={StateFilter === state.name
-																}
-																onChange={() => handleStateFilter(state.name)
-																}
+																checked={StateFilter === state?.attributes?.name}
+																onChange={() => handleStateFilter(state?.attributes?.name)}
 															/>
 															<span
 																className="text-xxs font-semibold text-secondary-text hover:text-primary">

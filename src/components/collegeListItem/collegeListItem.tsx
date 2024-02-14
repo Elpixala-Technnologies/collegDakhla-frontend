@@ -3,6 +3,7 @@ import Button from "../button/button";
 import { FaRegStar, FaRegUser } from "react-icons/fa";
 import { PiBooksLight } from "react-icons/pi";
 import Feature from "../feature/feature";
+import { useEffect } from "react";
 
 export default function CollegeListItem(allColleges: any) {
 
@@ -56,7 +57,7 @@ export default function CollegeListItem(allColleges: any) {
 												<div className="flex flex-col">
 													<h2 className="text-sm font-bold">{college?.attributes?.collegeName}</h2>
 													<div className="text-xxs">
-														{college?.attributes?.city},{college?.attributes?.state} | {college?.attributes?.rankedBy?.data[0]?.attributes?.name ? college?.attributes?.rankedBy?.data[0]?.attributes?.name : "UGC"}
+														{college?.attributes?.city?.data?.attributes?.name},{college?.attributes?.state?.data?.attributes?.name} | {college?.attributes?.rankedBy?.data[0]?.attributes?.name ? college?.attributes?.rankedBy?.data[0]?.attributes?.name : "UGC"}
 													</div>
 												</div>
 											</div>
