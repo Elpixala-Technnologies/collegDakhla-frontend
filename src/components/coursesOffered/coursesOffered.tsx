@@ -4,10 +4,12 @@ import Button from "../button/button";
 
 let coursesOffered = {}
 
-export default function CoursesOffered() {
+export default function CoursesOffered(props: any) {
+	console.log("courses offerrd ", props);
+
 	return (
 		<section className="courses-offered-wrapper container h-auto p-5 bg-gray-50 rounded-xl">
-			<h2 className="text-lg font-bold mb-2">Courses Offered By IIM Bangalore, Bangalore
+			<h2 className="text-lg font-bold mb-2">Courses Offered By `{props?.collegeName}`
 			</h2>
 			<Divider />
 			<div className="course-card flex flex-col gap-1 my-3">

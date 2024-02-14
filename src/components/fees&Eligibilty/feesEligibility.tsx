@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { FaAngleRight } from "react-icons/fa6";
 
-export default function FeesEligibility() {
+export default function FeesEligibility(props: any) {
 	return (
 		<section className="fees-eligibility-wrapper container h-auto p-5 bg-gray-50 rounded-xl">
-			<h2 className="text-lg font-bold mb-2">IIM Bangalore Fees & Eligibility</h2>
+			<h2 className="text-lg font-bold mb-2">{props?.collegeName} Fees & Eligibility</h2>
 			<div
 				className="relative flex flex-col w-full overflow-x-scroll text-gray-700 bg-white shadow-md bg-clip-border rounded-xl">
 				<table className="w-full text-left table-auto min-w-max">

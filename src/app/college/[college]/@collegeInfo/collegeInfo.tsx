@@ -7,12 +7,12 @@ import Image from "next/image";
 
 
 var abc = [
-	"IIM Bangalore Highlights",
-	"IIM Bangalore Important Dates 2024",
-	"IIM Bangalore Fees",
-	"IIM Bangalore Courses",
-	"IIM Bangalore Admission 2024",
-	"IIM Bangalore Cut - off 2024(Expected)"
+	"Highlights",
+	"Important Dates 2024",
+	"Fees",
+	"Courses",
+	"Admission 2024",
+	"Cut - off 2024(Expected)"
 ]
 
 var images = [
@@ -20,6 +20,8 @@ var images = [
 ]
 
 export default function CollegeInfo({ info }: any) {
+	console.log("info is ",);
+
 	const collegeDescription = info?.collegeDescription ? info?.collegeDescription : '';
 	return (
 		<>
@@ -32,10 +34,10 @@ export default function CollegeInfo({ info }: any) {
 								<div dangerouslySetInnerHTML={{ __html: collegeDescription }}></div>
 							</div>
 							{/* Render College name here */}
-							{abc.map(collegeName => (<CollegeDescription key={Math.random() * 1000} name={collegeName} />))}
+							{abc.map(name => (<CollegeDescription key={Math.random() * 1000} name={info?.collegeName + " " + name} />))}
 						</section>
-						<FeesEligibility />
-						<CoursesOffered />
+						<FeesEligibility collegeName={info?.collegeName} />
+						<CoursesOffered collegeName={info?.collegeName} />
 					</div>
 					<div className="right-wrapper basis-1/4 rounded md:flex md:flex-col md:gap-2 hidden">
 						<Button href={`/college/`} text="Apply Now" filled fontSize="text-sm" fontWeight="font-bold" width="w-full" align="text-center" />

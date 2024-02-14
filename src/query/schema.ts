@@ -314,7 +314,7 @@ query Colleges($Search : String!) {
 //query to get all streams
 export const getStreams = gql`
 query Streams {
-    streams {
+    streams (filters: {streamName: {not: {eqi: "default"}}}) {
         data {
             id
             attributes {
@@ -538,3 +538,71 @@ query States {
     }
 }
 `
+
+export const getDefaultStream = gql`
+query Streams {
+    streams(filters: {streamName: {eqi: "default"}}) {
+        data {
+            attributes {
+                description
+            }
+        }
+    }
+}`
+
+export const topColleges = gql`
+query Colleges {
+    colleges(filters: {isTopCollege: {eq: true}}) {
+        data {
+            id
+            attributes {
+                collegeName
+                college_type {
+                    data {
+                        attributes {
+                            type
+                        }
+                    }
+                }
+                collegeLogo {
+                    data {
+                        id
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                approvedBy {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                city {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                brochure {
+                    data {
+                        attributes {
+                            name
+                            hash
+                        }
+                    }
+                }
+                state {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+`;

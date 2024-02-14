@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { FaRegHeart } from "react-icons/fa";
+import { FaMedal, FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRankingStar } from "react-icons/fa6";
 
 export default function CollegeCard(props: any) {
 
@@ -8,20 +9,20 @@ export default function CollegeCard(props: any) {
 
 	return (
 		<>
-			<div className="flex flex-col items-stretch min-w-48 bg-white rounded-lg shadow-lg">
+			<div className="flex flex-col items-stretch min-w-48 bg-white rounded-lg shadow-xl">
 				<div className="relative rounded-t-lg">
 					<img src={logoURL} alt={college.name} className="w-full h-20 object-cover rounded-t-lg" />
 					<div className="absolute inset-0 bg-black bg-opacity-50 rounded-t-lg"></div>
 					<div className="absolute inset-0 p-2 flex justify-between max-h-max items-center">
-						<div className="bg-white rounded-full px-2 py-1 text-xs">Featured</div>
-						<div className="bg-white rounded-full p-1 text-sm cursor-pointer"><FaRegHeart /></div>
+						<div className="bg-white rounded-full px-2 py-1 text-base text-primary"><FaMedal /></div>
+						<div className="rounded-full p-1 text-sm cursor-pointer text-white"><FaHeart /></div>
 					</div>
 				</div>
 				<div className="relative flex flex-col">
 					<div className="absolute left-2 -top-7">
 						<img src={"https://images.shiksha.com/mediadata/images/1605086820phpSFQlAR_s.jpg"} className="shadow-md rounded-sm h-14 w-14" />
 					</div>
-					<div className="p-2 pt-8 flex-1">
+					<div className="p-2 pt-8 flex-1 min-h-32">
 						<h4 className="text-primary text-sm font-semibold">
 							{college.collegeName}
 						</h4>

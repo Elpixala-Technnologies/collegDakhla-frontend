@@ -6,7 +6,7 @@ import CollegeFilters from "@/components/collegeFilters/collegeFilters";
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
-import { getColleges, getCollegesFilter } from "@/query/schema";
+import { getColleges, getCollegesFilter, getDefaultStream } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 
 
@@ -18,7 +18,6 @@ export default function CollegeList() {
 
 	// get college data
 	const { loading, error, data: initialData } = useQuery(getColleges);
-	console.log("initialData is ", initialData);
 
 	const { loading: filterLoader, error: filterError, data: filteredCollege } = useQuery(getCollegesFilter, {
 		variables: {
@@ -26,9 +25,9 @@ export default function CollegeList() {
 		}
 	});
 
-	console.log("filteredCollege from page ", filteredCollege)
+	const { loading: streamLoader, error: streamError, data: streamData } = useQuery(getDefaultStream);
+	let aboutStream = streamData?.streams?.data[0]?.attributes?.description
 
-	const [allColleges, setAllColleges] = useState([]);
 	const [filteredData, setFilteredData] = useState([]);
 
 	const toggleTruncate = () => {
@@ -39,7 +38,7 @@ export default function CollegeList() {
 		setSearch(event.target.value);
 
 		if (Search.length >= 1) {
-			const filtered = allColleges.filter((item: any) =>
+			const filtered = initialData.colleges.data.filter((item: any) =>
 				item.attributes.collegeName.toLowerCase().includes(Search.toLowerCase())
 			);
 			setFilteredData(filtered);
@@ -55,28 +54,19 @@ export default function CollegeList() {
 			document.body.style.overflow = 'hidden';
 		}
 	}
-	const aboutStream = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquet interdum accumsan. Nulla tincidunt sem luctus libero porttitor, nec porta lectus blandit. Nam augue leo, tristique at tempor feugiat, tincidunt ac ante. Suspendisse fermentum efficitur massa, vitae elementum neque condimentum a. Nam et eros sed nisl imperdiet vulputate. Aenean tempus, diam nec fermentum laoreet, ipsum magna pulvinar turpis, in ornare nisl augue in sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent gravida purus nunc.";
-
-	useEffect(() => {
-		if (initialData && initialData.colleges.data) {
-			setAllColleges(initialData.colleges.data);
-			setFilteredData(initialData.colleges.data); // Initially, display all data
-		}
-
-	}, [initialData]);
 
 	return (
 		<>
 			<section className="heroSection">
 				<div className="m-4 p-8 bg-white flex flex-col rounded-sm">
 					<h1 className="text-xl font-bold mb-3 text-center">
-						Top Engineering Colleges in India 2024
+						Top Colleges in India 2024
 					</h1>
 					{isTruncated ? (
 						<>
-							<p className={`${isTruncated ? "text-center" : "text-left"}`}>
-								{aboutStream.slice(0, 400)}...
-							</p>
+							<div className={`${isTruncated ? "text-center" : "text-left"}`}>
+								<div dangerouslySetInnerHTML={{ __html: aboutStream?.slice(0, 2000) }}></div>
+							</div>
 							<div className="flex justify-end">
 								<button
 									onClick={toggleTruncate}
@@ -88,7 +78,7 @@ export default function CollegeList() {
 						</>
 					) : (
 						<>
-							<p>{aboutStream}</p>
+							<div dangerouslySetInnerHTML={{ __html: aboutStream }}></div>
 							<div className="flex justify-end">
 								<button
 									onClick={toggleTruncate}
@@ -110,11 +100,11 @@ export default function CollegeList() {
 			<section className="collegeList">
 				<div className="flex flex-col md:flex-row gap-4 px-4">
 					<div className="flex-none w-56">
-						<CollegeFilters allColleges={allColleges} setFilteredData={setFilteredData} isMobile={MobileFilter} handleMobileFilter={handleMobileFilter} />
+						<CollegeFilters allColleges={initialData} setFilteredData={setFilteredData} isMobile={MobileFilter} handleMobileFilter={handleMobileFilter} />
 					</div>
 					<div className="flex-1 w-full overflow-hidden">
-						<div className="bg-white p-4 mb-4 flex gap-4 items-stretch relative max-md:flex-col">
-							<div className="flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
+						<div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col">
+							<div className="bg-white h-10 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
 								<RiSearchLine />
 								<input
 									className="w-full flex-1 text-sm px-2 py-1 outline-none"

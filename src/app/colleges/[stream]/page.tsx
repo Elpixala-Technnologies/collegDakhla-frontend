@@ -47,27 +47,18 @@ export default function Stream({ params }: Props) {
 		}
 	};
 
-	let stateTags = [
-		{ name: "Maharashtra" },
-		{ name: "Haryana" },
-		{ name: "Uttar Pradesh" },
-		{ name: "Tamil Nadu" },
-		{ name: "Karnataka" },
-		{ name: "Delhi NCR" },
-		{ name: "Kerala" },
-		{ name: "Delhi" },
-		{ name: "Gujarat" },
-	];
 	let streamDesc = streamData?.streams?.data[0]?.attributes?.description
 	streamDesc = streamDesc ? streamDesc : "No stream Description Avaialble"
+	console.log("stream desc is " + streamDesc);
+
 	let slicedStreamDesc = streamDesc.slice(0, 1500) + "..."
 
-	useEffect(() => {
-		if (initialData && initialData.colleges.data) {
-			setAllColleges(initialData.colleges.data);
-			setFilteredData(initialData.colleges.data); // Initially, display all data
-		}
-	}, [initialData]);
+	// useEffect(() => {
+	// 	if (initialData && initialData.colleges.data) {
+	// 		setAllColleges(initialData.colleges.data);
+	// 		setFilteredData(initialData.colleges.data); // Initially, display all data
+	// 	}
+	// }, [initialData]);
 
 	return (
 		<>
@@ -123,7 +114,7 @@ export default function Stream({ params }: Props) {
 						<CollegeFilters page="stream" allColleges={allColleges} setFilteredData={setFilteredData} />
 					</div>
 					<div className="flex-1  w-full overflow-hidden">
-						<div className="bg-white p-4 mb-4 flex gap-4 items-stretch relative">
+						<div className="bg-white mb-4 flex gap-4 items-stretch relative h-7">
 							<div className="flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
 								<RiSearchLine />
 								<input

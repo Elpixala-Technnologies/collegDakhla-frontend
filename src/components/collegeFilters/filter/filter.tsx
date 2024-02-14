@@ -4,11 +4,8 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 export default function Filter(props: any) {
 	const [open, setOpen] = useState(true);
 	const [Search, setSearch] = useState("");
-	const [MatchingFilter, setMatchingFilter] = useState([])
-
 	const handleOpen = () => setOpen(open ? false : true);
 
-	useEffect(() => { }, [MatchingFilter])
 	return (
 		<>
 			<div className="border-b border-b-slate-400">

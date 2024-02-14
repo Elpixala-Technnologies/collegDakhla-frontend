@@ -7,15 +7,15 @@ import { Pagination, Navigation } from 'swiper/modules';
 import CollegeCard from '../card/collegeCard';
 import SwiperCore from "swiper";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
-import { getColleges } from "@/query/schema";
+import { getColleges, topColleges } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 
 // Install Swiper modules
 SwiperCore.use([Navigation]);
 export default function CarouselComponent() {
-	
+
 	// get college data
-	const { loading, error, data } = useQuery(getColleges);
+	const { loading, error, data } = useQuery(topColleges);
 
 	return (<>
 		<Swiper
