@@ -54,13 +54,14 @@ export const getColleges = gql`
                     data {
                         id
                         attributes {
-                            alternativeText
-                            ext
-                            height
-                            mime
-                            name
+                          url
+                        }
+                    }
+                }
+								banner {
+                    data {
+                        attributes {
                             url
-                            width
                         }
                     }
                 }
@@ -172,10 +173,13 @@ export const getCollege = gql`
                     data {
                         attributes {
                             name
-                            alternativeText
-                            width
-                            height
-                            size
+                            url
+                        }
+                    }
+                }
+								banner {
+                    data {
+                        attributes {
                             url
                         }
                     }
@@ -260,16 +264,18 @@ query Colleges($Search : String!) {
 					collegeLogo {
 						data {
 								id
-								attributes {
-										alternativeText
-										ext
-										height
-										mime
-										name
-										url
-										width
+								attributes {									
+									name
+									url
 								}
 						}
+					}
+					banner {
+							data {
+									attributes {
+											url
+									}
+							}
 					}
 					collegeStreams {
 						data {
@@ -381,15 +387,17 @@ export const getStreamColleges = gql`
 						data {
 							id
 							attributes {
-								alternativeText
-								ext
-								height
-								mime
 								name
 								url
-								width
 							}
 						}
+					}
+					banner {
+							data {
+									attributes {
+											url
+									}
+							}
 					}
 					collegeStreams {
 						data {
@@ -470,15 +478,17 @@ query Colleges($StreamFilter : String!, $StateFilter :String!) {
 						data {
 								id
 								attributes {
-										alternativeText
-										ext
-										height
-										mime
-										name
-										url
-										width
+									name
+									url
 								}
 						}
+					}
+					banner {
+							data {
+									attributes {
+											url
+									}
+							}
 					}
 					collegeStreams {
 						data {
@@ -567,6 +577,13 @@ query Colleges {
                 collegeLogo {
                     data {
                         id
+                        attributes {
+                            url
+                        }
+                    }
+                }
+								banner {
+                    data {
                         attributes {
                             url
                         }

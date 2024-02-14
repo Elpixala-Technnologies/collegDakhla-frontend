@@ -10,6 +10,7 @@ export default function CollegeListItem(allColleges: any) {
 
 	const { loading: statesLoader, error: statesError, data: statesData } = useQuery(getStates);
 
+	console.log("all colleges ", allColleges)
 	const collegeFee = parseInt(allColleges?.colleges?.attributes?.fees ? allColleges?.colleges?.attributes?.fees : 200000).toLocaleString('en-IN', {
 		style: 'currency',
 		currency: 'INR',
@@ -17,30 +18,19 @@ export default function CollegeListItem(allColleges: any) {
 		maximumFractionDigits: 0,
 	});
 
-	const logoURL = allColleges?.colleges?.attributes?.collegeLogo?.data?.attributes.url ? allColleges?.colleges?.attributes.collegeLogo.data?.attributes.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
-
-	let stateTags = [
-		{ name: "Maharashtra" },
-		{ name: "Haryana" },
-		{ name: "Uttar Pradesh" },
-		{ name: "Tamil Nadu" },
-		{ name: "Karnataka" },
-		{ name: "Delhi NCR" },
-		{ name: "Kerala" },
-		{ name: "Delhi" },
-		{ name: "Gujarat" },
-	];
-
 	return (
 		<>
 			{
 				allColleges?.colleges?.length > 0 ? <>{
 					allColleges.colleges.map((college: any, index: any) => {
+						const logoURL = college?.attributes?.collegeLogo?.data?.attributes?.url ? `https://college-dakhla-backend-qtpvh.ondigitalocean.app` + college?.attributes?.collegeLogo?.data?.attributes?.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
+
+						const bannerURL = college?.attributes?.banner?.data?.attributes?.url ? `https://college-dakhla-backend-qtpvh.ondigitalocean.app` + college?.attributes?.banner?.data?.attributes?.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
 						return (
 							<div key={index}>
 								<div className="mb-4 p-4 flex flex-col sm:flex-row gap-4 shadow-lg bg-white">
 									<div className="relative h-40">
-										<img src={logoURL} alt={college.collegeName} className="w-full sm:w-48 h-40 object-fill rounded-sm" />
+										<img src={bannerURL} alt={college.collegeName} className="w-full sm:w-48 h-40 object-fill rounded-sm" />
 										<div className="absolute inset-0 bg-black bg-opacity-50 rounded-sm"></div>
 										<div className="absolute inset-0 text-white flex gap-4 justify-end mx-auto my-2 w-10/12">
 											<div>

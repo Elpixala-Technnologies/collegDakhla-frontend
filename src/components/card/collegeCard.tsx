@@ -5,13 +5,15 @@ import { FaHeart, FaRankingStar } from "react-icons/fa6";
 export default function CollegeCard(props: any) {
 
 	let college = props.college.attributes;
-	const logoURL = college?.collegeLogo?.data?.attributes.url ? college.collegeLogo.data?.attributes.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
+	console.log("card logo ", college?.collegeLogo?.data?.attributes?.url);
 
+	const logoURL = college?.collegeLogo?.data?.attributes?.url ? `https://college-dakhla-backend-qtpvh.ondigitalocean.app` + college?.collegeLogo?.data?.attributes?.url : "https://images.shiksha.com/mediadata/images/1605086820phpSFQlAR_s.jpg"
+	const bannerURL = college?.banner?.data?.attributes?.url ? `https://college-dakhla-backend-qtpvh.ondigitalocean.app` + college?.banner?.data?.attributes?.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
 	return (
 		<>
 			<div className="flex flex-col items-stretch min-w-48 bg-white rounded-lg shadow-xl">
 				<div className="relative rounded-t-lg">
-					<img src={logoURL} alt={college.name} className="w-full h-20 object-cover rounded-t-lg" />
+					<img src={bannerURL} alt={college.name} className="w-full h-20 object-cover rounded-t-lg" />
 					<div className="absolute inset-0 bg-black bg-opacity-50 rounded-t-lg"></div>
 					<div className="absolute inset-0 p-2 flex justify-between max-h-max items-center">
 						<div className="bg-white rounded-full px-2 py-1 text-base text-primary"><FaMedal /></div>
@@ -20,7 +22,7 @@ export default function CollegeCard(props: any) {
 				</div>
 				<div className="relative flex flex-col">
 					<div className="absolute left-2 -top-7">
-						<img src={"https://images.shiksha.com/mediadata/images/1605086820phpSFQlAR_s.jpg"} className="shadow-md rounded-sm h-14 w-14" />
+						<img src={logoURL} className="shadow-md rounded-sm h-14 w-14" />
 					</div>
 					<div className="p-2 pt-8 flex-1 min-h-32">
 						<Link href={{ pathname: `/college/${props?.college?.id}` }} >
