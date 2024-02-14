@@ -114,8 +114,8 @@ export default function Stream({ params }: Props) {
 						<CollegeFilters page="stream" allColleges={allColleges} setFilteredData={setFilteredData} />
 					</div>
 					<div className="flex-1  w-full overflow-hidden">
-						<div className="bg-white mb-4 flex gap-4 items-stretch relative h-7">
-							<div className="flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
+						<div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col">
+							<div className="bg-white h-10 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
 								<RiSearchLine />
 								<input
 									className="w-full flex-1 text-sm px-2 py-1 outline-none"
