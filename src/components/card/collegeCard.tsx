@@ -23,21 +23,22 @@ export default function CollegeCard(props: any) {
 						<img src={"https://images.shiksha.com/mediadata/images/1605086820phpSFQlAR_s.jpg"} className="shadow-md rounded-sm h-14 w-14" />
 					</div>
 					<div className="p-2 pt-8 flex-1 min-h-32">
-						<h4 className="text-primary text-sm font-semibold">
-							{college.collegeName}
-						</h4>
+						<Link href={{ pathname: `/college/${props?.college?.id}` }} >
+							<h4 className="text-primary text-sm font-semibold">
+								{college.collegeName}
+							</h4>
+						</Link>
 						<p className="text-xxs text-secondary-text">{college.city?.data?.attributes?.name},{college.state?.data?.attributes?.name}</p>
 						<p className="text-xs text-secondary-text">Approved By: {college.rankedBy?.data[0]?.attributes ? college.rankedBy?.data[0]?.attributes.name : "UGC"}</p>
 						<p className="text-xs text-secondary-text">{college?.college_type?.data?.attributes?.type}</p>
-
 					</div>
-					<Link href="/">
+					<Link href="">
 						<div className="w-full p-2 bg-primary rounded-b-lg text-center text-white text-sm">
 							Apply Now
 						</div>
 					</Link>
 				</div>
-			</div>
+			</div >
 		</>
 	)
 }
