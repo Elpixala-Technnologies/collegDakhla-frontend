@@ -13,7 +13,6 @@ import Button from "../button/button";
 export default function CollegeFilters(params?: any) {
 	const [open, setOpen] = useState(true);
 	const handleOpen = () => setOpen(open ? false : true);
-	//const [SelectedFilter, setSelectedFilter] = useState<string[]>([]);
 	const [SelectedFilter, setSelectedFilter] = useState({
 		stream: "",
 		state: ""
@@ -28,7 +27,6 @@ export default function CollegeFilters(params?: any) {
 			StateFilter,
 		}
 	});
-	console.log("filtered data ", filteredCollege);
 
 	//tab state
 	const [value, setValue] = useState(0);
@@ -71,7 +69,6 @@ export default function CollegeFilters(params?: any) {
 	const tabHandleChange = (event: React.SyntheticEvent, newValue: number) => {
 		setValue(newValue);
 	};
-
 
 	// render data when filter values are changed
 	useEffect(() => {

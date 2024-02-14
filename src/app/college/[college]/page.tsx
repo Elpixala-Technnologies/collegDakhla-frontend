@@ -33,24 +33,17 @@ export default function CollegeDetail({ params }: Props) {
 	const { loading, error, data } = useQuery(getCollege, {
 		variables: { collegeId },
 	});
-	console.log(" college id data is ", data);
 
 
 	const college = data?.college?.data?.attributes
 	const approvedBy = college?.approvedBy?.data?.attributes?.name
 	const collegeType = college?.college_type?.data?.attributes?.type
-	const imageUrl = getStrapiMedia(
+	const logoUrl = getStrapiMedia(
 		college?.collegeLogo?.data?.attributes?.url
 	);
-
-	console.log("state is ", college?.state?.data?.attributes?.name);
-
-
+	console.log("logo url ", logoUrl)
 	const defaultImageUrl = getStrapiMedia("/uploads/default_college_logo_23dfd1f540.png");
-
-	let collegetest = {
-		image: "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch",
-	}
+	let bannerURL = college?.banner?.data?.attributes?.url ? `https://college-dakhla-backend-qtpvh.ondigitalocean.app` + college?.banner?.data?.attributes?.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
 
 	const tabs = [
 		{ name: "Info", value: "info" },
@@ -96,11 +89,11 @@ export default function CollegeDetail({ params }: Props) {
 			{/* section for banner of the individual college page */}
 			<section className="heroSection">
 				<div className="relative">
-					<img src={collegetest.image} alt={college?.collegeName} className="w-full h-36 object-cover" />
+					<img src={bannerURL} alt={college?.collegeName} className="w-full h-36 object-cover" />
 					<div className="absolute inset-0 bg-black bg-opacity-50"></div>
 					<div className="absolute inset-0 text-white flex gap-4 mx-auto my-6 w-10/12">
 						<div className="collegeLogo">
-							<Image src={imageUrl ? imageUrl : defaultImageUrl!} width={100} height={100} alt={college?.collegeLogo?.data?.attributes?.name} className="rounded-sm" />
+							<Image src={logoUrl ? logoUrl : defaultImageUrl!} width={100} height={100} alt={college?.collegeLogo?.data?.attributes?.name} className="rounded-sm" />
 						</div>
 						<div className="flex-1 flex flex-col gap-2">
 							<div className="flex gap-4 items-center">

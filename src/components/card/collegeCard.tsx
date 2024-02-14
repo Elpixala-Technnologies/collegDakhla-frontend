@@ -5,8 +5,6 @@ import { FaHeart, FaRankingStar } from "react-icons/fa6";
 export default function CollegeCard(props: any) {
 
 	let college = props.college.attributes;
-	console.log("card logo ", college?.collegeLogo?.data?.attributes?.url);
-
 	const logoURL = college?.collegeLogo?.data?.attributes?.url ? `https://college-dakhla-backend-qtpvh.ondigitalocean.app` + college?.collegeLogo?.data?.attributes?.url : "https://images.shiksha.com/mediadata/images/1605086820phpSFQlAR_s.jpg"
 	const bannerURL = college?.banner?.data?.attributes?.url ? `https://college-dakhla-backend-qtpvh.ondigitalocean.app` + college?.banner?.data?.attributes?.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
 	return (

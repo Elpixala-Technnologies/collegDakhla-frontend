@@ -8,9 +8,9 @@ import { getStates } from "@/query/schema";
 
 export default function CollegeListItem(allColleges: any) {
 
+	//query to get all states
 	const { loading: statesLoader, error: statesError, data: statesData } = useQuery(getStates);
 
-	console.log("all colleges ", allColleges)
 	const collegeFee = parseInt(allColleges?.colleges?.attributes?.fees ? allColleges?.colleges?.attributes?.fees : 200000).toLocaleString('en-IN', {
 		style: 'currency',
 		currency: 'INR',
