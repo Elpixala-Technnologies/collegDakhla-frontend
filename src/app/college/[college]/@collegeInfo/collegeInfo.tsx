@@ -20,6 +20,8 @@ var images = [
 ]
 
 export default function CollegeInfo({ info }: any) {
+	console.log("info is ",);
+
 	const collegeDescription = info?.collegeDescription ? info?.collegeDescription : '';
 	return (
 		<>

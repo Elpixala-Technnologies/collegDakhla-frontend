@@ -5,7 +5,6 @@ import { PiBooksLight } from "react-icons/pi";
 import Feature from "../feature/feature";
 import { useQuery } from "@apollo/client";
 import { getStates } from "@/query/schema";
-import { getDefaultImage, getStrapiMedia } from "@/app/college/utils/api-helper";
 
 export default function CollegeListItem(allColleges: any) {
 
@@ -24,13 +23,14 @@ export default function CollegeListItem(allColleges: any) {
 			{
 				allColleges?.colleges?.length > 0 ? <>{
 					allColleges.colleges.map((college: any, index: any) => {
-						let bannerURL = getStrapiMedia(college?.attributes?.banner?.data?.attributes?.url)
-						bannerURL = bannerURL ? bannerURL : getDefaultImage("banner")!
+						const logoURL = college?.attributes?.collegeLogo?.data?.attributes?.url ? `https://college-dakhla-backend-qtpvh.ondigitalocean.app` + college?.attributes?.collegeLogo?.data?.attributes?.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
+
+						const bannerURL = college?.attributes?.banner?.data?.attributes?.url ? `https://college-dakhla-backend-qtpvh.ondigitalocean.app` + college?.attributes?.banner?.data?.attributes?.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
 						return (
 							<div key={index}>
 								<div className="mb-4 p-4 flex flex-col sm:flex-row gap-4 shadow-lg bg-white">
 									<div className="relative h-40">
-										<img src={bannerURL!} alt={college.collegeName} className="w-full sm:w-48 h-40 object-fill rounded-sm" />
+										<img src={bannerURL} alt={college.collegeName} className="w-full sm:w-48 h-40 object-fill rounded-sm" />
 										<div className="absolute inset-0 bg-black bg-opacity-50 rounded-sm"></div>
 										<div className="absolute inset-0 text-white flex gap-4 justify-end mx-auto my-2 w-10/12">
 											<div>
@@ -46,7 +46,7 @@ export default function CollegeListItem(allColleges: any) {
 									<div className="py-4 flex flex-1 flex-col gap-2">
 										<Link href={{ pathname: `/college/${college.id}`, query: { tab: "info" } }}>
 											<div className="flex flex-row gap-2">
-												<div><img src={""} /></div>
+												<div><img src={college.logo} /></div>
 												<div className="flex flex-col">
 													<h2 className="text-sm font-bold">{college?.attributes?.collegeName}</h2>
 													<div className="text-xxs">

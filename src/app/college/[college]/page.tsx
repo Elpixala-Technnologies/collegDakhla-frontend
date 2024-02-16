@@ -13,9 +13,10 @@ import { FaRegHeart } from "react-icons/fa";
 import Tag from "@/components/tag/tags";
 import Button from "@/components/button/button";
 import { useQuery } from "@apollo/client";
-import { getCollege } from "@/query/schema";
+import { getCollege, getDefaultImage } from "@/query/schema";
 import Image from 'next/image'
-import { getStrapiMedia, getDefaultImage } from "../utils/api-helper"
+import { getStrapiMedia } from "../utils/api-helper"
+import { useRouter } from "next/navigation";
 
 type Props = {
 	params: {
@@ -37,9 +38,12 @@ export default function CollegeDetail({ params }: Props) {
 	const college = data?.college?.data?.attributes
 	const approvedBy = college?.approvedBy?.data?.attributes?.name
 	const collegeType = college?.college_type?.data?.attributes?.type
-	const logoUrl = college?.collegeLogo?.data?.attributes?.url ? getStrapiMedia(college?.collegeLogo?.data?.attributes?.url) : getDefaultImage("logo")
+	const logoUrl = getStrapiMedia(
+		college?.collegeLogo?.data?.attributes?.url
+	);
+	console.log("logo url ", logoUrl)
 	const defaultImageUrl = getStrapiMedia("/uploads/default_college_logo_23dfd1f540.png");
-	let bannerURL = college?.banner?.data?.attributes?.url ? getStrapiMedia(college?.banner?.data?.attributes?.url) : getDefaultImage("banner")
+	let bannerURL = college?.banner?.data?.attributes?.url ? `https://college-dakhla-backend-qtpvh.ondigitalocean.app` + college?.banner?.data?.attributes?.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
 
 	const tabs = [
 		{ name: "Info", value: "info" },
@@ -85,12 +89,11 @@ export default function CollegeDetail({ params }: Props) {
 			{/* section for banner of the individual college page */}
 			<section className="heroSection">
 				<div className="relative">
-					{/* <Image src={bannerURL!} alt={college?.collegeName} width={100} height={36} ></Image> */}
-					<img src={bannerURL!} alt={college?.collegeName} className="w-full h-36 object-cover" />
+					<img src={bannerURL} alt={college?.collegeName} className="w-full h-36 object-cover" />
 					<div className="absolute inset-0 bg-black bg-opacity-50"></div>
 					<div className="absolute inset-0 text-white flex gap-4 mx-auto my-6 w-10/12">
 						<div className="collegeLogo">
-							<Image src={logoUrl!} width={100} height={100} alt={college?.collegeName} className="rounded-sm" />
+							<Image src={logoUrl ? logoUrl : defaultImageUrl!} width={100} height={100} alt={college?.collegeLogo?.data?.attributes?.name} className="rounded-sm" />
 						</div>
 						<div className="flex-1 flex flex-col gap-2">
 							<div className="flex gap-4 items-center">
