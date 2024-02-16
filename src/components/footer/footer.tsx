@@ -14,7 +14,7 @@ export default function Footer() {
   return (
     <>
       <div className="bg-gray-900 md:p-8 p-4 w-full sticky">
-        <div className="h-90 max-w-screen-2xl max-sm:justify-between mx-auto">
+        <div className="h-90 max-w-screen-xl max-sm:justify-between mx-auto">
           <div className="footer-top flex gap-4 justify-between flex-wrap max-sm:flex-col text-white">
             <div className=" justify-center">
               <div className="logo pl-[25px]">
