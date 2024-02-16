@@ -1,7 +1,7 @@
 import { getDefaultImageUrl } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 
-function getDefaultMedia(name: String) {
+function GetDefaultMedia(name: String) {
 	const { loading, error, data: defaultImageData } = useQuery(getDefaultImageUrl)
 		;
 	console.log("helper default image are ", defaultImageData);

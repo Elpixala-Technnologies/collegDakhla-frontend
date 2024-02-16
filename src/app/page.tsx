@@ -87,11 +87,8 @@ export default function Home() {
 						<div className="flex flex-wrap gap-8">
 							{statesData?.states?.data?.map((state: any, index: any) => {
 								return (
-									<Link href={"/"}>
-										<div
-											key={index}
-											className=" w-32 h-32 p-8 bg-primary-light flex flex-col items-center justify-center gap-2 hover:bg-primary hover:text-white"
-										>
+									<Link href={"/"} key={index}>
+										<div className=" w-32 h-32 p-8 bg-primary-light flex flex-col items-center justify-center gap-2 hover:bg-primary hover:text-white">
 											<div className="state-image"><FaCity size={36} /></div>
 											<div className="state-name">{state?.attributes?.name}</div>
 										</div>
@@ -107,9 +104,10 @@ export default function Home() {
 						<div className="flex gap-4 my-2">
 							{streamsData?.streams?.data?.map((stream: any, index: any) => {
 								return (
-									<Link href={{
-										pathname: `/colleges/${stream.attributes.streamName.toLowerCase()}`,
-									}}>
+									<Link
+										href={{ pathname: `/colleges/${stream.attributes.streamName.toLowerCase()}` }}
+										key={index}
+									>
 										<div className="border border-primary-light rounded-full py-2 px-4 bg-white">
 											{stream?.attributes?.streamName}
 										</div>
@@ -261,9 +259,9 @@ export default function Home() {
 													<div className="flex-1 pb-2">
 														<div className="flex justify-between font-semibold">
 															<div className="pb-1">
-																{college?.attributes?.collegeStreams?.data.map((stream: any) => {
+																{college?.attributes?.collegeStreams?.data.map((stream: any, index: number) => {
 																	return (
-																		<div className="text-xs">{stream.attributes.streamName}</div>
+																		<div className="text-xs" key={index}>{stream.attributes.streamName}</div>
 																	)
 																})}
 															</div>
@@ -366,9 +364,9 @@ export default function Home() {
 													<div className="flex-1 pb-2">
 														<div className="flex justify-between font-semibold">
 															<div className="pb-1">
-																{college?.attributes?.collegeStreams?.data.map((stream: any) => {
+																{college?.attributes?.collegeStreams?.data.map((stream: any, index: number) => {
 																	return (
-																		<div className="text-xs">{stream.attributes.streamName}</div>
+																		<div className="text-xs" key={index}>{stream.attributes.streamName}</div>
 																	)
 																})}
 															</div>
@@ -460,7 +458,7 @@ export default function Home() {
 									{topCollegesData?.colleges?.data?.map((college: any, index: any) => {
 										const logoURL = college?.attributes?.collegeLogo?.data?.attributes?.url ? `https://college-dakhla-backend-qtpvh.ondigitalocean.app` + college?.attributes?.collegeLogo?.data?.attributes?.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
 										return (
-											<tr className="border-b border-gray-200">
+											<tr className="border-b border-gray-200" key={index}>
 												<td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
 												<td className="px-6 py-4 whitespace-nowrap">
 													<div className="flex gap-4">
