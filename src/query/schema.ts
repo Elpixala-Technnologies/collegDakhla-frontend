@@ -560,9 +560,16 @@ query Streams {
     }
 }`
 
+// query to get all top colleges based on filters
 export const topColleges = gql`
-query Colleges {
-    colleges(filters: {isTopCollege: {eq: true}}) {
+query Colleges($Stream : String!, $Limit: Int!) {
+    colleges(
+			filters: {
+				isTopCollege: {eq: true}, 
+				and: {collegeStreams: {streamName: {containsi: $Stream}}}
+			}
+			pagination: {limit: $Limit}
+		) {
         data {
             id
             attributes {
@@ -618,8 +625,17 @@ query Colleges {
                         }
                     }
                 }
+								collegeStreams {
+                    data {
+                        attributes {
+                            streamName
+                        }
+                    }
+                }
             }
         }
     }
 }
 `;
+
+//query to get stream top colleges

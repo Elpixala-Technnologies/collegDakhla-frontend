@@ -13,9 +13,11 @@ import { useQuery } from "@apollo/client";
 // Install Swiper modules
 SwiperCore.use([Navigation]);
 export default function CarouselComponent() {
-
+	let Limit = 10, Stream = ""
 	// get college data
-	const { loading, error, data } = useQuery(topColleges);
+	const { loading, error, data } = useQuery(topColleges, {
+		variables: { Stream, Limit }
+	});
 
 	return (<>
 		<Swiper
