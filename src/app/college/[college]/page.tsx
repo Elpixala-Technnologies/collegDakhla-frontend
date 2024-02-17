@@ -38,7 +38,7 @@ export default function CollegeDetail({ params }: Props) {
 	const approvedBy = college?.approvedBy?.data?.attributes?.name;
 	const collegeType = college?.college_type?.data?.attributes?.type;
 	const logoUrl = college?.collegeLogo?.data?.attributes?.url ? getStrapiMedia(college?.collegeLogo?.data?.attributes?.url) : GetDefaultImage("logo")
-	const bannerURL = college?.banner?.data[1] ? getStrapiMedia(college?.banner?.data[1]?.attributes?.url) : GetDefaultImage("banner")
+	const bannerURL = college?.banner?.data[0] ? getStrapiMedia(college?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
 
 	const tabs = [
 		{ name: "Info", value: "info" },

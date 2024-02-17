@@ -6,7 +6,7 @@ export default function CollegeCard(props: any) {
 
 	let college = props.college.attributes;
 	const logoURL = college?.collegeLogo?.data?.attributes?.url ? getStrapiMedia(college?.collegeLogo?.data?.attributes?.url) : GetDefaultImage("logo")
-	const bannerURL = college?.banner?.data[1] ? getStrapiMedia(college?.banner?.data[1]?.attributes?.url) : GetDefaultImage("banner")
+	const bannerURL = college?.banner?.data[0] ? getStrapiMedia(college?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
 	return (
 		<div className="flex flex-col items-stretch min-w-48 bg-white rounded-lg shadow-xl">
 			<div className="relative rounded-t-lg">
