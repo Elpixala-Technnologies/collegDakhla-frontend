@@ -8,7 +8,7 @@ import CarouselSideBtn from "@/components/carousel/carousel-side-button";
 import { FaAngleRight, FaCity } from "react-icons/fa6";
 import { useQuery } from "@apollo/client";
 import { getStates, getStreams, topColleges } from "@/query/schema";
-import { getStrapiMedia } from "./college/utils/api-helper";
+import { GetDefaultImage, getStrapiMedia } from "../utils/api-helper";
 import { useState } from "react";
 export default function Home() {
 	const [Stream, setStream] = useState<string>("")
@@ -206,16 +206,13 @@ export default function Home() {
 						<h2 className="text-3xl font-semibold  my-2">
 							Top Colleges/University
 						</h2>
-						<div className="top-carousell">
+						<div className="carousell">
 							<CarouselSideBtn
 								showPagination={false}
 								slidesDesktop={4}
-								slides={topCollegesData?.colleges?.data?.slice(0, Math.ceil(topCollegesLength / 2)).map((college: any) => {
-									const logoUrl = college?.collegeLogo?.data?.attributes?.url ? getStrapiMedia(college?.collegeLogo?.data?.attributes?.url) : getStrapiMedia("/uploads/default_college_logo_23dfd1f540.png");
-									let bannerUrl = college?.banner?.data?.attributes?.url
-										? `https://college-dakhla-backend-qtpvh.ondigitalocean.app` +
-										college?.banner?.data?.attributes?.url
-										: "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch";
+								slides={topCollegesData?.colleges?.data?.slice(0, 10).map((college: any, index: number) => {
+									const logoUrl = college.attributes?.collegeLogo?.data ? getStrapiMedia(college.attributes?.collegeLogo?.data?.attributes?.url) : GetDefaultImage("logo");
+									let bannerUrl = college?.attributes?.banner?.data[0] ? getStrapiMedia(college?.attributes?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner");
 									return (
 										<div key={college?.id}>
 											<div className="flex flex-col items-stretch w-80 bg-white rounded-lg shadow-lg">
@@ -232,112 +229,7 @@ export default function Home() {
 													<div className="absolute inset-0 p-2 flex justify-end max-h-max items-center">
 														<div className="bg-slate-300 rounded-full py-[2px] px-1 text-sm cursor-pointer">
 															{/* <FaRegHeart /> */}
-															9/10
-														</div>
-													</div>
-													<div className="absolute left-4 bottom-7">
-														<div className="flex gap-2">
-															<Image
-																src={logoUrl!}
-																className="shadow-md rounded-sm h-14 w-14"
-																width={100}
-																height={100}
-																alt={college?.attributes?.collegeName}
-															/>
-															<div>
-																<div className="text-white text-lg font-semibold">
-																	{college?.attributes?.collegeName}
-																</div>
-																<div className="text-sm text-slate-50">
-																	{college?.attributes?.city?.data?.attributes?.name},{" "}{college?.attributes?.state?.data?.attributes?.name},{" "} AICTE
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div className="relative flex flex-col p-4">
-													<div className="flex-1 pb-2">
-														<div className="flex justify-between font-semibold">
-															<div className="pb-1">
-																{college?.attributes?.collegeStreams?.data.map((stream: any, index: number) => {
-																	return (
-																		<div className="text-xs" key={index}>{stream.attributes.streamName}</div>
-																	)
-																})}
-															</div>
-															<span className="">8.6/10</span>
-														</div>
-														<div className="flex justify-between text-xs">
-															<span>2 Lac First year fees</span>
-															<span>288 review</span>
-														</div>
-													</div>
-													<div className="border-t border-t-secondary-text">
-														<Link href={{ pathname: `/college/${college.id}` }}>
-															<div className="flex justify-between font-semibold text-sm py-[6px] text-secondary-text items-center">
-																<div>View All Courses and fees</div>
-																<div>
-																	<FaAngleRight />
-																</div>
-															</div>
-														</Link>
-													</div>
-													<div className="border-t border-t-secondary-text">
-														<Link href={"/"}>
-															<div className="flex justify-between font-semibold text-sm py-[6px] text-secondary-text items-center">
-																<div>Download Brochure</div>
-																<div>
-																	<FaAngleRight />
-																</div>
-															</div>
-														</Link>
-													</div>
-													<div className="border-t border-t-secondary-text">
-														<Link href={"/"}>
-															<div className="flex justify-between font-semibold text-sm py-[6px] text-secondary-text items-center">
-																<div>Compare</div>
-																<div>
-																	<FaAngleRight />
-																</div>
-															</div>
-														</Link>
-													</div>
-												</div>
-											</div>
-										</div>
-									)
-
-
-								})}
-							/>
-						</div>
-						<div className="bottom-carousell">
-							<CarouselSideBtn
-								showPagination={false}
-								slidesDesktop={4}
-								slides={topCollegesData?.colleges?.data?.slice(Math.ceil(topCollegesLength / 2)).map((college: any) => {
-									const logoUrl = college?.collegeLogo?.data?.attributes?.url ? getStrapiMedia(college?.collegeLogo?.data?.attributes?.url) : getStrapiMedia("/uploads/default_college_logo_23dfd1f540.png");
-									let bannerUrl = college?.banner?.data?.attributes?.url
-										? `https://college-dakhla-backend-qtpvh.ondigitalocean.app` +
-										college?.banner?.data?.attributes?.url
-										: "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch";
-									return (
-										<div key={college?.id}>
-											<div className="flex flex-col items-stretch w-80 bg-white rounded-lg shadow-lg">
-												<div className="relative rounded-t-lg">
-													<Image
-														src={bannerUrl!}
-														width={100}
-														height={100}
-														alt={college?.attributes?.collegeName}
-														//className="rounded-sm"
-														className="w-full h-36 object-cover rounded-t-lg"
-													/>
-													<div className="absolute inset-0 bg-black bg-opacity-50 rounded-t-lg"></div>
-													<div className="absolute inset-0 p-2 flex justify-end max-h-max items-center">
-														<div className="bg-slate-300 rounded-full py-[2px] px-1 text-sm cursor-pointer">
-															{/* <FaRegHeart /> */}
-															9/10
+															{index + 1}/10
 														</div>
 													</div>
 													<div className="absolute left-4 bottom-7">
@@ -456,7 +348,7 @@ export default function Home() {
 								</thead>
 								<tbody>
 									{topCollegesData?.colleges?.data?.map((college: any, index: any) => {
-										const logoURL = college?.attributes?.collegeLogo?.data?.attributes?.url ? `https://college-dakhla-backend-qtpvh.ondigitalocean.app` + college?.attributes?.collegeLogo?.data?.attributes?.url : "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
+										const logoUrl = college.attributes?.collegeLogo?.data ? getStrapiMedia(college.attributes?.collegeLogo?.data?.attributes?.url) : GetDefaultImage("logo");
 										return (
 											<tr className="border-b border-gray-200" key={index}>
 												<td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
@@ -464,7 +356,7 @@ export default function Home() {
 													<div className="flex gap-4">
 														<div>
 															<Image
-																src={logoURL}
+																src={logoUrl!}
 																alt={college?.attributes?.collegeName}
 																width={60}
 																height={60}
@@ -491,7 +383,7 @@ export default function Home() {
 															height={20}
 														/>
 														<div>
-															<span className="font-bold text-lg">#1</span> out of
+															<span className="font-bold text-lg">#{college.id}</span> out of
 															312 in India 2023
 														</div>
 													</div>

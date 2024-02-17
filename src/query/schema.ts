@@ -215,8 +215,8 @@ export const getCollege = gql`
 
 // query to get default images
 export const getDefaultImageUrl = gql`
-query UploadFiles {
-    uploadFiles(filters: { name: { eq: "default-college-logo.png" } }) {
+query UploadFiles($name : String!) {
+    uploadFiles(filters: { name: { containsi: $name } }) {
         data {
             id
             attributes {

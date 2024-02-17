@@ -1,5 +1,4 @@
 "use client";
-import CollegeCard from "@/components/card/collegeCard";
 import CarouselComponent from "@/components/carousel/carousel";
 import CollegeListItem from "@/components/collegeListItem/collegeListItem";
 import CollegeFilters from "@/components/collegeFilters/collegeFilters";

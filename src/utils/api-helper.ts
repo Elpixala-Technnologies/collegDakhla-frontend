@@ -2,9 +2,10 @@ import { getDefaultImageUrl } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 
 function GetDefaultMedia(name: String) {
-	const { loading, error, data: defaultImageData } = useQuery(getDefaultImageUrl)
-		;
-	console.log("helper default image are ", defaultImageData);
+	const { loading, error, data: defaultImageData } = useQuery(getDefaultImageUrl, {
+		variables: { name }
+	});
+	return defaultImageData?.uploadFiles?.data[0]?.attributes?.url
 }
 
 
@@ -26,13 +27,16 @@ export function getStrapiMedia(url: string | null) {
 	return `${getStrapiURL()}${url}`;
 }
 
-export function getDefaultImage(type: string) {
-	//getDefaultMedia("agam")
+export function GetDefaultImage(type: string) {
 
 	if (type == "logo") {
-		return getStrapiMedia("/uploads/default_Logo_2b51b95a90.jpeg")
+		// console.log("default logo is ", GetDefaultMedia("logo.jpeg"))
+		//let url = GetDefaultMedia("logo.jpeg")
+		return "https://images.shiksha.com/mediadata/images/1605086820phpSFQlAR_s.jpg"
 	}
 	else if (type == "banner") {
-		return getStrapiMedia("/uploads/banner_edb40a9e41.webp")
+		// console.log("default banner is ", GetDefaultMedia("banner.webp"))
+		// let url = GetDefaultMedia("banner.webp")
+		return "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
 	}
 }

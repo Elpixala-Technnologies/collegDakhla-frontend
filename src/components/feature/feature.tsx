@@ -19,7 +19,7 @@ export default function Feature({
 					{title}
 				</h5>
 				<div className="flex gap-2 justify-center flex-wrap">
-					{tags.map((tag, index) => {
+					{tags?.map((tag, index) => {
 						return <Tag key={index} text={tag.attributes.name} href={""} bgcolor="bg-white" borderColor="border-primary" color="text-primary" big rounded />
 					})}
 				</div>
