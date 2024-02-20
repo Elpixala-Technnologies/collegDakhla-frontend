@@ -3,41 +3,47 @@ import Button from "@/components/button/button";
 import CollegeDescription from "@/components/collegeDescription/collegeDescription";
 import CoursesOffered from "@/components/coursesOffered/coursesOffered";
 import FeesEligibility from "@/components/fees&Eligibilty/feesEligibility";
+import Table from "@/components/table/table";
 import Image from "next/image";
 
 
-var abc = [
-	"Highlights",
-	"Important Dates 2024",
-	"Fees",
-	"Courses",
-	"Admission 2024",
-	"Cut - off 2024(Expected)"
-]
+export default function CollegeTab(props: any) {
+	// console.log("info is ", props?.data);
 
-var images = [
-
-]
-
-export default function CollegeInfo({ info }: any) {
-	console.log("info is ",);
-
-	const collegeDescription = info?.collegeDescription ? info?.collegeDescription : '';
+	//const collegeDescription = info?.collegeDescription ? info?.collegeDescription : '';
 	return (
 		<>
 			<div className="container h-full my-10">
 				<div className="main-wrapper flex gap-4">
-					<div className="left-wrapper w-full basis-3/4 flex flex-col gap-6">
-						<section className="bg-gray-50 rounded-xl p-5">
-							<Author></Author>
-							<div className="college-details-wrapper font-poppins text-base	">
-								<div dangerouslySetInnerHTML={{ __html: collegeDescription }}></div>
-							</div>
-							{/* Render College name here */}
-							{abc.map(name => (<CollegeDescription key={Math.random() * 1000} name={info?.collegeName + " " + name} />))}
-						</section>
-						<FeesEligibility collegeName={info?.collegeName} />
-						<CoursesOffered collegeName={info?.collegeName} />
+					<div className="left-wrapper basis-3/4 w-9/12 flex flex-col gap-5">
+
+						<div className="author-section bg-gray-50 rounded-xl p-5">
+							<Author />
+						</div>
+						<div className="page-data-wrapper">
+							{props?.data?.map((item: any, index: number) => {
+								// console.log("item is ", item.data);
+								const tableRegex = /<table[^>]*>[\s\S]*?<\/table>/;
+								const tableMatch = item?.data.match(tableRegex);
+								const extractedTableHtml = tableMatch ? tableMatch[0] : '';
+								// console.log("extractedTableHtml ", extractedTableHtml);
+								//extractedTableHtml.style("bg-black")
+
+								return (
+
+									(!extractedTableHtml) ? (<div className=" h-auto p-5 bg-gray-50 rounded-xl font-poppins text-base text-wrap mb-5" key={index}>
+										<h2 className="text-md font-bold mb-2 text-primary"> {item?.heading}</h2>
+										<div dangerouslySetInnerHTML={{ __html: item?.data }} className="text-wrap"></div>
+									</div>) : (<div className=" h-auto p-5 bg-gray-50 rounded-xl font-poppins text-base text-wrap mb-5" key={index}>
+										<h2 className="text-md font-bold mb-2 text-primary"> {item?.heading} agam</h2>
+										{/* <div dangerouslySetInnerHTML={{ __html: extractedTableHtml }} className="text-wrap w-full overflow-x-auto"></div> */}
+										<Table tableData={extractedTableHtml} />
+									</div>)
+
+
+								)
+							})}
+						</div>
 					</div>
 					<div className="right-wrapper basis-1/4 rounded md:flex md:flex-col md:gap-2 hidden">
 						<Button href={`/college/`} text="Apply Now" filled fontSize="text-sm" fontWeight="font-bold" width="w-full" align="text-center" />

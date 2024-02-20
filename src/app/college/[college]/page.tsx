@@ -1,15 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import CollegeCourseFee from "@/app/college/[college]/@collegeCourseFee/collegeCourseFee";
-import CollegeHostel from "@/app/college/[college]/@collegeHostel/collegeHostel";
-import CollegeInfo from "@/app/college/[college]/@collegeInfo/collegeInfo";
-import CollegePlacement from "@/app/college/[college]/@collegePlacement/collegePlacement";
-import CollegeQA from "@/app/college/[college]/@collegeQA/collegeQA";
-import CollegeReview from "@/app/college/[college]/@collegeReviews/collegeReviews";
-import CollegeScholership from "@/app/college/[college]/@collegeScholarship/collegeScholarship";
 import { useSearchParams } from "next/navigation";
 import { FaRegHeart } from "react-icons/fa";
+import CollegeTab from "./@collegeTab/collegeTab";
 import Tag from "@/components/tag/tags";
 import Button from "@/components/button/button";
 import { useQuery } from "@apollo/client";
@@ -24,22 +18,28 @@ type Props = {
 	};
 };
 export default function CollegeDetail({ params }: Props) {
-	const [currentTab, setCurrentTab] = useState("info");
+	const [currentTab, setCurrentTab] = useState<string>("");
+	const [TabData, setTabData] = useState([])
 	const queryParam = useSearchParams();
 	const tab = queryParam.get("tab");
 	let collegeId = params.college;
 
 	// get college data
-	const { loading, error, data } = useQuery(getCollege, {
+	const { loading, error, data: collegeData } = useQuery(getCollege, {
 		variables: { collegeId },
 	});
 
-	const college = data?.college?.data?.attributes;
+	console.log("college data is ", collegeData);
+
+
+	const college = collegeData?.college?.data?.attributes;
 	const approvedBy = college?.approvedBy?.data?.attributes?.name;
 	const collegeType = college?.college_type?.data?.attributes?.type;
 	const logoUrl = college?.collegeLogo?.data?.attributes?.url ? getStrapiMedia(college?.collegeLogo?.data?.attributes?.url) : GetDefaultImage("logo")
-	const bannerURL = college?.banner?.data[0] ? getStrapiMedia(college?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
-
+	const bannerUrl = college?.banner?.data[0] ? getStrapiMedia(college?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
+	const navbar = college?.navbars?.data
+	const tabData = college?.pageData
+	console.log("page data is ", tabData);
 	const tabs = [
 		{ name: "Info", value: "info" },
 		{ name: "Course & Fees", value: "courseFees" },
@@ -52,43 +52,44 @@ export default function CollegeDetail({ params }: Props) {
 
 	const handleTab = (value: string) => {
 		setCurrentTab(value);
-	};
-	const getTabData = () => {
-		switch (currentTab) {
-			case "info":
-				return <CollegeInfo info={college} />;
-			case "courseFees":
-				return <CollegeCourseFee />;
-			case "reviews":
-				return <CollegeReview />;
-			case "placement":
-				return <CollegePlacement />;
-			case "scholership":
-				return <CollegeScholership />;
-			case "hostel":
-				return <CollegeHostel />;
-			case "qa":
-				return <CollegeQA />;
-			default:
-				break;
-		}
+		const filteredData = tabData.filter((item: any) => item.navbar.data.attributes.name === currentTab);
+		console.log("filtered page data is ", filteredData);
+		setTabData(filteredData)
+
 	};
 
 	useEffect(() => {
-		if (tab) {
-			setCurrentTab(tab);
+		console.log("loading");
+
+		if (!loading) {
+			console.log("not loading");
+
+			if (!currentTab) {
+				console.log("initial tab render ", navbar)
+				handleTab(navbar[0]?.attributes?.name)
+				setCurrentTab(navbar[0]?.attributes?.name);
+				console.log("after initial render ", navbar[0]?.attributes?.name);
+
+			}
 		}
-	}, [tab]);
+	}, [loading]);
+
 	return (
 		<>
 			{/* section for banner of the individual college page */}
 			<section className="heroSection">
 				<div className="relative">
-					<img
-						src={bannerURL!}
+					<Image
+						src={bannerUrl!}
+						alt={college?.collegeName}
+						width={100}
+						height={100}
+						className="w-full h-36 object-cover" />
+					{/* <img
+						src={bannerUrl!}
 						alt={college?.collegeName}
 						className="w-full h-36 object-cover"
-					/>
+					/> */}
 					<div className="absolute inset-0 bg-black bg-opacity-50"></div>
 					<div className="absolute inset-0 text-white flex gap-4 mx-auto my-6 w-10/12">
 						<div className="collegeLogo">
@@ -96,7 +97,7 @@ export default function CollegeDetail({ params }: Props) {
 								src={logoUrl!}
 								width={100}
 								height={100}
-								alt={college?.collegeLogo?.data?.attributes?.name}
+								alt={college?.collegeName}
 								className="rounded-sm"
 							/>
 						</div>
@@ -160,14 +161,15 @@ export default function CollegeDetail({ params }: Props) {
 				</div>
 				<div className="infoOption bg-white flex">
 					<ul className="flex gap-8 items-stretch ml-32 h-10">
-						{tabs.map((tab) => {
+						{navbar?.map((tab: any) => {
 							return (
 								<li
-									key={tab.name}
-									onClick={() => handleTab(tab.value)}
+									key={tab?.attributes?.name}
+									onClick={() => handleTab(tab?.attributes?.name)}
 									className="hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm mt-2"
 								>
-									{tab.name}
+									{tab?.attributes?.name}
+
 								</li>
 							);
 						})}
@@ -175,7 +177,9 @@ export default function CollegeDetail({ params }: Props) {
 				</div>
 			</section>
 			<section className="mainSection">
-				<div className="flex justify-center">{getTabData()}</div>
+				<div className="flex justify-center">
+					<CollegeTab data={TabData} />
+				</div>
 			</section>
 		</>
 	);

@@ -208,6 +208,49 @@ export const getCollege = gql`
                     }
                 }
                 collegeDescription
+								navbars {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+								pageData {
+                    ... on ComponentFaqFaqS {
+                        Answer
+                        Question
+                        id
+                        navbar {
+                            data {
+                                attributes {
+                                    name
+                                }
+                            }
+                        }
+                    }
+                    ... on ComponentGalleryGallery {
+                        id
+                        navbar {
+                            data {
+                                attributes {
+                                    name
+                                }
+                            }
+                        }
+                    }
+                    ... on ComponentPageDataData {
+                        data
+                        id
+                        heading
+                        navbar {
+                            data {
+                                attributes {
+                                    name
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

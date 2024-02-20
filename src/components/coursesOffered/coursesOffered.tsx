@@ -5,7 +5,6 @@ import Button from "../button/button";
 let coursesOffered = {}
 
 export default function CoursesOffered(props: any) {
-	console.log("courses offerrd ", props);
 
 	return (
 		<section className="courses-offered-wrapper container h-auto p-5 bg-gray-50 rounded-xl">
