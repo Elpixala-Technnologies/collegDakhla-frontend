@@ -7,7 +7,7 @@ import {
 	NextSSRInMemoryCache,
 	SSRMultipartLink,
 } from "@apollo/experimental-nextjs-app-support/ssr";
-const STRAPI_URL = "http://localhost:1337";
+const STRAPI_URL = "https://college-dakhla-backend-qtpvh.ondigitalocean.app";
 function makeClient() {
 	const httpLink = new HttpLink({
 		uri: `${STRAPI_URL}/graphql`,
