@@ -1,16 +1,10 @@
 import Author from "@/components/author/author";
 import Button from "@/components/button/button";
-import CollegeDescription from "@/components/collegeDescription/collegeDescription";
-import CoursesOffered from "@/components/coursesOffered/coursesOffered";
-import FeesEligibility from "@/components/fees&Eligibilty/feesEligibility";
 import Table from "@/components/table/table";
 import Image from "next/image";
 
 
 export default function CollegeTab(props: any) {
-	// console.log("info is ", props?.data);
-
-	//const collegeDescription = info?.collegeDescription ? info?.collegeDescription : '';
 	return (
 		<>
 			<div className="container h-full my-10">
@@ -22,25 +16,17 @@ export default function CollegeTab(props: any) {
 						</div>
 						<div className="page-data-wrapper">
 							{props?.data?.map((item: any, index: number) => {
-								// console.log("item is ", item.data);
 								const tableRegex = /<table[^>]*>[\s\S]*?<\/table>/;
 								const tableMatch = item?.data.match(tableRegex);
 								const extractedTableHtml = tableMatch ? tableMatch[0] : '';
-								// console.log("extractedTableHtml ", extractedTableHtml);
-								//extractedTableHtml.style("bg-black")
-
 								return (
-
 									(!extractedTableHtml) ? (<div className=" h-auto p-5 bg-gray-50 rounded-xl font-poppins text-base text-wrap mb-5" key={index}>
 										<h2 className="text-md font-bold mb-2 text-primary"> {item?.heading}</h2>
 										<div dangerouslySetInnerHTML={{ __html: item?.data }} className="text-wrap"></div>
 									</div>) : (<div className=" h-auto p-5 bg-gray-50 rounded-xl font-poppins text-base text-wrap mb-5" key={index}>
 										<h2 className="text-md font-bold mb-2 text-primary"> {item?.heading} agam</h2>
-										{/* <div dangerouslySetInnerHTML={{ __html: extractedTableHtml }} className="text-wrap w-full overflow-x-auto"></div> */}
 										<Table tableData={extractedTableHtml} />
 									</div>)
-
-
 								)
 							})}
 						</div>

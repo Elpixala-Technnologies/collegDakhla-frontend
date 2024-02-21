@@ -21,16 +21,12 @@ export default function CollegeDetail({ params }: Props) {
 	const [currentTab, setCurrentTab] = useState<string>("");
 	const [TabData, setTabData] = useState([])
 	const queryParam = useSearchParams();
-	const tab = queryParam.get("tab");
 	let collegeId = params.college;
 
 	// get college data
 	const { loading, error, data: collegeData } = useQuery(getCollege, {
 		variables: { collegeId },
 	});
-
-	console.log("college data is ", collegeData);
-
 
 	const college = collegeData?.college?.data?.attributes;
 	const approvedBy = college?.approvedBy?.data?.attributes?.name;
@@ -39,40 +35,22 @@ export default function CollegeDetail({ params }: Props) {
 	const bannerUrl = college?.banner?.data[0] ? getStrapiMedia(college?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
 	const navbar = college?.navbars?.data
 	const tabData = college?.pageData
-	console.log("page data is ", tabData);
-	const tabs = [
-		{ name: "Info", value: "info" },
-		{ name: "Course & Fees", value: "courseFees" },
-		{ name: "Reviews", value: "reviews" },
-		{ name: "Placement", value: "placement" },
-		{ name: "Scholarship", value: "scholarship" },
-		{ name: "Hostel", value: "hostel" },
-		{ name: "Q&A", value: "qa" },
-	];
 
 	const handleTab = (value: string) => {
 		setCurrentTab(value);
-		const filteredData = tabData.filter((item: any) => item.navbar.data.attributes.name === currentTab);
-		console.log("filtered page data is ", filteredData);
+		const filteredData = tabData.filter((item: any) => item.navbar.data.attributes.name === value);
 		setTabData(filteredData)
-
 	};
 
 	useEffect(() => {
-		console.log("loading");
-
 		if (!loading) {
-			console.log("not loading");
-
 			if (!currentTab) {
-				console.log("initial tab render ", navbar)
 				handleTab(navbar[0]?.attributes?.name)
 				setCurrentTab(navbar[0]?.attributes?.name);
-				console.log("after initial render ", navbar[0]?.attributes?.name);
-
 			}
 		}
 	}, [loading]);
+
 
 	return (
 		<>
