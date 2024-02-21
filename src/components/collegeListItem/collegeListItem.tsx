@@ -46,7 +46,7 @@ export default function CollegeListItem(allColleges: any) {
 										</div>
 									</div>
 									<div className="py-4 flex flex-1 flex-col gap-2">
-										<Link href={{ pathname: `/college/${college.id}`, query: { tab: "info" } }}>
+										<Link href={`/college/${college.id}`}>
 											<div className="flex flex-row gap-2">
 												<div><img src={college.logo} /></div>
 												<div className="flex flex-col">

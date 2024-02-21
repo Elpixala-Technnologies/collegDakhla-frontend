@@ -22,7 +22,7 @@ export default function CollegeCard(props: any) {
 					<img src={logoURL!} className="shadow-md rounded-sm h-14 w-14" />
 				</div>
 				<div className="p-2 pt-8 flex-1 min-h-32">
-					<Link href={{ pathname: `/college/${props?.college?.id}` }} >
+					<Link href={`/college/${props?.college?.id}`} >
 						<h4 className="text-primary text-sm font-semibold">
 							{college.collegeName}
 						</h4>

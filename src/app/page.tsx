@@ -270,7 +270,7 @@ export default function Home() {
 														</div>
 													</div>
 													<div className="border-t border-t-secondary-text">
-														<Link href={{ pathname: `/college/${college.id}` }}>
+														<Link href={`/college/${college.id}`}>
 															<div className="flex justify-between font-semibold text-sm py-[6px] text-secondary-text items-center">
 																<div>View All Courses and fees</div>
 																<div>
