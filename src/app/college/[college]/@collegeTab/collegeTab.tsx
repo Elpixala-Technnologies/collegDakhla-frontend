@@ -2,9 +2,12 @@ import Author from "@/components/author/author";
 import Button from "@/components/button/button";
 import Table from "@/components/table/table";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import CollegeData from "@/components/collegeData/collegeData";
 
 
 export default function CollegeTab(props: any) {
+
 	return (
 		<>
 			<div className="container h-full my-10">
@@ -20,13 +23,16 @@ export default function CollegeTab(props: any) {
 								const tableMatch = item?.data.match(tableRegex);
 								const extractedTableHtml = tableMatch ? tableMatch[0] : '';
 								return (
-									(!extractedTableHtml) ? (<div className=" h-auto p-5 bg-gray-50 rounded-xl font-poppins text-base text-wrap mb-5" key={index}>
+									<div className="content bg-gray-50 rounded-xl px-5 pt-5 mb-5" key={index}>
 										<h2 className="text-md font-bold mb-2 text-primary"> {item?.heading}</h2>
-										<div dangerouslySetInnerHTML={{ __html: item?.data }} className="text-wrap"></div>
-									</div>) : (<div className=" h-auto p-5 bg-gray-50 rounded-xl font-poppins text-base text-wrap mb-5" key={index}>
-										<h2 className="text-md font-bold mb-2 text-primary"> {item?.heading} agam</h2>
-										<Table tableData={extractedTableHtml} />
-									</div>)
+										{
+											(extractedTableHtml) ? (
+												<Table tableData={extractedTableHtml} />
+												) : (
+												<CollegeData data={item?.data} />
+											)
+										}
+									</div>
 								)
 							})}
 						</div>
@@ -43,22 +49,25 @@ export default function CollegeTab(props: any) {
 								<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" frameBorder="0" height="168" src="https://www.youtube.com/embed/4-YEBaUXUGo" title="video" width="100%" className="jsx-4002731190"></iframe>
 							</div>
 						</div>
-						<div className="college-photos gap-1 columns-2">
+						<div className="college-photos gap-2 columns-2">
 
-							<div className="col-6">
-								<Image src="/140724328776347_10150270122024944_741327732_n.webp" alt="" width={100} height={80}></Image>
+							<div className="col-6 pb-2">
+								<Image src="/140724328776347_10150270122024944_741327732_n.webp" alt="" width={100} height={80} className="object-cover w-full h-16"></Image>
 							</div>
-							<div className="col-6">
-								<Image src="/140724328776347_10150270122024944_741327732_n.webp" alt="" width={100} height={80}></Image>
+							<div className="col-6 pb-2">
+								<Image src="/140724328776347_10150270122024944_741327732_n.webp" alt="" width={100} height={80} className="object-cover w-full h-16"></Image>
 							</div>
-							<div className="col-6">
-								<Image src="/140724328776347_10150270122024944_741327732_n.webp" alt="" width={100} height={80}></Image>
+							<div className="col-6 pb-2">
+								<Image src="/140724328776347_10150270122024944_741327732_n.webp" alt="" width={100} height={80} className="object-cover w-full h-16"></Image>
 							</div>
-							<div className="col-6">
-								<Image src="/140724328776347_10150270122024944_741327732_n.webp" alt="" width={100} height={80}></Image>
+							<div className="col-6 pb-2">
+								<Image src="/140724328776347_10150270122024944_741327732_n.webp" alt="" width={100} height={80} className="object-cover w-full h-16"></Image>
 							</div>
-							<div className="col-6">
-								<Image src="/140724328776347_10150270122024944_741327732_n.webp" alt="" width={100} height={80}></Image>
+							<div className="col-6 pb-2">
+								<Image src="/140724328776347_10150270122024944_741327732_n.webp" alt="" width={100} height={80} className="object-cover w-full h-16"></Image>
+							</div>
+							<div className="col-6 pb-2">
+								<Image src="/140724328776347_10150270122024944_741327732_n.webp" alt="" width={100} height={80} className="object-cover w-full h-16"></Image>
 							</div>
 						</div>
 					</div>

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import './tableStyle.css'
-export default function Table(props: any) {
+import { useState, useEffect } from "react";
+
+export default function CollegeData(props: any) {
 	const [showFullContent, setShowFullContent] = useState(false);
 	const [showReadMore, setShowReadMore] = useState(true);
 
@@ -23,9 +23,10 @@ export default function Table(props: any) {
 	return (
 		<>
 			<div
-				dangerouslySetInnerHTML={{ __html: props?.tableData }}
-				className="table-auto data-table font-poppins text-sm text-wrap"
-				style={{ maxHeight: showFullContent ? 'none' : '200px', overflow: 'hidden' }}></div>
+				dangerouslySetInnerHTML={{ __html: props?.data }}
+				className="font-poppins text-base text-wrap "
+				style={{ maxHeight: showFullContent ? 'none' : '200px', overflow: 'hidden' }}>
+			</div>
 			<div className="py-2 text-primary text-sm">
 				{
 					showReadMore && !showFullContent && (
@@ -45,4 +46,3 @@ export default function Table(props: any) {
 		</>
 	)
 }
-

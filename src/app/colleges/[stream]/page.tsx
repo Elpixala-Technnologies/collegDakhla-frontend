@@ -49,16 +49,7 @@ export default function Stream({ params }: Props) {
 
 	let streamDesc = streamData?.streams?.data[0]?.attributes?.description
 	streamDesc = streamDesc ? streamDesc : "No stream Description Avaialble"
-	console.log("stream desc is " + streamDesc);
-
 	let slicedStreamDesc = streamDesc.slice(0, 1500) + "..."
-
-	// useEffect(() => {
-	// 	if (initialData && initialData.colleges.data) {
-	// 		setAllColleges(initialData.colleges.data);
-	// 		setFilteredData(initialData.colleges.data); // Initially, display all data
-	// 	}
-	// }, [initialData]);
 
 	return (
 		<>
