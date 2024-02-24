@@ -8,7 +8,6 @@ import { getStates } from "@/query/schema";
 import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
 
 export default function CollegeListItem(allColleges: any) {
-
 	//query to get all states
 	const { loading: statesLoader, error: statesError, data: statesData } = useQuery(getStates);
 
@@ -45,7 +44,7 @@ export default function CollegeListItem(allColleges: any) {
 											</div>
 										</div>
 									</div>
-									<div className="py-4 flex flex-1 flex-col gap-2">
+									<div className="pb-4 flex flex-1 flex-col gap-2">
 										<Link href={`/college/${college.id}`}>
 											<div className="flex flex-row gap-2">
 												<div><img src={college.logo} /></div>

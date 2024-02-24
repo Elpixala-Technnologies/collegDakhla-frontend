@@ -37,7 +37,7 @@ export default function CollegeDetail({ params }: Props) {
 
 	const handleTab = (value: string) => {
 		setCurrentTab(value);
-		const filteredData = tabData.filter((item: any) => item.navbar.data.attributes.name === value);
+		const filteredData = tabData.filter((item: any) => item?.navbar?.data?.attributes?.name === value);
 		setTabData(filteredData)
 	};
 
