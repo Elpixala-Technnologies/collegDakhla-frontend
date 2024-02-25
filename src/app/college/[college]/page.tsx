@@ -50,7 +50,7 @@ export default function CollegeDetail({ params }: Props) {
 		}
 		if (!loading && currentTab === "") {
 			handleTab("Info")
-			setCurrentTab(navbar[0]?.attributes?.name);
+			setCurrentTab("Info");
 		}
 	}, [loading]);
 
