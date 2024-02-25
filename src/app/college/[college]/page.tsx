@@ -62,11 +62,6 @@ export default function CollegeDetail({ params }: Props) {
 						width={100}
 						height={100}
 						className="w-full h-36 object-cover" />
-					{/* <img
-						src={bannerUrl!}
-						alt={college?.collegeName}
-						className="w-full h-36 object-cover"
-					/> */}
 					<div className="absolute inset-0 bg-black bg-opacity-50"></div>
 					<div className="absolute inset-0 text-white flex gap-4 mx-auto my-6 w-10/12">
 						<div className="collegeLogo">

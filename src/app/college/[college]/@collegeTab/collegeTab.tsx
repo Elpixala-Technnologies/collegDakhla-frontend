@@ -2,8 +2,8 @@ import Author from "@/components/author/author";
 import Button from "@/components/button/button";
 import Table from "@/components/table/table";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import CollegeData from "@/components/collegeData/collegeData";
+import YoutubeVideo from "@/components/youtubeVideo/youtubeVideo";
 
 
 export default function CollegeTab(props: any) {
@@ -28,7 +28,7 @@ export default function CollegeTab(props: any) {
 										{
 											(extractedTableHtml) ? (
 												<Table tableData={extractedTableHtml} />
-												) : (
+											) : (
 												<CollegeData data={item?.data} />
 											)
 										}
@@ -42,13 +42,12 @@ export default function CollegeTab(props: any) {
 						<Button href={`/college/`} text="Download Brochure" outline fontSize="text-sm" width="w-full" align="text-center" />
 						<div className="college-videos bg-gray-50 p-3">
 							<h4 className="text-base font-bold font-poppins border-b-2 pb-2">Videos</h4>
-							<div className="py-4">
-								<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" frameBorder="0" height="168" src="https://www.youtube.com/embed/4-YEBaUXUGo" title="video" width="100%" className="jsx-4002731190"></iframe>
-							</div>
-							<div>
-								<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" frameBorder="0" height="168" src="https://www.youtube.com/embed/4-YEBaUXUGo" title="video" width="100%" className="jsx-4002731190"></iframe>
+							<div className="flex flex-col gap-2">
+								<YoutubeVideo videoId={"4-YEBaUXUGo"} width={"100%"} height={"168"} />
+								<YoutubeVideo videoId={"4-YEBaUXUGo"} width={"100%"} height={"168"} />
 							</div>
 						</div>
+
 						<div className="college-photos gap-2 columns-2">
 
 							<div className="col-6 pb-2">

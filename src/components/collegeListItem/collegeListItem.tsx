@@ -31,7 +31,7 @@ export default function CollegeListItem(allColleges: any) {
 							<div key={index}>
 								<div className="mb-4 p-4 flex flex-col sm:flex-row gap-4 shadow-lg bg-white">
 									<div className="relative h-40">
-										<img src={bannerURL!} alt={college.collegeName} className="w-full sm:w-48 h-40 object-fill rounded-sm" />
+										<img src={bannerURL!} alt={college?.collegeName} className="w-full sm:w-48 h-40 object-fill rounded-sm" />
 										<div className="absolute inset-0 bg-black bg-opacity-50 rounded-sm"></div>
 										<div className="absolute inset-0 text-white flex gap-4 justify-end mx-auto my-2 w-10/12">
 											<div>
@@ -47,7 +47,7 @@ export default function CollegeListItem(allColleges: any) {
 									<div className="pb-4 flex flex-1 flex-col gap-2">
 										<Link href={`/college/${college.id}`}>
 											<div className="flex flex-row gap-2">
-												<div><img src={college.logo} /></div>
+												<div><img src={college.logo} alt="" /></div>
 												<div className="flex flex-col">
 													<h2 className="text-sm font-bold">{college?.attributes?.collegeName}</h2>
 													<div className="text-xxs">

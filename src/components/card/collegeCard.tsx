@@ -10,7 +10,7 @@ export default function CollegeCard(props: any) {
 	return (
 		<div className="flex flex-col items-stretch min-w-48 bg-white rounded-lg shadow-xl">
 			<div className="relative rounded-t-lg">
-				<img src={bannerURL!} alt={college.name} className="w-full h-20 object-cover rounded-t-lg" />
+				<img src={bannerURL!} alt={college?.name} className="w-full h-20 object-cover rounded-t-lg" />
 				<div className="absolute inset-0 bg-black bg-opacity-50 rounded-t-lg"></div>
 				<div className="absolute inset-0 p-2 flex justify-between max-h-max items-center">
 					<div className="bg-white rounded-full px-2 py-1 text-base text-primary"><FaMedal /></div>
@@ -19,7 +19,7 @@ export default function CollegeCard(props: any) {
 			</div>
 			<div className="relative flex flex-col">
 				<div className="absolute left-2 -top-7">
-					<img src={logoURL!} className="shadow-md rounded-sm h-14 w-14" />
+					<img src={logoURL!} alt="" className="shadow-md rounded-sm h-14 w-14" />
 				</div>
 				<div className="p-2 pt-8 flex-1 min-h-32">
 					<Link href={`/college/${props?.college?.id}`} >
