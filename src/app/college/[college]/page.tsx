@@ -49,9 +49,7 @@ export default function CollegeDetail({ params }: Props) {
 			console.log("loading ", loading)
 		}
 		if (!loading && currentTab === "") {
-			console.log("first nav is ", navbar[0]?.attributes?.name);
-			console.log("current tab is ", currentTab);
-			handleTab(navbar[0]?.attributes?.name)
+			handleTab("Info")
 			setCurrentTab(navbar[0]?.attributes?.name);
 		}
 	}, [loading]);
