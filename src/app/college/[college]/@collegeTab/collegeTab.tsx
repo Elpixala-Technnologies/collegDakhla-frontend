@@ -7,6 +7,7 @@ import YoutubeVideo from "@/components/youtubeVideo/youtubeVideo";
 
 
 export default function CollegeTab(props: any) {
+	console.log("props are ", props);
 
 	return (
 		<>
@@ -20,16 +21,16 @@ export default function CollegeTab(props: any) {
 						<div className="page-data-wrapper">
 							{props?.data?.map((item: any, index: number) => {
 								const tableRegex = /<table[^>]*>[\s\S]*?<\/table>/;
-								const tableMatch = item?.data.match(tableRegex);
+								const tableMatch = item?.content?.match(tableRegex);
 								const extractedTableHtml = tableMatch ? tableMatch[0] : '';
 								return (
 									<div className="content bg-gray-50 rounded-xl px-5 pt-5 mb-5" key={index}>
-										<h2 className="text-md font-bold mb-2 text-primary"> {item?.heading}</h2>
+										<h2 className="text-lg font-bold mb-2 text-primary"> {item?.heading}</h2>
 										{
 											(extractedTableHtml) ? (
 												<Table tableData={extractedTableHtml} />
 											) : (
-												<CollegeData data={item?.data} />
+												<CollegeData data={item?.content} />
 											)
 										}
 									</div>

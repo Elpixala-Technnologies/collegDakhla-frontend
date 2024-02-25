@@ -216,32 +216,37 @@ export const getCollege = gql`
                     }
                 }
 								pageData {
-                    ... on ComponentFaqFaqS {
+                    ... on ComponentCommonTabData {
+                        content
+                        heading
+                        navbar {
+                            data {
+                                attributes {
+                                    name
+                                }
+                            }
+                        }
+                    }
+                    ... on ComponentCommonGallery {
+                        heading
+                        navbar {
+                            data {
+                                attributes {
+                                    name
+                                }
+                            }
+                        }
+                        pageGallery {
+                            data {
+                                attributes {
+                                    url
+                                }
+                            }
+                        }
+                    }
+                    ... on ComponentCommonFaqS {
                         Answer
                         Question
-                        id
-                        navbar {
-                            data {
-                                attributes {
-                                    name
-                                }
-                            }
-                        }
-                    }
-                    ... on ComponentGalleryGallery {
-                        id
-                        navbar {
-                            data {
-                                attributes {
-                                    name
-                                }
-                            }
-                        }
-                    }
-                    ... on ComponentPageDataData {
-                        data
-                        id
-                        heading
                         navbar {
                             data {
                                 attributes {

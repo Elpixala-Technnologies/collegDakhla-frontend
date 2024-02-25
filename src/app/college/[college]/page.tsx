@@ -26,24 +26,29 @@ export default function CollegeDetail({ params }: Props) {
 	const { loading, error, data: collegeData } = useQuery(getCollege, {
 		variables: { collegeId },
 	});
-
 	const college = collegeData?.college?.data?.attributes;
 	const approvedBy = college?.approvedBy?.data?.attributes?.name;
 	const collegeType = college?.college_type?.data?.attributes?.type;
 	const logoUrl = college?.collegeLogo?.data?.attributes?.url ? getStrapiMedia(college?.collegeLogo?.data?.attributes?.url) : GetDefaultImage("logo")
 	const bannerUrl = college?.banner?.data[0] ? getStrapiMedia(college?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
 	const navbar = college?.navbars?.data
+
 	const tabData = college?.pageData
+	console.log("tab data is ", tabData);
 
 	const handleTab = (value: string) => {
 		setCurrentTab(value);
 		const filteredData = tabData?.filter((item: any) => item?.navbar?.data?.attributes?.name === value);
+		console.log("filtered data is ", filteredData);
+
 		setTabData(filteredData)
 	};
 
 	useEffect(() => {
 		if (!loading) {
-			if (!currentTab) {
+			if (currentTab === "") {
+				console.log("first nav is ", navbar[0].attributes.name);
+				console.log("current tab is ", currentTab);
 				handleTab(navbar[0]?.attributes?.name)
 				setCurrentTab(navbar[0]?.attributes?.name);
 			}
