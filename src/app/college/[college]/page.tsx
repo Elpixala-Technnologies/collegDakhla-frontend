@@ -26,6 +26,7 @@ export default function CollegeDetail({ params }: Props) {
 	const { loading, error, data: collegeData } = useQuery(getCollege, {
 		variables: { collegeId },
 	});
+	console.log("collegeData is ", collegeData)
 	const college = collegeData?.college?.data?.attributes;
 	const approvedBy = college?.approvedBy?.data?.attributes?.name;
 	const collegeType = college?.college_type?.data?.attributes?.type;
