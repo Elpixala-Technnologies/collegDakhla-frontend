@@ -7,7 +7,6 @@ import YoutubeVideo from "@/components/youtubeVideo/youtubeVideo";
 
 
 export default function CollegeTab(props: any) {
-	console.log("props are ", props);
 
 	return (
 		<>
