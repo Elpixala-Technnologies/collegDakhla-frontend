@@ -21,32 +21,38 @@ export default function CollegeDetail({ params }: Props) {
 	const [currentTab, setCurrentTab] = useState<string>("");
 	const [TabData, setTabData] = useState([])
 	let collegeId = params.college;
+	console.log("college id ", collegeId);
 
 	// get college data
 	const { loading, error, data: collegeData } = useQuery(getCollege, {
 		variables: { collegeId },
 	});
-
+	console.log("collegeData is ", collegeData)
 	const college = collegeData?.college?.data?.attributes;
 	const approvedBy = college?.approvedBy?.data?.attributes?.name;
 	const collegeType = college?.college_type?.data?.attributes?.type;
 	const logoUrl = college?.collegeLogo?.data?.attributes?.url ? getStrapiMedia(college?.collegeLogo?.data?.attributes?.url) : GetDefaultImage("logo")
 	const bannerUrl = college?.banner?.data[0] ? getStrapiMedia(college?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
 	const navbar = college?.navbars?.data
+
 	const tabData = college?.pageData
+	console.log("tab data is ", tabData);
 
 	const handleTab = (value: string) => {
 		setCurrentTab(value);
-		const filteredData = tabData.filter((item: any) => item.navbar.data.attributes.name === value);
+		const filteredData = tabData?.filter((item: any) => item?.navbar?.data?.attributes?.name === value);
+		console.log("filtered data is ", filteredData);
+
 		setTabData(filteredData)
 	};
 
 	useEffect(() => {
-		if (!loading) {
-			if (!currentTab) {
-				handleTab(navbar[0]?.attributes?.name)
-				setCurrentTab(navbar[0]?.attributes?.name);
-			}
+		if (loading) {
+			console.log("loading ", loading)
+		}
+		if (!loading && currentTab === "") {
+			handleTab("Info")
+			setCurrentTab("Info");
 		}
 	}, [loading]);
 
@@ -62,11 +68,6 @@ export default function CollegeDetail({ params }: Props) {
 						width={100}
 						height={100}
 						className="w-full h-36 object-cover" />
-					{/* <img
-						src={bannerUrl!}
-						alt={college?.collegeName}
-						className="w-full h-36 object-cover"
-					/> */}
 					<div className="absolute inset-0 bg-black bg-opacity-50"></div>
 					<div className="absolute inset-0 text-white flex gap-4 mx-auto my-6 w-10/12">
 						<div className="collegeLogo">

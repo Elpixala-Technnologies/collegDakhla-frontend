@@ -67,7 +67,7 @@ export default function Stream({ params }: Props) {
 									<div className="flex justify-end">
 										<button
 											onClick={toggleTruncate}
-											className="text-primary ml-2 text-sm font-semibold"
+											className="text-primary ml-2 text-sm font-semibold cursor-pointer"
 										>
 											Read more
 										</button>

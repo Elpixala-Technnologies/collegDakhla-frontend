@@ -2,17 +2,19 @@
 	background-color: rgb(243 244 246) !important;
 }
 
+
 td {
 	border-style: solid;
 	border: 1px solid rgb(210, 215, 224) !important;
 	border-color: rgb(210, 215, 224);
 	padding: 8px 12px;
+	text-align: center;
 }
 
-/* .data-table table tbody tr {
+th {
+	color: rgb(239 95 67);
 	border-style: solid;
-	border-right: 1px solid;
-	border-bottom: 1px solid;
-	border-color: rgb(205, 211, 223);
+	border: 1px solid rgb(210, 215, 224) !important;
+	border-color: rgb(210, 215, 224);
 	padding: 8px 12px;
-} */
+}

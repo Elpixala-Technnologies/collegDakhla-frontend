@@ -5,20 +5,22 @@ import CollegeFilters from "@/components/collegeFilters/collegeFilters";
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
-import { getColleges, getCollegesFilter, getDefaultStream } from "@/query/schema";
+import { getColleges, getCollegesFilter, getDefaultStream, searchCollege } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 
 
 export default function CollegeList() {
 
-	const [isTruncated, setIsTruncated] = useState(true);
 	const [Search, setSearch] = useState("");
 	const [MobileFilter, setMobileFilter] = useState(false)
+	const [showFullContent, setShowFullContent] = useState(false);
+	const [showReadMore, setShowReadMore] = useState(true);
+	const [filteredData, setFilteredData] = useState([]);
 
 	// get college data
 	const { loading, error, data: initialData } = useQuery(getColleges);
 
-	const { loading: filterLoader, error: filterError, data: filteredCollege } = useQuery(getCollegesFilter, {
+	const { loading: filterLoader, error: filterError, data: filteredCollege } = useQuery(searchCollege, {
 		variables: {
 			Search
 		}
@@ -27,23 +29,25 @@ export default function CollegeList() {
 	const { loading: streamLoader, error: streamError, data: streamData } = useQuery(getDefaultStream);
 	let aboutStream = streamData?.streams?.data[0]?.attributes?.description
 
-	const [filteredData, setFilteredData] = useState([]);
+	const handleReadMoreClick = () => {
+		setShowFullContent(true);
+	};
 
-	const toggleTruncate = () => {
-		setIsTruncated(!isTruncated);
+	const handleReadLessClick = () => {
+		setShowFullContent(false);
 	};
 
 	const handleSearch = (event: any) => {
 		setSearch(event.target.value);
 
 		if (Search.length >= 1) {
-			const filtered = initialData.colleges.data.filter((item: any) =>
+			const filtered = filteredCollege.colleges.data.filter((item: any) =>
 				item.attributes.collegeName.toLowerCase().includes(Search.toLowerCase())
 			);
 			setFilteredData(filtered);
 		}
 		else {
-			setFilteredData(initialData.colleges.data)
+			setFilteredData(initialData?.colleges?.data)
 		}
 	};
 
@@ -54,40 +58,43 @@ export default function CollegeList() {
 		}
 	}
 
+	useEffect(() => {
+		const content = document.getElementById('content')!;
+		const readMore = document.getElementById('readMore')!;
+
+		if (content?.scrollHeight > content?.clientHeight) {
+			setShowReadMore(true);
+		}
+	}, []);
+
 	return (
 		<>
 			<section className="heroSection">
-				<div className="m-4 p-8 bg-white flex flex-col rounded-sm">
-					<h1 className="text-xl font-bold mb-3 text-center">
+				<div className="m-4 px-8 pt-8 bg-white flex flex-col rounded-sm">
+					<h1 className="text-xl font-bold mb-3 text-center text-primary">
 						Top Colleges in India 2024
 					</h1>
-					{isTruncated ? (
-						<>
-							<div className={`${isTruncated ? "text-center" : "text-left"}`}>
-								<div dangerouslySetInnerHTML={{ __html: aboutStream?.slice(0, 2000) }}></div>
-							</div>
-							<div className="flex justify-end">
-								<button
-									onClick={toggleTruncate}
-									className="text-primary ml-2 text-sm font-semibold"
-								>
-									Read more
-								</button>
-							</div>
-						</>
-					) : (
-						<>
-							<div dangerouslySetInnerHTML={{ __html: aboutStream }}></div>
-							<div className="flex justify-end">
-								<button
-									onClick={toggleTruncate}
-									className="text-primary ml-2 text-sm font-semibold"
-								>
-									Read less
-								</button>
-							</div>
-						</>
-					)}
+					<div
+						dangerouslySetInnerHTML={{ __html: aboutStream }}
+						className="font-poppins text-base text-wrap"
+						style={{ maxHeight: showFullContent ? 'none' : '200px', overflow: 'hidden' }}>
+					</div>
+					<div className="py-2 text-primary text-sm text-right">
+						{
+							showReadMore && !showFullContent && (
+								<div className="readMore cursor-s-resize">
+									<span onClick={handleReadMoreClick}>Read more</span>
+								</div>
+							)
+						}
+						{
+							showFullContent && (
+								<div className="cursor-n-resize">
+									<span onClick={handleReadLessClick}>Read less</span>
+								</div>
+							)
+						}
+					</div>
 				</div>
 			</section>
 			<section className="topCollege">

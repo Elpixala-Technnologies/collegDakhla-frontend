@@ -131,8 +131,7 @@ export default function CollegeFilters(params?: any) {
 						<div className="opacity-100 z-50 block fixed right-0 bottom-0 left-0 w-screen h-4/6 bg-white text-black rounded-xl">
 							<div className="flex justify-between px-5 py-5 w-full border-b-2 border-gray-300">
 								<h5 className="text-base font-bold">All Filter</h5>
-								<span onClick={params.handleMobileFilter
-								}><FaAngleDown /></span>
+								<span onClick={params.handleMobileFilter}><FaAngleDown /></span>
 							</div>
 							<div className="filter-body">
 								<div className="flex flex-wrap flex-row filters-wrapper">
@@ -147,10 +146,8 @@ export default function CollegeFilters(params?: any) {
 											<Tabs
 												orientation="vertical"
 												variant="scrollable"
-												value={value
-												}
-												onChange={tabHandleChange
-												}
+												value={value}
+												onChange={tabHandleChange}
 												aria-label="Vertical tabs example"
 												sx={
 													{
@@ -158,30 +155,21 @@ export default function CollegeFilters(params?: any) {
 													}
 												}
 											>
-												<Tab label="Streams"{...a11yProps(0)
-												} />
-												<Tab label="States"{...a11yProps(1)
-												} />
+												<Tab label="Streams"{...a11yProps(0)} />
+												<Tab label="States"{...a11yProps(1)} />
 											</Tabs>
-											<TabPanel value={value
-											} index={
-												0
-											}>
+											<TabPanel value={value} index={0}>
 												{streamsData?.streams?.data?.map((stream: any) => {
 													return (
-														<div key={stream.id
-														} className="flex gap-1 items-center my-2 cursor-pointer">
+														<div key={stream.id} 
+														className="flex gap-1 items-center my-2 cursor-pointer">
 															<input
 																type="radio"
-																id={stream.id
-																}
-																name={stream.attributes.streamName
-																}
-																checked={StreamFilter === stream.attributes.streamName
-																}
+																id={stream.id}
+																name={stream.attributes.streamName}
+																checked={StreamFilter === stream.attributes.streamName}
 																className=""
-																onChange={() => handleStreamFilter(stream.attributes.streamName)
-																}
+																onChange={() => handleStreamFilter(stream.attributes.streamName)}
 															/>
 															<span className="text-xxs font-semibold text-secondary-text hover:text-primary">{stream.attributes.streamName
 															}</span>
@@ -190,15 +178,11 @@ export default function CollegeFilters(params?: any) {
 												})
 												}
 											</TabPanel>
-											<TabPanel value={value
-											} index={
-												1
-											}>
+											<TabPanel value={value} index={1}>
 												{statesData.data?.map((state: any) => {
 													return (
 														<div
-															key={state.id
-															}
+															key={state.id}
 															className="flex gap-1 items-center my-2 cursor-pointer text-base"
 														>
 															<input
@@ -211,8 +195,7 @@ export default function CollegeFilters(params?: any) {
 															/>
 															<span
 																className="text-xxs font-semibold text-secondary-text hover:text-primary">
-																{state.name
-																}
+																{state.name}
 															</span>
 														</div>
 													)
