@@ -45,15 +45,15 @@ export default function CollegeDetail({ params }: Props) {
 		setTabData(filteredData)
 	};
 
-	// useEffect(() => {
-	// 	if (loading) {
-	// 		console.log("loading ", loading)
-	// 	}
-	// 	if (!loading && currentTab === "") {
-	// 		handleTab("Info")
-	// 		setCurrentTab("Info");
-	// 	}
-	// }, [loading]);
+	useEffect(() => {
+		if (loading) {
+			console.log("loading ", loading)
+		}
+		if (!loading && currentTab === "") {
+			handleTab("Info")
+			setCurrentTab("Info");
+		}
+	}, [loading]);
 
 
 	return (
