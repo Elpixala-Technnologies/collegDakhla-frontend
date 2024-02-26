@@ -28,40 +28,39 @@ export default function CollegeDetail({ params }: Props) {
 		variables: { collegeId },
 	});
 	console.log("collegeData is ", collegeData)
-	// const college = collegeData?.college?.data?.attributes;
-	// const approvedBy = college?.approvedBy?.data?.attributes?.name;
-	// const collegeType = college?.college_type?.data?.attributes?.type;
-	// const logoUrl = college?.collegeLogo?.data?.attributes?.url ? getStrapiMedia(college?.collegeLogo?.data?.attributes?.url) : GetDefaultImage("logo")
-	// const bannerUrl = college?.banner?.data[0] ? getStrapiMedia(college?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
-	// const navbar = college?.navbars?.data
+	const college = collegeData?.college?.data?.attributes;
+	const approvedBy = college?.approvedBy?.data?.attributes?.name;
+	const collegeType = college?.college_type?.data?.attributes?.type;
+	const logoUrl = college?.collegeLogo?.data?.attributes?.url ? getStrapiMedia(college?.collegeLogo?.data?.attributes?.url) : GetDefaultImage("logo")
+	const bannerUrl = college?.banner?.data[0] ? getStrapiMedia(college?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
+	const navbar = college?.navbars?.data
 
-	// const tabData = college?.pageData
-	// console.log("tab data is ", tabData);
+	const tabData = college?.pageData
+	console.log("tab data is ", tabData);
 
-	// const handleTab = (value: string) => {
-	// 	setCurrentTab(value);
-	// 	const filteredData = tabData?.filter((item: any) => item?.navbar?.data?.attributes?.name === value);
-	// 	console.log("filtered data is ", filteredData);
+	const handleTab = (value: string) => {
+		setCurrentTab(value);
+		const filteredData = tabData?.filter((item: any) => item?.navbar?.data?.attributes?.name === value);
+		console.log("filtered data is ", filteredData);
 
-	// 	setTabData(filteredData)
-	// };
+		setTabData(filteredData)
+	};
 
-	// useEffect(() => {
-	// 	if (loading) {
-	// 		console.log("loading ", loading)
-	// 	}
-	// 	if (!loading && currentTab === "") {
-	// 		handleTab("Info")
-	// 		setCurrentTab("Info");
-	// 	}
-	// }, [loading]);
+	useEffect(() => {
+		if (loading) {
+			console.log("loading ", loading)
+		}
+		if (!loading && currentTab === "") {
+			handleTab("Info")
+			setCurrentTab("Info");
+		}
+	}, [loading]);
 
 
 	return (
 		<>
-			agam is here
 			{/* section for banner of the individual college page */}
-			{/* <section className="heroSection">
+			<section className="heroSection">
 				<div className="relative">
 					<Image
 						src={bannerUrl!}
@@ -159,7 +158,7 @@ export default function CollegeDetail({ params }: Props) {
 				<div className="flex justify-center">
 					<CollegeTab data={TabData} />
 				</div>
-			</section> */}
+			</section>
 		</>
 	);
 }
