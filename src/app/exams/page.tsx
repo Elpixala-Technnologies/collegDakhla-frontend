@@ -12,8 +12,11 @@ import {
   searchCollege,
 } from "@/query/schema";
 import { useQuery } from "@apollo/client";
+import CollegeCard from "@/components/card/collegeCard";
+import ExamCard from "@/components/card/examCard";
+import ExamListItem from "@/components/examListItem/examListItem";
 
-export default function CollegeList() {
+export default function ExamList() {
   const [Search, setSearch] = useState("");
   const [MobileFilter, setMobileFilter] = useState(false);
   const [showFullContent, setShowFullContent] = useState(false);
@@ -81,19 +84,19 @@ export default function CollegeList() {
     <>
       <div className="max-w-screen-xl mx-auto">
         <section className="heroSection">
-          <div className="m-4 px-8 pt-8 bg-white flex flex-col rounded-sm">
-            <h1 className="text-xl font-bold mb-3 text-center text-primary">
-              Top Colleges in India 2024
+          <div className="m-4 px-8 py-8 bg-white flex flex-col gap-3 rounded-sm">
+            <h1 className="text-3xl font-bold text-center text-primary">
+              All Exams 2023-2024, Dates, Application Forms & Alerts
             </h1>
-            <div
+            {/* <div
               dangerouslySetInnerHTML={{ __html: aboutStream }}
               className="font-poppins text-base text-wrap"
               style={{
                 maxHeight: showFullContent ? "none" : "200px",
                 overflow: "hidden",
               }}
-            ></div>
-            <div className="py-2 text-primary text-sm text-right">
+            ></div> */}
+            {/* <div className="py-2 text-primary text-sm text-right">
               {showReadMore && !showFullContent && (
                 <div className="readMore cursor-s-resize">
                   <span onClick={handleReadMoreClick}>Read more</span>
@@ -104,13 +107,20 @@ export default function CollegeList() {
                   <span onClick={handleReadLessClick}>Read less</span>
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
         </section>
         <section className="topCollege">
           <div className="m-4 bg-white py-4 px-4">
-            <h2 className="text-xl font-bold mb-3">Top Colleges in India</h2>
-            <CarouselComponent />
+            <CarouselComponent
+              slidesDesktop={4}
+              slidesTablet={3}
+              title="Featured Exams"
+              showPagination={false}
+              slides={[1, 2, 3, 4, 5].map((clgData, index) => {
+                return <ExamCard key={index} />;
+              })}
+            />
           </div>
         </section>
         <section className="collegeList">
@@ -129,7 +139,7 @@ export default function CollegeList() {
                   <RiSearchLine />
                   <input
                     className="w-full flex-1 text-sm px-2 py-1 outline-none"
-                    placeholder={`Search College Name`}
+                    placeholder={`Search Exam Name`}
                     onChange={handleSearch}
                   />
                 </div>
@@ -145,7 +155,30 @@ export default function CollegeList() {
                   </div>
                 </div>
               </div>
-              <CollegeListItem colleges={filteredData} />
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => {
+                return (
+                  <div key={index}>
+                    <ExamListItem colleges={filteredData} />
+                    {index / 4 === 0 ? (
+                      <>
+                        <div className="m-4 bg-white py-4 px-4">
+                          <CarouselComponent
+                            slidesDesktop={4}
+                            slidesTablet={3}
+                            title="Featured Exams"
+                            showPagination={false}
+                            slides={[1, 2, 3, 4, 5].map((clgData, index) => {
+                              return <ExamCard key={index} />;
+                            })}
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
