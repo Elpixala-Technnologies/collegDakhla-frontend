@@ -30,7 +30,7 @@ export default function Tag({
   outlineColor,
 }: Props) {
   return (
-    <>
+    <div className="cursor-pointer ">
       {href ? (
         <>
           <Link href={`${href}`}>
@@ -47,7 +47,9 @@ export default function Tag({
                             : `px-1 ${fontSize} ${fontWeight}`
                         }
                         ${borderColor ? `border ${borderColor}` : null}
-                        ${rounded ? "rounded-full" : "rounded-md"}`}
+                        ${
+                          rounded ? "rounded-full" : "rounded-md"
+                        } hover:text-primary`}
               >
                 {icon ? <div className="mr-2">{icon}</div> : <></>}
                 <div className={`flex-1`}>{text}</div>
@@ -69,13 +71,15 @@ export default function Tag({
                             : `px-1 ${fontSize} ${fontWeight}`
                         }
                         ${borderColor ? `border ${borderColor}` : null}
-                        ${rounded ? "rounded-full" : "rounded-md"}`}
+                        ${
+                          rounded ? "rounded-full" : "rounded-md"
+                        } hover:text-primary`}
           >
             {icon ? <div className="mr-2">{icon}</div> : <></>}
             <div className={`flex-1`}>{text}</div>
           </div>
         </>
       )}
-    </>
+    </div>
   );
 }

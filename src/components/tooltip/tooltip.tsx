@@ -5,8 +5,9 @@ import { ReactNode, useState } from "react";
 
 type Props = {
   children: ReactNode;
+  title: ReactNode;
 };
-export default function Tooltip({ children }: Props) {
+export default function Tooltip({ children, title }: Props) {
   const [ShowOption, setShowOption] = useState(false);
   const handleShowOption = () => {
     setShowOption(!ShowOption);
@@ -18,11 +19,11 @@ export default function Tooltip({ children }: Props) {
           className="flex gap-2 items-center text-sm hover:text-primary cursor-pointer"
           onClick={handleShowOption}
         >
-          Browse Stream <FaAngleDown />
+          {title}
         </div>
         {ShowOption ? (
           <>
-            <div className="absolute z-50 top-10 bg-white shadow-2xl p-4 w-min tooltip tooltip-bottom">
+            <div className="absolute z-50 top-10 bg-white shadow-2xl p-4 w-min tooltip tooltip-bottom ">
               {children}
             </div>
             <div

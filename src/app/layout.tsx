@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-gray-200 text-primary-text font-poppins">
+      <body className="bg-gray-100 text-primary-text font-poppins">
         <ApolloWrapper>
           <Header />
           <div className="">{children}</div>

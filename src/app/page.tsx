@@ -11,6 +11,9 @@ import { getStates, getStreams, topColleges } from "@/query/schema";
 import { GetDefaultImage, getStrapiMedia } from "../utils/api-helper";
 import { useState } from "react";
 import Button from "@/components/button/button";
+import TestimonyCard from "@/components/card/testimonyCard";
+import CourseCard from "@/components/card/courseCard";
+import Accordian from "@/components/accordian/accordian";
 export default function Home() {
   const [Stream, setStream] = useState<string>("");
   const [Limit, setLimit] = useState<number>(10);
@@ -43,7 +46,7 @@ export default function Home() {
         <section>
           <HeroSection />
         </section>
-        <section className="py-16 bg-white">
+        {/* <section className="py-16 bg-white">
           <div className=" max-w-screen-xl flex items-center justify-center w-4/5 mx-auto mb-4">
             <div className=" flex flex-col items-center ">
               <div className="p-7 border-2 w-max border-primary rounded-full">
@@ -93,7 +96,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-        </section>
+        </section> */}
         <section className="top-collection-section max-w-screen-xl mx-auto">
           <div className="px-4 py-16">
             <h2 className="text-3xl font-semibold">Top Collection</h2>
@@ -121,30 +124,28 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="states-section py-16 px-4 bg-white">
+        <section className="bg-white py-8">
           <div className="flex flex-col gap-8 max-w-screen-xl mx-auto">
-            <h2 className="text-3xl font-semibold">Browse by State</h2>
-            <div className="flex flex-wrap gap-8">
-              {statesData?.states?.data?.map((state: any, index: any) => {
-                return (
-                  <Link href={"/"} key={index}>
-                    <div className=" w-32 h-32 p-8 bg-primary-light flex flex-col items-center justify-center gap-2 hover:bg-primary hover:text-white group">
-                      <div className="state-image transform scale-100 group-hover:scale-110">
-                        <FaCity size={36} />
-                      </div>
-                      <div className="state-name">
-                        {state?.attributes?.name}
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
+            <h2 className="text-3xl font-semibold">What our Student Say</h2>
+            <div className="flex justify-between mb-10">
+              <TestimonyCard />
+              <TestimonyCard />
+              <TestimonyCard />
             </div>
           </div>
         </section>
-        <div className="bg-white py-16">
-          <div className="border border-extra-light-text w-full opacity-20"></div>
-        </div>
+        {/* <section className="bg-white py-8">
+          <div className="flex flex-col gap-8 max-w-screen-xl mx-auto">
+            <h2 className="text-3xl font-semibold">Popular Courses</h2>
+            <div className="flex gap-6 mb-10">
+              <CourseCard />
+              <CourseCard />
+              <CourseCard />
+              <CourseCard />
+              <CourseCard />
+            </div>
+          </div>
+        </section> */}
         <section className="explore-course-section bg-white">
           <div className="px-4  max-w-screen-xl mx-auto">
             <h2 className="text-3xl font-semibold">Explore Course</h2>
@@ -213,6 +214,147 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <section className="max-w-screen-xl mx-auto my-10 px-4">
+          <div className="flex flex-col gap-6 ">
+            <h3 className="text-3xl font-semibold">Exam News</h3>
+            <div className="grid grid-cols-4 grid-flow-row gap-x-7 gap-y-10">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => {
+                return (
+                  <div key={index} className="flex flex-col gap-4">
+                    <div>
+                      <Image
+                        src={"/racing.png"}
+                        alt=""
+                        width={100}
+                        height={100}
+                        className="w-full min-w-36 h-44 rounded-lg"
+                      />
+                    </div>
+                    <div className="text-2xl font-semibold text-primary-text">
+                      News Title Lorem Ipsum Dolor Sit Amet
+                    </div>
+                    <div className="flex justify-between text-primary-text-light text-base pr-4">
+                      <div>1 Hour Ago</div>
+                      <div>CNN Indonesia</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+        <section className="bg-white py-8">
+          <div className=" max-w-screen-xl mx-auto">
+            <h2 className="text-3xl font-semibold">
+              Frequently Asked Questions
+            </h2>
+            <div className="py-6 flex flex-col gap-4 text-sm">
+              <Accordian title="Which courses are offered at IIT Madras for the students?">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the standard dummy text ever
+                since the 1500s, when an unknown printAccordian galley of type
+                and scrambled it to make a type specimen book. It has survived
+                not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged.
+              </Accordian>
+              <Accordian title="Which courses are offered at IIT Madras for the students?">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the standard dummy text ever
+                since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen book. It has survived
+                not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged.
+              </Accordian>
+              <Accordian title="Which courses are offered at IIT Madras for the students?">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the standard dummy text ever
+                since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen book. It has survived
+                not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged.
+              </Accordian>
+              <Accordian title="Which courses are offered at IIT Madras for the students?">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the standard dummy text ever
+                since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen book. It has survived
+                not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged.
+              </Accordian>
+              <Accordian title="Which courses are offered at IIT Madras for the students?">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the standard dummy text ever
+                since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen book. It has survived
+                not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged.
+              </Accordian>
+            </div>
+          </div>
+        </section>
+        <section className="bg-[#F2F6F7]">
+          <div className="max-w-screen-xl m-auto py-24 px-4 flex flex-col gap-12 items-center text-primary-text">
+            <div className="text-3xl font-semibold w-80 text-center">
+              Get in Touch with our Expert Counsellors
+            </div>
+            <div className="flex gap-7">
+              <input
+                className="rounded-md border-[0.5px] border-primary-extra-light-text w-full bg-white p-2 shadow"
+                placeholder="Name"
+              />
+              <input
+                className="rounded-md border-[0.5px] border-primary-extra-light-text w-full bg-white p-2 shadow"
+                placeholder="Email"
+              />
+              <input
+                className="rounded-md border-[0.5px] border-primary-extra-light-text w-full bg-white p-2 shadow"
+                placeholder="Phone"
+              />
+              <input
+                className="rounded-md border-[0.5px] border-primary-extra-light-text w-full bg-white p-2 shadow"
+                placeholder="Your Stream"
+              />
+            </div>
+            <div className="flex flex-col items-center gap-4">
+              <div>
+                <button className="bg-primary text-white p-[10px] w-52 rounded-md">
+                  Get in Touch
+                </button>
+              </div>
+              <div>
+                <p className="w-96 text-center text-sm">
+                  By proceeding ahead you expressly agree to the Affinity
+                  Education terms of use and privacy policy
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="states-section py-16 px-4 bg-white">
+          <div className="flex flex-col gap-8 max-w-screen-xl mx-auto">
+            <h2 className="text-3xl font-semibold">Browse by State</h2>
+            <div className="flex flex-wrap gap-8">
+              {statesData?.states?.data?.map((state: any, index: any) => {
+                return (
+                  <Link href={"/"} key={index}>
+                    <div className=" w-32 h-32 p-8 bg-primary-light flex flex-col items-center justify-center gap-2 hover:bg-primary hover:text-white group">
+                      <div className="state-image transform scale-100 group-hover:scale-110">
+                        <FaCity size={36} />
+                      </div>
+                      <div className="state-name">
+                        {state?.attributes?.name}
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+        <div className="bg-white py-16">
+          <div className="border border-extra-light-text w-full opacity-20"></div>
+        </div>
+
         <div className="bg-white py-16">
           <div className="border border-extra-light-text w-full opacity-20"></div>
         </div>

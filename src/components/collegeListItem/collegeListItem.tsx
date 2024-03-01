@@ -59,12 +59,12 @@ export default function CollegeListItem(allColleges: any) {
                     <div className="absolute inset-0 bg-black bg-opacity-50 rounded-sm"></div>
                     <div className="absolute inset-0 text-white  mx-auto my-2 w-10/12">
                       <div className="flex justify-between">
-                        <div className="flex gap-3">
-                          <div className="flex gap-2">
+                        <div className="flex gap-3 items-start">
+                          <div className="flex gap-2 items-center text-sm">
                             <FaImage /> 7
                           </div>
 
-                          <div className="flex gap-2">
+                          <div className="flex gap-2 items-center text-sm">
                             <FaVideo /> 7
                           </div>
                         </div>
@@ -227,23 +227,24 @@ export default function CollegeListItem(allColleges: any) {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-row gap-1 flex-wrap justify-center md:flex-col md:gap-4 md:my-4 items-center">
+                  <div className="flex flex-row gap-1 flex-wrap justify-center md:flex-col md:gap-4 md:my-4 items-center border-l border-l-extra-light-text px-4">
                     <Button
                       href={`/college/${college.id}`}
                       text="Apply Now"
                       filled
                       fontSize="text-sm"
-                      fontWeight="font-bold"
-                      width="w-36"
+                      width="w-40"
                       align="text-center"
+                      bgColor="bg-primary"
                     />
                     <Button
                       href={`/college/${college.id}`}
                       text="Download Brochure"
-                      outline
                       fontSize="text-sm"
-                      width="w-36"
+                      outline
+                      width="w-40"
                       align="text-center"
+                      bgColor="bg-white"
                       fontColor="text-primary-text"
                     />
                     <Button
@@ -251,9 +252,9 @@ export default function CollegeListItem(allColleges: any) {
                       text="Compare"
                       outline
                       fontSize="text-sm"
-                      width="w-36"
-                      align="text-center"
+                      width="w-40"
                       fontColor="text-primary-text"
+                      align="text-center"
                     />
                   </div>
                 </div>
