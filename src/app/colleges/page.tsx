@@ -110,7 +110,7 @@ export default function CollegeList() {
         <section className="topCollege">
           <div className="m-4 bg-white py-4 px-4">
             <h2 className="text-xl font-bold mb-3">Top Colleges in India</h2>
-            <CarouselComponent />
+            <CarouselComponent slides={[]} />
           </div>
         </section>
         <section className="collegeList">
