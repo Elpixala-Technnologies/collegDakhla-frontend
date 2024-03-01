@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 type Props = {
-  href: string;
+  href?: string;
   text: string;
   icon?: React.ReactNode;
   filled?: Boolean;
@@ -36,33 +36,40 @@ export default function Button({
   paddingX = "px-2",
   paddingY = "py-2",
 }: Props) {
+  const ButtonContent = (
+    <>
+      {outline ? (
+        <>
+          <div
+            className={`button flex ${width} items-center ${paddingX} ${paddingY} border ${fontSize} ${fontWeight} ${outlineColor} ${fontColor} hover:border-primary hover:text-primary ${
+              rounded ? "rounded-full" : "rounded-md"
+            }`}
+          >
+            {icon ? <div className="mr-2">{icon}</div> : <></>}
+            <div className={`flex-1 ${align}`}>{text}</div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div
+            className={`button flex ${width} items-center ${paddingX} ${paddingY}   ${fontSize} ${fontWeight} ${bgColor} ${fontColor} ${
+              rounded ? "rounded-full" : "rounded-md"
+            }`}
+          >
+            {icon ? <div className="mr-2">{icon}</div> : <></>}
+            <div className={`flex-1 ${align}`}>{text}</div>
+          </div>
+        </>
+      )}
+    </>
+  );
   return (
     <>
-      <Link href={`${href}`}>
-        {outline ? (
-          <>
-            <div
-              className={`button flex ${width} items-center ${paddingX} ${paddingY} border ${fontSize} ${fontWeight} ${outlineColor} ${fontColor} hover:border-primary hover:text-primary ${
-                rounded ? "rounded-full" : "rounded-md"
-              }`}
-            >
-              {icon ? <div className="mr-2">{icon}</div> : <></>}
-              <div className={`flex-1 ${align}`}>{text}</div>
-            </div>
-          </>
-        ) : (
-          <>
-            <div
-              className={`button flex ${width} items-center ${paddingX} ${paddingY}   ${fontSize} ${fontWeight} ${bgColor} ${fontColor} ${
-                rounded ? "rounded-full" : "rounded-md"
-              }`}
-            >
-              {icon ? <div className="mr-2">{icon}</div> : <></>}
-              <div className={`flex-1 ${align}`}>{text}</div>
-            </div>
-          </>
-        )}
-      </Link>
+      {href ? (
+        <Link href={`${href}`}>{ButtonContent}</Link>
+      ) : (
+        <>{ButtonContent}</>
+      )}
     </>
   );
 }

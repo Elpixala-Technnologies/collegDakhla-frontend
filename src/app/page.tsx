@@ -158,7 +158,7 @@ export default function Home() {
                     }}
                     key={index}
                   >
-                    <div className="border border-primary-light rounded-full py-2 px-4 bg-white">
+                    <div className="border border-primary-light rounded-full py-2 px-4 bg-white text-nowrap">
                       {stream?.attributes?.streamName}
                     </div>
                   </Link>
@@ -243,6 +243,158 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <section>
+          <div className="max-w-screen-xl mx-auto px-4 my-20 flex text-primary-text gap-16">
+            <div className="flex-1">
+              <div className="relative flex w-max">
+                <h3 className="text-[35px] font-semibold">
+                  We have Got you Covered!
+                </h3>
+                <div className="absolute right-0 -bottom-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="124"
+                    height="17"
+                    viewBox="0 0 124 17"
+                    fill="none"
+                  >
+                    <path
+                      d="M1.79297 15.0321C11.5534 15.0321 21.2131 8.73606 30.6637 6.88702C39.2675 5.20366 48.0384 3.32012 56.8329 2.73382C78.5395 1.28671 100.483 1.9677 122.276 1.9677"
+                      stroke="#428BC1"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+
+              <p className="mt-4">
+                Receive comprehensive support throughout your study abroad //
+                eslint-disable-next-line react/no-unescaped-entities adventure,
+                from program selection to visa requirements. We are here for
+                your success.
+              </p>
+              <div className="flex flex-wrap gap-x-4 gap-y-1">
+                <Image
+                  src={"/study.svg"}
+                  alt=""
+                  width={100}
+                  height={100}
+                  className="w-full"
+                />
+              </div>
+            </div>
+            <div className="flex-1">
+              <div className="flex flex-col rounded-md overflow-hidden border-[0.5px] border-primary-text-light shadow-xl">
+                <div className="bg-black text-white p-4 flex gap-4 items-center justify-center">
+                  <Image
+                    src={"/collegeLogo.png"}
+                    alt=""
+                    width={50}
+                    height={50}
+                  />
+                  <p className="font-semibold text-xl">
+                    Let Us Help Find Your College
+                  </p>
+                </div>
+                <div className="p-6 text-primary-text flex flex-col gap-8">
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 rounded-full bg-primary"></div>
+                    <div className="flex-1 border-t-[0.5px] border-primary-text opacity-10"></div>
+                    <div className="w-4 h-4 rounded-full bg-primary-text opacity-10"></div>
+                    <div className="flex-1 border-t-[0.5px] border-primary-text opacity-10"></div>
+                    <div className="w-4 h-4 rounded-full bg-primary-text opacity-10"></div>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <p>What Degree do you plan to pursue? *</p>
+                    <div className="flex gap-4">
+                      <Button
+                        outline
+                        fontColor="text-primary-text-light"
+                        outlineColor="border-primary-text-light"
+                        paddingX="px-4"
+                        paddingY="py-2"
+                        text={"Bacholer's"}
+                      />
+                      <Button
+                        outline
+                        fontColor="text-primary-text-light"
+                        outlineColor="border-primary-text-light"
+                        paddingX="px-4"
+                        paddingY="py-2"
+                        text={"Master's"}
+                      />
+                      <Button
+                        outline
+                        fontColor="text-primary-text-light"
+                        outlineColor="border-primary-text-light"
+                        paddingX="px-4"
+                        paddingY="py-2"
+                        text={"MBA"}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <p>What Degree do you plan to pursue? *</p>
+                    <input
+                      className="rounded-md border-[0.5px] border-primary-extra-light-text w-full bg-white p-2 shadow"
+                      placeholder="Select Country"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <p>What are you planning to study? *</p>
+                    <input
+                      className="rounded-md border-[0.5px] border-primary-extra-light-text w-full bg-white p-2 shadow"
+                      placeholder="Select Major"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <p>What is your highest level of education? *</p>
+                    <div className="flex gap-4">
+                      <Button
+                        outline
+                        fontColor="text-primary-text-light"
+                        outlineColor="border-primary-text-light"
+                        paddingX="px-4"
+                        paddingY="py-2"
+                        text={"Grade 9"}
+                      />
+                      <Button
+                        outline
+                        fontColor="text-primary-text-light"
+                        outlineColor="border-primary-text-light"
+                        paddingX="px-4"
+                        paddingY="py-2"
+                        text={"Grade 10"}
+                      />
+                      <Button
+                        outline
+                        fontColor="text-primary-text-light"
+                        outlineColor="border-primary-text-light"
+                        paddingX="px-4"
+                        paddingY="py-2"
+                        text={"Grade 11"}
+                      />
+                      <Button
+                        outline
+                        fontColor="text-primary-text-light"
+                        outlineColor="border-primary-text-light"
+                        paddingX="px-4"
+                        paddingY="py-2"
+                        text={"Grade 12"}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <button className="bg-primary text-white p-[10px] w-full rounded-md">
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         <section className="bg-white py-8">
           <div className=" max-w-screen-xl mx-auto">
             <h2 className="text-3xl font-semibold">
@@ -323,14 +475,14 @@ export default function Home() {
               </div>
               <div>
                 <p className="w-96 text-center text-sm">
-                  By proceeding ahead you expressly agree to the Affinity
+                  By proceeding ahead you expressly agree to the College Dakhla
                   Education terms of use and privacy policy
                 </p>
               </div>
             </div>
           </div>
         </section>
-        <section className="states-section py-16 px-4 bg-white">
+        {/* <section className="states-section py-16 px-4 bg-white">
           <div className="flex flex-col gap-8 max-w-screen-xl mx-auto">
             <h2 className="text-3xl font-semibold">Browse by State</h2>
             <div className="flex flex-wrap gap-8">
@@ -353,288 +505,7 @@ export default function Home() {
         </section>
         <div className="bg-white py-16">
           <div className="border border-extra-light-text w-full opacity-20"></div>
-        </div>
-
-        <div className="bg-white py-16">
-          <div className="border border-extra-light-text w-full opacity-20"></div>
-        </div>
-        <section className="notification-section bg-white">
-          <div className=" max-w-screen-xl flex flex-col gap-2 mx-auto px-4 ">
-            <h2 className="text-3xl font-semibold overflow-hidden">
-              Latest Notification
-            </h2>
-            <div>
-              <CarouselSideBtn
-                showPagination={false}
-                slidesDesktop={4}
-                slides={[1, 2, 3, 4, 5, 6, 7].map((item) => {
-                  return (
-                    <div key={item} className="flex w-max">
-                      <NotificationCard />
-                    </div>
-                  );
-                })}
-              />
-            </div>
-          </div>
-        </section>
-        <div className="bg-white py-16">
-          <div className="border border-extra-light-text w-full opacity-20"></div>
-        </div>
-        <section className="top-colleges-section bg-white">
-          <div className="max-w-screen-xl p-8 mx-auto">
-            <h2 className="text-3xl font-semibold  my-2">
-              Top Colleges/University
-            </h2>
-            <div className="carousell">
-              <CarouselSideBtn
-                showPagination={false}
-                slidesDesktop={4}
-                slides={topCollegesData?.colleges?.data
-                  ?.slice(0, 10)
-                  .map((college: any, index: number) => {
-                    const logoUrl = college.attributes?.collegeLogo?.data
-                      ? getStrapiMedia(
-                          college.attributes?.collegeLogo?.data?.attributes?.url
-                        )
-                      : GetDefaultImage("logo");
-                    let bannerUrl = college?.attributes?.banner?.data[0]
-                      ? getStrapiMedia(
-                          college?.attributes?.banner?.data[0]?.attributes?.url
-                        )
-                      : GetDefaultImage("banner");
-                    return (
-                      <div key={college?.id}>
-                        <div className="flex flex-col items-stretch w-80 bg-white rounded-lg shadow-lg">
-                          <div className="relative rounded-t-lg">
-                            <Image
-                              src={bannerUrl!}
-                              width={100}
-                              height={100}
-                              alt={college?.attributes?.collegeName}
-                              //className="rounded-sm"
-                              className="w-full h-36 object-cover rounded-t-lg"
-                            />
-                            <div className="absolute inset-0 bg-black bg-opacity-50 rounded-t-lg"></div>
-                            <div className="absolute inset-0 p-2 flex justify-end max-h-max items-center">
-                              <div className="bg-[#00000088] rounded-full py-[2px] px-2 text-xs cursor-pointer">
-                                {/* <FaRegHeart /> */}
-                                <div className="text-white">{index + 1}/10</div>
-                              </div>
-                            </div>
-                            <div className="absolute left-4 bottom-7">
-                              <div className="flex gap-2">
-                                <Image
-                                  src={logoUrl!}
-                                  className="shadow-md rounded-sm h-14 w-14"
-                                  width={100}
-                                  height={100}
-                                  alt={college?.attributes?.collegeName}
-                                />
-                                <div>
-                                  <div className="text-white text-lg font-semibold">
-                                    {college?.attributes?.collegeName}
-                                  </div>
-                                  <div className="text-sm text-slate-50">
-                                    {
-                                      college?.attributes?.city?.data
-                                        ?.attributes?.name
-                                    }
-                                    ,{" "}
-                                    {
-                                      college?.attributes?.state?.data
-                                        ?.attributes?.name
-                                    }
-                                    , AICTE
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="relative flex flex-col p-4">
-                            <div className="flex-1 pb-2">
-                              <div className="flex justify-between font-semibold">
-                                <div className="pb-1">
-                                  {college?.attributes?.collegeStreams?.data.map(
-                                    (stream: any, index: number) => {
-                                      return (
-                                        <div className="text-xs" key={index}>
-                                          {stream.attributes.streamName}
-                                        </div>
-                                      );
-                                    }
-                                  )}
-                                </div>
-                                <span className="">8.6/10</span>
-                              </div>
-                              <div className="flex justify-between text-xs">
-                                <span>2 Lac First year fees</span>
-                                <span>288 review</span>
-                              </div>
-                            </div>
-                            <div className="border-t border-t-secondary-text">
-                              <Link href={`/college/${college.id}`}>
-                                <div className="flex justify-between font-semibold text-sm py-[6px] text-secondary-text items-center">
-                                  <div>View All Courses and fees</div>
-                                  <div>
-                                    <FaAngleRight />
-                                  </div>
-                                </div>
-                              </Link>
-                            </div>
-                            <div className="border-t border-t-secondary-text">
-                              <Link href={"/"}>
-                                <div className="flex justify-between font-semibold text-sm py-[6px] text-secondary-text items-center">
-                                  <div>Download Brochure</div>
-                                  <div>
-                                    <FaAngleRight />
-                                  </div>
-                                </div>
-                              </Link>
-                            </div>
-                            <div className="border-t border-t-secondary-text">
-                              <Link href={"/"}>
-                                <div className="flex justify-between font-semibold text-sm py-[6px] text-secondary-text items-center">
-                                  <div>Compare</div>
-                                  <div>
-                                    <FaAngleRight />
-                                  </div>
-                                </div>
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-              />
-            </div>
-          </div>
-        </section>
-        <div className="bg-white py-16">
-          <div className="border border-extra-light-text w-full opacity-20"></div>
-        </div>
-        <section className="bg-white">
-          <div className="p-4 max-w-screen-xl mx-auto">
-            <h2 className="text-3xl font-semibold my-2">Top 10 Colleges</h2>
-            <div className="flex gap-4 my-2">
-              {streamsData?.streams?.data?.map((stream: any, index: any) => {
-                return (
-                  <div
-                    className="border border-primary-light rounded-full py-2 px-4 bg-white"
-                    key={index}
-                    onClick={() => handleStream(stream?.attributes?.streamName)}
-                  >
-                    {stream?.attributes?.streamName}
-                  </div>
-                );
-              })}
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full bg-white border border-gray-300 shadow-sm rounded-md">
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="px-6 py-3 text-left font-semibold text-gray-700">
-                      Rank
-                    </th>
-                    <th className="px-6 py-3 text-left font-semibold text-gray-700">
-                      College
-                    </th>
-                    <th className="px-6 py-3 text-left font-semibold text-gray-700">
-                      Ranking
-                    </th>
-                    <th className="px-6 py-3 text-left font-semibold text-gray-700">
-                      Cutoff
-                    </th>
-                    <th className="px-6 py-3 text-left font-semibold text-gray-700">
-                      Application Deadline
-                    </th>
-                    <th className="px-6 py-3 text-left font-semibold text-gray-700">
-                      Fees
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {topCollegesData?.colleges?.data?.map(
-                    (college: any, index: any) => {
-                      const logoUrl = college.attributes?.collegeLogo?.data
-                        ? getStrapiMedia(
-                            college.attributes?.collegeLogo?.data?.attributes
-                              ?.url
-                          )
-                        : GetDefaultImage("logo");
-                      return (
-                        <tr className="border-b border-gray-200" key={index}>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            {index + 1}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="flex gap-4">
-                              <div>
-                                <Image
-                                  src={logoUrl!}
-                                  alt={college?.attributes?.collegeName}
-                                  width={60}
-                                  height={60}
-                                />
-                              </div>
-                              <div className="flex flex-col gap-1">
-                                <div className="max-w-56 text-wrap font-semibold">
-                                  {college?.attributes?.collegeName}
-                                </div>
-                                <div className="flex gap-2 items-center">
-                                  <div className="text-sm">
-                                    {
-                                      college?.attributes?.city?.data
-                                        ?.attributes?.name
-                                    }
-                                    ,{" "}
-                                    {
-                                      college?.attributes?.state?.data
-                                        ?.attributes?.name
-                                    }
-                                  </div>
-                                  <div className="border-l border-l-primary-text h-4/5"></div>
-                                  <div className="">9/10</div>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="flex gap-2">
-                              <Image
-                                src={"/nirh-logo.png"}
-                                alt=""
-                                width={20}
-                                height={20}
-                              />
-                              <div>
-                                <span className="font-bold text-lg">
-                                  #{college.id}
-                                </span>{" "}
-                                out of 312 in India 2023
-                              </div>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            CAT 2023 Cut off 85
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            29-June
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="font-semibold">$10,000</div>
-                            <div className="text-sm">Total fees</div>
-                          </td>
-                        </tr>
-                      );
-                    }
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
+        </div> */}
       </div>
     </>
   );
