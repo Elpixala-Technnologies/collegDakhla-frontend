@@ -823,3 +823,48 @@ query Exams($Search : String!) {
     }
 }
 `;
+
+// get featured exams
+export const getFeaturedExams = gql`
+query Exams {
+    exams(filters: { isFeaturedExam: { eq: true } }) {
+        data {
+            id
+            attributes {
+                examDate {
+                    startDate
+                }
+                banner {
+                    data {
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                logo {
+                    data {
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                name
+                exam_levels {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                exam_mode {
+                    data {
+                        attributes {
+                            mode
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+`;

@@ -7,8 +7,6 @@ import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
 
 export default function ExamListItem(examsData: any) {
 	// const { attributes } = ExamData;
-	console.log("exam data is ", examsData);
-
 
 	const formatDate = (dateString: string | number | Date) => {
 		if (!dateString) return "";
@@ -30,7 +28,7 @@ export default function ExamListItem(examsData: any) {
 
 
 						return (
-							<div className="py-4 border-b-2 border-[#DDDDDD] ">
+							<div className="py-4 border-b-2 border-[#DDDDDD]" key={index}>
 								<div className="px-4 flex item-center gap-4 bg-white shadow-sm rounded border flex-col md:flex-row ">
 									<div className="flex items-center">
 										<Image src={logoURL!} width={150} height={150} alt={""} />

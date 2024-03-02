@@ -3,7 +3,7 @@ import CollegeFilters from "@/components/collegeFilters/collegeFilters";
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
-import { searchExams } from "@/query/schema";
+import { getFeaturedExams, searchExams } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import CollegeCard from "@/components/card/collegeCard";
 import ExamCard from "@/components/card/examCard";
@@ -26,7 +26,14 @@ export default function ExamList() {
 			Search,
 		},
 	});
-	console.log("filtered exams ", filteredExams?.exams);
+
+	// get featured exams
+	const {
+		loading: featuredLoader,
+		error: featuredError,
+		data: featuredExams,
+	} = useQuery(getFeaturedExams);
+	console.log("filtered exams ", featuredExams);
 
 
 	const handleReadMoreClick = () => {
@@ -103,8 +110,8 @@ export default function ExamList() {
 							slidesTablet={3}
 							title="Featured Exams"
 							showPagination={false}
-							slides={[1, 2, 3, 4, 5].map((clgData, index) => {
-								return <ExamCard key={index} />;
+							slides={featuredExams?.exams?.data?.map((exam: any, index: number) => {
+								return <ExamCard key={index} featuredExamData={exam} />;
 							})}
 						/>
 					</div>
