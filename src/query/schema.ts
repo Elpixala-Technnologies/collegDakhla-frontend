@@ -686,4 +686,15 @@ query Colleges($Stream : String!, $Limit: Int!) {
 }
 `;
 
-//query to get stream top colleges
+//query to get course levels
+export const getCourseLevels = gql`query CourseLevels {
+    courseLevels {
+        data {
+			id
+            attributes {
+				levelName
+			}
+		}
+	}
+}
+`;

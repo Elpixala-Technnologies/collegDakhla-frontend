@@ -5,7 +5,7 @@ import cors from 'cors';
 const corsMiddleware = cors();
 
 let OTP: string;
-export async function sendOtp(phoneNumber: number) {
+export async function sendOtp(phoneNumber: string) {
 	console.log("inside send otp");
 
 	try {
