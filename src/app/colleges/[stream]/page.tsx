@@ -1,4 +1,5 @@
 "use client"
+import Carousel from "@/components/carousel/carousel";
 import CarouselComponent from "@/components/carousel/carousel";
 import CollegeFilters from "@/components/collegeFilters/collegeFilters";
 import CollegeListItem from "@/components/collegeListItem/collegeListItem";
@@ -96,7 +97,7 @@ export default function Stream({ params }: Props) {
 			<section className="topCollege">
 				<div className="m-4 bg-white py-4 px-4">
 					<h2 className="text-xl font-bold mb-3">Top Colleges in India</h2>
-					<CarouselComponent />
+					<Carousel slides={[]} />
 				</div>
 			</section>
 			<section className="collegeList">

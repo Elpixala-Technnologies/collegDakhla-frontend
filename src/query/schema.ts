@@ -698,3 +698,85 @@ export const getCourseLevels = gql`query CourseLevels {
 	}
 }
 `;
+
+// query to get all courses 
+export const getCourses = gql`
+query Courses {
+    courses {
+        data {
+            id
+            attributes {
+                isTopCourse
+                name
+                logo {
+                    data {
+                        id
+                        attributes {
+                            name
+                            url
+                        }
+                    }
+                }
+                banner {
+                    data {
+                        id
+                        attributes {
+                            url
+                            name
+                        }
+                    }
+                }
+                colleges {
+                    data {
+                        attributes {
+                            collegeName
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+`;
+
+// query to search courses
+export const searchCourses = gql`
+query CoursesColleges($Search : String!) {
+    courses(filters: { name: { containsi: $Search } }) {
+        data {
+            id
+            attributes {
+                isTopCourse
+                name
+								duration
+								fees
+                logo {
+                    data {
+                        id
+                        attributes {
+                            name
+                            url
+                        }
+                    }
+                }
+                banner {
+                    data {
+                        id
+                        attributes {
+                            url
+                            name
+                        }
+                    }
+                }
+                colleges {
+                    data {
+                        attributes {
+                            collegeName
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+`;
