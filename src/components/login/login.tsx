@@ -43,18 +43,22 @@ export default function LoginForm() {
 	useEffect(() => { }, [OTPSend]);
 	return (
 		<div className="flex flex-row w-1/2">
-			<div className="left w-2/6 bg-primary pl-2">
+			<div className="left w-4/6 bg-primary pl-2">
 				<Carousel
 					slides={[
-						<p className="" key={"1"}>
-							Agam
-						</p>,
-						<p key={"2"}>is</p>,
-						<p key={"3"}>
-							Education Library Get detailed information about Colleges,
-							Careers, Courses, and Exams at CollegeDekho. Register now and make
-							informed decisions about your career.
-						</p>,
+						<div className="text-white" key={"1"}>
+							<div className="text-xl">Education Library</div>
+							<p>Get detailed information about Colleges, Careers, Courses, and Exams at CollegeDekho. Register now and make informed decisions about your career.</p>
+						</div>
+						,
+						<div className="text-white" key={"2"}>
+							<div className="text-xl ">Counselling</div>
+							<p>Sign up to get free counselling by CollegeDekho experts and find the best career path for yourself.</p>
+						</div>,
+						<div className="text-white" key={"3"}>
+							<div className="text-xl ">Guaranteed Admissions</div>
+							<p>Avail the chance of getting guaranteed admission to the best college for you. Register now and take a step towards your bright future.</p>
+						</div>,
 					]}
 					showPagination={true}
 					showButton={false}
