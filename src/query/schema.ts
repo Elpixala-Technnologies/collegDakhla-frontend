@@ -277,7 +277,9 @@ query UploadFiles($name : String!) {
 //query to search for college
 export const searchCollege = gql`
 query Colleges($Search : String!) {
-    colleges(filters: { collegeName: { containsi: $Search } }) {
+    colleges(filters: { collegeName: { containsi: $Search } }
+		pagination: { limit: 100 }
+		) {
 			data {
 				id
 				attributes {
@@ -741,7 +743,7 @@ query Courses {
 
 // query to search courses
 export const searchCourses = gql`
-query CoursesColleges($Search : String!) {
+query Courses($Search : String!) {
     courses(filters: { name: { containsi: $Search } }) {
         data {
             id
@@ -774,6 +776,47 @@ query CoursesColleges($Search : String!) {
                             collegeName
                         }
                     }
+                }
+            }
+        }
+    }
+}
+`;
+
+// query to search exams
+export const searchExams = gql`
+query Exams($Search : String!) {
+    exams(filters: { name: { containsi: $Search } }) {
+        data {
+            id
+            attributes {
+                name
+                title
+                logo {
+                    data {
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                exam_levels {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                examDate {
+                    startDate
+                    endDate
+                }
+                resultDate {
+                    startDate
+                    endDate
+                }
+                applicationDate {
+                    startDate
+                    endDate
                 }
             }
         }

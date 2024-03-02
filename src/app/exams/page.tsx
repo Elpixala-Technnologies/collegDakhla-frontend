@@ -3,12 +3,7 @@ import CollegeFilters from "@/components/collegeFilters/collegeFilters";
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
-import {
-	getColleges,
-	getCollegesFilter,
-	getDefaultStream,
-	searchCollege,
-} from "@/query/schema";
+import { searchExams } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import CollegeCard from "@/components/card/collegeCard";
 import ExamCard from "@/components/card/examCard";
@@ -20,27 +15,19 @@ export default function ExamList() {
 	const [MobileFilter, setMobileFilter] = useState(false);
 	const [showFullContent, setShowFullContent] = useState(false);
 	const [showReadMore, setShowReadMore] = useState(true);
-	const [filteredData, setFilteredData] = useState([]);
 
-	// get college data
-	const { loading, error, data: initialData } = useQuery(getColleges);
-
+	// get exams on search
 	const {
 		loading: filterLoader,
 		error: filterError,
-		data: filteredCollege,
-	} = useQuery(searchCollege, {
+		data: filteredExams,
+	} = useQuery(searchExams, {
 		variables: {
 			Search,
 		},
 	});
+	console.log("filtered exams ", filteredExams?.exams);
 
-	const {
-		loading: streamLoader,
-		error: streamError,
-		data: streamData,
-	} = useQuery(getDefaultStream);
-	let aboutStream = streamData?.streams?.data[0]?.attributes?.description;
 
 	const handleReadMoreClick = () => {
 		setShowFullContent(true);
@@ -53,14 +40,14 @@ export default function ExamList() {
 	const handleSearch = (event: any) => {
 		setSearch(event.target.value);
 
-		if (Search.length >= 1) {
-			const filtered = filteredCollege.colleges.data.filter((item: any) =>
-				item.attributes.collegeName.toLowerCase().includes(Search.toLowerCase())
-			);
-			setFilteredData(filtered);
-		} else {
-			setFilteredData(initialData?.colleges?.data);
-		}
+		// if (Search.length >= 1) {
+		// 	const filtered = filteredCollege.colleges.data.filter((item: any) =>
+		// 		item.attributes.collegeName.toLowerCase().includes(Search.toLowerCase())
+		// 	);
+		// 	setFilteredData(filtered);
+		// } else {
+		// 	setFilteredData(initialData?.colleges?.data);
+		// }
 	};
 
 	const handleMobileFilter = () => {
@@ -125,12 +112,12 @@ export default function ExamList() {
 				<section className="collegeList">
 					<div className="flex flex-col md:flex-row gap-4 px-4">
 						<div className="flex-none w-56">
-							<CollegeFilters
+							{/* <CollegeFilters
 								allColleges={initialData}
 								setFilteredData={setFilteredData}
 								isMobile={MobileFilter}
 								handleMobileFilter={handleMobileFilter}
-							/>
+							/> */}
 						</div>
 						<div className="flex-1 w-full overflow-hidden">
 							<div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col">
@@ -154,7 +141,9 @@ export default function ExamList() {
 									</div>
 								</div>
 							</div>
-							{[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => {
+							<ExamListItem exams={filteredExams?.exams} />
+
+							{/* {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => {
 								return (
 									<div key={index}>
 										<ExamListItem colleges={filteredData} />
@@ -177,7 +166,7 @@ export default function ExamList() {
 										)}
 									</div>
 								);
-							})}
+							})} */}
 						</div>
 					</div>
 				</section>
