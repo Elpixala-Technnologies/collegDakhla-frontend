@@ -2,19 +2,18 @@ import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
 import Link from "next/link";
 import Image from "next/image";
 import { FaHeart, FaMedal } from "react-icons/fa6";
-import Tag from "../tag/tags";
-import { BiBadgeCheck } from "react-icons/bi";
-import { BsFlag } from "react-icons/bs";
-import StarRating from "../starRating/starRating";
+import formatDate from "@/utils/formatDate";
 
 export default function ExamCard(featuredExams: any) {
-	console.log("featured exam data ", featuredExams);
-
+	const logoURL = featuredExams?.featuredExamData?.attributes?.logo?.data?.attributes?.url
+		? getStrapiMedia(featuredExams?.featuredExamData?.attributes?.logo?.data?.attributes?.url)
+		: GetDefaultImage("logo");
+	const bannerUrl = featuredExams?.featuredExamData?.attributes?.banner?.data[0] ? getStrapiMedia(featuredExams?.featuredExamData?.attributes?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
 	return (
 		<div className="flex flex-col items-stretch min-w-56 bg-white rounded-lg shadow-xl">
 			<div className="relative rounded-t-lg">
 				<img
-					src={"/exam-banner.png"}
+					src={bannerUrl!}
 					alt={""}
 					className="w-full h-28 object-cover rounded-t-lg"
 				/>
@@ -32,7 +31,7 @@ export default function ExamCard(featuredExams: any) {
 			<div className="relative flex flex-col">
 				<div className="absolute left-2 -top-7 bg-white p-2 rounded">
 					<Image
-						src={"/exam-logo.png"}
+						src={logoURL!}
 						alt=""
 						className="shadow-md rounded-sm "
 						width={60}
@@ -42,16 +41,16 @@ export default function ExamCard(featuredExams: any) {
 				<div className="p-2 pt-4 flex-1 h-72 shadow flex flex-col gap-2">
 					<div className=" flex justify-end">
 						<span className="bg-primary-light text-sm px-2 py-1 rounded-full">
-							Offline
+							{featuredExams?.featuredExamData?.attributes?.examMode?.data?.attributes?.mode}
 						</span>
 					</div>
-					<Link href={`/college/${2}`}>
-						<h4 className="text-primary  font-semibold">{"JEE Advance"}</h4>
+					<Link href={`/exams/${featuredExams?.featuredExamData?.id}`}>
+						<h4 className="text-primary  font-semibold">{featuredExams?.featuredExamData?.attributes?.name}</h4>
 					</Link>
 					<div className="p-2 pt-4 flex-1 flex flex-col gap-2">
 						<div>
 							<h4 className="text-primary text-xl font-semibold my-2 px-2">
-								{"JEE Advance"}
+								{featuredExams?.featuredExamData?.attributes?.name}
 							</h4>
 							<div className="flex flex-col text-sm tracking-tighter gap-2 px-2">
 								<div className="flex justify-between">
@@ -60,11 +59,17 @@ export default function ExamCard(featuredExams: any) {
 								</div>
 								<div className="flex justify-between">
 									<div className="">Exam Date</div>
-									<div className="font-semibold">01 Feb, 2024</div>
+									<div className="font-semibold">{formatDate(featuredExams?.featuredExamData?.attributes?.examDate?.startDate)}</div>
 								</div>
 								<div className="flex justify-between">
 									<div className="">Exam Level</div>
-									<div className="font-semibold">National</div>
+									<div className="font-semibold">{featuredExams?.featuredExamData?.attributes?.examLevel?.data?.map((level: any, index: number) => {
+										return (
+											<span key={index}>
+												{" " + `${level?.attributes?.name}`}
+											</span>
+										)
+									})}</div>
 								</div>
 							</div>
 						</div>

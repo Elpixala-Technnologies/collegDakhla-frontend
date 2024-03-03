@@ -799,7 +799,7 @@ query Exams($Search : String!) {
                         }
                     }
                 }
-                exam_levels {
+                examLevel {
                     data {
                         attributes {
                             name
@@ -849,14 +849,14 @@ query Exams {
                     }
                 }
                 name
-                exam_levels {
+                examLevel {
                     data {
                         attributes {
                             name
                         }
                     }
                 }
-                exam_mode {
+                examMode {
                     data {
                         attributes {
                             mode

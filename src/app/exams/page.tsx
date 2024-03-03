@@ -5,7 +5,6 @@ import { MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
 import { getFeaturedExams, searchExams } from "@/query/schema";
 import { useQuery } from "@apollo/client";
-import CollegeCard from "@/components/card/collegeCard";
 import ExamCard from "@/components/card/examCard";
 import ExamListItem from "@/components/examListItem/examListItem";
 import Carousel from "@/components/carousel/carousel";
@@ -26,6 +25,7 @@ export default function ExamList() {
 			Search,
 		},
 	});
+	console.log("exams are ", filteredExams);
 
 	// get featured exams
 	const {
@@ -33,7 +33,6 @@ export default function ExamList() {
 		error: featuredError,
 		data: featuredExams,
 	} = useQuery(getFeaturedExams);
-	console.log("filtered exams ", featuredExams);
 
 
 	const handleReadMoreClick = () => {
@@ -46,15 +45,6 @@ export default function ExamList() {
 
 	const handleSearch = (event: any) => {
 		setSearch(event.target.value);
-
-		// if (Search.length >= 1) {
-		// 	const filtered = filteredCollege.colleges.data.filter((item: any) =>
-		// 		item.attributes.collegeName.toLowerCase().includes(Search.toLowerCase())
-		// 	);
-		// 	setFilteredData(filtered);
-		// } else {
-		// 	setFilteredData(initialData?.colleges?.data);
-		// }
 	};
 
 	const handleMobileFilter = () => {
@@ -81,26 +71,6 @@ export default function ExamList() {
 						<h1 className="text-3xl font-bold text-center text-primary">
 							All Exams 2023-2024, Dates, Application Forms & Alerts
 						</h1>
-						{/* <div
-              dangerouslySetInnerHTML={{ __html: aboutStream }}
-              className="font-poppins text-base text-wrap"
-              style={{
-                maxHeight: showFullContent ? "none" : "200px",
-                overflow: "hidden",
-              }}
-            ></div> */}
-						{/* <div className="py-2 text-primary text-sm text-right">
-              {showReadMore && !showFullContent && (
-                <div className="readMore cursor-s-resize">
-                  <span onClick={handleReadMoreClick}>Read more</span>
-                </div>
-              )}
-              {showFullContent && (
-                <div className="cursor-n-resize">
-                  <span onClick={handleReadLessClick}>Read less</span>
-                </div>
-              )}
-            </div> */}
 					</div>
 				</section>
 				<section className="topCollege">
