@@ -1,7 +1,7 @@
 "use client"
 import Carousel from "@/components/carousel/carousel";
 import CarouselComponent from "@/components/carousel/carousel";
-import CollegeFilters from "@/components/collegeFilters/collegeFilters";
+import CollegeFilters from "@/components/filters/collegeFilters/collegeFilters";
 import CollegeListItem from "@/components/collegeListItem/collegeListItem";
 import { getColleges, getStream, getStreamColleges } from "@/query/schema";
 import { useQuery } from "@apollo/client";

@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
 export default function Filter(props: any) {
+
+	console.log("props are ", props);
+
 	const [open, setOpen] = useState(true);
 	const [Search, setSearch] = useState("");
 	const handleOpen = () => setOpen(open ? false : true);

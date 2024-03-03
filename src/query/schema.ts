@@ -735,6 +735,11 @@ query Courses {
                         }
                     }
                 }
+								meta {
+									pagination {
+											total
+									}
+								}
             }
         }
     }
@@ -743,8 +748,16 @@ query Courses {
 
 // query to search courses
 export const searchCourses = gql`
-query Courses($Search : String!) {
-    courses(filters: { name: { containsi: $Search } }) {
+query Courses($Search : String!, $DurationFilter : String!, $SpecializationFilter : String!) {
+    courses(filters: { 
+			and: [
+				{name: { containsi: $Search } }
+				{duration: { containsi: $DurationFilter }		}
+				{ specializations: { name: { containsi: $SpecializationFilter } } }
+			]
+			}
+			
+			) {
         data {
             id
             attributes {
@@ -785,7 +798,13 @@ query Courses($Search : String!) {
                         }
                     }
                 }
+								
             }
+        }
+				meta {
+					pagination {
+							total
+					}
         }
     }
 }
@@ -928,3 +947,16 @@ query Exams {
     }
 }
 `;
+
+//query to get all specializations
+export const getSpecializations = gql`
+query Specializations {
+    specializations {
+        data {
+            id
+            attributes {
+                name
+            }
+        }
+    }
+}`

@@ -1,6 +1,6 @@
 "use client";
 import CollegeListItem from "@/components/collegeListItem/collegeListItem";
-import CollegeFilters from "@/components/collegeFilters/collegeFilters";
+import CollegeFilters from "@/components/filters/collegeFilters/collegeFilters";
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";

@@ -1,80 +1,73 @@
 import { useEffect, useState } from "react";
-import Filter from "./filter/filter";
+import Filter from "../courseFilters/filter";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { getStreams, getStates, getCollegesFilter } from "@/query/schema";
+import { getSpecializations, getStates } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Button from "../button/button";
+import Button from "../../button/button";
 
-export default function CollegeFilters(params?: any) {
+export default function CourseFilters({ DurationFilter,
+	setDurationFilter,
+	SpecializationFilter,
+	setSpecializationFilter,
+	isMobile,
+	handleMobileFilter,
+	totalCourses
+}: any) {
+
+	console.log("total is ", totalCourses);
+
 	const [open, setOpen] = useState(true);
 	const handleOpen = () => setOpen(open ? false : true);
 	const [SelectedFilter, setSelectedFilter] = useState({
-		stream: "",
-		state: "",
+		duration: "",
+		specialization: "",
 	});
-	const [StreamFilter, setStreamFilter] = useState<string>("");
-	const [StateFilter, setStateFilter] = useState<string>("");
+
+	// query to get all specializations
 	const {
-		loading: streamLoader,
-		error: streamsError,
-		data: streamsData,
-	} = useQuery(getStreams);
-	const {
-		loading: statesLoader,
-		error: statesError,
-		data: statesData,
-	} = useQuery(getStates);
-	const {
-		loading: filterLoader,
-		error: filterError,
-		data: filteredCollege,
-		refetch,
-	} = useQuery(getCollegesFilter, {
-		variables: {
-			StreamFilter,
-			StateFilter,
-		},
-	});
+		loading: specializationsLoader,
+		error: specializationsError,
+		data: specializationsData,
+	} = useQuery(getSpecializations);
 
 	//tab state
 	const [value, setValue] = useState(0);
 
-	const handleStreamFilter = (name: string) => {
-		setStreamFilter(name);
+	const handleDurationFilter = (years: string) => {
+		setDurationFilter(years);
 		setSelectedFilter((prevData) => ({
 			...prevData,
-			stream: name,
+			duration: years,
 		}));
 	};
 
-	const handleStateFilter = (name: string) => {
-		//setSelectedFilter([...SelectedFilter, name]);
-		setStateFilter(name);
+	const handleSpecializationFilter = (name: string) => {
+		setSpecializationFilter(name);
 		setSelectedFilter((prevData) => ({
 			...prevData,
-			state: name,
+			specialization: name,
 		}));
 	};
 
 	const handleUnselectFilter = (filter?: string, name?: string) => {
-		if (filter === "stream") {
-			setStreamFilter("");
-			SelectedFilter.stream = "";
-		} else if (filter === "state") {
-			setStateFilter("");
-			SelectedFilter.state = "";
+		if (filter === "duration") {
+			setDurationFilter("");
+			SelectedFilter.duration = "";
+		} else if (filter === "specialization") {
+			setSpecializationFilter("");
+			SelectedFilter.specialization = "";
 		}
 	};
 
 	const resetFilters = () => {
 		const updatedFilter = {};
 		console.log("selected ", SelectedFilter);
-		params.handleMobileFilter();
+		handleMobileFilter();
 	};
 
 	// tab tabHandleChange
@@ -82,18 +75,13 @@ export default function CollegeFilters(params?: any) {
 		setValue(newValue);
 	};
 
-	// render data when filter values are changed
-	useEffect(() => {
-		params?.setFilteredData(filteredCollege?.colleges?.data);
-	}, [filteredCollege, filterLoader]);
-
 	// check for SelectedFilter
 	useEffect(() => {
 		const hasData = Object.values(SelectedFilter).some((value) => !!value);
 	}, [SelectedFilter]);
 
 	useEffect(() => {
-		if (params.isMobile) {
+		if (isMobile) {
 			document.body.style.overflowY = "hidden"; // Disable vertical scrolling
 			document.body.style.height = "100%"; // Set body height to 100%
 		} else {
@@ -106,16 +94,16 @@ export default function CollegeFilters(params?: any) {
 			document.body.style.overflowY = "auto"; // Reset vertical scrolling
 			document.body.style.height = "auto"; // Reset body height
 		};
-	}, [params.isMobile]);
+	}, [isMobile]);
 
 	return (
 		<>
 			<div className="bg-white hidden md:block">
 				<h3 className="uppercase text-sm px-2 py-3">
-					Found <b>{filteredCollege?.colleges?.meta?.pagination?.total}</b>{" "}
+					Found <b>{totalCourses}</b>{" "}
 					colleges
 				</h3>
-				{SelectedFilter.stream || SelectedFilter.state ? (
+				{SelectedFilter.duration || SelectedFilter.specialization ? (
 					<>
 						<div
 							className="bg-gray-200 px-2 py-2 flex items-center justify-between"
@@ -145,31 +133,28 @@ export default function CollegeFilters(params?: any) {
 					<></>
 				)}
 
-				{params.page != "stream" ? (
-					<Filter
-						name="Stream"
-						filters={streamsData?.streams?.data}
-						handleFilter={handleStreamFilter}
-						checked={StreamFilter}
-					/>
-				) : (
-					""
-				)}
+
 				<Filter
-					name="State"
-					filters={statesData?.states?.data}
-					handleFilter={handleStateFilter}
-					checked={StateFilter}
+					name="Duration"
+					filters={["1", "2", "3", "4", "5", "6"]}
+					handleFilter={handleDurationFilter}
+					checked={DurationFilter}
+				/>
+
+				<Filter
+					name="Specialization"
+					filters={specializationsData?.specializations?.data}
+					handleFilter={handleSpecializationFilter}
+					checked={SpecializationFilter}
 				/>
 			</div>
-			{params.isMobile ? (
+			{isMobile ? (
 				<div className="absolute top-0 right-0 left-0 h-full w-full bg-black/[0.5] z-50 overscroll-none">
-					{/* <div className="fixed top-0 h-2/6 w-full bg-black opacity-2" onClick={params.handleMobileFilter
-						}></div> */}
+
 					<div className="opacity-100 z-50 block fixed right-0 bottom-0 left-0 w-screen h-4/6 bg-white text-black rounded-xl">
 						<div className="flex justify-between px-5 py-5 w-full border-b-2 border-gray-300">
 							<h5 className="text-base font-bold">All Filter</h5>
-							<span onClick={params.handleMobileFilter}>
+							<span onClick={handleMobileFilter}>
 								<FaAngleDown />
 							</span>
 						</div>
@@ -195,54 +180,55 @@ export default function CollegeFilters(params?: any) {
 												borderColor: "divider",
 											}}
 										>
-											<Tab label="Streams" {...a11yProps(0)} />
-											<Tab label="States" {...a11yProps(1)} />
+											<Tab label="Duration" {...a11yProps(0)} />
+											<Tab label="Specialization" {...a11yProps(1)} />
 										</Tabs>
 										<TabPanel value={value} index={0}>
-											{streamsData?.streams?.data?.map((stream: any) => {
+											{["1", "2", "3", "4", "5", "6"].map((year: string, index: number) => {
 												return (
 													<div
-														key={stream.id}
+														key={index}
 														className="flex gap-1 items-center my-2 cursor-pointer"
 													>
 														<input
 															type="radio"
-															id={stream.id}
-															name={stream.attributes.streamName}
+															id={`${index}`}
+															name={`${year}`}
 															checked={
-																StreamFilter === stream.attributes.streamName
+																DurationFilter === year
 															}
 															className=""
 															onChange={() =>
-																handleStreamFilter(stream.attributes.streamName)
+																handleDurationFilter(year)
 															}
 														/>
 														<span className="text-xxs font-semibold text-secondary-text hover:text-primary">
-															{stream.attributes.streamName}
+															{year} "Years"
 														</span>
 													</div>
 												);
 											})}
 										</TabPanel>
 										<TabPanel value={value} index={1}>
-											{statesData.data?.map((state: any) => {
+											{specializationsData?.specializations?.data?.map((specialization: any) => {
+
 												return (
 													<div
-														key={state.id}
+														key={specialization.id}
 														className="flex gap-1 items-center my-2 cursor-pointer text-base"
 													>
 														<input
 															type="radio"
-															name={state?.attributes?.name}
-															id={state?.id}
+															name={specialization?.attributes?.name}
+															id={specialization?.id}
 															className=""
-															checked={StateFilter === state?.attributes?.name}
+															checked={SpecializationFilter === specialization?.attributes?.name}
 															onChange={() =>
-																handleStateFilter(state?.attributes?.name)
+																handleSpecializationFilter(specialization?.attributes?.name)
 															}
 														/>
 														<span className="text-xxs font-semibold text-secondary-text hover:text-primary">
-															{state.name}
+															{specialization?.attributes?.name}
 														</span>
 													</div>
 												);
@@ -269,7 +255,7 @@ export default function CollegeFilters(params?: any) {
 									fontColor="text-primary"
 								/>
 							</div>
-							<div className="w-1/2" onClick={params.handleMobileFilter}>
+							<div className="w-1/2" onClick={handleMobileFilter}>
 								<Button
 									href={""}
 									text="Apply Filters"

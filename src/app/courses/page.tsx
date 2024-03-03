@@ -1,5 +1,4 @@
 "use client";
-import CollegeFilters from "@/components/collegeFilters/collegeFilters";
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
@@ -8,12 +7,13 @@ import { useQuery } from "@apollo/client";
 import CourseListItem from "@/components/courseListItem/courseListItem";
 import Carousel from "@/components/carousel/carousel";
 import CourseCard from "@/components/card/courseCard";
+import CourseFilters from "@/components/filters/courseFilters/courseFilters";
 
 export default function Courses() {
-	const [Search, setSearch] = useState("");
+	const [Search, setSearch] = useState<string>("");
 	const [MobileFilter, setMobileFilter] = useState(false);
-	const [showFullContent, setShowFullContent] = useState(false);
-	const [showReadMore, setShowReadMore] = useState(true);
+	const [DurationFilter, setDurationFilter] = useState<string>("");
+	const [SpecializationFilter, setSpecializationFilter] = useState<string>("");
 
 	//query to get and search all courses
 	const {
@@ -23,6 +23,8 @@ export default function Courses() {
 	} = useQuery(searchCourses, {
 		variables: {
 			Search,
+			DurationFilter,
+			SpecializationFilter
 		},
 	});
 
@@ -32,14 +34,6 @@ export default function Courses() {
 		error: featuredError,
 		data: featuredCourses,
 	} = useQuery(getFeaturedCourses);
-
-	const handleReadMoreClick = () => {
-		setShowFullContent(true);
-	};
-
-	const handleReadLessClick = () => {
-		setShowFullContent(false);
-	};
 
 	const handleSearch = (event: any) => {
 		setSearch(event.target.value);
@@ -51,15 +45,6 @@ export default function Courses() {
 			document.body.style.overflow = "hidden";
 		}
 	};
-
-	useEffect(() => {
-		const content = document.getElementById("content")!;
-		const readMore = document.getElementById("readMore")!;
-
-		if (content?.scrollHeight > content?.clientHeight) {
-			setShowReadMore(true);
-		}
-	}, []);
 
 	return (
 		<>
@@ -87,13 +72,15 @@ export default function Courses() {
 				<section className="collegeList">
 					<div className="flex flex-col md:flex-row gap-4 px-4">
 						<div className="flex-none w-56">
-							{/* <CollegeFilters
-								allColleges={coursesData}
-								setFilteredData={coursesData}
+							<CourseFilters
+								DurationFilter={DurationFilter}
+								setDurationFilter={setDurationFilter}
+								SpecializationFilter={SpecializationFilter}
+								setSpecializationFilter={setSpecializationFilter}
 								isMobile={MobileFilter}
 								handleMobileFilter={handleMobileFilter}
-								page="courses"
-							/> */}
+								totalCourses={coursesData?.courses?.meta?.pagination?.total}
+							/>
 						</div>
 						<div className="flex-1 w-full overflow-hidden">
 							<div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col">
