@@ -771,6 +771,7 @@ query Courses($Search : String!) {
                 }
                 colleges {
                     data {
+											id
                         attributes {
                             collegeName
                         }
@@ -778,6 +779,7 @@ query Courses($Search : String!) {
                 }
 								courseLevels {
                     data {
+											id
                         attributes {
                             levelName
                         }
@@ -792,36 +794,41 @@ query Courses($Search : String!) {
 // query to get featured courses
 export const getFeaturedCourses = gql`query Courses {
     courses(filters: { isFeaturedCourse: { eq: true } }) {
-        data {
+      data {
             id
             attributes {
-                logo {
-                    data {
-                        attributes {
-                            url
-                        }
-                    }
-                }
-                banner {
-                    data {
-                        attributes {
-                            url
-                        }
-                    }
-                }
                 name
+                duration
+                fees
                 specializations {
                     data {
+                        id
                         attributes {
                             name
                         }
                     }
                 }
-                fees
-								courseLevels {
+                courseLevels {
                     data {
+											id
                         attributes {
                             levelName
+                        }
+                    }
+                }
+                banner {
+                    data {
+											id
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                logo {
+                    data {
+											id
+                        attributes {
+                            url
                         }
                     }
                 }
@@ -842,6 +849,7 @@ query Exams($Search : String!) {
                 title
                 logo {
                     data {
+											id
                         attributes {
                             url
                         }
@@ -849,6 +857,7 @@ query Exams($Search : String!) {
                 }
                 examLevel {
                     data {
+											id
                         attributes {
                             name
                         }
@@ -883,33 +892,36 @@ query Exams {
                     startDate
                 }
                 banner {
-                    data {
-                        attributes {
-                            url
-                        }
-                    }
+									id
+									data {
+										attributes {
+											url
+										}
+									}
                 }
                 logo {
-                    data {
-                        attributes {
-                            url
-                        }
-                    }
+									id
+									data {
+											attributes {
+												url
+											}
+									}
                 }
                 name
                 examLevel {
-                    data {
-                        attributes {
-                            name
-                        }
-                    }
+									data {
+										attributes {
+											name
+										}
+									}
                 }
                 examMode {
-                    data {
-                        attributes {
-                            mode
-                        }
-                    }
+									id
+									data {
+										attributes {
+											mode
+										}
+									}
                 }
             }
         }
