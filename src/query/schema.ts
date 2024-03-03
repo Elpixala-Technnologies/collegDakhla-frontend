@@ -748,7 +748,6 @@ query Courses($Search : String!) {
         data {
             id
             attributes {
-                isTopCourse
                 name
 								duration
 								fees
@@ -774,6 +773,55 @@ query Courses($Search : String!) {
                     data {
                         attributes {
                             collegeName
+                        }
+                    }
+                }
+								courseLevels {
+                    data {
+                        attributes {
+                            levelName
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+`;
+
+// query to get featured courses
+export const getFeaturedCourses = gql`query Courses {
+    courses(filters: { isFeaturedCourse: { eq: true } }) {
+        data {
+            id
+            attributes {
+                logo {
+                    data {
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                banner {
+                    data {
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                name
+                specializations {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                fees
+								courseLevels {
+                    data {
+                        attributes {
+                            levelName
                         }
                     }
                 }
@@ -824,7 +872,7 @@ query Exams($Search : String!) {
 }
 `;
 
-// get featured exams
+//query to get featured exams
 export const getFeaturedExams = gql`
 query Exams {
     exams(filters: { isFeaturedExam: { eq: true } }) {

@@ -3,10 +3,11 @@ import CollegeFilters from "@/components/collegeFilters/collegeFilters";
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
-import { searchCourses } from "@/query/schema";
+import { getFeaturedCourses, searchCourses } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import CourseListItem from "@/components/courseListItem/courseListItem";
 import Carousel from "@/components/carousel/carousel";
+import CourseCard from "@/components/card/courseCard";
 
 export default function Courses() {
 	const [Search, setSearch] = useState("");
@@ -24,7 +25,13 @@ export default function Courses() {
 			Search,
 		},
 	});
-	console.log("all courses are ", coursesData);
+
+	//query to get featured courses
+	const {
+		loading: featuredLoader,
+		error: featuredError,
+		data: featuredCourses,
+	} = useQuery(getFeaturedCourses);
 
 	const handleReadMoreClick = () => {
 		setShowFullContent(true);
@@ -62,29 +69,21 @@ export default function Courses() {
 						<h1 className="text-3xl font-bold text-center text-primary">
 							List of courses
 						</h1>
-						{/* <div
-              dangerouslySetInnerHTML={{ __html: aboutStream }}
-              className="font-poppins text-base text-wrap"
-              style={{
-                maxHeight: showFullContent ? "none" : "200px",
-                overflow: "hidden",
-              }}
-            ></div> */}
-						{/* <div className="py-2 text-primary text-sm text-right">
-              {showReadMore && !showFullContent && (
-                <div className="readMore cursor-s-resize">
-                  <span onClick={handleReadMoreClick}>Read more</span>
-                </div>
-              )}
-              {showFullContent && (
-                <div className="cursor-n-resize">
-                  <span onClick={handleReadLessClick}>Read less</span>
-                </div>
-              )}
-            </div> */}
 					</div>
 				</section>
-
+				<section className="topCourses">
+					<div className="m-4 bg-white py-4 px-4">
+						<Carousel
+							slidesDesktop={4}
+							slidesTablet={3}
+							title="Featured Courses"
+							showPagination={false}
+							slides={featuredCourses?.courses?.data?.map((course: any, index: number) => {
+								return <CourseCard key={index} featuredCourse={course} />;
+							})}
+						/>
+					</div>
+				</section>
 				<section className="collegeList">
 					<div className="flex flex-col md:flex-row gap-4 px-4">
 						<div className="flex-none w-56">
@@ -118,7 +117,7 @@ export default function Courses() {
 									</div>
 								</div>
 							</div>
-							<CourseListItem courses={coursesData?.courses} />
+							<CourseListItem courses={coursesData?.courses} featuredCourses={featuredCourses?.courses} />
 						</div>
 					</div>
 				</section>

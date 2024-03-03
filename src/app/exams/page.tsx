@@ -25,7 +25,6 @@ export default function ExamList() {
 			Search,
 		},
 	});
-	console.log("exams are ", filteredExams);
 
 	// get featured exams
 	const {
@@ -73,7 +72,7 @@ export default function ExamList() {
 						</h1>
 					</div>
 				</section>
-				<section className="topCollege">
+				<section className="topExams">
 					<div className="m-4 bg-white py-4 px-4">
 						<Carousel
 							slidesDesktop={4}
