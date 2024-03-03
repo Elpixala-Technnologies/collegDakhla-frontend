@@ -96,7 +96,7 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
 										/>
 									</div>
 								</div>
-								{(index % 4) === 0 ? (
+								{((index + 1) % 4) === 0 ? (
 									<>
 										<div className="my-4 bg-white py-4 px-4">
 											<Carousel

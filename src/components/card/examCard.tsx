@@ -4,11 +4,11 @@ import Image from "next/image";
 import { FaHeart, FaMedal } from "react-icons/fa6";
 import formatDate from "@/utils/formatDate";
 
-export default function ExamCard(featuredExams: any) {
-	const logoURL = featuredExams?.featuredExamData?.attributes?.logo?.data?.attributes?.url
-		? getStrapiMedia(featuredExams?.featuredExamData?.attributes?.logo?.data?.attributes?.url)
+export default function ExamCard({ featuredExams }: any) {
+	const logoURL = featuredExams?.attributes?.logo?.data?.attributes?.url
+		? getStrapiMedia(featuredExams?.attributes?.logo?.data?.attributes?.url)
 		: GetDefaultImage("logo");
-	const bannerUrl = featuredExams?.featuredExamData?.attributes?.banner?.data[0] ? getStrapiMedia(featuredExams?.featuredExamData?.attributes?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
+	const bannerUrl = featuredExams?.attributes?.banner?.data[0] ? getStrapiMedia(featuredExams?.attributes?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
 	return (
 		<div className="flex flex-col items-stretch min-w-56 bg-white rounded-lg shadow-xl">
 			<div className="relative rounded-t-lg">
@@ -41,13 +41,13 @@ export default function ExamCard(featuredExams: any) {
 				<div className="p-2 pt-4 flex-1 h-72 shadow flex flex-col gap-2">
 					<div className=" flex justify-end">
 						<span className="bg-primary-light text-sm px-2 py-1 rounded-full">
-							{featuredExams?.featuredExamData?.attributes?.examMode?.data?.attributes?.mode}
+							{featuredExams?.attributes?.examMode?.data?.attributes?.mode}
 						</span>
 					</div>
 					<div className="p-2 pt-4 flex-1 flex flex-col gap-2">
 						<div>
-							<Link href={`/exams/${featuredExams?.featuredExamData?.id}`}>
-								<h4 className="text-primary  font-semibold">{featuredExams?.featuredExamData?.attributes?.name}</h4>
+							<Link href={`/exams/${featuredExams?.id}`}>
+								<h4 className="text-primary  font-semibold">{featuredExams?.attributes?.name}</h4>
 							</Link>
 							<div className="flex flex-col text-sm tracking-tighter gap-2 px-2">
 								<div className="flex justify-between">
@@ -56,11 +56,11 @@ export default function ExamCard(featuredExams: any) {
 								</div>
 								<div className="flex justify-between">
 									<div className="">Exam Date</div>
-									<div className="font-semibold">{formatDate(featuredExams?.featuredExamData?.attributes?.examDate?.startDate)}</div>
+									<div className="font-semibold">{formatDate(featuredExams?.attributes?.examDate?.startDate)}</div>
 								</div>
 								<div className="flex justify-between">
 									<div className="">Exam Level</div>
-									<div className="font-semibold">{featuredExams?.featuredExamData?.attributes?.examLevel?.data?.map((level: any, index: number) => {
+									<div className="font-semibold">{featuredExams?.attributes?.examLevel?.data?.map((level: any, index: number) => {
 										return (
 											<span key={index}>
 												{" " + `${level?.attributes?.name}`}

@@ -5,15 +5,17 @@ import Tag from "../tag/tags";
 import Button from "../button/button";
 import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
 import formatDate from "@/utils/formatDate";
+import Carousel from "../carousel/carousel";
+import CourseCard from "../card/courseCard";
 
 
-export default function ExamListItem(examsData: any) {
+export default function ExamListItem({ exams, featuredExams }: any) {
 
 	return (
 		<>
-			{examsData?.exams?.data?.length > 0 ? (
+			{exams?.data?.length > 0 ? (
 				<>
-					{examsData?.exams?.data.map((exam: any, index: number) => {
+					{exams?.data.map((exam: any, index: number) => {
 						const logoURL = exam?.attributes?.logo?.data?.attributes
 							?.url
 							? getStrapiMedia(
@@ -170,6 +172,23 @@ export default function ExamListItem(examsData: any) {
 										/>
 									</div>
 								</div>
+								{((index + 1) % 4) === 0 ? (
+									<>
+										<div className="my-4 bg-white py-4 px-4">
+											<Carousel
+												slidesDesktop={4}
+												slidesTablet={3}
+												title="Featured Exams"
+												showPagination={false}
+												slides={featuredExams?.data?.map((course: any, index: number) => {
+													return <CourseCard key={index} featuredCourse={course} />;
+												})}
+											/>
+										</div>
+									</>
+								) : (
+									<></>
+								)}
 							</div>
 						)
 					})}

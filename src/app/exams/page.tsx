@@ -19,7 +19,7 @@ export default function ExamList() {
 	const {
 		loading: filterLoader,
 		error: filterError,
-		data: filteredExams,
+		data: examsData,
 	} = useQuery(searchExams, {
 		variables: {
 			Search,
@@ -117,32 +117,7 @@ export default function ExamList() {
 									</div>
 								</div>
 							</div>
-							<ExamListItem exams={filteredExams?.exams} />
-
-							{/* {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => {
-								return (
-									<div key={index}>
-										<ExamListItem colleges={filteredData} />
-										{index / 4 === 0 ? (
-											<>
-												<div className="m-4 bg-white py-4 px-4">
-													<Carousel
-														slidesDesktop={4}
-														slidesTablet={3}
-														title="Featured Exams"
-														showPagination={false}
-														slides={[1, 2, 3, 4, 5].map((clgData, index) => {
-															return <ExamCard key={index} />;
-														})}
-													/>
-												</div>
-											</>
-										) : (
-											<></>
-										)}
-									</div>
-								);
-							})} */}
+							<ExamListItem exams={examsData?.exams} featuredExams={featuredExams?.exams} />
 						</div>
 					</div>
 				</section>
