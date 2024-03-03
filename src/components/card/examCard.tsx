@@ -44,14 +44,11 @@ export default function ExamCard(featuredExams: any) {
 							{featuredExams?.featuredExamData?.attributes?.examMode?.data?.attributes?.mode}
 						</span>
 					</div>
-					<Link href={`/exams/${featuredExams?.featuredExamData?.id}`}>
-						<h4 className="text-primary  font-semibold">{featuredExams?.featuredExamData?.attributes?.name}</h4>
-					</Link>
 					<div className="p-2 pt-4 flex-1 flex flex-col gap-2">
 						<div>
-							<h4 className="text-primary text-xl font-semibold my-2 px-2">
-								{featuredExams?.featuredExamData?.attributes?.name}
-							</h4>
+							<Link href={`/exams/${featuredExams?.featuredExamData?.id}`}>
+								<h4 className="text-primary  font-semibold">{featuredExams?.featuredExamData?.attributes?.name}</h4>
+							</Link>
 							<div className="flex flex-col text-sm tracking-tighter gap-2 px-2">
 								<div className="flex justify-between">
 									<div className="">Participating Colleges</div>
