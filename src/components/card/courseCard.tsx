@@ -56,7 +56,9 @@ export default function CourseCard({ featuredCourse }: any) {
 							<div className="flex flex-col text-sm tracking-tighter gap-2">
 								<div className="flex justify-between">
 									<div className="">Specializations</div>
-									<div className="font-semibold">54</div>
+									<div className="font-semibold">
+										{featuredCourse?.attributes?.specializations?.data?.length}
+									</div>
 								</div>
 								<div className="flex justify-between">
 									<div className="">Course Duration</div>
