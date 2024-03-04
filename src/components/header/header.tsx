@@ -13,191 +13,201 @@ import { TfiAngleDown } from "react-icons/tfi";
 import { FaRegCircleUser } from "react-icons/fa6";
 
 export default function Header() {
-	const [Path, setPath] = useState("");
-	const currentPath = usePathname();
-	const [ShowSearch, setShowSearch] = useState(false);
-	const [ShowOptions, setShowOptions] = useState(false);
-	const [Options, setOptions] = useState<ReactNode>(CollegeOption);
+  const [Path, setPath] = useState("");
+  const currentPath = usePathname();
+  const [ShowSearch, setShowSearch] = useState(false);
+  const [ShowOptions, setShowOptions] = useState(false);
+  const [Options, setOptions] = useState<ReactNode>(CollegeOption);
+  const [CurrentOpenOption, setCurrentOpenOption] = useState("");
 
-	const handleSearch = () => {
-		setShowSearch(!ShowSearch);
-	};
+  const handleSearch = () => {
+    setShowSearch(!ShowSearch);
+  };
 
-	const handleShowOptions = (option: string) => {
-		setShowOptions(true);
-		switch (option) {
-			case "college":
-				setOptions(CollegeOption);
-				break;
-			case "exam":
-				setOptions(ExamOption);
-				break;
-		}
-	};
+  const handleShowOptions = (option: string) => {
+    if (CurrentOpenOption === option) {
+      setShowOptions(false);
+      setCurrentOpenOption("");
+      return false;
+    }
+    setShowOptions(true);
+    setCurrentOpenOption(option);
+    switch (option) {
+      case "college":
+        setOptions(CollegeOption);
+        break;
+      case "exam":
+        setOptions(ExamOption);
+        break;
+    }
+  };
 
-	useEffect(() => {
-		setPath(currentPath.split("/")[1]);
-	}, [currentPath]);
+  useEffect(() => {
+    setPath(currentPath.split("/")[1]);
+  }, [currentPath]);
 
-	useEffect(() => {
-		if (ShowOptions) {
-			setTimeout(() => {
-				setShowOptions(false);
-			}, 5000);
-		}
-	}, [ShowOptions]);
-	useEffect(() => { }, []);
+  useEffect(() => {
+    if (ShowOptions) {
+      setTimeout(() => {
+        setShowOptions(false);
+        setCurrentOpenOption("");
+      }, 5000);
+    }
+  }, [ShowOptions]);
+  useEffect(() => {}, []);
 
-	return (
-		<nav className=" relative z-50  bg-gradient-to-b from-[#000]  to-[#1a1a1a]">
-			<div className="relative h-24 flex gap-4 items-center mx-auto px-4 max-w-screen-xl justify-between">
-				<div className="logo flex-none w-24">
-					<Link href="/">
-						<Image src="/logo.png" alt="" width={100} height={100} />
-					</Link>
-				</div>
-				<div className="flex gap-8 flex-1 items-center"></div>
-				<div className="flex gap-8 items-center text-white">
-					<div className="hidden sm:block">
-						<div className="flex gap-8">
-							<div
-								className="flex gap-1 items-center"
-								onClick={() => {
-									handleShowOptions("college");
-								}}
-							>
-								<div>College</div>
-								<TfiAngleDown />
-							</div>
+  return (
+    <nav className=" relative z-50  bg-gradient-to-b from-[#000]  to-[#1a1a1a]">
+      <div className="relative h-24 flex gap-4 items-center mx-auto px-4 max-w-screen-xl justify-between">
+        <div className="logo flex-none w-24">
+          <Link href="/">
+            <Image src="/logo.png" alt="" width={100} height={100} />
+          </Link>
+        </div>
+        <div className="flex gap-8 flex-1 items-center"></div>
+        <div className="flex gap-8 items-center text-white">
+          <div className="hidden sm:block">
+            <div className="flex gap-2 md:gap-8">
+              <div
+                className="flex gap-1 items-center"
+                onClick={() => {
+                  handleShowOptions("college");
+                }}
+              >
+                <div>College</div>
+                <TfiAngleDown />
+              </div>
 
-							<div
-								className="flex gap-1 items-center"
-								onClick={() => handleShowOptions("exam")}
-							>
-								Exam
-								<TfiAngleDown />
-							</div>
+              <div
+                className="flex gap-1 items-center"
+                onClick={() => handleShowOptions("exam")}
+              >
+                Exam
+                <TfiAngleDown />
+              </div>
 
-							<div className="flex gap-1 items-center">
-								Courses
-								<TfiAngleDown />
-							</div>
+              <div className="flex gap-1 items-center">
+                Courses
+                <TfiAngleDown />
+              </div>
 
-							<div className="flex gap-1 items-center">
-								Career
-								<TfiAngleDown />
-							</div>
+              <div className="flex gap-1 items-center">
+                Career
+                <TfiAngleDown />
+              </div>
 
-							<div className="flex gap-1 items-center">
-								News
-								<TfiAngleDown />
-							</div>
+              <div className="flex gap-1 items-center">
+                <Link href={"/news"}>News</Link>
+              </div>
 
-							<div className="flex gap-1 items-center">
-								More
-								<TfiAngleDown />
-							</div>
-						</div>
-					</div>
-					<LoginQASection />
-				</div>
-				<div className="hidden max-sm:block">
-					<div className="flex gap-4 ">
-						<div className="" onClick={handleSearch}>
-							<RiSearchLine />
-						</div>
-						<div>
-							<GiHamburgerMenu />
-						</div>
-					</div>
-				</div>
-				{ShowOptions ? (
-					<>
-						{/* <NavOption></NavOption>
+              <div className="flex gap-1 items-center">
+                More
+                <TfiAngleDown />
+              </div>
+            </div>
+          </div>
+          <LoginQASection />
+        </div>
+        <div className="hidden max-sm:block">
+          <div className="flex gap-4 ">
+            <div className="" onClick={handleSearch}>
+              <RiSearchLine />
+            </div>
+            <div>
+              <GiHamburgerMenu />
+            </div>
+          </div>
+        </div>
+        {ShowOptions ? (
+          <>
+            {/* <NavOption></NavOption>
           <LoginQASection /> */}
-						<div className="absolute top-24 w-full h-max bg-white mx-auto p-4 rounded-md shadow-lg z-50">
-							{Options}
-						</div>
-					</>
-				) : (
-					<></>
-				)}
-			</div>
-		</nav>
-	);
+            <div className="absolute top-24 w-full h-max bg-white mx-auto p-4 rounded-md shadow-lg z-50">
+              {Options}
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
+    </nav>
+  );
 }
 
 const NavOption = () => {
-	// get all streams
-	const {
-		loading,
-		error: streamsError,
-		data: streamsData,
-	} = useQuery(getStreams);
+  // get all streams
+  const {
+    loading,
+    error: streamsError,
+    data: streamsData,
+  } = useQuery(getStreams);
 
-	return (
-		<>
-			<div className="flex flex-col gap-2 w-full text-primary-text p-4 sm:p-0 sm:w-6/12 sm:min-w-96">
-				{streamsData?.streams?.data?.map((stream: any, index: any) => {
-					return (
-						<div key={index}>
-							<Link
-								href={{
-									pathname: `/colleges/${stream.attributes.streamName.toLowerCase()}`,
-								}}
-								className="hover:text-primary"
-							>
-								Top {stream.attributes.streamName} College
-							</Link>
-						</div>
-					);
-				})}
-			</div>
-		</>
-	);
+  return (
+    <>
+      <div className="flex flex-col gap-2 w-full text-primary-text p-4 sm:p-0 sm:w-6/12 sm:min-w-96">
+        {streamsData?.streams?.data?.map((stream: any, index: any) => {
+          return (
+            <div key={index}>
+              <Link
+                href={{
+                  pathname: `/colleges/${stream.attributes.streamName.toLowerCase()}`,
+                }}
+                className="hover:text-primary"
+              >
+                Top {stream.attributes.streamName} College
+              </Link>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
 };
 
 const LoginQASection = () => {
-	return (
-		<>
-			<div className="flex gap-4 max-sm:hidden">
-				<div>
-					<Link href="/login" className="text-2xl hover:text-primary">
-						<FaRegCircleUser />
-					</Link>
-				</div>
-				<div>
-					<Link href={"/"} className="text-2xl hover:text-primary">
-						<FaRegQuestionCircle />
-					</Link>
-				</div>
-			</div>
-		</>
-	);
+  return (
+    <>
+      <div className="flex gap-4 max-sm:hidden">
+        <div>
+          <Link href="/" className="text-2xl hover:text-primary">
+            <FaRegCircleUser />
+          </Link>
+        </div>
+        <div>
+          <Link href={"/"} className="text-2xl hover:text-primary">
+            <FaRegQuestionCircle />
+          </Link>
+        </div>
+      </div>
+    </>
+  );
 };
 
 const CollegeOption = () => {
-	return (
-		<div>
-			<div>Top College from Delhi</div>
-			<div>Top College from Varansi</div>
-			<div>Top College from Pune</div>
-			<div>Top College from Jaipur</div>
-			<div>Top College from Chennai</div>
-			<div>Top College from Haryana</div>
-		</div>
-	);
+  return (
+    <div>
+      <div>
+        <Link href={"/colleges"}>All Colleges</Link>
+      </div>
+      <div>Top College from Delhi</div>
+      <div>Top College from Varansi</div>
+      <div>Top College from Pune</div>
+      <div>Top College from Jaipur</div>
+      <div>Top College from Chennai</div>
+      <div>Top College from Haryana</div>
+    </div>
+  );
 };
 
 const ExamOption = () => {
-	return (
-		<div>
-			<div>Top International Exam</div>
-			<div>Top National Entrance Exam</div>
-			<div>Top College from Pune</div>
-			<div>Top College from Jaipur</div>
-			<div>Top College from Chennai</div>
-			<div>Top College from Haryana</div>
-		</div>
-	);
+  return (
+    <div>
+      <div>Top International Exam</div>
+      <div>Top National Entrance Exam</div>
+      <div>Top College from Pune</div>
+      <div>Top College from Jaipur</div>
+      <div>Top College from Chennai</div>
+      <div>Top College from Haryana</div>
+    </div>
+  );
 };
