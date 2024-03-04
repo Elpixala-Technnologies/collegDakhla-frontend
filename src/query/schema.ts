@@ -767,6 +767,93 @@ query Courses {
 }
 `;
 
+//query to get course on id
+export const getCourse = gql`
+query CourseExam($courseId : ID!) {
+    course(id: $courseId) {
+        data {
+            id
+            attributes {
+                name
+                duration
+                fees
+                logo {
+                    data {
+                        id
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                banner {
+                    data {
+                        id
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                navbars {
+                    data {
+                        id
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                pageData {
+                    ... on ComponentCommonTabData {
+                        id
+                        heading
+                        content
+                        navbar {
+                            data {
+                                id
+                                attributes {
+                                    name
+                                }
+                            }
+                        }
+                    }
+                    ... on ComponentCommonGallery {
+                        id
+                        heading
+                        navbar {
+                            data {
+                                id
+                                attributes {
+                                    name
+                                }
+                            }
+                        }
+                        pageGallery {
+                            data {
+                                id
+                                attributes {
+                                    url
+                                }
+                            }
+                        }
+                    }
+                    ... on ComponentCommonFaqS {
+                        id
+                        Question
+                        Answer
+                        navbar {
+                            data {
+                                id
+                                attributes {
+                                    name
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}`
+
 // query to search courses
 export const searchCourses = gql`
 query Courses($Search : String!, $DurationFilter : String!, $SpecializationFilter : String!) {
