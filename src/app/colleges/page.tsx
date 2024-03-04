@@ -46,10 +46,6 @@ export default function CollegeList() {
 		variables: { Stream, Limit },
 	});
 
-	console.log("featured colleges are ", topCollegesData,
-	);
-
-
 	const {
 		loading: streamLoader,
 		error: streamError,

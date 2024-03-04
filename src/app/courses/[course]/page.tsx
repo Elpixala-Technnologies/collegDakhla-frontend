@@ -9,7 +9,6 @@ import { getCourse } from "@/query/schema";
 import Image from "next/image";
 import { GetDefaultImage, getStrapiMedia } from "../../../utils/api-helper";
 import CourseTab from "./@courseTab/courseTab";
-import { log } from "console";
 
 type Props = {
 	params: {
@@ -17,7 +16,6 @@ type Props = {
 	};
 };
 export default function CourseDetail({ params }: Props) {
-	console.log("params are ", params);
 
 	const [currentTab, setCurrentTab] = useState<string>("");
 	const [TabData, setTabData] = useState([])
@@ -27,8 +25,6 @@ export default function CourseDetail({ params }: Props) {
 	const { loading, error, data: courseData } = useQuery(getCourse, {
 		variables: { courseId },
 	});
-
-	console.log("course data is ", courseData?.course?.data?.attributes?.name);
 
 	const course = courseData?.course?.data?.attributes;
 	const logoUrl = course?.collegeLogo?.data?.attributes?.url ? getStrapiMedia(course?.collegeLogo?.data?.attributes?.url) : GetDefaultImage("logo")

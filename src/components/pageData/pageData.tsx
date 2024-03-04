@@ -4,7 +4,6 @@ import './tableStyle.css'
 
 
 export default function PageData({ data }: any) {
-	console.log("page data is ", data);
 
 	const [showFullContent, setShowFullContent] = useState(false);
 	const [showReadMore, setShowReadMore] = useState(true);
