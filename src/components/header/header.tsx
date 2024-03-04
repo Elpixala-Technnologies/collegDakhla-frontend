@@ -89,8 +89,7 @@ export default function Header() {
               </div>
 
               <div className="flex gap-1 items-center">
-                News
-                <TfiAngleDown />
+                <Link href={"/news"}>News</Link>
               </div>
 
               <div className="flex gap-1 items-center">
@@ -179,6 +178,9 @@ const LoginQASection = () => {
 const CollegeOption = () => {
   return (
     <div>
+      <div>
+        <Link href={"/colleges"}>All Colleges</Link>
+      </div>
       <div>Top College from Delhi</div>
       <div>Top College from Varansi</div>
       <div>Top College from Pune</div>

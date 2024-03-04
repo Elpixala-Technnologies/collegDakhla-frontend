@@ -277,7 +277,9 @@ query UploadFiles($name : String!) {
 //query to search for college
 export const searchCollege = gql`
 query Colleges($Search : String!) {
-    colleges(filters: { collegeName: { containsi: $Search } }) {
+    colleges(filters: { collegeName: { containsi: $Search } }
+		pagination: { limit: 100 }
+		) {
 			data {
 				id
 				attributes {
@@ -686,4 +688,243 @@ query Colleges($Stream : String!, $Limit: Int!) {
 }
 `;
 
-//query to get stream top colleges
+//query to get course levels
+export const getCourseLevels = gql`query CourseLevels {
+    courseLevels {
+        data {
+			id
+            attributes {
+				levelName
+			}
+		}
+	}
+}
+`;
+
+// query to get all courses 
+export const getCourses = gql`
+query Courses {
+    courses {
+        data {
+            id
+            attributes {
+                isTopCourse
+                name
+                logo {
+                    data {
+                        id
+                        attributes {
+                            name
+                            url
+                        }
+                    }
+                }
+                banner {
+                    data {
+                        id
+                        attributes {
+                            url
+                            name
+                        }
+                    }
+                }
+                colleges {
+                    data {
+                        attributes {
+                            collegeName
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+`;
+
+// query to search courses
+export const searchCourses = gql`
+query Courses($Search : String!) {
+    courses(filters: { name: { containsi: $Search } }) {
+        data {
+            id
+            attributes {
+                name
+								duration
+								fees
+                logo {
+                    data {
+                        id
+                        attributes {
+                            name
+                            url
+                        }
+                    }
+                }
+                banner {
+                    data {
+                        id
+                        attributes {
+                            url
+                            name
+                        }
+                    }
+                }
+                colleges {
+                    data {
+											id
+                        attributes {
+                            collegeName
+                        }
+                    }
+                }
+								courseLevels {
+                    data {
+											id
+                        attributes {
+                            levelName
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+`;
+
+// query to get featured courses
+export const getFeaturedCourses = gql`query Courses {
+    courses(filters: { isFeaturedCourse: { eq: true } }) {
+      data {
+            id
+            attributes {
+                name
+                duration
+                fees
+                specializations {
+                    data {
+                        id
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                courseLevels {
+                    data {
+											id
+                        attributes {
+                            levelName
+                        }
+                    }
+                }
+                banner {
+                    data {
+											id
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                logo {
+                    data {
+											id
+                        attributes {
+                            url
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+`;
+
+// query to search exams
+export const searchExams = gql`
+query Exams($Search : String!) {
+    exams(filters: { name: { containsi: $Search } }) {
+        data {
+            id
+            attributes {
+                name
+                title
+                logo {
+                    data {
+											id
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                examLevel {
+                    data {
+											id
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                examDate {
+                    startDate
+                    endDate
+                }
+                resultDate {
+                    startDate
+                    endDate
+                }
+                applicationDate {
+                    startDate
+                    endDate
+                }
+            }
+        }
+    }
+}
+`;
+
+//query to get featured exams
+export const getFeaturedExams = gql`
+query Exams {
+    exams(filters: { isFeaturedExam: { eq: true } }) {
+        data {
+            id
+            attributes {
+                examDate {
+                    startDate
+                }
+                banner {
+									id
+									data {
+										attributes {
+											url
+										}
+									}
+                }
+                logo {
+									id
+									data {
+											attributes {
+												url
+											}
+									}
+                }
+                name
+                examLevel {
+									data {
+										attributes {
+											name
+										}
+									}
+                }
+                examMode {
+									id
+									data {
+										attributes {
+											mode
+										}
+									}
+                }
+            }
+        }
+    }
+}
+`;
