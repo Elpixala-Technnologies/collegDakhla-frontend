@@ -9,9 +9,11 @@ import {
 	getCollegesFilter,
 	getDefaultStream,
 	searchCollege,
+	topColleges,
 } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import Carousel from "@/components/carousel/carousel";
+import CollegeCard from "@/components/card/collegeCard";
 
 export default function CollegeList() {
 	const [Search, setSearch] = useState("");
@@ -19,6 +21,8 @@ export default function CollegeList() {
 	const [showFullContent, setShowFullContent] = useState(false);
 	const [showReadMore, setShowReadMore] = useState(true);
 	const [filteredData, setFilteredData] = useState([]);
+	const [Stream, setStream] = useState<string>("");
+	const [Limit, setLimit] = useState<number>(10);
 
 	// get college data
 	const { loading, error, data: initialData } = useQuery(getColleges);
@@ -32,6 +36,19 @@ export default function CollegeList() {
 			Search,
 		},
 	});
+
+	//query to get top colleges
+	const {
+		loading: topCollegesLoader,
+		error: topCollegesError,
+		data: topCollegesData,
+	} = useQuery(topColleges, {
+		variables: { Stream, Limit },
+	});
+
+	console.log("featured colleges are ", topCollegesData,
+	);
+
 
 	const {
 		loading: streamLoader,
@@ -83,7 +100,7 @@ export default function CollegeList() {
 				<section className="heroSection">
 					<div className="m-4 px-8 pt-8 bg-white flex flex-col rounded-sm">
 						<h1 className="text-xl font-bold mb-3 text-center text-primary">
-							Top Colleges in India 2024
+							Showing 1000 Top Colleges in India
 						</h1>
 						<div
 							dangerouslySetInnerHTML={{ __html: aboutStream }}
@@ -109,8 +126,16 @@ export default function CollegeList() {
 				</section>
 				<section className="topCollege">
 					<div className="m-4 bg-white py-4 px-4">
-						<h2 className="text-xl font-bold mb-3">Showing 1000 Top Colleges in India</h2>
-						<Carousel slides={[]} />
+						<h2 className="text-xl font-bold mb-3"></h2>
+						<Carousel
+							slidesDesktop={4}
+							slidesTablet={3}
+							title="Featured Colleges"
+							showPagination={false}
+							slides={topCollegesData?.colleges?.data?.map((college: any, index: number) => {
+								return <CollegeCard key={index} featuredCollege={college} />;
+							})}
+						/>
 					</div>
 				</section>
 				<section className="collegeList">

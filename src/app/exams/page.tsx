@@ -34,9 +34,6 @@ export default function ExamList() {
 		error: featuredError,
 		data: featuredExams,
 	} = useQuery(getFeaturedExams);
-	console.log("get featured exams ", featuredExams);
-
-
 
 	const handleSearch = (event: any) => {
 		setSearch(event.target.value);

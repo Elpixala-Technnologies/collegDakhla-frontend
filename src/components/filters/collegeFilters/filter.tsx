@@ -3,10 +3,7 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
 export default function Filter(props: any) {
 
-	console.log("props are ", props);
-
 	const [open, setOpen] = useState(true);
-	const [Search, setSearch] = useState("");
 	const handleOpen = () => setOpen(open ? false : true);
 
 	return (
@@ -30,59 +27,57 @@ export default function Filter(props: any) {
 							<div className="h-full max-h-48 overflow-x-auto">
 								{props.name === "Stream" ? (
 									<>
-										{Search.trim.length === 0 &&
-											props?.filters?.map((filter: any) => {
-												return (
-													<div
-														key={filter.id}
-														className="flex gap-1 items-center my-2 cursor-pointer"
-													>
-														<input
-															type="radio"
-															id={filter.id}
-															name={filter.attributes.streamName}
-															checked={
-																props.checked === filter.attributes.streamName
-															}
-															className=""
-															onChange={() =>
-																props.handleFilter(filter.attributes.streamName)
-															}
-														/>
-														<span className="text-sm font-medium text-secondary-text hover:text-primary">
-															{filter.attributes.streamName}
-														</span>
-													</div>
-												);
-											})}
+										{props?.filters?.map((filter: any) => {
+											return (
+												<div
+													key={filter.id}
+													className="flex gap-1 items-center my-2 cursor-pointer"
+												>
+													<input
+														type="radio"
+														id={filter.id}
+														name={filter.attributes.streamName}
+														checked={
+															props.checked === filter.attributes.streamName
+														}
+														className=""
+														onChange={() =>
+															props.handleFilter(filter.attributes.streamName)
+														}
+													/>
+													<span className="text-sm font-medium text-secondary-text hover:text-primary">
+														{filter.attributes.streamName}
+													</span>
+												</div>
+											);
+										})}
 									</>
 								) : (
 									<>
-										{Search.trim.length === 0 &&
-											props?.filters?.map((filter: any) => {
-												return (
-													<div
-														key={filter?.id}
-														className="flex gap-1 items-center my-2 cursor-pointer"
-													>
-														<input
-															type="radio"
-															id={filter.name}
-															name={filter.name}
-															checked={
-																props.checked === filter?.attributes?.name
-															}
-															className=""
-															onChange={() =>
-																props.handleFilter(filter?.attributes?.name)
-															}
-														/>
-														<span className="text-sm font-medium text-secondary-text hover:text-primary">
-															{filter?.attributes?.name}
-														</span>
-													</div>
-												);
-											})}
+										{props?.filters?.map((filter: any) => {
+											return (
+												<div
+													key={filter?.id}
+													className="flex gap-1 items-center my-2 cursor-pointer"
+												>
+													<input
+														type="radio"
+														id={filter.name}
+														name={filter.name}
+														checked={
+															props.checked === filter?.attributes?.name
+														}
+														className=""
+														onChange={() =>
+															props.handleFilter(filter?.attributes?.name)
+														}
+													/>
+													<span className="text-sm font-medium text-secondary-text hover:text-primary">
+														{filter?.attributes?.name}
+													</span>
+												</div>
+											);
+										})}
 									</>
 								)}
 							</div>

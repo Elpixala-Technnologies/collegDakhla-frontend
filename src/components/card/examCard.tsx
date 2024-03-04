@@ -5,8 +5,6 @@ import { FaHeart, FaMedal } from "react-icons/fa6";
 import formatDate from "@/utils/formatDate";
 
 export default function ExamCard({ featuredExams }: any) {
-	console.log("featured exams ", featuredExams);
-
 
 	const logoURL = featuredExams?.attributes?.logo?.data?.attributes?.url
 		? getStrapiMedia(featuredExams?.attributes?.logo?.data?.attributes?.url)
