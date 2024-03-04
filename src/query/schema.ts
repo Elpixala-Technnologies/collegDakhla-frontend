@@ -380,7 +380,6 @@ query Streams {
             id
             attributes {
                 streamName
-                description
             }
         }
     }
