@@ -49,7 +49,7 @@ export default function CollegeCard({ featuredCollege }: any) {
 						<StarRating rating={3.6} />
 					</div>
 					<Link href={`/college/${featuredCollege?.id}`}>
-						<h4 className="text-primary  font-semibold">
+						<h4 className="text-primary font-semibold truncate max-w-60">
 							{college.collegeName}
 						</h4>
 					</Link>

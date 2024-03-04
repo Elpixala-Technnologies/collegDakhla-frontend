@@ -101,6 +101,7 @@ export const getColleges = gql`
                 }
                 country {
                     data {
+											id
                         attributes {
                             name
                         }
@@ -109,6 +110,7 @@ export const getColleges = gql`
                 isTopCollege
                 state {
                     data {
+											id
                         attributes {
                             name
                         }
@@ -221,6 +223,7 @@ export const getCollege = gql`
                         heading
                         navbar {
                             data {
+															id
                                 attributes {
                                     name
                                 }
@@ -231,6 +234,7 @@ export const getCollege = gql`
                         heading
                         navbar {
                             data {
+															id
                                 attributes {
                                     name
                                 }
@@ -238,6 +242,7 @@ export const getCollege = gql`
                         }
                         pageGallery {
                             data {
+															id
                                 attributes {
                                     url
                                 }
@@ -386,6 +391,7 @@ export const getStream = gql`
 query Streams($streamName : String!) {
     streams(filters: { streamName: { containsi: $streamName } }) {
         data {
+					id
             attributes {
                 streamName
                 description
@@ -407,6 +413,7 @@ export const getStreamColleges = gql`
 				attributes {
 					city {
                     data {
+											id
                         attributes {
                             name
                         }
@@ -415,6 +422,7 @@ export const getStreamColleges = gql`
 					collegeName
 					country {
                     data {
+											id
                         attributes {
                             name
                         }
@@ -426,6 +434,7 @@ export const getStreamColleges = gql`
 					publishedAt
 					state {
                     data {
+											id
                         attributes {
                             name
                         }
@@ -444,6 +453,7 @@ export const getStreamColleges = gql`
 					}
 					banner {
 							data {
+								id
 									attributes {
 											url
 									}
@@ -505,6 +515,7 @@ query Colleges($StreamFilter : String!, $StateFilter :String!) {
 				attributes {
 					city {
                     data {
+											id
                         attributes {
                             name
                         }
@@ -517,6 +528,7 @@ query Colleges($StreamFilter : String!, $StateFilter :String!) {
 					publishedAt
 					state {
                     data {
+											id
                         attributes {
                             name
                         }
@@ -535,6 +547,7 @@ query Colleges($StreamFilter : String!, $StateFilter :String!) {
 					}
 					banner {
 							data {
+								id
 									attributes {
 											url
 									}
@@ -603,6 +616,7 @@ export const getDefaultStream = gql`
 query Streams {
     streams(filters: {streamName: {eqi: "default"}}) {
         data {
+					id
             attributes {
                 description
             }
@@ -626,6 +640,7 @@ query Colleges($Stream : String!, $Limit: Int!) {
                 collegeName
                 college_type {
                     data {
+											id
                         attributes {
                             type
                         }
@@ -641,6 +656,7 @@ query Colleges($Stream : String!, $Limit: Int!) {
                 }
 								banner {
                     data {
+											id
                         attributes {
                             url
                         }
@@ -648,6 +664,7 @@ query Colleges($Stream : String!, $Limit: Int!) {
                 }
                 approvedBy {
                     data {
+											id
                         attributes {
                             name
                         }
@@ -655,6 +672,7 @@ query Colleges($Stream : String!, $Limit: Int!) {
                 }
                 city {
                     data {
+											id
                         attributes {
                             name
                         }
@@ -662,6 +680,7 @@ query Colleges($Stream : String!, $Limit: Int!) {
                 }
                 brochure {
                     data {
+											id
                         attributes {
                             name
                             hash
@@ -670,6 +689,7 @@ query Colleges($Stream : String!, $Limit: Int!) {
                 }
                 state {
                     data {
+											id
                         attributes {
                             name
                         }
@@ -677,6 +697,7 @@ query Colleges($Stream : String!, $Limit: Int!) {
                 }
 								collegeStreams {
                     data {
+											id
                         attributes {
                             streamName
                         }
@@ -913,6 +934,124 @@ query Exams($Search : String!, $LevelFilter : String!, $ModeFilter : String!) {
     }
 }
 `;
+
+//query to get exams on id
+export const getExam = gql`
+query Exam($examId : ID!) {
+    exam(id: $examId) {
+        data {
+            id
+            attributes {
+                name
+                title
+								url
+                logo {
+                    data {
+                        id
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                banner {
+                    data {
+                        id
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                navbars {
+                    data {
+                        id
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                applicationDate {
+                    id
+                    startDate
+                    endDate
+                }
+                examDate {
+                    id
+                    startDate
+                    endDate
+                }
+                resultDate {
+                    id
+                    startDate
+                    endDate
+                }
+                examMode {
+                    data {
+                        id
+                        attributes {
+                            mode
+                        }
+                    }
+                }
+                examLevel {
+                    data {
+                        id
+                        attributes {
+                            name
+                        }
+                    }
+                }
+								pageData {
+                    ... on ComponentCommonTabData {
+                        id
+                        heading
+                        content
+                        navbar {
+                            data {
+                                id
+                                attributes {
+                                    name
+                                }
+                            }
+                        }
+                    }
+                    ... on ComponentCommonGallery {
+                        id
+                        heading
+                        navbar {
+                            data {
+                                id
+                                attributes {
+                                    name
+                                }
+                            }
+                        }
+                        pageGallery {
+                            data {
+                                id
+                                attributes {
+                                    url
+                                }
+                            }
+                        }
+                    }
+                    ... on ComponentCommonFaqS {
+                        id
+                        Question
+                        Answer
+                        navbar {
+                            data {
+                                id
+                                attributes {
+                                    name
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}`
 
 //query to get featured exams
 export const getFeaturedExams = gql`
