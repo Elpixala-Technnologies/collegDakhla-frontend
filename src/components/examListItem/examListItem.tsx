@@ -7,6 +7,7 @@ import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
 import formatDate from "@/utils/formatDate";
 import Carousel from "../carousel/carousel";
 import CourseCard from "../card/courseCard";
+import ExamCard from "../card/examCard";
 
 
 export default function ExamListItem({ exams, featuredExams }: any) {
@@ -172,7 +173,7 @@ export default function ExamListItem({ exams, featuredExams }: any) {
 										/>
 									</div>
 								</div>
-								{((index + 1) % 4) === 0 ? (
+								{((index) % 4) === 0 ? (
 									<>
 										<div className="my-4 bg-white py-4 px-4">
 											<Carousel
@@ -180,8 +181,8 @@ export default function ExamListItem({ exams, featuredExams }: any) {
 												slidesTablet={3}
 												title="Featured Exams"
 												showPagination={false}
-												slides={featuredExams?.data?.map((course: any, index: number) => {
-													return <CourseCard key={index} featuredCourse={course} />;
+												slides={featuredExams?.data?.map((exam: any, index: number) => {
+													return <ExamCard key={index} featuredExams={exam} />;
 												})}
 											/>
 										</div>

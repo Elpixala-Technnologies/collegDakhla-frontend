@@ -18,13 +18,20 @@ export default function Header() {
   const [ShowSearch, setShowSearch] = useState(false);
   const [ShowOptions, setShowOptions] = useState(false);
   const [Options, setOptions] = useState<ReactNode>(CollegeOption);
+  const [CurrentOpenOption, setCurrentOpenOption] = useState("");
 
   const handleSearch = () => {
     setShowSearch(!ShowSearch);
   };
 
   const handleShowOptions = (option: string) => {
+    if (CurrentOpenOption === option) {
+      setShowOptions(false);
+      setCurrentOpenOption("");
+      return false;
+    }
     setShowOptions(true);
+    setCurrentOpenOption(option);
     switch (option) {
       case "college":
         setOptions(CollegeOption);
@@ -43,6 +50,7 @@ export default function Header() {
     if (ShowOptions) {
       setTimeout(() => {
         setShowOptions(false);
+        setCurrentOpenOption("");
       }, 5000);
     }
   }, [ShowOptions]);
@@ -59,7 +67,7 @@ export default function Header() {
         <div className="flex gap-8 flex-1 items-center"></div>
         <div className="flex gap-8 items-center text-white">
           <div className="hidden sm:block">
-            <div className="flex gap-8">
+            <div className="flex gap-2 md:gap-8">
               <div
                 className="flex gap-1 items-center"
                 onClick={() => {

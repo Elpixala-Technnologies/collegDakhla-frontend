@@ -1,80 +1,78 @@
 import { useEffect, useState } from "react";
-import Filter from "./filter/filter";
+import Filter from "../examFilters/filter";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { getStreams, getStates, getCollegesFilter } from "@/query/schema";
+import { getExamLevels, getExamModes, getSpecializations, getStates } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Button from "../button/button";
+import Button from "../../button/button";
 
-export default function CollegeFilters(params?: any) {
+export default function ExamFilters({ LevelFilter,
+	setLevelFilter,
+	ModeFilter,
+	setModeFilter,
+	isMobile,
+	handleMobileFilter,
+	totalExams,
+}: any) {
+
 	const [open, setOpen] = useState(true);
 	const handleOpen = () => setOpen(open ? false : true);
 	const [SelectedFilter, setSelectedFilter] = useState({
-		stream: "",
-		state: "",
+		level: "",
+		mode: "",
 	});
-	const [StreamFilter, setStreamFilter] = useState<string>("");
-	const [StateFilter, setStateFilter] = useState<string>("");
+
+	// query to get all exam levels
 	const {
-		loading: streamLoader,
-		error: streamsError,
-		data: streamsData,
-	} = useQuery(getStreams);
+		loading: examLevelLoader,
+		error: examLevelError,
+		data: examLevelData,
+	} = useQuery(getExamLevels);
+
+	// query to get all specializations
 	const {
-		loading: statesLoader,
-		error: statesError,
-		data: statesData,
-	} = useQuery(getStates);
-	const {
-		loading: filterLoader,
-		error: filterError,
-		data: filteredCollege,
-		refetch,
-	} = useQuery(getCollegesFilter, {
-		variables: {
-			StreamFilter,
-			StateFilter,
-		},
-	});
+		loading: examModeLoader,
+		error: examModeError,
+		data: examModeData,
+	} = useQuery(getExamModes);
 
 	//tab state
 	const [value, setValue] = useState(0);
 
-	const handleStreamFilter = (name: string) => {
-		setStreamFilter(name);
+	const handleLevelFilter = (level: string) => {
+		setLevelFilter(level);
 		setSelectedFilter((prevData) => ({
 			...prevData,
-			stream: name,
+			level: level,
 		}));
 	};
 
-	const handleStateFilter = (name: string) => {
-		//setSelectedFilter([...SelectedFilter, name]);
-		setStateFilter(name);
+	const handleModeFilter = (mode: string) => {
+		setModeFilter(mode);
 		setSelectedFilter((prevData) => ({
 			...prevData,
-			state: name,
+			mode: mode,
 		}));
 	};
 
 	const handleUnselectFilter = (filter?: string, name?: string) => {
-		if (filter === "stream") {
-			setStreamFilter("");
-			SelectedFilter.stream = "";
-		} else if (filter === "state") {
-			setStateFilter("");
-			SelectedFilter.state = "";
+		if (filter === "level") {
+			setLevelFilter("");
+			SelectedFilter.level = "";
+		} else if (filter === "mode") {
+			setModeFilter("");
+			SelectedFilter.mode = "";
 		}
 	};
 
 	const resetFilters = () => {
 		const updatedFilter = {};
 		console.log("selected ", SelectedFilter);
-		params.handleMobileFilter();
+		handleMobileFilter();
 	};
 
 	// tab tabHandleChange
@@ -82,18 +80,13 @@ export default function CollegeFilters(params?: any) {
 		setValue(newValue);
 	};
 
-	// render data when filter values are changed
-	useEffect(() => {
-		params?.setFilteredData(filteredCollege?.colleges?.data);
-	}, [filteredCollege, filterLoader]);
-
 	// check for SelectedFilter
 	useEffect(() => {
 		const hasData = Object.values(SelectedFilter).some((value) => !!value);
 	}, [SelectedFilter]);
 
 	useEffect(() => {
-		if (params.isMobile) {
+		if (isMobile) {
 			document.body.style.overflowY = "hidden"; // Disable vertical scrolling
 			document.body.style.height = "100%"; // Set body height to 100%
 		} else {
@@ -106,16 +99,16 @@ export default function CollegeFilters(params?: any) {
 			document.body.style.overflowY = "auto"; // Reset vertical scrolling
 			document.body.style.height = "auto"; // Reset body height
 		};
-	}, [params.isMobile]);
+	}, [isMobile]);
 
 	return (
 		<>
 			<div className="bg-white hidden md:block">
 				<h3 className="uppercase text-sm px-2 py-3">
-					Found <b>{filteredCollege?.colleges?.meta?.pagination?.total}</b>{" "}
+					Found <b>{totalExams}</b>{" "}
 					colleges
 				</h3>
-				{SelectedFilter.stream || SelectedFilter.state ? (
+				{SelectedFilter.level || SelectedFilter.mode ? (
 					<>
 						<div
 							className="bg-gray-200 px-2 py-2 flex items-center justify-between"
@@ -145,31 +138,28 @@ export default function CollegeFilters(params?: any) {
 					<></>
 				)}
 
-				{params.page != "stream" ? (
-					<Filter
-						name="Stream"
-						filters={streamsData?.streams?.data}
-						handleFilter={handleStreamFilter}
-						checked={StreamFilter}
-					/>
-				) : (
-					""
-				)}
+
 				<Filter
-					name="State"
-					filters={statesData?.states?.data}
-					handleFilter={handleStateFilter}
-					checked={StateFilter}
+					name="Level"
+					filters={examLevelData?.examLevels?.data} // add data here
+					handleFilter={handleLevelFilter}
+					checked={LevelFilter}
+				/>
+
+				<Filter
+					name="Mode"
+					filters={examModeData?.examModes?.data} // add data here
+					handleFilter={handleModeFilter}
+					checked={ModeFilter}
 				/>
 			</div>
-			{params.isMobile ? (
+			{isMobile ? (
 				<div className="absolute top-0 right-0 left-0 h-full w-full bg-black/[0.5] z-50 overscroll-none">
-					{/* <div className="fixed top-0 h-2/6 w-full bg-black opacity-2" onClick={params.handleMobileFilter
-						}></div> */}
+
 					<div className="opacity-100 z-50 block fixed right-0 bottom-0 left-0 w-screen h-4/6 bg-white text-black rounded-xl">
 						<div className="flex justify-between px-5 py-5 w-full border-b-2 border-gray-300">
 							<h5 className="text-base font-bold">All Filter</h5>
-							<span onClick={params.handleMobileFilter}>
+							<span onClick={handleMobileFilter}>
 								<FaAngleDown />
 							</span>
 						</div>
@@ -195,54 +185,53 @@ export default function CollegeFilters(params?: any) {
 												borderColor: "divider",
 											}}
 										>
-											<Tab label="Streams" {...a11yProps(0)} />
-											<Tab label="States" {...a11yProps(1)} />
+											<Tab label="Duration" {...a11yProps(0)} />
+											<Tab label="Specialization" {...a11yProps(1)} />
 										</Tabs>
 										<TabPanel value={value} index={0}>
-											{streamsData?.streams?.data?.map((stream: any) => {
+											{examLevelData?.examLevels?.data.map((level: any, index: number) => {
 												return (
 													<div
-														key={stream.id}
+														key={index}
 														className="flex gap-1 items-center my-2 cursor-pointer"
 													>
 														<input
 															type="radio"
-															id={stream.id}
-															name={stream.attributes.streamName}
-															checked={
-																StreamFilter === stream.attributes.streamName
-															}
+															id={level?.attributes?.name}
+															name={level?.attributes?.name}
+															checked={LevelFilter === level?.attributes?.name}
 															className=""
 															onChange={() =>
-																handleStreamFilter(stream.attributes.streamName)
+																handleLevelFilter(level?.attributes?.name)
 															}
 														/>
 														<span className="text-xxs font-semibold text-secondary-text hover:text-primary">
-															{stream.attributes.streamName}
+															{level?.attributes?.name}
 														</span>
 													</div>
 												);
 											})}
 										</TabPanel>
 										<TabPanel value={value} index={1}>
-											{statesData.data?.map((state: any) => {
+											{examModeData?.examModes?.data?.map((mode: any) => {
+
 												return (
 													<div
-														key={state.id}
+														key={mode.id}
 														className="flex gap-1 items-center my-2 cursor-pointer text-base"
 													>
 														<input
 															type="radio"
-															name={state?.attributes?.name}
-															id={state?.id}
+															name={mode?.attributes?.name}
+															id={mode?.id}
 															className=""
-															checked={StateFilter === state?.attributes?.name}
+															checked={ModeFilter === mode?.attributes?.name}
 															onChange={() =>
-																handleStateFilter(state?.attributes?.name)
+																handleModeFilter(mode?.attributes?.name)
 															}
 														/>
 														<span className="text-xxs font-semibold text-secondary-text hover:text-primary">
-															{state.name}
+															{mode?.attributes?.name}
 														</span>
 													</div>
 												);
@@ -269,7 +258,7 @@ export default function CollegeFilters(params?: any) {
 									fontColor="text-primary"
 								/>
 							</div>
-							<div className="w-1/2" onClick={params.handleMobileFilter}>
+							<div className="w-1/2" onClick={handleMobileFilter}>
 								<Button
 									href={""}
 									text="Apply Filters"

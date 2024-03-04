@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
 export default function Filter(props: any) {
+
 	const [open, setOpen] = useState(true);
 	const [Search, setSearch] = useState("");
 	const handleOpen = () => setOpen(open ? false : true);
@@ -19,35 +20,30 @@ export default function Filter(props: any) {
 				{open ? (
 					<>
 						<div className="px-2 py-1">
-							{/* <input
-                type="text"
-                className="border border-extra-light-text p-2 text-sm focus:border-primary w-full my-2 rounded outline-none"
-                placeholder={`Search ${props.name}`}
-              /> */}
 							<div className="h-full max-h-48 overflow-x-auto">
-								{props.name === "Stream" ? (
+								{props.name === "Mode" ? (
 									<>
 										{Search.trim.length === 0 &&
 											props?.filters?.map((filter: any) => {
 												return (
 													<div
-														key={filter.id}
+														key={filter?.id}
 														className="flex gap-1 items-center my-2 cursor-pointer"
 													>
 														<input
 															type="radio"
-															id={filter.id}
-															name={filter.attributes.streamName}
+															id={filter.mode}
+															name={filter.mode}
 															checked={
-																props.checked === filter.attributes.streamName
+																props.checked === filter?.attributes?.mode
 															}
 															className=""
 															onChange={() =>
-																props.handleFilter(filter.attributes.streamName)
+																props.handleFilter(filter?.attributes?.mode)
 															}
 														/>
 														<span className="text-sm font-medium text-secondary-text hover:text-primary">
-															{filter.attributes.streamName}
+															{filter?.attributes?.mode}
 														</span>
 													</div>
 												);

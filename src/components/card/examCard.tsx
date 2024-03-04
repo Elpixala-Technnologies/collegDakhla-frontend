@@ -5,6 +5,7 @@ import { FaHeart, FaMedal } from "react-icons/fa6";
 import formatDate from "@/utils/formatDate";
 
 export default function ExamCard({ featuredExams }: any) {
+
 	const logoURL = featuredExams?.attributes?.logo?.data?.attributes?.url
 		? getStrapiMedia(featuredExams?.attributes?.logo?.data?.attributes?.url)
 		: GetDefaultImage("logo");
@@ -47,9 +48,9 @@ export default function ExamCard({ featuredExams }: any) {
 					<div className="p-2 pt-4 flex-1 flex flex-col gap-2">
 						<div>
 							<Link href={`/exams/${featuredExams?.id}`}>
-								<h4 className="text-primary  font-semibold">{featuredExams?.attributes?.name}</h4>
+								<h4 className="text-primary font-semibold truncate max-w-60">{featuredExams?.attributes?.name}</h4>
 							</Link>
-							<div className="flex flex-col text-sm tracking-tighter gap-2 px-2">
+							<div className="flex flex-col text-sm tracking-tighter gap-2">
 								<div className="flex justify-between">
 									<div className="">Participating Colleges</div>
 									<div className="font-semibold">54</div>

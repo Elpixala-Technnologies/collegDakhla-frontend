@@ -1,5 +1,4 @@
 "use client";
-import CollegeFilters from "@/components/collegeFilters/collegeFilters";
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
@@ -8,21 +7,24 @@ import { useQuery } from "@apollo/client";
 import ExamCard from "@/components/card/examCard";
 import ExamListItem from "@/components/examListItem/examListItem";
 import Carousel from "@/components/carousel/carousel";
+import ExamFilters from "@/components/filters/examFilters/examFilter";
 
 export default function ExamList() {
 	const [Search, setSearch] = useState("");
 	const [MobileFilter, setMobileFilter] = useState(false);
-	const [showFullContent, setShowFullContent] = useState(false);
-	const [showReadMore, setShowReadMore] = useState(true);
+	const [LevelFilter, setLevelFilter] = useState<string>("");
+	const [ModeFilter, setModeFilter] = useState<string>("");
 
 	// get exams on search
 	const {
-		loading: filterLoader,
-		error: filterError,
+		loading: examsLoader,
+		error: examsError,
 		data: examsData,
 	} = useQuery(searchExams, {
 		variables: {
 			Search,
+			LevelFilter,
+			ModeFilter
 		},
 	});
 
@@ -32,15 +34,6 @@ export default function ExamList() {
 		error: featuredError,
 		data: featuredExams,
 	} = useQuery(getFeaturedExams);
-
-
-	const handleReadMoreClick = () => {
-		setShowFullContent(true);
-	};
-
-	const handleReadLessClick = () => {
-		setShowFullContent(false);
-	};
 
 	const handleSearch = (event: any) => {
 		setSearch(event.target.value);
@@ -53,14 +46,6 @@ export default function ExamList() {
 		}
 	};
 
-	useEffect(() => {
-		const content = document.getElementById("content")!;
-		const readMore = document.getElementById("readMore")!;
-
-		if (content?.scrollHeight > content?.clientHeight) {
-			setShowReadMore(true);
-		}
-	}, []);
 
 	return (
 		<>
@@ -80,7 +65,7 @@ export default function ExamList() {
 							title="Featured Exams"
 							showPagination={false}
 							slides={featuredExams?.exams?.data?.map((exam: any, index: number) => {
-								return <ExamCard key={index} featuredExamData={exam} />;
+								return <ExamCard key={index} featuredExams={exam} />;
 							})}
 						/>
 					</div>
@@ -88,12 +73,15 @@ export default function ExamList() {
 				<section className="collegeList">
 					<div className="flex flex-col md:flex-row gap-4 px-4">
 						<div className="flex-none w-56">
-							{/* <CollegeFilters
-								allColleges={initialData}
-								setFilteredData={setFilteredData}
+							<ExamFilters
+								LevelFilter={LevelFilter}
+								setLevelFilter={setLevelFilter}
+								ModeFilter={ModeFilter}
+								setModeFilter={setModeFilter}
 								isMobile={MobileFilter}
 								handleMobileFilter={handleMobileFilter}
-							/> */}
+								totalExams={examsData?.exams?.meta?.pagination?.total}
+							/>
 						</div>
 						<div className="flex-1 w-full overflow-hidden">
 							<div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col">
