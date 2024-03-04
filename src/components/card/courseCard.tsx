@@ -13,7 +13,7 @@ export default function CourseCard({ featuredCourse }: any) {
 	const bannerUrl = featuredCourse?.attributes?.banner?.data[0] ? getStrapiMedia(featuredCourse?.attributes?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
 
 	return (
-		<div className="flex flex-col items-stretch min-w-56 bg-white rounded-lg shadow-xl">
+		<div className="flex flex-col items-stretch min-w-60 bg-white rounded-lg shadow-xl">
 			<div className="relative rounded-t-lg">
 				<img
 					src={bannerUrl!}
@@ -49,31 +49,29 @@ export default function CourseCard({ featuredCourse }: any) {
 					</div>
 
 					<div className="p-2 pt-4 flex-1 flex flex-col gap-2 pr-2">
-						<div>
-							<Link href={`/courses/${featuredCourse?.id}`}>
-								<h4 className="text-primary  font-semibold">{featuredCourse?.attributes?.name}</h4>
-							</Link>
-							<div className="flex flex-col text-sm tracking-tighter gap-2">
-								<div className="flex justify-between">
-									<div className="">Specializations</div>
-									<div className="font-semibold">
-										{featuredCourse?.attributes?.specializations?.data?.length}
-									</div>
+						<Link href={`/courses/${featuredCourse?.id}`}>
+							<h4 className="text-primary font-semibold truncate max-w-60">{featuredCourse?.attributes?.name}sjhvsdjcdscvuwvcwivcvcdvhjvdcvkchjed</h4>
+						</Link>
+						<div className="flex flex-col text-sm tracking-tighter gap-2">
+							<div className="flex justify-between">
+								<div className="">Specializations</div>
+								<div className="font-semibold">
+									{featuredCourse?.attributes?.specializations?.data?.length}
 								</div>
-								<div className="flex justify-between">
-									<div className="">Course Duration</div>
-									<div className="font-semibold">{featuredCourse?.attributes?.duration} Years</div>
-								</div>
-								<div className="flex justify-between">
-									<div className="">Course Level</div>
-									<div className="font-semibold">{featuredCourse?.attributes?.courseLevels?.data?.map((level: any, index: number) => {
-										return (
-											<span key={index}>
-												{" " + `${level?.attributes?.levelName}`}
-											</span>
-										)
-									})}</div>
-								</div>
+							</div>
+							<div className="flex justify-between">
+								<div className="">Course Duration</div>
+								<div className="font-semibold">{featuredCourse?.attributes?.duration} Years</div>
+							</div>
+							<div className="flex justify-between">
+								<div className="">Course Level</div>
+								<div className="font-semibold">{featuredCourse?.attributes?.courseLevels?.data?.map((level: any, index: number) => {
+									return (
+										<span key={index}>
+											{" " + `${level?.attributes?.levelName}`}
+										</span>
+									)
+								})}</div>
 							</div>
 						</div>
 					</div>
