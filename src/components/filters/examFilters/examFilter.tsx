@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Filter from "../courseFilters/filter";
+import Filter from "../examFilters/filter";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { getSpecializations, getStates } from "@/query/schema";
+import { getExamLevels, getExamModes, getSpecializations, getStates } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -10,55 +10,62 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "../../button/button";
 
-export default function CourseFilters({ DurationFilter,
-	setDurationFilter,
-	SpecializationFilter,
-	setSpecializationFilter,
+export default function ExamFilters({ LevelFilter,
+	setLevelFilter,
+	ModeFilter,
+	setModeFilter,
 	isMobile,
 	handleMobileFilter,
-	totalCourses
+	totalExams,
 }: any) {
 
 	const [open, setOpen] = useState(true);
 	const handleOpen = () => setOpen(open ? false : true);
 	const [SelectedFilter, setSelectedFilter] = useState({
-		duration: "",
-		specialization: "",
+		level: "",
+		mode: "",
 	});
+
+	// query to get all exam levels
+	const {
+		loading: examLevelLoader,
+		error: examLevelError,
+		data: examLevelData,
+	} = useQuery(getExamLevels);
 
 	// query to get all specializations
 	const {
-		loading: specializationsLoader,
-		error: specializationsError,
-		data: specializationsData,
-	} = useQuery(getSpecializations);
+		loading: examModeLoader,
+		error: examModeError,
+		data: examModeData,
+	} = useQuery(getExamModes);
 
 	//tab state
 	const [value, setValue] = useState(0);
 
-	const handleDurationFilter = (years: string) => {
-		setDurationFilter(years);
+	const handleLevelFilter = (level: string) => {
+		setLevelFilter(level);
 		setSelectedFilter((prevData) => ({
 			...prevData,
-			duration: years,
+			level: level,
 		}));
 	};
 
-	const handleSpecializationFilter = (name: string) => {
-		setSpecializationFilter(name);
+	const handleModeFilter = (mode: string) => {
+		setModeFilter(mode);
 		setSelectedFilter((prevData) => ({
 			...prevData,
-			specialization: name,
+			mode: mode,
 		}));
 	};
 
 	const handleUnselectFilter = (filter?: string, name?: string) => {
-		if (filter === "duration") {
-			setDurationFilter("");
-			SelectedFilter.duration = "";
-		} else if (filter === "specialization") {
-			setSpecializationFilter("");
-			SelectedFilter.specialization = "";
+		if (filter === "level") {
+			setLevelFilter("");
+			SelectedFilter.level = "";
+		} else if (filter === "mode") {
+			setModeFilter("");
+			SelectedFilter.mode = "";
 		}
 	};
 
@@ -98,10 +105,10 @@ export default function CourseFilters({ DurationFilter,
 		<>
 			<div className="bg-white hidden md:block">
 				<h3 className="uppercase text-sm px-2 py-3">
-					Found <b>{totalCourses}</b>{" "}
+					Found <b>{totalExams}</b>{" "}
 					colleges
 				</h3>
-				{SelectedFilter.duration || SelectedFilter.specialization ? (
+				{SelectedFilter.level || SelectedFilter.mode ? (
 					<>
 						<div
 							className="bg-gray-200 px-2 py-2 flex items-center justify-between"
@@ -133,17 +140,17 @@ export default function CourseFilters({ DurationFilter,
 
 
 				<Filter
-					name="Duration"
-					filters={["1", "2", "3", "4", "5", "6"]}
-					handleFilter={handleDurationFilter}
-					checked={DurationFilter}
+					name="Level"
+					filters={examLevelData?.examLevels?.data} // add data here
+					handleFilter={handleLevelFilter}
+					checked={LevelFilter}
 				/>
 
 				<Filter
-					name="Specialization"
-					filters={specializationsData?.specializations?.data}
-					handleFilter={handleSpecializationFilter}
-					checked={SpecializationFilter}
+					name="Mode"
+					filters={examModeData?.examModes?.data} // add data here
+					handleFilter={handleModeFilter}
+					checked={ModeFilter}
 				/>
 			</div>
 			{isMobile ? (
@@ -182,7 +189,7 @@ export default function CourseFilters({ DurationFilter,
 											<Tab label="Specialization" {...a11yProps(1)} />
 										</Tabs>
 										<TabPanel value={value} index={0}>
-											{["1", "2", "3", "4", "5", "6"].map((year: string, index: number) => {
+											{examLevelData?.examLevels?.data.map((level: any, index: number) => {
 												return (
 													<div
 														key={index}
@@ -190,43 +197,41 @@ export default function CourseFilters({ DurationFilter,
 													>
 														<input
 															type="radio"
-															id={`${index}`}
-															name={`${year}`}
-															checked={
-																DurationFilter === year
-															}
+															id={level?.attributes?.name}
+															name={level?.attributes?.name}
+															checked={LevelFilter === level?.attributes?.name}
 															className=""
 															onChange={() =>
-																handleDurationFilter(year)
+																handleLevelFilter(level?.attributes?.name)
 															}
 														/>
 														<span className="text-xxs font-semibold text-secondary-text hover:text-primary">
-															{year} Years
+															{level?.attributes?.name}
 														</span>
 													</div>
 												);
 											})}
 										</TabPanel>
 										<TabPanel value={value} index={1}>
-											{specializationsData?.specializations?.data?.map((specialization: any) => {
+											{examModeData?.examModes?.data?.map((mode: any) => {
 
 												return (
 													<div
-														key={specialization.id}
+														key={mode.id}
 														className="flex gap-1 items-center my-2 cursor-pointer text-base"
 													>
 														<input
 															type="radio"
-															name={specialization?.attributes?.name}
-															id={specialization?.id}
+															name={mode?.attributes?.name}
+															id={mode?.id}
 															className=""
-															checked={SpecializationFilter === specialization?.attributes?.name}
+															checked={ModeFilter === mode?.attributes?.name}
 															onChange={() =>
-																handleSpecializationFilter(specialization?.attributes?.name)
+																handleModeFilter(mode?.attributes?.name)
 															}
 														/>
 														<span className="text-xxs font-semibold text-secondary-text hover:text-primary">
-															{specialization?.attributes?.name}
+															{mode?.attributes?.name}
 														</span>
 													</div>
 												);

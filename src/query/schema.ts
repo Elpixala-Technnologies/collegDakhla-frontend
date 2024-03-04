@@ -859,42 +859,56 @@ export const getFeaturedCourses = gql`query Courses {
 
 // query to search exams
 export const searchExams = gql`
-query Exams($Search : String!) {
-    exams(filters: { name: { containsi: $Search } }) {
+query Exams($Search : String!, $LevelFilter : String!, $ModeFilter : String!) {
+    exams(filters: { 
+			and: [
+				{name: { containsi: $Search } }
+				{examLevel: { name: { containsi: $LevelFilter } }		}
+				{examMode: { mode: { containsi: $ModeFilter } } }
+			]
+		 }) {
         data {
-            id
-            attributes {
-                name
-                title
-                logo {
-                    data {
-											id
-                        attributes {
-                            url
-                        }
-                    }
-                }
-                examLevel {
-                    data {
-											id
-                        attributes {
-                            name
-                        }
-                    }
-                }
-                examDate {
-                    startDate
-                    endDate
-                }
-                resultDate {
-                    startDate
-                    endDate
-                }
-                applicationDate {
-                    startDate
-                    endDate
-                }
-            }
+					id
+					attributes {
+						name
+						title
+						logo {
+							data {
+								id
+								attributes {
+									url
+								}
+							}
+						}
+						examLevel {
+							data {
+								id
+								attributes {
+									name
+								}
+							}
+						}
+						examDate {
+							id
+							startDate
+							endDate
+						}
+						resultDate {
+							id
+							startDate
+							endDate
+						}
+						applicationDate {
+							id
+							startDate
+							endDate
+						}
+					}
+        }
+				meta {
+					pagination {
+						total
+					}
         }
     }
 }
@@ -907,36 +921,38 @@ query Exams {
         data {
             id
             attributes {
+							name
                 examDate {
-                    startDate
+									id
+                  startDate
                 }
                 banner {
-									id
 									data {
+										id
 										attributes {
 											url
 										}
 									}
                 }
                 logo {
-									id
 									data {
-											attributes {
-												url
-											}
+										id
+										attributes {
+											url
+										}
 									}
                 }
-                name
                 examLevel {
 									data {
+										id
 										attributes {
 											name
 										}
 									}
                 }
                 examMode {
-									id
 									data {
+										id
 										attributes {
 											mode
 										}
@@ -952,6 +968,32 @@ query Exams {
 export const getSpecializations = gql`
 query Specializations {
     specializations {
+        data {
+            id
+            attributes {
+                name
+            }
+        }
+    }
+}`
+
+//query to get all exam modes
+export const getExamModes = gql`
+query ExamModes {
+    examModes {
+        data {
+            id
+            attributes {
+                mode
+            }
+        }
+    }
+}`
+
+//query to get exam levels
+export const getExamLevels = gql`
+query ExamLevels {
+    examLevels {
         data {
             id
             attributes {

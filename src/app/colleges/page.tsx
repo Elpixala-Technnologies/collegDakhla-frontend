@@ -109,7 +109,7 @@ export default function CollegeList() {
 				</section>
 				<section className="topCollege">
 					<div className="m-4 bg-white py-4 px-4">
-						<h2 className="text-xl font-bold mb-3">Top Colleges in India</h2>
+						<h2 className="text-xl font-bold mb-3">Showing 1000 Top Colleges in India</h2>
 						<Carousel slides={[]} />
 					</div>
 				</section>

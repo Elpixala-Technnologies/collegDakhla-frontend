@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { ReactElement, ReactNode, useEffect, useState } from "react";
 import { FaAngleDown, FaAngleUp, FaRegQuestionCircle } from "react-icons/fa";
 import Tooltip from "../tooltip/tooltip";
 import { RiSearchLine } from "react-icons/ri";
@@ -17,24 +17,40 @@ export default function Header() {
 	const currentPath = usePathname();
 	const [ShowSearch, setShowSearch] = useState(false);
 	const [ShowOptions, setShowOptions] = useState(false);
+	const [Options, setOptions] = useState<ReactNode>(CollegeOption);
 
 	const handleSearch = () => {
 		setShowSearch(!ShowSearch);
 	};
 
-	const handleShowOptions = () => {
-		setShowOptions(!ShowOptions);
+	const handleShowOptions = (option: string) => {
+		setShowOptions(true);
+		switch (option) {
+			case "college":
+				setOptions(CollegeOption);
+				break;
+			case "exam":
+				setOptions(ExamOption);
+				break;
+		}
 	};
 
 	useEffect(() => {
 		setPath(currentPath.split("/")[1]);
 	}, [currentPath]);
 
+	useEffect(() => {
+		if (ShowOptions) {
+			setTimeout(() => {
+				setShowOptions(false);
+			}, 5000);
+		}
+	}, [ShowOptions]);
 	useEffect(() => { }, []);
 
 	return (
 		<nav className=" relative z-50  bg-gradient-to-b from-[#000]  to-[#1a1a1a]">
-			<div className="h-24 flex gap-4 items-center mx-auto px-4 max-w-screen-xl justify-between">
+			<div className="relative h-24 flex gap-4 items-center mx-auto px-4 max-w-screen-xl justify-between">
 				<div className="logo flex-none w-24">
 					<Link href="/">
 						<Image src="/logo.png" alt="" width={100} height={100} />
@@ -44,12 +60,20 @@ export default function Header() {
 				<div className="flex gap-8 items-center text-white">
 					<div className="hidden sm:block">
 						<div className="flex gap-8">
-							<div className="flex gap-1 items-center">
-								<Link href={"/colleges"}>College</Link>
+							<div
+								className="flex gap-1 items-center"
+								onClick={() => {
+									handleShowOptions("college");
+								}}
+							>
+								<div>College</div>
 								<TfiAngleDown />
 							</div>
 
-							<div className="flex gap-1 items-center">
+							<div
+								className="flex gap-1 items-center"
+								onClick={() => handleShowOptions("exam")}
+							>
 								Exam
 								<TfiAngleDown />
 							</div>
@@ -82,21 +106,23 @@ export default function Header() {
 						<div className="" onClick={handleSearch}>
 							<RiSearchLine />
 						</div>
-						<div onClick={handleShowOptions}>
+						<div>
 							<GiHamburgerMenu />
 						</div>
 					</div>
 				</div>
+				{ShowOptions ? (
+					<>
+						{/* <NavOption></NavOption>
+          <LoginQASection /> */}
+						<div className="absolute top-24 w-full h-max bg-white mx-auto p-4 rounded-md shadow-lg z-50">
+							{Options}
+						</div>
+					</>
+				) : (
+					<></>
+				)}
 			</div>
-
-			{ShowOptions ? (
-				<>
-					<NavOption></NavOption>
-					<LoginQASection />
-				</>
-			) : (
-				<></>
-			)}
 		</nav>
 	);
 }
@@ -147,5 +173,31 @@ const LoginQASection = () => {
 				</div>
 			</div>
 		</>
+	);
+};
+
+const CollegeOption = () => {
+	return (
+		<div>
+			<div>Top College from Delhi</div>
+			<div>Top College from Varansi</div>
+			<div>Top College from Pune</div>
+			<div>Top College from Jaipur</div>
+			<div>Top College from Chennai</div>
+			<div>Top College from Haryana</div>
+		</div>
+	);
+};
+
+const ExamOption = () => {
+	return (
+		<div>
+			<div>Top International Exam</div>
+			<div>Top National Entrance Exam</div>
+			<div>Top College from Pune</div>
+			<div>Top College from Jaipur</div>
+			<div>Top College from Chennai</div>
+			<div>Top College from Haryana</div>
+		</div>
 	);
 };

@@ -52,7 +52,7 @@ export default function Courses() {
 				<section className="heroSection">
 					<div className="m-4 px-8 py-8 bg-white flex flex-col gap-3 rounded-sm">
 						<h1 className="text-3xl font-bold text-center text-primary">
-							List of courses
+							Showing 1000 Top Courses in India
 						</h1>
 					</div>
 				</section>
