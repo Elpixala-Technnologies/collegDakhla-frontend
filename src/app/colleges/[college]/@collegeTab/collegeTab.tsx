@@ -1,8 +1,6 @@
 import Author from "@/components/author/author";
 import Button from "@/components/button/button";
-import Table from "@/components/table/table";
 import Image from "next/image";
-import CollegeData from "@/components/collegeData/collegeData";
 import YoutubeVideo from "@/components/youtubeVideo/youtubeVideo";
 import PageData from "@/components/pageData/pageData";
 
