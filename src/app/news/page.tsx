@@ -11,7 +11,7 @@ export default function News() {
             <h3 className="text-2xl font-semibold">Trending News</h3>
           </div>
           <div className="grid grid-cols-2 grid-rows-5 gap-x-6 gap-y-4">
-            <div className="row-span-5 col-span-1 flex flex-col gap-3">
+            <div className="row-span-5 col-span-2 md:col-span-1 flex flex-col gap-3">
               <div className="relative">
                 <div className="w-full">
                   <Image
@@ -19,7 +19,7 @@ export default function News() {
                     alt=""
                     width={500}
                     height={200}
-                    style={{ width: "100%", height: "400px" }}
+                    style={{ width: "100%" }}
                   />
                 </div>
                 <div className="absolute top-4 left-4 bg-cyan-400 px-1 py-[2px] text-xs text-white tracking-wider  uppercase">
@@ -43,7 +43,7 @@ export default function News() {
             {[1, 2, 3, 4, 5].map((item, index) => {
               return (
                 <div
-                  className="row-span-1 col-span-1 flex gap-4 items-center"
+                  className="row-span-1 col-span-2 sm:col-span-1 flex flex-col md:flex-row gap-4 md:items-center"
                   key={index}
                 >
                   <div>
@@ -52,7 +52,7 @@ export default function News() {
                       alt=""
                       width={200}
                       height={200}
-                      style={{}}
+                      style={{ width: "100%" }}
                     />
                   </div>
                   <div>
@@ -81,10 +81,13 @@ export default function News() {
           <div>
             <h3 className="text-xl font-semibold">Exam News</h3>
           </div>
-          <div className="flex gap-x-6 gap-y-10 flex-wrap">
+          <div className="grid grid-cols-4 grid-flow-row gap-x-6 gap-y-10 ">
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
               return (
-                <div key={index} className="flex flex-col gap-3 w-56">
+                <div
+                  key={index}
+                  className="col-span-4 sm:col-span-2 md:col-span-1 flex flex-col gap-3"
+                >
                   <div>
                     <Image
                       src={"/news.jpg"}
