@@ -24,6 +24,7 @@ export default function CollegeFilters(params?: any) {
 		error: streamsError,
 		data: streamsData,
 	} = useQuery(getStreams);
+
 	const {
 		loading: statesLoader,
 		error: statesError,

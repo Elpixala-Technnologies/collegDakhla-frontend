@@ -9,7 +9,7 @@ import Carousel from "@/components/carousel/carousel";
 import CourseCard from "@/components/card/courseCard";
 import CourseFilters from "@/components/filters/courseFilters/courseFilters";
 
-export default function Courses() {
+export default function CourseList() {
 	const [Search, setSearch] = useState<string>("");
 	const [MobileFilter, setMobileFilter] = useState(false);
 	const [DurationFilter, setDurationFilter] = useState<string>("");

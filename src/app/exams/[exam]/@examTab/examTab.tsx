@@ -4,9 +4,10 @@ import Table from "@/components/table/table";
 import Image from "next/image";
 import CollegeData from "@/components/collegeData/collegeData";
 import YoutubeVideo from "@/components/youtubeVideo/youtubeVideo";
+import PageData from "@/components/pageData/pageData";
 
 
-export default function CollegeTab(props: any) {
+export default function ExamTab({ tabData }: any) {
 
 	return (
 		<>
@@ -18,20 +19,11 @@ export default function CollegeTab(props: any) {
 							<Author />
 						</div>
 						<div className="page-data-wrapper">
-							{props?.data?.map((item: any, index: number) => {
-								const tableRegex = /<table[^>]*>[\s\S]*?<\/table>/;
-								const tableMatch = item?.content?.match(tableRegex);
-								const extractedTableHtml = tableMatch ? tableMatch[0] : '';
+							{tabData?.map((item: any, index: number) => {
 								return (
 									<div className="content bg-gray-50 rounded-xl px-5 pt-5 mb-5" key={index}>
 										<h2 className="text-lg font-bold mb-2 text-primary"> {item?.heading}</h2>
-										{
-											(extractedTableHtml) ? (
-												<Table tableData={extractedTableHtml} />
-											) : (
-												<CollegeData data={item?.content} />
-											)
-										}
+										<PageData data={item} />
 									</div>
 								)
 							})}

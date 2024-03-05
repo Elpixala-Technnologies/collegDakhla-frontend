@@ -71,7 +71,6 @@ export default function ExamFilters({ LevelFilter,
 
 	const resetFilters = () => {
 		const updatedFilter = {};
-		console.log("selected ", SelectedFilter);
 		handleMobileFilter();
 	};
 

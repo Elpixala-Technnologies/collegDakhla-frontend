@@ -64,7 +64,6 @@ export default function CourseFilters({ DurationFilter,
 
 	const resetFilters = () => {
 		const updatedFilter = {};
-		console.log("selected ", SelectedFilter);
 		handleMobileFilter();
 	};
 

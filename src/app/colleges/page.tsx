@@ -37,6 +37,9 @@ export default function CollegeList() {
 		},
 	});
 
+	console.log("all collges are ", filteredCollege);
+
+
 	//query to get top colleges
 	const {
 		loading: topCollegesLoader,
@@ -45,17 +48,15 @@ export default function CollegeList() {
 	} = useQuery(topColleges, {
 		variables: { Stream, Limit },
 	});
-
-	console.log("featured colleges are ", topCollegesData,
-	);
+	console.log("top collges are ", topCollegesData);
 
 
-	const {
-		loading: streamLoader,
-		error: streamError,
-		data: streamData,
-	} = useQuery(getDefaultStream);
-	let aboutStream = streamData?.streams?.data[0]?.attributes?.description;
+	// const {
+	// 	loading: streamLoader,
+	// 	error: streamError,
+	// 	data: streamData,
+	// } = useQuery(getDefaultStream);
+	// let aboutStream = streamData?.streams?.data[0]?.attributes?.description;
 
 	const handleReadMoreClick = () => {
 		setShowFullContent(true);
@@ -102,14 +103,14 @@ export default function CollegeList() {
 						<h1 className="text-xl font-bold mb-3 text-center text-primary">
 							Showing 1000 Top Colleges in India
 						</h1>
-						<div
+						{/* <div
 							dangerouslySetInnerHTML={{ __html: aboutStream }}
 							className="font-poppins text-base text-wrap"
 							style={{
 								maxHeight: showFullContent ? "none" : "200px",
 								overflow: "hidden",
 							}}
-						></div>
+						></div> */}
 						<div className="py-2 text-primary text-sm text-right">
 							{showReadMore && !showFullContent && (
 								<div className="readMore cursor-s-resize">
