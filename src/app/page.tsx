@@ -42,7 +42,7 @@ export default function Home() {
 
   return (
     <>
-      <div>
+      <div className="mx-auto">
         <section>
           <HeroSection />
         </section>
@@ -125,9 +125,9 @@ export default function Home() {
           </div>
         </section>
         <section className="bg-white py-8">
-          <div className="flex flex-col gap-8 max-w-screen-xl mx-auto">
+          <div className="flex flex-col gap-8 max-w-screen-xl mx-auto px-4">
             <h2 className="text-3xl font-semibold">What our Student Say</h2>
-            <div className="flex justify-between mb-10">
+            <div className="flex justify-center md:justify-between mb-10 gap-4 flex-wrap items-center">
               <TestimonyCard />
               <TestimonyCard />
               <TestimonyCard />
@@ -169,6 +169,8 @@ export default function Home() {
               <CarouselSideBtn
                 showPagination={false}
                 slidesDesktop={5}
+                slidesTablet={4}
+                slidesMobile={3}
                 slides={[1, 2, 3, 4, 5, 6, 7, 8].map((item) => {
                   return (
                     <div key={item}>
@@ -217,10 +219,10 @@ export default function Home() {
         <section className="max-w-screen-xl mx-auto my-10 px-4">
           <div className="flex flex-col gap-6 ">
             <h3 className="text-3xl font-semibold">Exam News</h3>
-            <div className="grid grid-cols-4 grid-flow-row gap-x-7 gap-y-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 grid-flow-row gap-x-7 gap-y-10">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => {
                 return (
-                  <div key={index} className="flex flex-col gap-4">
+                  <div key={index} className="flex flex-col gap-4 ">
                     <div>
                       <Image
                         src={"/racing.png"}
@@ -244,13 +246,13 @@ export default function Home() {
           </div>
         </section>
         <section>
-          <div className="max-w-screen-xl mx-auto px-4 my-20 flex text-primary-text gap-16">
+          <div className="max-w-screen-xl mx-auto px-4 my-20 flex flex-wrap text-primary-text gap-16">
             <div className="flex-1">
               <div className="relative flex w-max">
-                <h3 className="text-[35px] font-semibold">
+                <h3 className="text-2xl md:text-[35px] font-semibold">
                   We have Got you Covered!
                 </h3>
-                <div className="absolute right-0 -bottom-1">
+                <div className="absolute right-0 -bottom-2 md:-bottom-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="124"
@@ -284,7 +286,7 @@ export default function Home() {
                 />
               </div>
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-[300px]">
               <div className="flex flex-col rounded-md overflow-hidden border-[0.5px] border-primary-text-light shadow-xl">
                 <div className="bg-black text-white p-4 flex gap-4 items-center justify-center">
                   <Image
@@ -307,7 +309,7 @@ export default function Home() {
                   </div>
                   <div className="flex flex-col gap-3">
                     <p>What Degree do you plan to pursue? *</p>
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 flex-wrap">
                       <Button
                         outline
                         fontColor="text-primary-text-light"
@@ -350,7 +352,7 @@ export default function Home() {
                   </div>
                   <div className="flex flex-col gap-3">
                     <p>What is your highest level of education? *</p>
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 flex-wrap">
                       <Button
                         outline
                         fontColor="text-primary-text-light"
@@ -396,7 +398,7 @@ export default function Home() {
           </div>
         </section>
         <section className="bg-white py-8">
-          <div className=" max-w-screen-xl mx-auto">
+          <div className=" max-w-screen-xl mx-auto px-4">
             <h2 className="text-3xl font-semibold">
               Frequently Asked Questions
             </h2>
@@ -449,7 +451,7 @@ export default function Home() {
             <div className="text-3xl font-semibold w-80 text-center">
               Get in Touch with our Expert Counsellors
             </div>
-            <div className="flex gap-7">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               <input
                 className="rounded-md border-[0.5px] border-primary-extra-light-text w-full bg-white p-2 shadow"
                 placeholder="Name"
@@ -474,7 +476,7 @@ export default function Home() {
                 </button>
               </div>
               <div>
-                <p className="w-96 text-center text-sm">
+                <p className=" w-full md:w-96 text-center text-sm">
                   By proceeding ahead you expressly agree to the College Dakhla
                   Education terms of use and privacy policy
                 </p>

@@ -13,7 +13,6 @@ export default function News() {
 		error: newsError,
 		data: newsData,
 	} = useQuery(getNewsCategories);
-	console.log("all news are ", newsData);
 
 	const firstCategory = newsData?.newsCategories?.data[0]
 	const firstPost = firstCategory?.attributes?.news?.data[0]?.attributes
@@ -96,7 +95,7 @@ export default function News() {
 			</section >
 
 			{newsData?.newsCategories?.data?.slice(1).map((newsCategory: any, index: number) => {
-				console.log("news category is ", newsCategory?.attributes?.news?.data[0]);
+
 				if ((index + 1) % 2 == 0) {
 					return (<section>
 						<div className="max-w-screen-xl mx-auto px-4 my-10 flex flex-col gap-8">

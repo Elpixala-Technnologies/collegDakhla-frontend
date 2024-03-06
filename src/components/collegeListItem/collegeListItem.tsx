@@ -49,7 +49,7 @@ export default function CollegeListItem(allColleges: any) {
 
             return (
               <div key={index}>
-                <div className="mb-4 p-4 flex flex-col sm:flex-row gap-4 shadow-lg bg-white">
+                <div className="mb-4 p-4 flex flex-col md:flex-row gap-4 shadow-lg bg-white">
                   <div className="relative h-44">
                     <img
                       src={bannerURL!}
@@ -80,182 +80,191 @@ export default function CollegeListItem(allColleges: any) {
                       </div>
                     </div>
                   </div>
-                  <div className="pb-4 flex flex-1 flex-col gap-3">
-                    <Link href={`/college/${college.id}`}>
-                      <div className="flex flex-row gap-2">
-                        <div>
-                          <img src={college.logo} alt="" />
-                        </div>
-                        <div className="flex flex-col">
-                          <h2 className="text-xl font-bold">
-                            {college?.attributes?.collegeName}
-                          </h2>
-                          <div className="text-xs">
-                            {college?.attributes?.city?.data?.attributes?.name},
-                            {college?.attributes?.state?.data?.attributes?.name}{" "}
-                            |{" "}
-                            {college?.attributes?.rankedBy?.data[0]?.attributes
-                              ?.name
-                              ? college?.attributes?.rankedBy?.data[0]
-                                  ?.attributes?.name
-                              : "UGC"}{" "}
-                            |{" "}
-                            {college?.attributes?.college_type?.data?.attributes
-                              ?.type
-                              ? college?.attributes?.college_type?.data
-                                  ?.attributes?.type
-                              : "Private"}{" "}
-                            | {"Rank 6"}
+                  <div className="flex flex-1 flex-col lg:flex-row">
+                    <div className="pb-4 flex flex-1 flex-col gap-3">
+                      <Link href={`/college/${college.id}`}>
+                        <div className="flex flex-row gap-2">
+                          <div>
+                            <img src={college.logo} alt="" />
+                          </div>
+                          <div className="flex flex-col">
+                            <h2 className="text-xl font-bold">
+                              {college?.attributes?.collegeName}
+                            </h2>
+                            <div className="text-xs">
+                              {
+                                college?.attributes?.city?.data?.attributes
+                                  ?.name
+                              }
+                              ,
+                              {
+                                college?.attributes?.state?.data?.attributes
+                                  ?.name
+                              }{" "}
+                              |{" "}
+                              {college?.attributes?.rankedBy?.data[0]
+                                ?.attributes?.name
+                                ? college?.attributes?.rankedBy?.data[0]
+                                    ?.attributes?.name
+                                : "UGC"}{" "}
+                              |{" "}
+                              {college?.attributes?.college_type?.data
+                                ?.attributes?.type
+                                ? college?.attributes?.college_type?.data
+                                    ?.attributes?.type
+                                : "Private"}{" "}
+                              | {"Rank 6"}
+                            </div>
                           </div>
                         </div>
+                      </Link>
+                      <div className="flex items-stretch">
+                        <div className="pr-4 mr-4 border-r border-extra-light-text">
+                          <p className="text-primary font-semibold text-sm lg:text-lg">
+                            {collegeFee}
+                          </p>
+                          <p className="text-xs text-secondary-text font-light">
+                            BE/B.Tech First year fees
+                          </p>
+                        </div>
+                        <div className="pr-4 mr-4 border-r border-extra-light-text">
+                          <p className="text-primary font-semibold text-lg">
+                            JEE Advance
+                          </p>
+                          <p className="text-xs text-secondary-text font-light">
+                            Exam Accepting
+                          </p>
+                        </div>
+                        <div className="pr-4 mr-4">
+                          <p className="text-primary font-semibold text-lg">
+                            {college?.attributes?.rating
+                              ? college?.attributes?.rating
+                              : 8.6}
+                            /10
+                          </p>
+                          <p className="text-xs text-secondary-text font-light">
+                            Based on user review
+                          </p>
+                        </div>
                       </div>
-                    </Link>
-                    <div className="flex items-stretch">
-                      <div className="pr-4 mr-4 border-r border-extra-light-text">
-                        <p className="text-primary font-semibold text-lg">
-                          {collegeFee}
-                        </p>
-                        <p className="text-xs text-secondary-text font-light">
-                          BE/B.Tech First year fees
-                        </p>
-                      </div>
-                      <div className="pr-4 mr-4 border-r border-extra-light-text">
-                        <p className="text-primary font-semibold text-lg">
-                          JEE Advance
-                        </p>
-                        <p className="text-xs text-secondary-text font-light">
-                          Exam Accepting
-                        </p>
-                      </div>
-                      <div className="pr-4 mr-4">
-                        <p className="text-primary font-semibold text-lg">
-                          {college?.attributes?.rating
-                            ? college?.attributes?.rating
-                            : 8.6}
-                          /10
-                        </p>
-                        <p className="text-xs text-secondary-text font-light">
-                          Based on user review
-                        </p>
-                      </div>
-                    </div>
-                    {/* <div className="flex gap-2">
+                      {/* <div className="flex gap-2">
                       <div>User Reviews:</div>
                       <StarRating rating={3} />
                     </div> */}
-                    <div className="flex gap-2">
+                      <div className="flex gap-2 flex-wrap">
+                        <Button
+                          href={`/college/${college.id}`}
+                          text="Admission 2024"
+                          icon={<FaRegUser />}
+                          fontSize="text-xxs"
+                          outline
+                          color="text-primary"
+                          rounded
+                          fontColor="text-primary-text"
+                        />
+                        <Button
+                          href={`/college/${college.id}`}
+                          text="Review"
+                          icon={<FaRegStar />}
+                          outline
+                          rounded
+                          fontSize="text-xxs"
+                          fontColor="text-primary-text"
+                        />
+                        <Button
+                          href={`/college/${college.id}`}
+                          text="Course & Fees"
+                          icon={<PiBooksLight />}
+                          outline
+                          rounded
+                          fontSize="text-xxs"
+                          fontColor="text-primary-text"
+                        />
+                      </div>
+                      <div>
+                        <div className="flex flex-wrap items-stretch text-primary gap-y-2">
+                          <div className="pr-4 mr-4 border-r border-primary">
+                            <p className="text-sm t font-light">Date</p>
+                          </div>
+                          <div className="pr-4 mr-4 border-r border-primary">
+                            <p className="text-sm  font-light">News</p>
+                          </div>
+                          <div className="pr-4 mr-4 border-r border-primary">
+                            <p className="text-sm  font-light">Admission</p>
+                          </div>
+                          <div className="pr-4 mr-4 border-r border-primary">
+                            <p className="text-sm  font-light">Broshure</p>
+                          </div>
+                          <div className="pr-4 mr-4 border-r border-primary">
+                            <p className="text-sm  font-light">Placement</p>
+                          </div>
+                          <div className="pr-4 mr-4">
+                            <p className="text-sm  font-light">Course</p>
+                          </div>
+                        </div>
+                      </div>
+                      {/* <div className="flex gap-3 items-center">
+                        <div className="text-3xl text-primary">
+                          <IoShieldCheckmark />
+                        </div>
+                        <div className="flex items-center gap-3 text-sm overflow-x-auto">
+                          <div className="text-secondary-text text-nowrap">
+                            <span className="text-primary font-semibold">
+                              #11
+                            </span>{" "}
+                            out of <span className="font-medium">NIRF</span>
+                          </div>
+                          <div className="text-secondary-text text-nowrap">
+                            <span className="text-primary font-semibold">
+                              #11
+                            </span>{" "}
+                            out of <span className="font-medium">NIRF</span>
+                          </div>
+                          <div className="text-secondary-text text-nowrap">
+                            <span className="text-primary font-semibold">
+                              #11
+                            </span>{" "}
+                            out of <span className="font-medium">NIRF</span>
+                          </div>
+                          <div className="text-secondary-text text-nowrap">
+                            <span className="text-primary font-semibold">
+                              #11
+                            </span>{" "}
+                            out of <span className="font-medium">NIRF</span>
+                          </div>
+                        </div>
+                      </div> */}
+                    </div>
+                    <div className="flex flex-row gap-1 flex-wrap lg:justify-center lg:flex-col md:gap-4 md:my-4 items-center lg:border-l lg:border-l-extra-light-text lg:px-4">
                       <Button
                         href={`/college/${college.id}`}
-                        text="Admission 2024"
-                        icon={<FaRegUser />}
-                        fontSize="text-xxs"
+                        text="Apply Now"
+                        filled
+                        fontSize="text-sm"
+                        width="w-40"
+                        align="text-center"
+                        bgColor="bg-primary"
+                      />
+                      <Button
+                        href={`/college/${college.id}`}
+                        text="Download Brochure"
+                        fontSize="text-sm"
                         outline
-                        color="text-primary"
-                        rounded
+                        width="w-40"
+                        align="text-center"
+                        bgColor="bg-white"
                         fontColor="text-primary-text"
                       />
                       <Button
                         href={`/college/${college.id}`}
-                        text="Review"
-                        icon={<FaRegStar />}
+                        text="Compare"
                         outline
-                        rounded
-                        fontSize="text-xxs"
+                        fontSize="text-sm"
+                        width="w-40"
                         fontColor="text-primary-text"
-                      />
-                      <Button
-                        href={`/college/${college.id}`}
-                        text="Course & Fees"
-                        icon={<PiBooksLight />}
-                        outline
-                        rounded
-                        fontSize="text-xxs"
-                        fontColor="text-primary-text"
+                        align="text-center"
                       />
                     </div>
-                    <div>
-                      <div className="flex items-stretch text-primary">
-                        <div className="pr-4 mr-4 border-r border-primary">
-                          <p className="text-sm t font-light">Date</p>
-                        </div>
-                        <div className="pr-4 mr-4 border-r border-primary">
-                          <p className="text-sm  font-light">News</p>
-                        </div>
-                        <div className="pr-4 mr-4 border-r border-primary">
-                          <p className="text-sm  font-light">Admission</p>
-                        </div>
-                        <div className="pr-4 mr-4 border-r border-primary">
-                          <p className="text-sm  font-light">Broshure</p>
-                        </div>
-                        <div className="pr-4 mr-4 border-r border-primary">
-                          <p className="text-sm  font-light">Placement</p>
-                        </div>
-                        <div className="pr-4 mr-4">
-                          <p className="text-sm  font-light">Course</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex gap-3 items-center">
-                      <div className="text-3xl text-primary">
-                        <IoShieldCheckmark />
-                      </div>
-                      <div className="flex items-center gap-3 text-sm overflow-x-auto">
-                        <div className="text-secondary-text text-nowrap">
-                          <span className="text-primary font-semibold">
-                            #11
-                          </span>{" "}
-                          out of <span className="font-medium">NIRF</span>
-                        </div>
-                        <div className="text-secondary-text text-nowrap">
-                          <span className="text-primary font-semibold">
-                            #11
-                          </span>{" "}
-                          out of <span className="font-medium">NIRF</span>
-                        </div>
-                        <div className="text-secondary-text text-nowrap">
-                          <span className="text-primary font-semibold">
-                            #11
-                          </span>{" "}
-                          out of <span className="font-medium">NIRF</span>
-                        </div>
-                        <div className="text-secondary-text text-nowrap">
-                          <span className="text-primary font-semibold">
-                            #11
-                          </span>{" "}
-                          out of <span className="font-medium">NIRF</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-row gap-1 flex-wrap justify-center md:flex-col md:gap-4 md:my-4 items-center border-l border-l-extra-light-text px-4">
-                    <Button
-                      href={`/college/${college.id}`}
-                      text="Apply Now"
-                      filled
-                      fontSize="text-sm"
-                      width="w-40"
-                      align="text-center"
-                      bgColor="bg-primary"
-                    />
-                    <Button
-                      href={`/college/${college.id}`}
-                      text="Download Brochure"
-                      fontSize="text-sm"
-                      outline
-                      width="w-40"
-                      align="text-center"
-                      bgColor="bg-white"
-                      fontColor="text-primary-text"
-                    />
-                    <Button
-                      href={`/college/${college.id}`}
-                      text="Compare"
-                      outline
-                      fontSize="text-sm"
-                      width="w-40"
-                      fontColor="text-primary-text"
-                      align="text-center"
-                    />
                   </div>
                 </div>
                 {(index + 1) % 4 == 0 ? (

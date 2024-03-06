@@ -10,8 +10,8 @@ export default function HeroSection() {
           className="object-cover w-full h-full"
         />
         <div className="absolute inset-0  bg-gradient-to-b from-[#1a1a1a]  to-transparent"></div>
-        <div className=" max-w-screen-xl mx-auto">
-          <div className="absolute top-4 flex gap-4 text-white px-4 text-sm">
+        <div className="max-w-screen-xl mx-auto overflow-hidden hidden sm:block">
+          <div className=" absolute top-4  flex flex-wrap gap-3 md:gap-4 text-white px-4 text-xs md:text-sm text-nowrap overflow-hidden">
             <div>All Courses</div>
             <div>B.Tech</div>
             <div>MBA</div>
@@ -26,21 +26,21 @@ export default function HeroSection() {
           </div>
         </div>
         <div className="absolute inset-0 p-2 flex flex-col justify-center items-center  max-w-screen-xl mx-auto">
-          <h1 className="text-white text-xl sm:text-4xl py-4">
+          <h1 className="text-white text-3xl sm:text-4xl py-4">
             Find 2500+ colleages in India
           </h1>
-          <div className="Search flex bg-white items-center rounded-md w-8/12 min-w-min">
+          <div className="Search flex bg-white items-center rounded-md w-8/12 mx-4 min-w-min">
             <div className="p-3 text-extra-light-text">
               <RiSearchLine />
             </div>
             <div className="flex-1">
               <input type="text" placeholder="Search For college, Exam" />
             </div>
-            <div className="px-4 py-2 bg-primary text-white font-bold text-lg rounded-r-md">
+            <div className="px-4 py-2 bg-primary text-white font-bold text-base md:text-lg rounded-r-md">
               search
             </div>
           </div>
-          <div className="flex gap-4 my-4 w-8/12 justify-between items-center">
+          <div className="flex gap-4 my-4 w-8/12 justify-center md:justify-between items-center text-nowrap flex-wrap">
             <div className="flex text-white items-center gap-4">
               <div className="font-semibold">Recent Visit:</div>
               <div className="p-1 border border-white rounded text-sm">BCA</div>
@@ -55,7 +55,7 @@ export default function HeroSection() {
           </div>
         </div>
         <div className="w-8/12 mx-auto text-right">
-          <div className="absolute bottom-4 right-20 text-white px-4 text-sm justify-end">
+          <div className="absolute bottom-4 right-2 md:right-20 text-white px-4 text-sm justify-end">
             Sita Ram College of Commerse, Delhi{" "}
             <span className="bg-black bg-opacity-50 p-1 rounded-md">1/3</span>
           </div>
