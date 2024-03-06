@@ -74,7 +74,7 @@ export default function Home() {
 						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 py-4">
 							{topCollegesData?.colleges?.data?.map((college: any, index: number) => {
 								return (
-									<TopCollectionCard college={college?.attributes} />
+									<TopCollectionCard college={college?.attributes} key={index} />
 								)
 							})}
 						</div>
@@ -108,10 +108,10 @@ export default function Home() {
 							{streamsData?.streams?.data?.map((stream: any, index: any) => {
 								return (
 									<Link
+										key={index}
 										href={{
 											pathname: `/streams/${stream.attributes.streamName.toLowerCase()}`,
 										}}
-										key={index}
 									>
 										<div className="border border-primary-light rounded-full py-2 px-4 bg-white text-nowrap">
 											{stream?.attributes?.streamName}

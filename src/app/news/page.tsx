@@ -97,8 +97,8 @@ export default function News() {
 			{newsData?.newsCategories?.data?.slice(1).map((newsCategory: any, index: number) => {
 
 				if ((index + 1) % 2 == 0) {
-					return (<section>
-						<div className="max-w-screen-xl mx-auto px-4 my-10 flex flex-col gap-8">
+					return (<section key={index}>
+						<div className="max-w-screen-xl mx-auto px-4 my-10 flex flex-col gap-8" key={index}>
 							<div>
 								<h3 className="text-xl font-semibold">{newsCategory?.attributes?.category}</h3>
 							</div>
@@ -147,7 +147,7 @@ export default function News() {
 				else {
 					const heroNews = newsCategory?.attributes?.news?.data[0]?.attributes
 					return (
-						<section>
+						<section key={index}>
 							<div className="max-w-screen-xl mx-auto px-4 my-16 flex flex-col gap-6">
 								<div>
 									<h3 className="text-xl font-semibold">{newsCategory?.attributes?.category}</h3>
@@ -172,7 +172,7 @@ export default function News() {
 											const featuredImageUrl = news?.attributes.featuredImage?.data[0] ? getStrapiMedia(news?.attributes.featuredImage?.data[0].attributes?.url) : GetDefaultImage("banner")
 
 											return (
-												<div className="flex gap-4">
+												<div className="flex gap-4" key={index}>
 													<div>
 														<Image
 															src={featuredImageUrl!}

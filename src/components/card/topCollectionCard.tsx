@@ -2,7 +2,6 @@ import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
 import Image from "next/image";
 
 export default function TopCollectionCard({ college }: any) {
-	console.log("colleges are ", college);
 	const logoUrl = college?.collegeLogo?.data?.attributes?.url ? getStrapiMedia(college?.collegeLogo?.data?.attributes?.url) : GetDefaultImage("logo");
 	return (
 		<>
