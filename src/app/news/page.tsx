@@ -26,7 +26,6 @@ export default function News() {
                   Exam
                 </div>
               </div>
-
               <div className="flex gap-1 items-center">
                 <div className="text-xs font-semibold">Atul Diwedi</div>
                 <div>-</div>

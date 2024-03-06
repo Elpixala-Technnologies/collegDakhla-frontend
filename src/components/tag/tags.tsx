@@ -52,7 +52,7 @@ export default function Tag({
                         } hover:text-primary`}
               >
                 {icon ? <div className="mr-2">{icon}</div> : <></>}
-                <div className={`flex-1`}>{text}</div>
+                <div className={`flex-1 text-nowrap`}>{text}</div>
               </div>
             </>
           </Link>
@@ -76,7 +76,7 @@ export default function Tag({
                         } hover:text-primary`}
           >
             {icon ? <div className="mr-2">{icon}</div> : <></>}
-            <div className={`flex-1`}>{text}</div>
+            <div className={`flex-1 text-nowrap`}>{text}</div>
           </div>
         </>
       )}

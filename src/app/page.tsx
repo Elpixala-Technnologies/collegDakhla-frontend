@@ -149,7 +149,7 @@ export default function Home() {
         <section className="explore-course-section bg-white">
           <div className="px-4  max-w-screen-xl mx-auto">
             <h2 className="text-3xl font-semibold">Explore Course</h2>
-            <div className="flex gap-4 my-2">
+            <div className="flex gap-4 my-2 overflow-x-auto py-2 md:py-0">
               {streamsData?.streams?.data?.map((stream: any, index: any) => {
                 return (
                   <Link
