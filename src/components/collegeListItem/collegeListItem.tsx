@@ -82,7 +82,7 @@ export default function CollegeListItem(allColleges: any) {
                   </div>
                   <div className="flex flex-1 flex-col lg:flex-row">
                     <div className="pb-4 flex flex-1 flex-col gap-3">
-                      <Link href={`/college/${college.id}`}>
+                      <Link href={`/colleges/${college.id}`}>
                         <div className="flex flex-row gap-2">
                           <div>
                             <img src={college.logo} alt="" />

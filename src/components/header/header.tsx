@@ -73,31 +73,33 @@ export default function Header() {
             <div className="flex gap-2 md:gap-8">
               <div
                 className="flex gap-1 items-center"
-                onClick={() => {
-                  handleShowOptions("college");
-                }}
+                // onClick={() => {
+                //   handleShowOptions("college");
+                // }}
               >
-                <div>College</div>
+                <div>
+                  <Link href={"/colleges"}>College</Link>
+                </div>
                 <TfiAngleDown />
               </div>
 
               <div
                 className="flex gap-1 items-center"
-                onClick={() => handleShowOptions("exam")}
+                // onClick={() => handleShowOptions("exam")}
               >
-                Exam
+                <Link href={"/exams"}>Exams</Link>
                 <TfiAngleDown />
               </div>
 
               <div className="flex gap-1 items-center">
-                Courses
+                <Link href={"/courses"}>Courses</Link>
                 <TfiAngleDown />
               </div>
 
-              <div className="flex gap-1 items-center">
+              {/* <div className="flex gap-1 items-center">
                 Career
                 <TfiAngleDown />
-              </div>
+              </div> */}
 
               <div className="flex gap-1 items-center">
                 <Link href={"/news"}>News</Link>
