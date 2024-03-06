@@ -48,7 +48,7 @@ export default function Stream({ params }: Props) {
 		}
 	};
 
-	let streamDesc = streamData?.streams?.data[0]?.attributes?.description
+	let streamDesc = streamData?.streams?.data[0]?.attributes?.contentForCourses
 	streamDesc = streamDesc ? streamDesc : "No stream Description Avaialble"
 	let slicedStreamDesc = streamDesc.slice(0, 1500) + "..."
 

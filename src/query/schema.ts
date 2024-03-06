@@ -86,7 +86,6 @@ export const getColleges = gql`
                     data {
                         id
                         attributes {
-                            description
                             name
                         }
                     }
@@ -309,6 +308,7 @@ query Colleges($Search : String!) {
 					publishedAt
 					state {
                     data {
+											id
                         attributes {
                             name
                         }
@@ -320,13 +320,13 @@ query Colleges($Search : String!) {
 						data {
 								id
 								attributes {									
-									name
 									url
 								}
 						}
 					}
 					banner {
 							data {
+								id
 									attributes {
 											url
 									}
@@ -361,7 +361,6 @@ query Colleges($Search : String!) {
 						data {
 								id
 								attributes {
-										description
 										name
 								}
 						}
@@ -393,7 +392,7 @@ query Streams($streamName : String!) {
 					id
             attributes {
                 streamName
-                description
+                
             }
         }
     }
@@ -445,7 +444,6 @@ export const getStreamColleges = gql`
 						data {
 							id
 							attributes {
-								name
 								url
 							}
 						}
@@ -487,7 +485,6 @@ export const getStreamColleges = gql`
 						data {
 							id
 							attributes {
-									description
 									name
 							}
 						}
@@ -539,7 +536,6 @@ query Colleges($StreamFilter : String!, $StateFilter :String!) {
 						data {
 								id
 								attributes {
-									name
 									url
 								}
 						}
@@ -581,7 +577,6 @@ query Colleges($StreamFilter : String!, $StateFilter :String!) {
 						data {
 								id
 								attributes {
-										description
 										name
 								}
 						}
@@ -611,13 +606,15 @@ query States {
 }
 `
 
-export const getDefaultStream = gql`
-query Streams {
-    streams(filters: {streamName: {eqi: "default"}}) {
+export const getStreamData = gql`
+query Streams($Stream : String!) {
+    streams(filters: {streamName: {containsi: $Stream}}) {
         data {
 					id
             attributes {
-                description
+							contentForCourses
+              contentForColleges
+							contentForExams
             }
         }
     }
@@ -625,11 +622,10 @@ query Streams {
 
 // query to get all top colleges based on filters
 export const topColleges = gql`
-query Colleges($Stream : String!, $Limit: Int!) {
+query Colleges($Limit: Int!) {
     colleges(
 			filters: {
-				isTopCollege: {eq: true}, 
-				and: {collegeStreams: {streamName: {containsi: $Stream}}}
+				isTopCollege: {eq: true} 
 			}
 			pagination: {limit: $Limit}
 		) {
@@ -734,7 +730,6 @@ query Courses {
                     data {
                         id
                         attributes {
-                            name
                             url
                         }
                     }
@@ -744,7 +739,6 @@ query Courses {
                         id
                         attributes {
                             url
-                            name
                         }
                     }
                 }
@@ -875,7 +869,6 @@ query Courses($Search : String!, $DurationFilter : String!, $SpecializationFilte
                     data {
                         id
                         attributes {
-                            name
                             url
                         }
                     }
@@ -885,7 +878,6 @@ query Courses($Search : String!, $DurationFilter : String!, $SpecializationFilte
                         id
                         attributes {
                             url
-                            name
                         }
                     }
                 }
@@ -1226,4 +1218,84 @@ query ExamLevels {
             }
         }
     }
+}`
+
+//query to get all news
+export const getAllNews = gql`
+query News {
+    news(sort: "publishedAt:desc") {
+        data {
+            id
+            attributes {
+                title
+                content
+                excerpt
+                featuredImage {
+                    data {
+                        id
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                colleges {
+                    data {
+                        id
+                        attributes {
+                            collegeName
+                            url
+                        }
+                    }
+                }
+                courses {
+                    data {
+                        id
+                        attributes {
+                            name
+                            url
+                        }
+                    }
+                }
+                exams {
+                    data {
+                        id
+                        attributes {
+                            name
+                            url
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+`
+
+export const getNewsCategories = gql`
+query NewsCategories {
+	newsCategories {
+		data {
+			attributes {
+				category
+				news {
+					data {
+						id
+						attributes {
+							title
+							content
+							excerpt
+							featuredImage {
+								data {
+									id
+									attributes {
+											url
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }`
