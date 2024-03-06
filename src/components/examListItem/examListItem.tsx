@@ -4,30 +4,24 @@ import Image from "next/image";
 import Tag from "../tag/tags";
 import Button from "../button/button";
 import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
-import formatDate from "@/utils/formatDate";
+import { formatDate } from "@/utils/formatDate";
 import Carousel from "../carousel/carousel";
 import CourseCard from "../card/courseCard";
 import ExamCard from "../card/examCard";
 
-
 export default function ExamListItem({ exams, featuredExams }: any) {
-
 	return (
 		<>
 			{exams?.data?.length > 0 ? (
 				<>
 					{exams?.data.map((exam: any, index: number) => {
-						const logoURL = exam?.attributes?.logo?.data?.attributes
-							?.url
-							? getStrapiMedia(
-								exam?.attributes?.logo?.data?.attributes?.url
-							)
+						const logoURL = exam?.attributes?.logo?.data?.attributes?.url
+							? getStrapiMedia(exam?.attributes?.logo?.data?.attributes?.url)
 							: GetDefaultImage("logo");
-
 
 						return (
 							<div className="py-4 border-b-2 border-[#DDDDDD]" key={index}>
-								<div className="px-4 flex item-center gap-4 bg-white shadow-sm rounded border flex-col md:flex-row ">
+								<div className="px-4 py-4 md:py-0 flex item-center gap-4 bg-white shadow-sm rounded border flex-col md:flex-row ">
 									<div className="flex items-center">
 										<Image src={logoURL!} width={150} height={150} alt={""} />
 									</div>
@@ -43,9 +37,13 @@ export default function ExamListItem({ exams, featuredExams }: any) {
 											<p className="text-secondary-text font-light">
 												Application Date:{" "}
 												<span className="text-primary-text font-medium">
-													{formatDate(exam?.attributes?.applicationDate?.startDate)}{" "}
+													{formatDate(
+														exam?.attributes?.applicationDate?.startDate
+													)}{" "}
 													{exam?.attributes?.applicationDate?.endDate &&
-														`- ${formatDate(exam?.attributes?.applicationDate?.endDate)}`}
+														`- ${formatDate(
+															exam?.attributes?.applicationDate?.endDate
+														)}`}
 												</span>
 											</p>
 											<p className="text-secondary-text font-light">
@@ -53,7 +51,9 @@ export default function ExamListItem({ exams, featuredExams }: any) {
 												<span className="text-primary-text font-medium">
 													{formatDate(exam?.attributes?.examDate?.startDate)}{" "}
 													{exam?.attributes?.examDate?.endDate &&
-														`- ${formatDate(exam?.attributes?.examDate?.endDate)}`}
+														`- ${formatDate(
+															exam?.attributes?.examDate?.endDate
+														)}`}
 												</span>
 											</p>
 											<p className="text-secondary-text font-light">
@@ -61,20 +61,24 @@ export default function ExamListItem({ exams, featuredExams }: any) {
 												<span className="text-primary-text font-medium">
 													{formatDate(exam?.attributes?.resultDate?.startDate)}{" "}
 													{exam?.attributes?.resultDate?.endDate &&
-														`- ${formatDate(exam?.attributes?.resultDate?.endDate)}`}
+														`- ${formatDate(
+															exam?.attributes?.resultDate?.endDate
+														)}`}
 												</span>
 											</p>
 
 											<p className="text-secondary-text font-light">
 												Level:{" "}
 												<span className="text-primary-text font-medium">
-													{exam?.attributes?.examLevel?.data?.map((level: any, index: number) => {
-														return (
-															<span key={index}>
-																{" " + `${level?.attributes?.name}`}
-															</span>
-														)
-													})}
+													{exam?.attributes?.examLevel?.data?.map(
+														(level: any, index: number) => {
+															return (
+																<span key={index}>
+																	{" " + `${level?.attributes?.name}`}
+																</span>
+															);
+														}
+													)}
 												</span>
 											</p>
 											<div className="flex gap-2 flex-wrap my-2 items-center">
@@ -142,7 +146,7 @@ export default function ExamListItem({ exams, featuredExams }: any) {
 										</div>
 									</div>
 
-									<div className="flex flex-row gap-1 flex-wrap justify-center md:flex-col md:gap-4 md:my-4 items-center">
+									<div className="flex flex-row gap-1 flex-wrap md:justify-center md:flex-col md:gap-4 md:my-4 items-center">
 										<Button
 											href={`/college`}
 											text="Register Now"
@@ -173,7 +177,7 @@ export default function ExamListItem({ exams, featuredExams }: any) {
 										/>
 									</div>
 								</div>
-								{((index) % 4) === 0 ? (
+								{index % 4 === 0 ? (
 									<>
 										<div className="my-4 bg-white py-4 px-4">
 											<Carousel
@@ -181,9 +185,13 @@ export default function ExamListItem({ exams, featuredExams }: any) {
 												slidesTablet={3}
 												title="Featured Exams"
 												showPagination={false}
-												slides={featuredExams?.data?.map((exam: any, index: number) => {
-													return <ExamCard key={index} featuredExams={exam} />;
-												})}
+												slides={featuredExams?.data?.map(
+													(exam: any, index: number) => {
+														return (
+															<ExamCard key={index} featuredExams={exam} />
+														);
+													}
+												)}
 											/>
 										</div>
 									</>
@@ -191,7 +199,7 @@ export default function ExamListItem({ exams, featuredExams }: any) {
 									<></>
 								)}
 							</div>
-						)
+						);
 					})}
 				</>
 			) : (
@@ -200,8 +208,7 @@ export default function ExamListItem({ exams, featuredExams }: any) {
 						No data available
 					</p>
 				</div>
-			)
-			}
+			)}
 		</>
 	);
 }

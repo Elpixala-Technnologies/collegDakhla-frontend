@@ -12,15 +12,15 @@
 //   opened?: boolean;
 //   titlePrimary?: boolean;
 // }) {
-  // const [Open, setOpen] = useState(false);
-  // const handleOpenAccordion = () => {
-  //   console.log(Open);
+// const [Open, setOpen] = useState(false);
+// const handleOpenAccordion = () => {
+//   console.log(Open);
 
-  //   setOpen(!Open);
-  // };
-  // useEffect(() => {
-  //   setOpen(opened);
-  // }, [opened]);
+//   setOpen(!Open);
+// };
+// useEffect(() => {
+//   setOpen(opened);
+// }, [opened]);
 //   return (
 //     <>
 //       <div className="border border-primary-text-light rounded-md">
@@ -56,14 +56,16 @@ interface AccordionProps {
   children: ReactNode;
   title: string;
   titlePrimary?: boolean;
-  opened?: any
+  opened?: any;
+  showBorder?: boolean;
 }
 
 const Accordion: React.FC<AccordionProps> = ({
   children,
   title,
   titlePrimary = false,
-  opened = false
+  opened = false,
+  showBorder = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [Open, setOpen] = useState(false);
@@ -76,7 +78,11 @@ const Accordion: React.FC<AccordionProps> = ({
   };
 
   return (
-    <div className="border border-primary-text-light rounded-md">
+    <div
+      className={`${
+        showBorder ? "border border-primary-text-light rounded-md" : ""
+      }`}
+    >
       <div
         className={`flex justify-between items-center p-2 ${
           isOpen ? "border-b border-b-primary-text-light" : ""

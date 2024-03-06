@@ -21,6 +21,7 @@ export const collegeTypes = gql`
 let totalColleges = gql`
 query Colleges {
     colleges {
+			id
         meta {
             pagination {
                 total
@@ -39,6 +40,7 @@ export const getColleges = gql`
             attributes {
                 city {
                     data {
+											id
                         attributes {
                             name
                         }
@@ -720,43 +722,49 @@ export const getCourseLevels = gql`query CourseLevels {
 // query to get all courses 
 export const getCourses = gql`
 query Courses {
-    courses {
-        data {
-            id
-            attributes {
-                isTopCourse
-                name
-                logo {
-                    data {
-                        id
-                        attributes {
-                            url
-                        }
-                    }
-                }
-                banner {
-                    data {
-                        id
-                        attributes {
-                            url
-                        }
-                    }
-                }
-                colleges {
-                    data {
-                        attributes {
-                            collegeName
-                        }
-                    }
-                }
-								meta {
-									pagination {
-											total
-									}
-								}
-            }
-        }
-    }
+	courses {
+		data {
+			id
+			attributes {
+				name
+				url
+				fees
+				duration
+				logo {
+					data {
+						id
+						attributes {
+							url
+						}
+					}
+				}
+				banner {
+					data {
+						id
+						attributes {
+							url
+						}
+					}
+				}
+				colleges {
+					data {
+						id
+						attributes {
+							collegeName
+						}
+					}
+				}
+				courseType {
+					data {
+						id
+						attributes {
+							type
+						}
+					}
+				}
+			}
+		}
+	}
 }
 `;
 
@@ -1238,12 +1246,19 @@ query News {
                         }
                     }
                 }
-                colleges {
+                 colleges {
                     data {
                         id
                         attributes {
-                            collegeName
                             url
+                            collegeName
+                            establishmentYear
+                            collegeDescription
+                            isTopCollege
+                            pincode
+                            createdAt
+                            updatedAt
+                            publishedAt
                         }
                     }
                 }
@@ -1265,6 +1280,12 @@ query News {
                         }
                     }
                 }
+								newsCategories {
+                    data {
+                        id
+                    }
+                }
+								publishedAt
             }
         }
     }

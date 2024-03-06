@@ -11,6 +11,7 @@ import { getStreams } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import { TfiAngleDown } from "react-icons/tfi";
 import { FaRegCircleUser } from "react-icons/fa6";
+import Accordion from "../accordian/accordian";
 
 export default function Header() {
   const [Path, setPath] = useState("");
@@ -39,6 +40,8 @@ export default function Header() {
       case "exam":
         setOptions(ExamOption);
         break;
+      case "hamburger":
+        setOptions(MobileOption);
     }
   };
 
@@ -51,7 +54,7 @@ export default function Header() {
       setTimeout(() => {
         setShowOptions(false);
         setCurrentOpenOption("");
-      }, 5000);
+      }, 8000);
     }
   }, [ShowOptions]);
   useEffect(() => {}, []);
@@ -108,13 +111,13 @@ export default function Header() {
           </div>
           <LoginQASection />
         </div>
-        <div className="hidden max-sm:block">
+        <div className="hidden max-sm:block text-white">
           <div className="flex gap-4 ">
             <div className="" onClick={handleSearch}>
               <RiSearchLine />
             </div>
             <div>
-              <GiHamburgerMenu />
+              <GiHamburgerMenu onClick={() => handleShowOptions("hamburger")} />
             </div>
           </div>
         </div>
@@ -122,7 +125,7 @@ export default function Header() {
           <>
             {/* <NavOption></NavOption>
           <LoginQASection /> */}
-            <div className="absolute top-24 w-full h-max bg-white mx-auto p-4 rounded-md shadow-lg z-50">
+            <div className="absolute top-24 -left-1 md:left-0 w-full h-max bg-white mx-auto p-4 rounded-md shadow-lg z-50">
               {Options}
             </div>
           </>
@@ -180,6 +183,29 @@ const LoginQASection = () => {
         </div>
       </div>
     </>
+  );
+};
+
+const MobileOption = () => {
+  return (
+    <div>
+      <Accordion title="College" showBorder={false}>
+        <CollegeOption />
+      </Accordion>
+      <Accordion title="Exam" showBorder={false}>
+        <ExamOption />
+      </Accordion>
+      {/* <Accordion title="Courses"> </Accordion>
+      <Accordion title="Career"> </Accordion>
+      <Accordion title="News"> </Accordion>
+      <Accordion title="More"> </Accordion> */}
+      <div className="flex flex-col gap-4 my-4 px-2">
+        <Link href={"/career"}>Careers</Link>
+        <Link href={"/courses"}>Courses</Link>
+        <Link href={"/news"}>News</Link>
+        <Link href={"/more"}>More</Link>
+      </div>
+    </div>
   );
 };
 

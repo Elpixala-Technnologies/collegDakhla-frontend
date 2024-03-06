@@ -2,7 +2,7 @@ import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
 import Link from "next/link";
 import Image from "next/image";
 import { FaHeart, FaMedal } from "react-icons/fa6";
-import formatDate from "@/utils/formatDate";
+import { formatDate } from "@/utils/formatDate";
 
 export default function ExamCard({ featuredExams }: any) {
 
