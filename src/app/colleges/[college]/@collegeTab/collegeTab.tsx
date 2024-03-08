@@ -21,7 +21,6 @@ export default function CollegeTab(props: any) {
                     key={index}
                   >
                     <h2 className="text-lg font-bold mb-2 text-primary">
-                      {" "}
                       {item?.heading}
                     </h2>
                     <PageData data={item} />

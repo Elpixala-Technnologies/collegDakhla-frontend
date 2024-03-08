@@ -1,24 +1,25 @@
 table {
-	border-width: thin !important;
+  border-width: thin !important;
+  width: auto;
+  overflow-x: auto;
 }
 
 table tbody tr:nth-child(even) {
-	background-color: rgb(243 244 246) !important;
+  background-color: rgb(243 244 246) !important;
 }
 
-
 td {
-	border-style: solid;
-	border: 1px solid rgb(210, 215, 224) !important;
-	border-color: rgb(210, 215, 224) !important;
-	padding: 8px 12px !important;
-	text-align: center !important;
+  border-style: solid;
+  border: 1px solid rgb(210, 215, 224) !important;
+  border-color: rgb(210, 215, 224) !important;
+  padding: 8px 12px !important;
+  text-align: center !important;
 }
 
 th {
-	color: rgb(239 95 67);
-	border-style: solid;
-	border: 1px solid rgb(210, 215, 224) !important;
-	border-color: rgb(210, 215, 224) !important;
-	padding: 8px 12px !important;
+  color: rgb(239 95 67);
+  border-style: solid;
+  border: 1px solid rgb(210, 215, 224) !important;
+  border-color: rgb(210, 215, 224) !important;
+  padding: 8px 12px !important;
 }
