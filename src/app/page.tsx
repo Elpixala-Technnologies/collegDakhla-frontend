@@ -7,7 +7,7 @@ import NotificationCard from "@/components/card/notificationCar";
 import CarouselSideBtn from "@/components/carousel/carousel-side-button";
 import { FaAngleRight, FaCity } from "react-icons/fa6";
 import { useQuery } from "@apollo/client";
-import { getAllNews, getCourses, getStates, getStreams, topColleges } from "@/query/schema";
+import { getAllNews, getCourses, getStates, getStreams, getTestimonials, topColleges } from "@/query/schema";
 import { GetDefaultImage, getStrapiMedia } from "../utils/api-helper";
 import { useState } from "react";
 import Button from "@/components/button/button";
@@ -58,6 +58,13 @@ export default function Home() {
 		data: newsData,
 	} = useQuery(getAllNews)
 
+	// get all testimonials
+	const {
+		loading: testimonialsLoader,
+		error: testimonialsError,
+		data: testimonialsData,
+	} = useQuery(getTestimonials)
+
 	function handleStream(stream: string) {
 		setStream(stream);
 	}
@@ -91,12 +98,20 @@ export default function Home() {
 					</div>
 				</section>
 				<section className="bg-white py-8">
-					<div className="flex flex-col gap-8 max-w-screen-xl mx-auto px-4">
+					<div className="flex flex-col max-w-screen-xl mx-auto px-4">
 						<h2 className="text-3xl font-semibold">What our Students Say</h2>
 						<div className="flex justify-center md:justify-between mb-10 gap-4 flex-wrap items-center">
-							<TestimonyCard />
-							<TestimonyCard />
-							<TestimonyCard />
+							<CarouselSideBtn
+								showPagination={false}
+								slidesDesktop={5}
+								slidesTablet={4}
+								slidesMobile={3}
+								slides={testimonialsData?.testimonials?.data.map((testimonial: any, index: number) => {
+									return (
+										<TestimonyCard testimonial={testimonial} key={index} />
+									)
+								})}
+							/>
 						</div>
 					</div>
 				</section>

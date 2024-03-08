@@ -1320,3 +1320,41 @@ query NewsCategories {
 		}
 	}
 }`
+
+export const getTestimonials = gql`
+query Testimonials {
+    testimonials {
+        data {
+            id
+            attributes {
+                comment
+                banner {
+                    data {
+                        id
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                logo {
+                    data {
+                        id
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                commentBy
+                college {
+                    data {
+                        id
+                        attributes {
+                            collegeName
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+`
