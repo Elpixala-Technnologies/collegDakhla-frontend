@@ -204,7 +204,9 @@ export default function Home() {
 											/>
 										</div>
 										<div className="text-2xl font-semibold text-primary-text">
-											{news?.attributes?.title}
+											<Link href={`/news/${news?.id}`} className="cursor-pointer">
+												{news?.attributes?.title}
+											</Link>
 										</div>
 										<div className="flex justify-between text-primary-text-light text-base pr-4">
 											<div>{getDate(news?.attributes?.publishedAt)}</div>

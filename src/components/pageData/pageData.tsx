@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import Table from "./table";
-import './tableStyle.css'
-
+import '../../utils/css/tableStyle.css'
 
 export default function PageData({ data }: any) {
 

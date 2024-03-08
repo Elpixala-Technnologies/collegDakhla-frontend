@@ -1292,6 +1292,61 @@ query News {
 }
 `
 
+//query to get news on id
+export const getNews = gql`
+query New($newsID : ID!) {
+    new(id: $newsID) {
+        data {
+            attributes {
+                title
+                content
+                excerpt
+                featuredImage {
+                    data {
+                        id
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                colleges {
+                    data {
+                        id
+                        attributes {
+                            collegeName
+                        }
+                    }
+                }
+                courses {
+                    data {
+                        id
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                exams {
+                    data {
+                        id
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                newsCategories {
+                    data {
+                        id
+                        attributes {
+                            category
+                        }
+                    }
+                }
+                publishedAt
+            }
+        }
+    }
+}`
+
 export const getNewsCategories = gql`
 query NewsCategories {
 	newsCategories {
