@@ -8,24 +8,22 @@ import { ApolloWrapper } from "@/lib/client";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "College Dakhla",
-  description: "",
+	title: "College Dakhla",
+	description: "",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className="bg-gray-100 text-primary-text font-poppins">
-        <ApolloWrapper>
-          <Header />
-          <div className="">{children}</div>
-          <Footer />
-        </ApolloWrapper>
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en">
+			<body className="bg-gray-100 text-primary-text font-poppins">
+				<ApolloWrapper>
+					<div className="">{children}</div>
+				</ApolloWrapper>
+			</body>
+		</html>
+	);
 }
