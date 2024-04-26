@@ -30,6 +30,7 @@ export default function CollegeTab(props: any) {
                 );
               })}
             </div>
+           
           </div>
           <div className="right-wrapper basis-1/4 rounded min-w-72 hidden md:block">
             <div className=" md:flex md:flex-col md:gap-2 ">

@@ -163,7 +163,7 @@ export default function CollegeList() {
             <h1 className="text-xl font-bold mb-3 text-center text-primary">
               Showing 1000 Top Colleges in India
             </h1>
-            <p className="text-base mb-3">
+            <p className={`${showFullContent ? "text-justify" : " text-center"} text-base mb-3`}>
               The list of top engineering colleges in India 2024 includes IT
               Madras, IIT Bombay, IIT Kanpur, IIT Roorkee, IIT Kharagpur, etc.
               Out of the total engineering colleges in India 95 colleges are
@@ -206,7 +206,7 @@ export default function CollegeList() {
                 <div className="readMore">
                   <span
                     onClick={handleReadMoreClick}
-                    className="hover:underline"
+                    className="hover:underline cursor-pointer"
                   >
                     Show more
                   </span>

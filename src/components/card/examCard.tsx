@@ -11,7 +11,7 @@ export default function ExamCard({ featuredExams }: any) {
 		: GetDefaultImage("logo");
 	const bannerUrl = featuredExams?.attributes?.banner?.data[0] ? getStrapiMedia(featuredExams?.attributes?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
 	return (
-		<div className="flex flex-col items-stretch min-w-56 bg-white rounded-lg shadow-xl">
+		<div className="flex flex-col items-stretch min-w-56 bg-white rounded-lg drop-shadow hover:drop-shadow-lg">
 			<div className="relative rounded-t-lg">
 				<img
 					src={bannerUrl!}

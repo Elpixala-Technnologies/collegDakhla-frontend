@@ -58,7 +58,7 @@ export default function ExamList() {
 					</div>
 				</section>
 				<section className="topExams">
-					<div className="m-4 bg-white py-4 px-4">
+					<div className="m-4 bg-white py-6 px-4">
 						<Carousel
 							slidesDesktop={4}
 							slidesTablet={3}
