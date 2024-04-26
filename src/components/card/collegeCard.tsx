@@ -16,7 +16,7 @@ export default function CollegeCard({ featuredCollege }: any) {
 		? getStrapiMedia(college?.banner?.data[0]?.attributes?.url)
 		: GetDefaultImage("banner");
 	return (
-		<div className="flex flex-col items-stretch min-w-56 bg-white rounded-lg shadow-xl">
+		<div className="flex flex-col items-stretch min-w-56 bg-white rounded-lg drop-shadow-sm hover:drop-shadow-lg">
 			<div className="relative rounded-t-lg">
 				<img
 					src={bannerURL!}
@@ -44,7 +44,7 @@ export default function CollegeCard({ featuredCollege }: any) {
 						height={60}
 					/>
 				</div>
-				<div className="p-2 pt-4 flex-1 h-72 shadow flex flex-col gap-2">
+				<div className="p-2 pt-4 flex-1 h-fit shadow flex flex-col gap-2">
 					<div className=" flex justify-end">
 						<StarRating rating={3.6} />
 					</div>

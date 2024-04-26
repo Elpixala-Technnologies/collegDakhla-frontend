@@ -17,6 +17,8 @@ type Props = {
   fontColor?: string;
   paddingX?: string;
   paddingY?: string;
+  onClick?: () => void; 
+  
 };
 export default function Button({
   href,
@@ -35,6 +37,7 @@ export default function Button({
   fontColor = "text-white",
   paddingX = "px-2",
   paddingY = "py-2",
+  onClick
 }: Props) {
   const ButtonContent = (
     <>
@@ -44,6 +47,7 @@ export default function Button({
             className={`button flex ${width} items-center ${paddingX} ${paddingY} border ${fontSize} ${fontWeight} ${outlineColor} ${fontColor} hover:border-primary hover:text-primary ${
               rounded ? "rounded-full" : "rounded-md"
             }`}
+            onClick={onClick}
           >
             {icon ? <div className="mr-2">{icon}</div> : <></>}
             <div className={`flex-1 ${align}`}>{text}</div>

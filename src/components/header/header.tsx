@@ -80,7 +80,6 @@ export default function Header() {
                 <div>
                   <Link href={"/colleges"}>College</Link>
                 </div>
-                <TfiAngleDown />
               </div>
 
               <div
@@ -88,7 +87,6 @@ export default function Header() {
                 // onClick={() => handleShowOptions("exam")}
               >
                 <Link href={"/exams"}>Exams</Link>
-                <TfiAngleDown />
               </div>
 
               <div className="flex gap-1 items-center">

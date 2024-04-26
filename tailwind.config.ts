@@ -29,6 +29,16 @@ const config: Config = {
 			fontSize: {
 				xxs: "0.7rem",
 			},
+			animation: {
+				'infinite-scroll': 'infinite-scroll 25s linear infinite',
+			  },
+			  keyframes: {
+				'infinite-scroll': {
+					'0%': { transform: 'translateX(-10%)' }, // Move from left to right
+					'50%': { transform: 'translateX(10%)' },  // Move from right to left
+					'100%': { transform: 'translateX(-10%)' }, // Move from left to right again
+				  }
+			  } 
 		},
 	},
 	plugins: [],

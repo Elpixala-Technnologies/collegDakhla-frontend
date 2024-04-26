@@ -11,10 +11,12 @@ import { getCollege } from "@/query/schema";
 import Image from "next/image";
 import { GetDefaultImage, getStrapiMedia } from "../../../utils/api-helper";
 import { useRouter } from "next/navigation";
+import NavbarSlider from "@/components/carousel/navbar-carousal";
 
 type Props = {
   params: {
     college: String;
+    data: any;
   };
 };
 export default function CollegeDetail({ params }: Props) {
@@ -61,6 +63,16 @@ export default function CollegeDetail({ params }: Props) {
     }
   }, [loading]);
 
+  const handleDownload = () => {
+    const pdfPath = "@src/Assets/new_document.pdf";
+    const link = document.createElement("a");
+    link.href = pdfPath;
+    link.download = "brochure.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <>
       {/* section for banner of the individual college page */}
@@ -71,7 +83,7 @@ export default function CollegeDetail({ params }: Props) {
             alt={college?.collegeName}
             width={100}
             height={100}
-            className="w-full h-56 md:h-36 object-cover"
+            className="w-full h-56 md:h-36 object-fill"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
           <div className="absolute my-6 max-w-screen-xl px-4 inset-0 text-white flex gap-4 mx-auto ">
@@ -129,7 +141,8 @@ export default function CollegeDetail({ params }: Props) {
                       align="text-center"
                     />
                     <Button
-                      href={"/"}
+                      href={""}
+                      onClick={handleDownload}
                       text="Download Brochure"
                       outline
                       fontSize="text-sm"
@@ -143,19 +156,35 @@ export default function CollegeDetail({ params }: Props) {
           </div>
         </div>
         <div className="infoOption bg-white flex ">
-          <ul className="max-w-screen-xl px-4 mx-auto flex gap-8 w-full items-stretch h-10 overflow-x-auto">
-            {navbar?.map((tab: any) => {
-              return (
-                <li
-                  key={tab?.attributes?.name}
-                  onClick={() => handleTab(tab?.attributes?.name)}
-                  className="text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm mt-2"
-                >
-                  {tab?.attributes?.name}
-                </li>
-              );
-            })}
-          </ul>
+          <div className="sticky-nav-wrapper bg-white ">
+            <div className=" bg-white flex border-b border-b-primary-light max-w-screen-xl mx-auto ">
+              <div className="lg:max-w-screen-xl lg:mx-auto px-1 md:px-4 md:w-full justify-center">
+                <NavbarSlider
+                  buttonBorderColor="border-primary-text"
+                  buttonTextColor="text-primary-text"
+                  showPagination={false}
+                  slidesDesktop={10}
+                  slidesTablet={5}
+                  slidesMobile={3}
+                  slides={navbar?.map((tab: any) => (
+                    <ul className="max-w-screen-xl px-4 mx-auto flex gap-8 w-full items-stretch h-10 overflow-x-auto">
+                      {navbar?.map((tab: any) => {
+                        return (
+                          <li
+                            key={tab?.attributes?.name}
+                            onClick={() => handleTab(tab?.attributes?.name)}
+                            className="text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm mt-2"
+                          >
+                            {tab?.attributes?.name}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  ))}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       <section className="mainSection">

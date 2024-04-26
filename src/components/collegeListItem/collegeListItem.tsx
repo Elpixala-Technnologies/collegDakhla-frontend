@@ -49,14 +49,14 @@ export default function CollegeListItem(allColleges: any) {
 
             return (
               <div key={index}>
-                <div className="mb-4 p-4 flex flex-col md:flex-row gap-4 shadow-lg bg-white">
-                  <div className="relative h-44">
+                <div className="mb-4 p-4 flex flex-col md:flex-row gap-4 shadow-lg bg-gray-100 drop-shadow hover:drop-shadow-xl">
+                  <div className="relative h-44 rounded-lg">
                     <img
                       src={bannerURL!}
                       alt={college?.collegeName}
-                      className="w-full sm:w-48 h-44 object-fill rounded-sm max-w-44"
+                      className="w-full sm:w-48 h-44 object-fill rounded-lg max-w-44"
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-50 rounded-sm"></div>
+                    <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
                     <div className="absolute inset-0 text-white  mx-auto my-2 w-10/12">
                       <div className="flex justify-between">
                         <div className="flex gap-3 items-start">
