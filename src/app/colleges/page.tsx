@@ -1,7 +1,7 @@
 "use client";
 import CollegeListItem from "@/components/collegeListItem/collegeListItem";
 import CollegeFilters from "@/components/filters/collegeFilters/collegeFilters";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdEmail, MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
 import {
@@ -22,6 +22,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import Link from "next/link";
+import { FaCircleChevronRight } from "react-icons/fa6";
 
 export default function CollegeList() {
   const [Search, setSearch] = useState("");
@@ -76,23 +77,6 @@ export default function CollegeList() {
   const aboutStream =
     streamData?.streams?.data[0]?.attributes?.contentForColleges;
 
-  const handleSearch = (event: any) => {
-    const searchValue = event.target.value.toLowerCase();
-
-    // If search query is empty, set filtered data to initial data and return
-    if (!searchValue.trim()) {
-      setFilteredData(initialData?.colleges?.data);
-      return;
-    }
-
-    // Memoize filtered data to avoid re-filtering unnecessarily
-    const filtered = filteredCollege.colleges.data.filter((item: any) =>
-      item.attributes.collegeName.toLowerCase().includes(searchValue)
-    );
-
-    setFilteredData(filtered);
-  };
-
   const handleMobileFilter = () => {
     setMobileFilter(!MobileFilter);
     if (MobileFilter) {
@@ -113,6 +97,34 @@ export default function CollegeList() {
       setShowReadMore(true);
     }
   }, []);
+
+  const [showAll, setShowAll] = useState(false);
+  const initialColleges = showAll
+    ? initialData?.colleges?.data
+    : initialData?.colleges?.data;
+
+  const handleLoadMore = () => {
+    setShowAll(true);
+  };
+
+  const handleSearch = (event: any) => {
+    const searchValue = event.target.value.toLowerCase();
+
+    // If search query is empty, set filtered data to initial data and return
+    if (!searchValue.trim()) {
+      setFilteredData(initialData?.colleges?.data);
+      return;
+    }
+
+    // Memoize filtered data to avoid re-filtering unnecessarily
+    const filtered = filteredCollege.colleges.data.filter((item: any) =>
+      item.attributes.collegeName.toLowerCase().includes(searchValue)
+    );
+
+    setFilteredData(filtered);
+  };
+
+
 
   return (
     <>
@@ -161,7 +173,8 @@ export default function CollegeList() {
         <section className="heroSection">
           <div className="m-4 px-8 pt-8 bg-white flex flex-col rounded-sm">
             <h1 className="text-xl font-bold mb-3 text-center text-primary">
-              Showing Top {filteredCollege?.colleges?.data?.length} Colleges in India
+              Showing Top {filteredCollege?.colleges?.data?.length} Colleges in
+              India
             </h1>
             <p
               className={`${
@@ -261,9 +274,10 @@ export default function CollegeList() {
                 <div className="bg-white h-12 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
                   <RiSearchLine />
                   <input
-                    className="w-full flex-1 text-sm px-2 py-1 outline-none"
-                    placeholder={`Search College Name`}
-                    onChange={handleSearch}
+                   className="w-full focus:outline-none"
+                   type="text"
+                   placeholder="Search colleges..."
+                   onChange={handleSearch}
                   />
                 </div>
                 <div className="flex gap-4">
@@ -281,8 +295,19 @@ export default function CollegeList() {
                   </div>
                 </div>
               </div>
-              <div className="flex sm:flex-col flex-row overflow-x-scroll ">
+              <div className="flex sm:flex-col flex-row overflow-x-scroll">
                 <CollegeListItem colleges={filteredData} />
+                {!showAll && (
+                  <button
+                    className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow m-6"
+                    onClick={handleLoadMore}
+                  >
+                    <div className="absolute inset-0 w-3 bg-amber-400 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
+                    <span className="relative text-black group-hover:text-white">
+                      Load More
+                    </span>
+                  </button>
+                )}
               </div>
             </div>
           </div>
