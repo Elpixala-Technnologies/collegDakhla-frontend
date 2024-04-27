@@ -102,7 +102,7 @@ export default function ExamFilters({ LevelFilter,
 
 	return (
 		<>
-			<div className="bg-white hidden md:block">
+			<div className="bg-white hidden md:block rounded-lg">
 				<h3 className="uppercase text-sm px-2 py-3">
 					Found <b>{totalExams}</b>{" "}
 					colleges

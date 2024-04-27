@@ -18,6 +18,7 @@ type Props = {
   paddingX?: string;
   paddingY?: string;
   onClick?: () => void; 
+  textColor?: string;
   
 };
 export default function Button({
@@ -37,6 +38,7 @@ export default function Button({
   fontColor = "text-white",
   paddingX = "px-2",
   paddingY = "py-2",
+  textColor="",
   onClick
 }: Props) {
   const ButtonContent = (
@@ -44,7 +46,7 @@ export default function Button({
       {outline ? (
         <>
           <div
-            className={`button flex ${width} items-center ${paddingX} ${paddingY} border ${fontSize} ${fontWeight} ${outlineColor} ${fontColor} hover:border-primary hover:text-primary ${
+            className={`button flex ${width} ${bgColor} items-center ${paddingX} ${paddingY} border ${fontSize} ${fontWeight} ${outlineColor} ${fontColor} hover:border-primary hover:${textColor} ${
               rounded ? "rounded-full" : "rounded-md"
             }`}
             onClick={onClick}

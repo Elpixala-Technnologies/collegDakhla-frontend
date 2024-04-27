@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { MdOutlineSort } from "react-icons/md";
+import { MdEmail, MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
 import { getFeaturedExams, searchExams } from "@/query/schema";
 import { useQuery } from "@apollo/client";
@@ -8,6 +8,15 @@ import ExamCard from "@/components/card/examCard";
 import ExamListItem from "@/components/examListItem/examListItem";
 import Carousel from "@/components/carousel/carousel";
 import ExamFilters from "@/components/filters/examFilters/examFilter";
+
+import {
+	FaFacebook,
+	FaInstagram,
+	FaLinkedin,
+	FaPhone,
+	FaTwitter,
+  } from "react-icons/fa";
+import Link from "next/link";
 
 export default function ExamList() {
 	const [Search, setSearch] = useState("");
@@ -50,6 +59,48 @@ export default function ExamList() {
 	return (
 		<>
 			<div className="max-w-screen-xl mx-auto">
+
+			<section className="w-full items-center justify-center inline-flex flex-nowrap overflow-hidden sm:[mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll m-2">
+            <div className="flex flex-row items-center justify-between lg:gap-80 md:gap-48 ">
+              <div className="flex items-center flex-row gap-8">
+                <div className="gap-1 flex items-center">
+                  <FaPhone />
+                  <span className="ml-2">+919899880100</span>
+                </div>
+                <div className="gap-1 flex items-center">
+                  <MdEmail />
+                  <span className="ml-2">director@collegedakhla.com</span>
+                </div>
+              </div>
+              <div className=" items-center flex-row gap-2 sm:flex hidden">
+                <span className="md:flex hidden">
+                  We're on your favourite social media!
+                </span>
+                <span>
+                  <Link href="/">
+                    <FaInstagram />
+                  </Link>
+                </span>
+                <span>
+                  <Link href="/">
+                    <FaFacebook />
+                  </Link>
+                </span>
+                <span>
+                  <Link href="/">
+                    <FaTwitter />
+                  </Link>
+                </span>
+                <span>
+                  <Link href="/">
+                    <FaLinkedin />
+                  </Link>
+                </span>
+              </div>
+            </div>
+          </ul>
+        </section>
 				<section className="heroSection">
 					<div className="m-4 px-8 py-8 bg-white flex flex-col gap-3 rounded-sm">
 						<h1 className="text-3xl font-bold text-center text-primary">
@@ -72,7 +123,7 @@ export default function ExamList() {
 				</section>
 				<section className="collegeList">
 					<div className="flex flex-col md:flex-row gap-4 px-4">
-						<div className="flex-none w-56">
+						<div className="flex-none w-56 drop-shadow-md hover:drop-shadow-xl">
 							<ExamFilters
 								LevelFilter={LevelFilter}
 								setLevelFilter={setLevelFilter}

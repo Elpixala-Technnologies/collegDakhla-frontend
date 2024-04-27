@@ -9,9 +9,9 @@ export default function Filter(props: any) {
 
 	return (
 		<>
-			<div className="border-b border-b-slate-400">
+			<div className=" p-2">
 				<div
-					className="bg-gray-200 px-2 py-2 flex items-center justify-between border-l border-l-primary"
+					className="bg-white px-2 py-2 flex items-center justify-between border border-black rounded-lg "
 					onClick={handleOpen}
 				>
 					<span>{props.name}</span>{" "}

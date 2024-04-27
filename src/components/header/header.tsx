@@ -172,7 +172,7 @@ const LoginQASection = () => {
     <>
       <div className="flex gap-4 max-sm:hidden">
         <div>
-          <Link href="/" className="text-2xl hover:text-primary">
+          <Link href="/profile" className="text-2xl hover:text-primary">
             <FaRegCircleUser />
           </Link>
         </div>

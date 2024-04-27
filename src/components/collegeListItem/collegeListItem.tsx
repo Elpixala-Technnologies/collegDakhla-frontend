@@ -28,6 +28,10 @@ export default function CollegeListItem(allColleges: any) {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });
+  
+  const handleClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   return (
     <>
@@ -49,7 +53,7 @@ export default function CollegeListItem(allColleges: any) {
 
             return (
               <div key={index}>
-                <div className="mb-4 p-4 flex flex-col md:flex-row gap-4 shadow-lg bg-gray-100 drop-shadow hover:drop-shadow-xl">
+                <div className="mb-4 p-4 flex flex-col md:flex-row gap-4 shadow-lg bg-white rounded-lg drop-shadow hover:drop-shadow-xl">
                   <div className="relative h-44 rounded-lg">
                     <img
                       src={bannerURL!}
@@ -160,6 +164,8 @@ export default function CollegeListItem(allColleges: any) {
                           outline
                           color="text-primary"
                           rounded
+                          textColor="text-primary"
+                          bgColor="bg-white"
                           fontColor="text-primary-text"
                         />
                         <Button
@@ -168,8 +174,10 @@ export default function CollegeListItem(allColleges: any) {
                           icon={<FaRegStar />}
                           outline
                           rounded
+                          bgColor="bg-white"
+                          textColor="text-primary"
                           fontSize="text-xxs"
-                          fontColor="text-primary-text"
+                          fontColor="text-black"
                         />
                         <Button
                           href={`/college/${college.id}`}
@@ -177,6 +185,8 @@ export default function CollegeListItem(allColleges: any) {
                           icon={<PiBooksLight />}
                           outline
                           rounded
+                          bgColor="bg-white"
+                          textColor="text-primary"
                           fontSize="text-xxs"
                           fontColor="text-primary-text"
                         />
@@ -237,7 +247,7 @@ export default function CollegeListItem(allColleges: any) {
                     </div>
                     <div className="flex flex-row gap-1 flex-wrap lg:justify-center lg:flex-col md:gap-4 md:my-4 items-center lg:border-l lg:border-l-extra-light-text lg:px-4">
                       <Button
-                        href={`/college/${college.id}`}
+                        onClick={handleClick}
                         text="Apply Now"
                         filled
                         fontSize="text-sm"
@@ -252,8 +262,8 @@ export default function CollegeListItem(allColleges: any) {
                         outline
                         width="w-40"
                         align="text-center"
-                        bgColor="bg-white"
-                        fontColor="text-primary-text"
+                        bgColor="bg-yellow-500"
+                        fontColor="text-white"
                       />
                       <Button
                         href={`/college/${college.id}`}
@@ -263,6 +273,7 @@ export default function CollegeListItem(allColleges: any) {
                         width="w-40"
                         fontColor="text-primary-text"
                         align="text-center"
+                        bgColor="bg-white"
                       />
                     </div>
                   </div>

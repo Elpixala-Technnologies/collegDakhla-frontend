@@ -68,8 +68,8 @@ export default function CollegeCard({ featuredCollege }: any) {
 							<Tag
 								href={""}
 								text={"UGC"}
-								bgcolor="bg-pink-400"
-								color="text-white"
+								bgcolor="bg-blue-100"
+								color="text-gray-800"
 								borderColor="transparent"
 								rounded
 								fontSize="text-xs"
@@ -77,8 +77,8 @@ export default function CollegeCard({ featuredCollege }: any) {
 							<Tag
 								href={""}
 								text={"AICTC"}
-								bgcolor="bg-cyan-400"
-								color="text-white"
+								bgcolor="bg-yellow-400"
+								color="text-gray-800"
 								borderColor="transparent"
 								rounded
 								fontSize="text-xs"

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Filter from "./filter";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { getStreams, getStates, getCollegesFilter } from "@/query/schema";
+import { getStreams, getStates, getCollegesFilter,getCourses  } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -16,9 +16,13 @@ export default function CollegeFilters(params?: any) {
   const [SelectedFilter, setSelectedFilter] = useState({
     stream: "",
     state: "",
+    city: "", 
+    courses: "", 
   });
   const [StreamFilter, setStreamFilter] = useState<string>("");
   const [StateFilter, setStateFilter] = useState<string>("");
+  const [CityFilter, setCityFilter] = useState<string>(""); 
+  const [CoursesFilter, setCoursesFilter] = useState<string>(""); 
   const {
     loading: streamLoader,
     error: streamsError,
@@ -30,6 +34,14 @@ export default function CollegeFilters(params?: any) {
     error: statesError,
     data: statesData,
   } = useQuery(getStates);
+
+  const {
+    loading: courseLoader,
+    error: courseError,
+    data: coursesData,
+  } = useQuery(getCourses);
+
+
   const {
     loading: filterLoader,
     error: filterError,
@@ -39,6 +51,8 @@ export default function CollegeFilters(params?: any) {
     variables: {
       StreamFilter,
       StateFilter,
+      CityFilter,
+      CoursesFilter,
     },
   });
 
@@ -61,6 +75,22 @@ export default function CollegeFilters(params?: any) {
       state: name,
     }));
   };
+  const handleCityFilter = (name: string) => {
+    setCityFilter(name);
+    setSelectedFilter(prevData => ({
+      ...prevData,
+      city: name,
+    }));
+  };
+
+  const handleCoursesFilter = (name: string) => {
+    setCoursesFilter(name);
+    setSelectedFilter(prevData => ({
+      ...prevData,
+      courses: name,
+    }));
+  };
+
 
   const handleUnselectFilter = (filter?: string, name?: string) => {
     if (filter === "stream") {
@@ -69,6 +99,10 @@ export default function CollegeFilters(params?: any) {
     } else if (filter === "state") {
       setStateFilter("");
       SelectedFilter.state = "";
+    }
+    else if (filter === "courses") {
+      setCoursesFilter("");
+      SelectedFilter.courses = "";
     }
   };
 
@@ -95,11 +129,11 @@ export default function CollegeFilters(params?: any) {
 
   useEffect(() => {
     if (params.isMobile) {
-      document.body.style.overflowY = "hidden"; // Disable vertical scrolling
-      document.body.style.height = "100%"; // Set body height to 100%
+      document.body.style.overflowY = "hidden"; 
+      document.body.style.height = "100%"; 
     } else {
-      document.body.style.overflowY = "auto"; // Enable vertical scrolling
-      document.body.style.height = "auto"; // Reset body height
+      document.body.style.overflowY = "auto"; 
+      document.body.style.height = "auto"; 
     }
 
     // Clean up function to reset styles when component unmounts
@@ -113,10 +147,10 @@ export default function CollegeFilters(params?: any) {
     <>
       <div className="bg-white hidden md:block p-2 m-2 rounded-lg">
         <h3 className="uppercase text-sm px-2 py-3">
-          Found <b>{filteredCollege?.colleges?.meta?.pagination?.total}</b>{" "}
+          Found <b>{Object.keys(SelectedFilter).length > 0 ? filteredCollege?.colleges?.meta?.pagination?.total : 0}</b>
           colleges
         </h3>
-        {SelectedFilter.stream || SelectedFilter.state ? (
+        {SelectedFilter.stream || SelectedFilter.state || SelectedFilter.courses ? (
           <>
             <div
               className="bg-gray-200 px-2 py-2 flex items-center justify-between"
@@ -161,6 +195,20 @@ export default function CollegeFilters(params?: any) {
           filters={statesData?.states?.data}
           handleFilter={handleStateFilter}
           checked={StateFilter}
+        />
+        {/* <Filter
+          name="City"
+          filters={citiesData?.cities?.data}
+          handleFilter={handleCityFilter}
+          checked={CityFilter}
+        /> */}
+
+        {/* New tab for courses */}
+        <Filter
+          name="Courses"
+          filters={coursesData?.courses?.data} 
+          handleFilter={handleCoursesFilter}
+          checked={CoursesFilter}
         />
       </div>
       {params.isMobile ? (

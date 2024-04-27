@@ -131,9 +131,9 @@ export default function CollegeList() {
                 </div>
               </div>
               <div className=" items-center flex-row gap-2 sm:flex hidden">
-				<span className="md:flex hidden">
-					We're on your favourite social media!
-				</span>
+                <span className="md:flex hidden">
+                  We're on your favourite social media!
+                </span>
                 <span>
                   <Link href="/">
                     <FaInstagram />
@@ -161,9 +161,13 @@ export default function CollegeList() {
         <section className="heroSection">
           <div className="m-4 px-8 pt-8 bg-white flex flex-col rounded-sm">
             <h1 className="text-xl font-bold mb-3 text-center text-primary">
-              Showing 1000 Top Colleges in India
+              Showing Top {filteredCollege?.colleges?.data?.length} Colleges in India
             </h1>
-            <p className={`${showFullContent ? "text-justify" : " text-center"} text-base mb-3`}>
+            <p
+              className={`${
+                showFullContent ? "text-justify" : " text-center"
+              } text-base mb-3`}
+            >
               The list of top engineering colleges in India 2024 includes IT
               Madras, IIT Bombay, IIT Kanpur, IIT Roorkee, IIT Kharagpur, etc.
               Out of the total engineering colleges in India 95 colleges are
@@ -243,7 +247,7 @@ export default function CollegeList() {
         </section>
         <section className="collegeList">
           <div className="flex flex-col md:flex-row gap-4 px-4">
-            <div className="flex-none w-56">
+            <div className="flex-none w-64 h-full drop-shadow-md hover:drop-shadow-xl">
               <CollegeFilters
                 allColleges={initialData}
                 setFilteredData={setFilteredData}
