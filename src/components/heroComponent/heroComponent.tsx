@@ -6,11 +6,11 @@ const variations = [" 2500+ Colleges ", " 200+ Exams ", " 11000+ Vacancies "];
 export default function HeroSection() {
   return (
     <>
-      <div className="relative w-full h-[80vh]">
+      <div className="relative w-full">
         <img
           src={"/collegeImg.jpg"}
           alt="College"
-          className="object-cover w-full h-full"
+          className="object-cover w-full h-[40vh]"
         />
         <div className="absolute inset-0  bg-gradient-to-b from-[#1a1a1a]  to-transparent"></div>
         <div className="max-w-screen-xl mx-auto overflow-hidden hidden sm:block">
@@ -37,6 +37,7 @@ export default function HeroSection() {
                 strings: variations,
                 autoStart: true,
                 loop: true,
+                delay: 100,
               }}
             />
             <span>in India</span>

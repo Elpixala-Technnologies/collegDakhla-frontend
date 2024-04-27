@@ -107,21 +107,27 @@ export default function CollegeList() {
     setShowAll(true);
   };
 
+
   const handleSearch = (event: any) => {
     const searchValue = event.target.value.toLowerCase();
+    console.log(searchValue ,"search value",searchValue.length>0);
 
     // If search query is empty, set filtered data to initial data and return
-    if (!searchValue.trim()) {
+    if (!searchValue.trim() && searchValue.length > 0) {
       setFilteredData(initialData?.colleges?.data);
       return;
     }
 
     // Memoize filtered data to avoid re-filtering unnecessarily
-    const filtered = filteredCollege.colleges.data.filter((item: any) =>
-      item.attributes.collegeName.toLowerCase().includes(searchValue)
-    );
+    if(searchValue.length>0){
+      const filtered = filteredCollege?.colleges?.data.filter((item: any) =>
+        item.attributes.collegeName.toLowerCase().includes(searchValue)
+      );
+      setFilteredData(filtered);
+    }
+    
 
-    setFilteredData(filtered);
+    
   };
 
 
