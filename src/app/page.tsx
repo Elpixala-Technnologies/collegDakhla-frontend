@@ -416,7 +416,7 @@ export default function Home() {
         </section>
         <section className="testimonials-section px-2 py-8 lg:py-24 text-black  flex item-center justify-center mx-auto">
           <div className="Container">
-            <div className="testimonials-content flex flex-col w-full border border-t-slate-400 rounded-lg">
+            <div className="testimonials-content flex flex-col w-full">
               <div className="testimonials-content__title flex flex-col text-center mb-12 max-w-[700px] mx-auto">
                 <h4 className="text-lg lg:text-2xl -tracking-wide font-medium font-rubik">
                   Reviewed by People
