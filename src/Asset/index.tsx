@@ -117,6 +117,7 @@ import StreamSearch from "./Icons/streamSearch.svg";
 import WhiteStarIcon from "./Icons/White_Star.svg";
 import ExamSearchIcon from "./Icons/examIcon.svg";
 import Trash from "./Icons/trash.svg";
+import Snowman from "./Icons/snowman.svg"
 
 import LevelIcon from "./Icons/level.svg";
 import CashSolidIcon from "./Icons/cashSolid.svg";
@@ -242,6 +243,7 @@ import SupportIcon from "./Icons/supportIcon.svg";
 import Search from "./Icons/bi_search.svg";
 import QuestionMark from "./Icons/profileQuestionMark.svg";
 import DropDown from "./Icons/dropdown.svg";
+import Study from "./Icons/Study.svg";
 
 import Newspaper_1 from "./newpaper/newspaper1.png";
 import Newspaper_2 from "./newpaper/newspaper2.png";
@@ -250,6 +252,8 @@ import Newspaper_4 from "./newpaper/newspaper4.png";
 import MediaBanner from "./newpaper/mediaBanner.png";
 
 export {
+  Study,
+  Snowman,
   DropDown,
   QuestionMark,
   Trash,
