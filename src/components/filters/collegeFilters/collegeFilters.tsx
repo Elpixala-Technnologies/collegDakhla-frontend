@@ -145,7 +145,7 @@ export default function CollegeFilters(params?: any) {
 
   return (
     <>
-      <div className="bg-white hidden md:block p-2 m-2 rounded-lg">
+      <div className="bg-white hidden md:block p-2 m-2 md:m-0 rounded-lg">
         <h3 className="uppercase text-sm px-2 py-3">
           Found <b>{Object.keys(SelectedFilter).length > 0 ? filteredCollege?.colleges?.meta?.pagination?.total : 0}</b>
           colleges

@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import Link from "next/link";
 import Button from "../button/button";
 import { FaRegStar, FaRegUser } from "react-icons/fa";
@@ -6,9 +8,9 @@ import Feature from "../feature/feature";
 import { useQuery } from "@apollo/client";
 import { getStates } from "@/query/schema";
 import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
-import StarRating from "../starRating/starRating";
+// import StarRating from "../starRating/starRating";
 import { FaImage, FaVideo } from "react-icons/fa6";
-import { IoShieldCheckmark } from "react-icons/io5";
+// import { IoShieldCheckmark } from "react-icons/io5";
 
 export default function CollegeListItem(allColleges: any) {
   //query to get all states
@@ -55,6 +57,7 @@ export default function CollegeListItem(allColleges: any) {
               <div key={index}>
                 <div className="mb-4 p-4 flex flex-col md:flex-row gap-4 shadow-lg bg-white rounded-lg drop-shadow hover:drop-shadow-xl">
                   <div className="relative h-44 rounded-lg">
+              
                     <img
                       src={bannerURL!}
                       alt={college?.collegeName}

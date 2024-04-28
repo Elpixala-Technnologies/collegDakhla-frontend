@@ -7,10 +7,12 @@ export default function HeroSection() {
   return (
     <>
       <div className="relative w-full">
-        <img
+        <Image
           src={"/collegeImg.jpg"}
           alt="College"
-          className="object-cover w-full h-[40vh]"
+		  width={1000}
+		  height={1000}
+          className="object-cover object-center w-full h-[50vh]"
         />
         <div className="absolute inset-0  bg-gradient-to-b from-[#1a1a1a]  to-transparent"></div>
         <div className="max-w-screen-xl mx-auto overflow-hidden hidden sm:block">
@@ -79,7 +81,7 @@ export default function HeroSection() {
 }
 
 {
-  /* <div className="relative w-screen h-[90vh] overflow-hidden">
+	/* <div className="relative w-screen h-[90vh] overflow-hidden">
 	<img
 		src={"/collegeImg.jpg"}
 		alt="College"

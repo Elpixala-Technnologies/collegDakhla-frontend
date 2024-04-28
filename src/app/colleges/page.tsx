@@ -22,7 +22,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import Link from "next/link";
-import { FaCircleChevronRight } from "react-icons/fa6";
+// import { FaCircleChevronRight } from "react-icons/fa6";
 
 export default function CollegeList() {
   const [Search, setSearch] = useState("");
@@ -31,6 +31,8 @@ export default function CollegeList() {
   const [Stream, setStream] = useState<string>("default");
   // const [TopStream, setTopStream] = useState<string>("")
   const [Limit, setLimit] = useState<number>(10);
+  const [displayCount, setDisplayCount] = useState(10); // Initial display count
+  const [searchValue, setSearchValue] = useState("");
 
   const [showFullContent, setShowFullContent] = useState(false);
   const [showReadMore, setShowReadMore] = useState(true);
@@ -84,53 +86,27 @@ export default function CollegeList() {
     }
   };
 
-  const handleClick = () => {
-    console.log(filteredData);
-    console.log("Filtered Colleges:", filteredCollege);
+  const handleSearch = (event: any) => {
+    const value = event.target.value.trim();
+    setSearchValue(value);
+  };
+
+  const handleLoadMore = () => {
+    setDisplayCount((prevCount) => prevCount + 10);
   };
 
   useEffect(() => {
-    const content = document.getElementById("content")!;
-    const readMore = document.getElementById("readMore")!;
-
-    if (content?.scrollHeight > content?.clientHeight) {
-      setShowReadMore(true);
-    }
-  }, []);
-
-  const [showAll, setShowAll] = useState(false);
-  const initialColleges = showAll
-    ? initialData?.colleges?.data
-    : initialData?.colleges?.data;
-
-  const handleLoadMore = () => {
-    setShowAll(true);
-  };
-
-
-  const handleSearch = (event: any) => {
-    const searchValue = event.target.value.toLowerCase();
-    console.log(searchValue ,"search value",searchValue.length>0);
-
-    // If search query is empty, set filtered data to initial data and return
-    if (!searchValue.trim() && searchValue.length > 0) {
-      setFilteredData(initialData?.colleges?.data);
-      return;
-    }
-
-    // Memoize filtered data to avoid re-filtering unnecessarily
-    if(searchValue.length>0){
-      const filtered = filteredCollege?.colleges?.data.filter((item: any) =>
-        item.attributes.collegeName.toLowerCase().includes(searchValue)
+    if (searchValue.trim() === "") {
+      setFilteredData(initialData?.colleges?.data.slice(0, displayCount));
+    } else {
+      const filtered = initialData?.colleges?.data.filter((college: any) =>
+        college.attributes.collegeName
+          .toLowerCase()
+          .includes(searchValue.toLowerCase())
       );
       setFilteredData(filtered);
     }
-    
-
-    
-  };
-
-
+  }, [searchValue, initialData, displayCount]);
 
   return (
     <>
@@ -280,16 +256,16 @@ export default function CollegeList() {
                 <div className="bg-white h-12 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
                   <RiSearchLine />
                   <input
-                   className="w-full focus:outline-none"
-                   type="text"
-                   placeholder="Search colleges..."
-                   onChange={handleSearch}
+                    className="w-full focus:outline-none"
+                    type="text"
+                    placeholder="Search colleges..."
+                    onChange={handleSearch}
                   />
                 </div>
                 <div className="flex gap-4">
                   <div
                     className="flex border-2 h-10 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer"
-                    onClick={handleClick}
+                    // onClick={handleClick}
                   >
                     <span>Sort</span> <MdOutlineSort />
                   </div>
@@ -303,17 +279,13 @@ export default function CollegeList() {
               </div>
               <div className="flex sm:flex-col flex-row overflow-x-scroll">
                 <CollegeListItem colleges={filteredData} />
-                {!showAll && (
-                  <button
-                    className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow m-6"
-                    onClick={handleLoadMore}
-                  >
-                    <div className="absolute inset-0 w-3 bg-amber-400 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
-                    <span className="relative text-black group-hover:text-white">
-                      Load More
-                    </span>
-                  </button>
-                )}
+
+                {filteredData?.length >= 10 && filteredData?.length < initialData?.colleges?.data.length && (
+      <button className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow m-6" onClick={handleLoadMore}>
+        <div className="absolute inset-0 w-3 bg-amber-400 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
+        <span className="relative text-black group-hover:text-white">Load More</span>
+      </button>
+    )}
               </div>
             </div>
           </div>
