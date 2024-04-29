@@ -244,6 +244,7 @@ import Search from "./Icons/bi_search.svg";
 import QuestionMark from "./Icons/profileQuestionMark.svg";
 import DropDown from "./Icons/dropdown.svg";
 import Study from "./Icons/Study.svg";
+import Faqq from "./Icons/Faq.svg";
 
 import Newspaper_1 from "./newpaper/newspaper1.png";
 import Newspaper_2 from "./newpaper/newspaper2.png";
@@ -252,6 +253,7 @@ import Newspaper_4 from "./newpaper/newspaper4.png";
 import MediaBanner from "./newpaper/mediaBanner.png";
 
 export {
+  Faqq,
   Study,
   Snowman,
   DropDown,

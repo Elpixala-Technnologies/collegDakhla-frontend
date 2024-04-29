@@ -8,6 +8,7 @@ import CarouselSideBtn from "@/components/carousel/carousel-side-button";
 import { FaAngleRight, FaCity } from "react-icons/fa6";
 import { useQuery } from "@apollo/client";
 import { IconQuote } from "@tabler/icons-react";
+import { motion } from "framer-motion";
 import {
   getAllNews,
   getCourses,
@@ -107,19 +108,38 @@ export default function Home() {
 
   const testimonialData = [
     {
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      text: "I had an amazing experience with the institute. The faculty is highly knowledgeable and supportive, always ready to clarify doubts. The course curriculum is well-structured and covers all essential topics. The practical sessions were particularly helpful in understanding complex concepts. Overall, I highly recommend this institute to anyone looking to enhance their skills.",
       img: "user_img_1.jpg",
-      name: "John Doe",
-      location: "New York, USA",
+      name: "Arun Kumar",
+      location: "Chennai, Tamil Nadu, India",
     },
     {
-      text: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      text: "The institute exceeded my expectations in every aspect. The teaching staff is top-notch, providing personalized attention to each student. The facilities are excellent, creating a conducive learning environment. I am grateful for the opportunities provided by the institute, which have helped me grow both personally and professionally.",
       img: "user_img_2.jpg",
-      name: "Jane Smith",
-      location: "Los Angeles, USA",
+      name: "Priya Patel",
+      location: "Mumbai, Maharashtra, India",
+    },
+    {
+      text: "I am immensely satisfied with my decision to join this institute. The faculty members are experts in their fields and deliver lectures with great clarity. The institute's focus on practical learning has equipped me with valuable skills that are directly applicable in the industry. I am confident that the knowledge gained here will serve me well in my career.",
+      img: "user_img_3.jpg",
+      name: "Rajesh Singh",
+      location: "Delhi, India",
+    },
+    {
+      text: "This institute provides an exceptional learning experience. The faculty members go above and beyond to ensure that students understand the concepts thoroughly. The hands-on approach to learning has boosted my confidence in applying theoretical knowledge to real-world scenarios. I am grateful for the support and guidance I received throughout my journey.",
+      img: "user_img_4.jpg",
+      name: "Neha Sharma",
+      location: "Kolkata, West Bengal, India",
+    },
+    {
+      text: "Enrolling in this institute was one of the best decisions I've made. The course content is comprehensive, covering all relevant topics in depth. The faculty members are approachable and encourage interactive learning. The institute's emphasis on practical skills development has prepared me well for the challenges of the industry. I would highly recommend this institute to anyone seeking quality education.",
+      img: "user_img_5.jpg",
+      name: "Vikram Singh",
+      location: "Bangalore, Karnataka, India",
     },
     // Add more testimonials as needed
   ];
+  const duplicatedTestimonialData = [...testimonialData, ...testimonialData];
 
   return (
     <>
@@ -189,16 +209,21 @@ export default function Home() {
             <div className="flex gap-4 my-5 overflow-x-auto  ">
               {activeTrendingCollege === "Stream" && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-4 py-4 w-full ">
-                  {topCollegesData?.colleges?.data?.slice(0, 8).map(
-                    (college: any, index: number) => {
+                  {topCollegesData?.colleges?.data
+                    ?.slice(0, 8)
+                    .map((college: any, index: number) => {
                       return (
+                        // <Link
+                        //   href={`/colleges/${college?.id}`}
+                        // >
                         <TopCollectionCard
                           college={college?.attributes}
-                          key={index}
+                          key={index} 
+                          href = {`/colleges/${college?.id}`}
                         />
+                        // </Link>
                       );
-                    }
-                  )}
+                    })}
                 </div>
               )}
 
@@ -231,10 +256,11 @@ export default function Home() {
             <div className="h-36 flex flex-row items-center justify-between w-full bg-amber-200 rounded-3xl">
               <div className=" flex sm:gap-8 gap-4 px-4 items-baseline md:flex-row flex-col">
                 <span className="sm:text-2xl text-sm">
-                  Want to explore more then click here to{" "}
+                  Want to {""}
                   <b className="text-primary font-semibold sm:text-3xl text-base">
-                    Login
+                    EXPLORE MORE{" "}
                   </b>
+                  about US?
                 </span>
 
                 <button
@@ -244,7 +270,7 @@ export default function Home() {
 				   rounded-lg text-sm px-6 py-4 text-center me-2 mb-2 "
                 >
                   <Link href="/login">
-                    <span className="sm:text-2xl text-sm">Login/SignUp</span>
+                    <span className="sm:text-2xl text-sm">Explore More </span>
                   </Link>
                 </button>
               </div>
@@ -285,57 +311,78 @@ export default function Home() {
                 slidesTablet={4}
                 slidesMobile={3}
                 bgColor="bg-orange-200"
-                slides={coursesData?.courses?.data?.map((course: any) => {
-                  return (
-                    <div key={course?.id}>
-                      <div className="border border-extra-light-text rounded-md  flex flex-col gap-2 w-max p-4 bg-slate-50 shadow-md">
-                        <div className="bg-slate-200 px-4 py-1 w-max text-sm text-secondary-text">
-                          {
-                            course?.attributes?.courseType?.data?.attributes
-                              ?.type
-                          }
-                        </div>
-                        <div className="font-semibold text-lg">
-                          {course?.attributes?.name}
-                        </div>
-                        <div className="flex flex-col gap-1">
-                          <div className="flex justify-between w-52">
-                            <div className="text-secondary-text">Duration</div>
-                            <div>
-                              <b>{course?.attributes?.duration} Years</b>
-                            </div>
-                          </div>
-                          <div className="flex justify-between w-52">
-                            <div className="text-secondary-text">
-                              Total Avg. Fee
-                            </div>
-                            <div>
-                              <b>{formatFees(course?.attributes?.fees)}</b>
-                            </div>
-                          </div>
-                          <div className="flex justify-between w-52">
-                            <div className="text-secondary-text">Colleges</div>
-                            <div>
-                              <b>
-                                {course?.attributes?.colleges?.data?.length}
-                              </b>
-                            </div>
-                          </div>
-                        </div>
+                slides={coursesData?.courses?.data?.map(
+                  (course: any, index: number, college: any) => {
+                    const logoUrl = college?.collegeLogo?.data?.attributes?.url
+                      ? getStrapiMedia(
+                          college?.collegeLogo?.data?.attributes?.url
+                        )
+                      : GetDefaultImage("logo");
+                    return (
+                      <div key={course?.id}>
                         <Link href={`/courses/${course?.id}`}>
-                          <div className="border-t border-extra-light-text flex justify-between items-center py-1">
-                            <span>Course Overview</span> <FaAngleRight />
+                          <div className="border border-extra-light-text rounded-md bg-orange-400 flex flex-col gap-2 min-w-48 p-4 shadow-md">
+                            <div className="flex flex-col gap-2 items-start justify-between">
+                              <Image
+                                src={logoUrl!}
+                                alt={college?.collegeName}
+                                className="object-center w-full object-cover h-20"
+                                height={500}
+                                width={500}
+                              />
+                              <div className="bg-slate-200 px-4 py-1 w-max text-sm text-secondary-text">
+                                {
+                                  course?.attributes?.courseType?.data
+                                    ?.attributes?.type
+                                }
+                              </div>
+                            </div>
+                            <div className="font-semibold text-base line-clamp-1 text-white">
+                              {course?.attributes?.name}
+                            </div>
+                            <div className="flex flex-col gap-1">
+                              <div className="flex justify-between w-52">
+                                <div className="text-gray-100">Duration</div>
+                                <div>
+                                  <b className="text-gray-200">
+                                    {course?.attributes?.duration} Years
+                                  </b>
+                                </div>
+                              </div>
+                              <div className="flex justify-between w-52">
+                                <div className="text-gray-100">
+                                  Total Avg. Fee
+                                </div>
+                                <div>
+                                  <b className="text-gray-200">
+                                    {formatFees(course?.attributes?.fees)}
+                                  </b>
+                                </div>
+                              </div>
+                              <div className="flex justify-between w-52 ">
+                                <div className="text-gray-100">Colleges</div>
+                                <div>
+                                  <b className="text-gray-200">
+                                    {course?.attributes?.colleges?.data?.length}
+                                  </b>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="border-t border-extra-light-text flex justify-between items-center py-1">
+                              <span>Course Overview</span> <FaAngleRight />
+                            </div>
                           </div>
                         </Link>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  }
+                )}
               />
             </div>
           </div>
         </section>
-        <section className="max-w-screen-xl mx-auto px-4 my-10 py-4 border border-t-gray-400 rounded-3xl">
+        <section className="max-w-screen-xl mx-auto px-4 my-10 py-4 rounded-3xl">
           <div className="max-w-screen-xl mx-auto">
             <h2 className="text-3xl font-semibold">Latest News & Stories</h2>
             <div className="flex gap-4 my-2 px-6 overflow-x-auto py-2 md:py-0">
@@ -354,29 +401,32 @@ export default function Home() {
                         )
                       : GetDefaultImage("banner");
                     return (
-                      <div key={index} className="flex flex-col gap-2 ">
-                        <div>
-                          <Image
-                            src={featuredImageUrl!}
-                            alt=""
-                            width={100}
-                            height={100}
-                            className="w-full min-w-36 h-44 rounded-lg"
-                          />
-                        </div>
-                        <div className="text-2xl font-semibold text-primary-text line-clamp-2">
-                          <Link
-                            href={`/news/${news?.id}`}
-                            className="cursor-pointer"
-                          >
+                      <Link
+                        href={`/news/${news?.id}`}
+                        className="cursor-pointer"
+                      >
+                        <div key={index} className="flex flex-col gap-2 ">
+                          <div>
+                            <Image
+                              src={featuredImageUrl!}
+                              alt=""
+                              width={100}
+                              height={100}
+                              className="w-full min-w-20 h-24 rounded-lg"
+                            />
+                          </div>
+                          <div className="text-xl font-semibold text-primary-text line-clamp-1">
                             {news?.attributes?.title}
-                          </Link>
+                          </div>
+                          <span className="line-clamp-4">
+                            {news?.attributes?.excerpt}
+                          </span>
+                          <div className="flex justify-between text-primary-text-light text-base pr-4">
+                            <div>{getDate(news?.attributes?.publishedAt)}</div>
+                            <div>{news?.attributes?.author}</div>
+                          </div>
                         </div>
-                        <div className="flex justify-between text-primary-text-light text-base pr-4">
-                          <div>{getDate(news?.attributes?.publishedAt)}</div>
-                          <div>CNN Indonesia</div>
-                        </div>
-                      </div>
+                      </Link>
                     );
                   }
                 )}
@@ -389,8 +439,10 @@ export default function Home() {
             <div className="h-36 flex flex-row items-center justify-end w-full bg-amber-200 rounded-3xl relative">
               <div className=" flex gap-8 px-4 items-baseline">
                 <span className="text-2xl">
-                  Want to explore more then click here to{" "}
-                  <b className="text-primary font-semibold text-3xl">Login</b>
+                  Want to know more{" "}
+                  <b className="text-primary font-semibold text-3xl">
+                    ABOUT US{" "}
+                  </b>
                 </span>
 
                 <button
@@ -400,7 +452,7 @@ export default function Home() {
 				   rounded-lg text-sm px-6 py-4 text-center me-2 mb-2"
                 >
                   <Link href="/login">
-                    <span className="text-2xl">Login/SignUp</span>
+                    <span className="text-2xl">About-Us</span>
                   </Link>
                 </button>
               </div>
@@ -414,53 +466,67 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="testimonials-section px-2 py-8 lg:py-24 text-black  flex item-center justify-center mx-auto">
+        <section className="testimonials-section px-2 py-8 lg:py-24 text-black flex items-center justify-center mx-auto">
           <div className="Container">
-            <div className="testimonials-content flex flex-col w-full border border-t-slate-400 rounded-lg">
+            <div className="testimonials-content flex flex-col w-full rounded-lg">
               <div className="testimonials-content__title flex flex-col text-center mb-12 max-w-[700px] mx-auto">
                 <h4 className="text-lg lg:text-2xl -tracking-wide font-medium font-rubik">
-                  Reviewed by People
+                  Reviewed by Students
                 </h4>
                 <h2 className="text-2xl lg:text-[2.5rem] lg:leading-[3.25rem] tracking-wide font-bold mb-3.5">
-                  Client's Testimonials
+                  Students's Testimonials
                 </h2>
-                <p className="text-sm sm:text-base font-rubik text-gray-500 leading-snug">
-                  Discover the positive impact we've made on the our clients by
-                  reading through their testimonials. Our clients have
-                  experienced our service and results, and they're eager to
-                  share their positive experiences with you.
-                </p>
+                <span className="text-sm sm:text-base font-rubik text-gray-500 leading-snug">
+                  Our students have experienced our service and results,
+                  <br className="sm:hidden" />
+                  and they're eager to share their positive experiences with
+                  you.
+                </span>
               </div>
 
-              <div className="all-testimonials flex lg:justify-center gap-7 p-2 lg:p-7 overflow-x-auto no-scrollbar w-full">
-                {testimonialData.map((testimonial, index) => (
-                  <div
-                    key={index}
-                    className="all-testimonials__box flex flex-col justify-between bg-white shadow-xl w-full lg:w-[34rem] lg:py-14 lg:px-14 relative px-7 py-7 rounded-md lg:rounded-none gap-5 min-w-[20rem]"
-                  >
-                    <span className="quotes-icon absolute hidden md:block text-6xl bottom-14 right-16 text-orange-500">
-                      <IconQuote width={60} height={60} />
-                    </span>
-                    <p className="text-sm md:text-xl font-medium md:leading-[2rem] text-gray-500">
-                      {testimonial.text}
-                    </p>
-                    <div className="all-testimonials__box__name__profile flex items-center gap-5">
-                      <img
-                        src={testimonial.img}
-                        alt={`user_img_${index}`}
-                        className="w-16 h-16 rounded-full"
-                      />
-                      <div className="flex flex-col">
-                        <h4 className="text-lg font-bold">
-                          {testimonial.name}
-                        </h4>
-                        <p className="text-gray-800 text-base font-rubik font-normal">
-                          {testimonial.location}
-                        </p>
+              <div className=" w-full">
+                <motion.div
+                  initial={{ x: 0 }}
+                  animate={{ x: -1397 }} // Adjust this value according to your design
+                  transition={{
+                    x: {
+                      repeat: Infinity,
+                      repeatType: "loop",
+                      duration: 20,
+                      ease: "linear",
+                    },
+                  }}
+                  className="all-testimonials flex lg:justify-center gap-7 p-2 lg:p-7 w-full overflow-x-scroll"
+                >
+                  {duplicatedTestimonialData.map((testimonial, index) => (
+                    <div
+                      key={index}
+                      className="all-testimonials__box flex flex-col justify-between bg-white shadow-xl  lg:py-14 lg:px-14 relative px-7 py-7 rounded-md lg:rounded-none gap-5 min-w-[20rem]"
+                    >
+                      <span className="quotes-icon absolute hidden md:block text-6xl bottom-14 right-16 text-orange-500">
+                        <IconQuote width={60} height={60} />
+                      </span>
+                      <p className="text-sm md:text-xl font-medium md:leading-[2rem] text-gray-500">
+                        {testimonial.text}
+                      </p>
+                      <div className="all-testimonials__box__name__profile flex items-center gap-5">
+                        <img
+                          src={testimonial.img}
+                          alt={`user_img_${index}`}
+                          className="w-16 h-16 rounded-full"
+                        />
+                        <div className="flex flex-col">
+                          <h4 className="text-lg font-bold">
+                            {testimonial.name}
+                          </h4>
+                          <p className="text-gray-800 text-base font-rubik font-normal">
+                            {testimonial.location}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </motion.div>
               </div>
             </div>
           </div>
@@ -620,7 +686,6 @@ export default function Home() {
         <section className="py-8">
           <div className=" max-w-screen-xl mx-auto px-4">
             <Faq />
-            
           </div>
         </section>
         <section className="bg-[#F2F6F7]">

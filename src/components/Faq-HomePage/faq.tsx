@@ -1,5 +1,7 @@
 import { IconChevronDown } from "@tabler/icons-react";
+import Image from "next/image";
 import { useState } from "react";
+import { Snowman, Study , Faqq } from "@/Asset";
 
 const Faq = () => {
   const faqData = [
@@ -58,7 +60,7 @@ const Faq = () => {
             </div>
 
             {/* Faq Q-ans */}
-            <div className="all-questions flex flex-col items-center mt-12 lg:mt-16 rounded-xl">
+            <div className="all-questions flex flex-col mt-12 lg:mt-16 rounded-xl items-center gap-2">
               {faqData.map((faq, index) => (
                 <div
                   key={index}
@@ -86,6 +88,7 @@ const Faq = () => {
                 </div>
               ))}
             </div>
+           
           </div>
         </div>
       </section>
