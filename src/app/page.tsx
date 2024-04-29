@@ -321,7 +321,7 @@ export default function Home() {
                     return (
                       <div key={course?.id}>
                         <Link href={`/courses/${course?.id}`}>
-                          <div className="border border-extra-light-text rounded-md bg-orange-400 flex flex-col gap-2 min-w-48 p-4 shadow-md">
+                          <div className="border border-extra-light-text rounded-md bg-white flex flex-col gap-2 min-w-48 p-4 shadow-md">
                             <div className="flex flex-col gap-2 items-start justify-between">
                               <Image
                                 src={logoUrl!}
@@ -337,32 +337,32 @@ export default function Home() {
                                 }
                               </div>
                             </div>
-                            <div className="font-semibold text-base line-clamp-1 text-white">
+                            <div className="font-semibold text-base line-clamp-1 text-black">
                               {course?.attributes?.name}
                             </div>
                             <div className="flex flex-col gap-1">
                               <div className="flex justify-between w-52">
-                                <div className="text-gray-100">Duration</div>
+                                <div className="text-black">Duration</div>
                                 <div>
-                                  <b className="text-gray-200">
+                                  <b className="text-black">
                                     {course?.attributes?.duration} Years
                                   </b>
                                 </div>
                               </div>
                               <div className="flex justify-between w-52">
-                                <div className="text-gray-100">
+                                <div className="text-black">
                                   Total Avg. Fee
                                 </div>
                                 <div>
-                                  <b className="text-gray-200">
+                                  <b className="text-black">
                                     {formatFees(course?.attributes?.fees)}
                                   </b>
                                 </div>
                               </div>
                               <div className="flex justify-between w-52 ">
-                                <div className="text-gray-100">Colleges</div>
+                                <div className="text-black">Colleges</div>
                                 <div>
-                                  <b className="text-gray-200">
+                                  <b className="text-black">
                                     {course?.attributes?.colleges?.data?.length}
                                   </b>
                                 </div>
@@ -496,12 +496,12 @@ export default function Home() {
                       ease: "linear",
                     },
                   }}
-                  className="all-testimonials flex lg:justify-center gap-7 p-2 lg:p-7 w-full overflow-x-scroll"
+                  className="all-testimonials flex lg:justify-center gap-7 p-2 lg:p-7 w-full"
                 >
                   {duplicatedTestimonialData.map((testimonial, index) => (
                     <div
                       key={index}
-                      className="all-testimonials__box flex flex-col justify-between bg-white shadow-xl  lg:py-14 lg:px-14 relative px-7 py-7 rounded-md lg:rounded-none gap-5 min-w-[20rem]"
+                      className="all-testimonials__box flex flex-col justify-between bg-white shadow-xl w-full lg:w-[34rem] lg:py-14 lg:px-14 relative px-7 py-7 rounded-md lg:rounded-none gap-5 min-w-[20rem]"
                     >
                       <span className="quotes-icon absolute hidden md:block text-6xl bottom-14 right-16 text-orange-500">
                         <IconQuote width={60} height={60} />
