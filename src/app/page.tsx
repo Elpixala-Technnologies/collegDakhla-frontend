@@ -109,31 +109,31 @@ export default function Home() {
   const testimonialData = [
     {
       text: "I had an amazing experience with the institute. The faculty is highly knowledgeable and supportive, always ready to clarify doubts. The course curriculum is well-structured and covers all essential topics. The practical sessions were particularly helpful in understanding complex concepts. Overall, I highly recommend this institute to anyone looking to enhance their skills.",
-      img: "user_img_1.jpg",
+      img: "/user_img_1.jpg",
       name: "Arun Kumar",
       location: "Chennai, Tamil Nadu, India",
     },
     {
       text: "The institute exceeded my expectations in every aspect. The teaching staff is top-notch, providing personalized attention to each student. The facilities are excellent, creating a conducive learning environment. I am grateful for the opportunities provided by the institute, which have helped me grow both personally and professionally.",
-      img: "user_img_2.jpg",
+      img: "/user_img_2.jpg",
       name: "Priya Patel",
       location: "Mumbai, Maharashtra, India",
     },
     {
       text: "I am immensely satisfied with my decision to join this institute. The faculty members are experts in their fields and deliver lectures with great clarity. The institute's focus on practical learning has equipped me with valuable skills that are directly applicable in the industry. I am confident that the knowledge gained here will serve me well in my career.",
-      img: "user_img_3.jpg",
+      img: "/user_img_3.jpg",
       name: "Rajesh Singh",
       location: "Delhi, India",
     },
     {
       text: "This institute provides an exceptional learning experience. The faculty members go above and beyond to ensure that students understand the concepts thoroughly. The hands-on approach to learning has boosted my confidence in applying theoretical knowledge to real-world scenarios. I am grateful for the support and guidance I received throughout my journey.",
-      img: "user_img_4.jpg",
+      img: "/user_img_4.jpg",
       name: "Neha Sharma",
       location: "Kolkata, West Bengal, India",
     },
     {
       text: "Enrolling in this institute was one of the best decisions I've made. The course content is comprehensive, covering all relevant topics in depth. The faculty members are approachable and encourage interactive learning. The institute's emphasis on practical skills development has prepared me well for the challenges of the industry. I would highly recommend this institute to anyone seeking quality education.",
-      img: "user_img_5.jpg",
+      img: "/user_img_5.jpg",
       name: "Vikram Singh",
       location: "Bangalore, Karnataka, India",
     },
@@ -218,8 +218,8 @@ export default function Home() {
                         // >
                         <TopCollectionCard
                           college={college?.attributes}
-                          key={index} 
-                          href = {`/colleges/${college?.id}`}
+                          key={index}
+                          href={`/colleges/${college?.id}`}
                         />
                         // </Link>
                       );
@@ -350,9 +350,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex justify-between w-52">
-                                <div className="text-black">
-                                  Total Avg. Fee
-                                </div>
+                                <div className="text-black">Total Avg. Fee</div>
                                 <div>
                                   <b className="text-black">
                                     {formatFees(course?.attributes?.fees)}
@@ -401,32 +399,28 @@ export default function Home() {
                         )
                       : GetDefaultImage("banner");
                     return (
-                      <Link
-                        href={`/news/${news?.id}`}
-                        className="cursor-pointer"
-                      >
-                        <div key={index} className="flex flex-col gap-2 ">
-                          <div>
-                            <Image
-                              src={featuredImageUrl!}
-                              alt=""
-                              width={100}
-                              height={100}
-                              className="w-full min-w-20 h-24 rounded-lg"
-                            />
-                          </div>
-                          <div className="text-xl font-semibold text-primary-text line-clamp-1">
-                            {news?.attributes?.title}
-                          </div>
-                          <span className="line-clamp-4">
-                            {news?.attributes?.excerpt}
-                          </span>
-                          <div className="flex justify-between text-primary-text-light text-base pr-4">
-                            <div>{getDate(news?.attributes?.publishedAt)}</div>
-                            <div>{news?.attributes?.author}</div>
-                          </div>
+                      <div key={index} className="flex flex-col gap-2 ">
+                        <Image
+                          src={featuredImageUrl!}
+                          alt=""
+                          width={100}
+                          height={100}
+                          className="w-full min-w-20 h-24 rounded-lg"
+                        />
+                        <Link
+                          href={`/news/${news?.id}`}
+                          className="cursor-pointer text-xl font-semibold text-primary-text line-clamp-1"
+                        >
+                          {news?.attributes?.title}
+                        </Link>
+                        <p className="line-clamp-4">
+                          {news?.attributes?.excerpt}
+                        </p>
+                        <div className="flex justify-between text-primary-text-light text-base pr-4">
+                          <p>{getDate(news?.attributes?.publishedAt)}</p>
+                          <h4>{news?.attributes?.author}</h4>
                         </div>
-                      </Link>
+                      </div>
                     );
                   }
                 )}
@@ -466,8 +460,8 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="testimonials-section px-2 py-8 lg:py-24 text-black flex items-center justify-center mx-auto">
-          <div className="Container">
+        <section className="testimonials-section px-2 py-8 lg:py-24 text-black flex items-center justify-center mx-auto w-full">
+          <div className="Container w-full">
             <div className="testimonials-content flex flex-col w-full rounded-lg">
               <div className="testimonials-content__title flex flex-col text-center mb-12 max-w-[700px] mx-auto">
                 <h4 className="text-lg lg:text-2xl -tracking-wide font-medium font-rubik">
@@ -483,25 +477,24 @@ export default function Home() {
                   you.
                 </span>
               </div>
-
               <div className=" w-full">
                 <motion.div
-                  initial={{ x: 0 }}
-                  animate={{ x: -1397 }} // Adjust this value according to your design
-                  transition={{
-                    x: {
-                      repeat: Infinity,
-                      repeatType: "loop",
-                      duration: 20,
-                      ease: "linear",
-                    },
-                  }}
-                  className="all-testimonials flex lg:justify-center gap-7 p-2 lg:p-7 w-full"
+                  // initial={{ x: 0 }}
+                  // animate={{ x: -1397 }} // Adjust this value according to your design
+                  // transition={{
+                  //   x: {
+                  //     repeat: Infinity,
+                  //     repeatType: "loop",
+                  //     duration: 20,
+                  //     ease: "linear",
+                  //   },
+                  // }}
+                  className="all-testimonials flex gap-7 p-2 lg:p-7 w-full overflow-x-auto"
                 >
                   {duplicatedTestimonialData.map((testimonial, index) => (
                     <div
                       key={index}
-                      className="all-testimonials__box flex flex-col justify-between bg-white shadow-xl w-full lg:w-[34rem] lg:py-14 lg:px-14 relative px-7 py-7 rounded-md lg:rounded-none gap-5 min-w-[20rem]"
+                      className="all-testimonials__box flex flex-col justify-between bg-white shadow-xl w-full lg:min-w-[34rem] lg:py-14 lg:px-14 relative px-7 py-7 rounded-md lg:rounded-none gap-5 min-w-[20rem]"
                     >
                       <span className="quotes-icon absolute hidden md:block text-6xl bottom-14 right-16 text-orange-500">
                         <IconQuote width={60} height={60} />
@@ -510,10 +503,12 @@ export default function Home() {
                         {testimonial.text}
                       </p>
                       <div className="all-testimonials__box__name__profile flex items-center gap-5">
-                        <img
+                        <Image
                           src={testimonial.img}
                           alt={`user_img_${index}`}
                           className="w-16 h-16 rounded-full"
+                          width={500}
+                          height={500}
                         />
                         <div className="flex flex-col">
                           <h4 className="text-lg font-bold">
