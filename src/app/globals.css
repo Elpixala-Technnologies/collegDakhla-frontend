@@ -12,6 +12,7 @@
   height: 90px;
 } */
 
+
 body {
   scrollbar-width: thin;
   scrollbar-color: #cccccc #f4f4f4;
@@ -29,6 +30,16 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-track {
   background-color: #f4f4f4;
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+}
+
+.hide-scrollbar::-webkit-scrollbar-thumb {
+	background-color: transparent;
+}
+
 
 /* For Firefox */
 /* scrollbar-width: thin;

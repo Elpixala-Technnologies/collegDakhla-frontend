@@ -245,7 +245,11 @@ import QuestionMark from "./Icons/profileQuestionMark.svg";
 import DropDown from "./Icons/dropdown.svg";
 import Study from "./Icons/Study.svg";
 import Faqq from "./Icons/Faq.svg";
-
+import Man from "./Icons/ManSearch.svg";
+import LearnTest from "./Icons/LearnTest.svg";
+import Bufferrr from "../Asset/Icons/Buffer.svg";
+import Women from "../Asset/Icons/WomenSch.svg";
+import TeamWork from "../Asset/Icons/TeamWork.svg";
 import Newspaper_1 from "./newpaper/newspaper1.png";
 import Newspaper_2 from "./newpaper/newspaper2.png";
 import Newspaper_3 from "./newpaper/newspaper3.png";
@@ -253,6 +257,12 @@ import Newspaper_4 from "./newpaper/newspaper4.png";
 import MediaBanner from "./newpaper/mediaBanner.png";
 
 export {
+  Man,
+  LearnTest,
+  Bufferrr,
+  Women,
+  TeamWork,
+
   Faqq,
   Study,
   Snowman,

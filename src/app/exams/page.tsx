@@ -61,7 +61,7 @@ export default function ExamList() {
 			<div className="max-w-screen-xl mx-auto">
 
 			<section className="w-full items-center justify-center inline-flex flex-nowrap overflow-hidden sm:[mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll m-2">
+          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none infinite-unlimited m-2">
             <div className="flex flex-row items-center justify-between lg:gap-80 md:gap-48 ">
               <div className="flex items-center flex-row gap-8">
                 <div className="gap-1 flex items-center">

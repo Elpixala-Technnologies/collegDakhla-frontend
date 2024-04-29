@@ -14,6 +14,7 @@ const CarouselSideBtn = ({
   showButton = true,
   showPagination = true,
   bgColor = "",
+  gap = "gap-4",
 }: {
   slides: Array<any>;
   title?: string;
@@ -26,6 +27,7 @@ const CarouselSideBtn = ({
   buttonBorderColor?: string;
   buttonTextColor?: string;
   bgColor?: string;
+  gap?: string;
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [slidesToShow, setSlidesToShow] = useState(1);
@@ -89,7 +91,7 @@ const CarouselSideBtn = ({
         <div className="max-w-screen-xl overflow-hidden">
           <div className={`${bgColor}`}>
             <div
-              className={`flex gap-4 transition-transform duration-300 ease-in-out py-4 ${bgColor}`}
+              className={`flex ${gap} transition-transform duration-300 ease-in-out py-4 px-10 rounded-2xl ${bgColor}`}
               style={{
                 transform: `translateX(-${
                   activeIndex * (120 / slidesToShow)

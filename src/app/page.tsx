@@ -208,7 +208,7 @@ export default function Home() {
 
             <div className="flex gap-4 my-5 overflow-x-auto  ">
               {activeTrendingCollege === "Stream" && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-4 py-4 w-full ">
+                <div className=" sm:grid flex flex-row hide-scrollbar overflow-x-scroll grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-4 py-4 w-full ">
                   {topCollegesData?.colleges?.data
                     ?.slice(0, 8)
                     .map((college: any, index: number) => {
@@ -269,7 +269,7 @@ export default function Home() {
 				   focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium 
 				   rounded-lg text-sm px-6 py-4 text-center me-2 mb-2 "
                 >
-                  <Link href="/login">
+                  <Link href="/more">
                     <span className="sm:text-2xl text-sm">Explore More </span>
                   </Link>
                 </button>
@@ -389,6 +389,7 @@ export default function Home() {
                 slidesDesktop={5}
                 slidesTablet={4}
                 slidesMobile={3}
+                gap="gap-6"
                 slides={newsData?.news?.data?.map(
                   (news: any, index: number) => {
                     const featuredImageUrl = news?.attributes?.featuredImage
@@ -399,17 +400,20 @@ export default function Home() {
                         )
                       : GetDefaultImage("banner");
                     return (
-                      <div key={index} className="flex flex-col gap-2 ">
+                      <div
+                        key={index}
+                        className="flex flex-col gap-6  md:min-w-72 lg:min-w-80 min-w-40 p-2"
+                      >
                         <Image
                           src={featuredImageUrl!}
                           alt=""
                           width={100}
                           height={100}
-                          className="w-full min-w-20 h-24 rounded-lg"
+                          className="w-full sm:min-w-28 min-w-20 sm:h-36 h-20 rounded-lg object-contain object-center"
                         />
                         <Link
                           href={`/news/${news?.id}`}
-                          className="cursor-pointer text-xl font-semibold text-primary-text line-clamp-1"
+                          className="cursor-pointer sm:text-2xl text-base font-semibold text-primary-text line-clamp-1"
                         >
                           {news?.attributes?.title}
                         </Link>
@@ -445,7 +449,7 @@ export default function Home() {
 				   focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium 
 				   rounded-lg text-sm px-6 py-4 text-center me-2 mb-2"
                 >
-                  <Link href="/login">
+                  <Link href="/">
                     <span className="text-2xl">About-Us</span>
                   </Link>
                 </button>
@@ -477,52 +481,78 @@ export default function Home() {
                   you.
                 </span>
               </div>
-              <div className=" w-full">
-                <motion.div
-                  // initial={{ x: 0 }}
-                  // animate={{ x: -1397 }} // Adjust this value according to your design
-                  // transition={{
-                  //   x: {
-                  //     repeat: Infinity,
-                  //     repeatType: "loop",
-                  //     duration: 20,
-                  //     ease: "linear",
-                  //   },
-                  // }}
-                  className="all-testimonials flex gap-7 p-2 lg:p-7 w-full overflow-x-auto"
-                >
-                  {duplicatedTestimonialData.map((testimonial, index) => (
-                    <div
-                      key={index}
-                      className="all-testimonials__box flex flex-col justify-between bg-white shadow-xl w-full lg:min-w-[34rem] lg:py-14 lg:px-14 relative px-7 py-7 rounded-md lg:rounded-none gap-5 min-w-[20rem]"
-                    >
-                      <span className="quotes-icon absolute hidden md:block text-6xl bottom-14 right-16 text-orange-500">
-                        <IconQuote width={60} height={60} />
-                      </span>
-                      <p className="text-sm md:text-xl font-medium md:leading-[2rem] text-gray-500">
-                        {testimonial.text}
-                      </p>
-                      <div className="all-testimonials__box__name__profile flex items-center gap-5">
-                        <Image
-                          src={testimonial.img}
-                          alt={`user_img_${index}`}
-                          className="w-16 h-16 rounded-full"
-                          width={500}
-                          height={500}
-                        />
-                        <div className="flex flex-col">
-                          <h4 className="text-lg font-bold">
-                            {testimonial.name}
-                          </h4>
-                          <p className="text-gray-800 text-base font-rubik font-normal">
-                            {testimonial.location}
-                          </p>
+
+              <div className="flex flex-wrap gap-3 my-10 justify-around">
+                  
+                  <div className="w-full inline-flex flex-nowrap overflow-hidden sm:[mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+                    <ul className="flex items-center gap-x-6 justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll m-2">
+                    {testimonialData.map((testimonial, index) => (
+                      <div
+                        key={index}
+                        className="all-testimonials__box flex flex-col justify-between bg-white shadow-xl w-full lg:min-w-[34rem] lg:py-14 lg:px-14 relative px-7 py-7 rounded-md lg:rounded-none gap-5 min-w-[20rem]"
+                      >
+                        <span className="quotes-icon absolute hidden md:block text-6xl bottom-14 right-16 text-orange-500">
+                          <IconQuote width={60} height={60} />
+                        </span>
+                        <p className="text-sm md:text-xl font-medium md:leading-[2rem] text-gray-500 line-clamp-6">
+                          {testimonial.text}
+                        </p>
+                        <div className="all-testimonials__box__name__profile flex items-center gap-5">
+                          <Image
+                            src={testimonial.img}
+                            alt={`user_img_${index}`}
+                            className="w-16 h-16 rounded-full"
+                            width={500}
+                            height={500}
+                          />
+                          <div className="flex flex-col">
+                            <h4 className="text-lg font-bold">
+                              {testimonial.name}
+                            </h4>
+                            <p className="text-gray-800 text-base font-rubik font-normal">
+                              {testimonial.location}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </motion.div>
-              </div>
+                    ))}
+                    </ul>
+                    <ul className="flex items-center gap-x-6 justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll m-2">
+                    {testimonialData.map((testimonial, index) => (
+                      <div
+                        key={index}
+                        className="all-testimonials__box flex flex-col justify-between bg-white shadow-xl w-full lg:min-w-[34rem] lg:py-14 lg:px-14 relative px-7 py-7 rounded-md lg:rounded-none gap-5 min-w-[20rem]"
+                      >
+                        <span className="quotes-icon absolute hidden md:block text-6xl bottom-14 right-16 text-orange-500">
+                          <IconQuote width={60} height={60} />
+                        </span>
+                        <p className="text-sm md:text-xl font-medium md:leading-[2rem] text-gray-500 line-clamp-6">
+                          {testimonial.text}
+                        </p>
+                        <div className="all-testimonials__box__name__profile flex items-center gap-5">
+                          <Image
+                            src={testimonial.img}
+                            alt={`user_img_${index}`}
+                            className="w-16 h-16 rounded-full"
+                            width={500}
+                            height={500}
+                          />
+                          <div className="flex flex-col">
+                            <h4 className="text-lg font-bold">
+                              {testimonial.name}
+                            </h4>
+                            <p className="text-gray-800 text-base font-rubik font-normal">
+                              {testimonial.location}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    </ul>
+                  </div>
+                </div>
+             
+              
             </div>
           </div>
         </section>

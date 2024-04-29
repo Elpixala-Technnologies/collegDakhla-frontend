@@ -104,8 +104,9 @@ export default function Header() {
               </div>
 
               <div className="flex gap-1 items-center">
-                More
-                <TfiAngleDown />
+
+              <Link href={"/more"}>More</Link>
+                
               </div>
             </div>
           </div>

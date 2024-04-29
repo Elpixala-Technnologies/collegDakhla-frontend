@@ -43,7 +43,7 @@ const Faq = () => {
   return (
     <>
       <section
-        className=" faq-section bg-faq-section bg-no-repeat px-2 py-12 lg:py-24 bg-auto bg-orange-50 border border-b-slate-600 rounded-3xl"
+        className=" faq-section bg-faq-section bg-no-repeat px-2 py-12 lg:py-24 bg-auto bg-orange-50 drop-shadow-xl drop-shadow-slate-900 rounded-3xl"
         style={{ backgroundPosition: "0 70%" }}
       >
         <div className="Container">
