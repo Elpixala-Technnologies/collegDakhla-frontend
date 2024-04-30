@@ -146,7 +146,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="mx-auto  bg-gradient-to-b from-amber-50 via-white to-orange-50 overflow-x-hidden">
+      <div className="mx-auto overflow-x-hidden bg-white">
         <section>
           <HeroSection />
         </section>
@@ -244,7 +244,7 @@ export default function Home() {
               {activeTrendingCollege === "Exams" && (
                 <>
                   <section className="topExams w-full">
-                    <div className=" bg-amber-100 py-6 px-4 w-full">
+                    <div className="py-6 px-4 w-full">
                       <Carousel
                         slidesDesktop={4}
                         slidesTablet={3}
@@ -591,7 +591,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="mx-4">
+        <section className="px-4 bg-white">
           <div className="max-w-screen-xl mx-auto px-4 my-20 flex flex-wrap text-primary-text gap-16">
             <div className="flex-1">
               <div className="relative flex w-max">
@@ -662,7 +662,7 @@ export default function Home() {
                     <div className="flex gap-4 flex-wrap">
                       <Button
                         outline
-                        fontColor="text-primary-text-light"
+                        fontColor="text-white"
                         outlineColor="border-primary-text-light"
                         paddingX="px-4"
                         paddingY="py-2"
@@ -670,7 +670,7 @@ export default function Home() {
                       />
                       <Button
                         outline
-                        fontColor="text-primary-text-light"
+                        fontColor="text-white"
                         outlineColor="border-primary-text-light"
                         paddingX="px-4"
                         paddingY="py-2"
@@ -678,7 +678,7 @@ export default function Home() {
                       />
                       <Button
                         outline
-                        fontColor="text-primary-text-light"
+                        fontColor="text-white"
                         outlineColor="border-primary-text-light"
                         paddingX="px-4"
                         paddingY="py-2"
@@ -705,7 +705,7 @@ export default function Home() {
                     <div className="flex gap-4 flex-wrap">
                       <Button
                         outline
-                        fontColor="text-primary-text-light"
+                        fontColor="text-white"
                         outlineColor="border-primary-text-light"
                         paddingX="px-4"
                         paddingY="py-2"
@@ -713,7 +713,7 @@ export default function Home() {
                       />
                       <Button
                         outline
-                        fontColor="text-primary-text-light"
+                        fontColor="text-white"
                         outlineColor="border-primary-text-light"
                         paddingX="px-4"
                         paddingY="py-2"
@@ -721,7 +721,7 @@ export default function Home() {
                       />
                       <Button
                         outline
-                        fontColor="text-primary-text-light"
+                        fontColor="text-white"
                         outlineColor="border-primary-text-light"
                         paddingX="px-4"
                         paddingY="py-2"
@@ -729,7 +729,7 @@ export default function Home() {
                       />
                       <Button
                         outline
-                        fontColor="text-primary-text-light"
+                        fontColor="text-white"
                         outlineColor="border-primary-text-light"
                         paddingX="px-4"
                         paddingY="py-2"

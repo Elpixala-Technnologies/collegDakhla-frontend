@@ -89,8 +89,9 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                       outline
                       fontSize="text-sm"
                       width="w-40"
-                      fontColor="text-primary-text"
+                      fontColor="text-black"
                       align="text-center"
+                      bgColor="bg-white"
                     />
                   </div>
                 </div>

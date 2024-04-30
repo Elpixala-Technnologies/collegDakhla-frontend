@@ -172,8 +172,9 @@ export default function ExamListItem({ exams, featuredExams }: any) {
 											outline
 											fontSize="text-sm"
 											width="w-40"
-											fontColor="text-primary-text"
+											fontColor="text-black"
 											align="text-center"
+											bgColor="bg-white"
 										/>
 									</div>
 								</div>

@@ -39,6 +39,7 @@ export default function HeroSection() {
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
+    document.body.style.overflow = "hidden";
   };
 
   const toggleVisibility = () => {
@@ -46,10 +47,8 @@ export default function HeroSection() {
   };
   useEffect(() => {
     if (isModalOpen) {
-      // Disable scrolling when modal is open
       document.body.style.overflow = "hidden";
     } else {
-      // Enable scrolling when modal is closed
       document.body.style.overflow = "auto";
     }
   }, [isModalOpen]);
@@ -121,7 +120,7 @@ export default function HeroSection() {
             <span>in India</span>
           </h1>
           <div className="Search flex  items-center rounded-md w-8/12 mx-4 min-w-min">
-            <div className=" h-12 flex border-2 bg-white rounded-l-xl gap-2 border-extra-light-text flex-1 items-center text-primary-text px-2">
+            <div className=" h-11 flex border-2 bg-white rounded-l-xl gap-2 border-extra-light-text flex-1 items-center text-primary-text px-2">
               <RiSearchLine />
               <input
                 className="w-full focus:outline-none"
@@ -130,8 +129,8 @@ export default function HeroSection() {
                 onClick={toggleModal}
               />
             </div>
-            <div className="px-4 py-2 bg-primary text-white font-bold text-base md:text-lg rounded-r-md">
-              search
+            <div className="px-4 py-2 bg-primary text-white font-bold text-base md:text-lg rounded-r-md cursor-pointer">
+              Search
             </div>
           </div>
           
@@ -156,25 +155,25 @@ export default function HeroSection() {
             {collegeNames.map(
               (college, index) =>
                 index === currentIndex && (
-                  <>
+                  <h4 className="" key={index}>
                     {college.name}{" "}
                     <span className="bg-black bg-opacity-50 p-1 rounded-md">
                       {currentIndex + 1}/{college.totalImages}
                     </span>
-                  </>
+                  </h4>
                 )
             )}
           </div>
         </div>
         {isModalOpen && (
             <div className="fixed top-0 mt-5 left-0 w-full h-fit bg-black bg-opacity-50 flex z-50">
-              <div className="bg-white p-8 rounded-md w-full overflow-y-auto hide-scrollbar">
+              <div className="bg-white p-8 rounded-md w-full">
                 <PopDown
                   inputValue={inputValue}
                   onChange={handleInputChange}
                   onRecentSearch={handleRecentSearch}
                 />
-                <button onClick={toggleModal} className="m-4 cursor-pointer">
+                <button onClick={toggleModal} className="ml-4 cursor-pointer mt-10">
                   <span className="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner drop-shadow-lg drop-shadow-slate-100 group m-2 ">
                     <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease"></span>
                     <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease"></span>

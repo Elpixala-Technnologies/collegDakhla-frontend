@@ -1,7 +1,7 @@
 import { IconChevronDown } from "@tabler/icons-react";
-import Image from "next/image";
+// import Image from "next/image";
 import { useState } from "react";
-import { Snowman, Study , Faqq } from "@/Asset";
+// import { Snowman, Study , Faqq } from "@/Asset";
 
 const Faq = () => {
   const faqData = [
@@ -37,17 +37,17 @@ const Faq = () => {
   };
 
   const getClassQuestion = (id:any) => {
-    return activeQ === id ? "bg-orange-600 text-white shadow-xl" : "";
+    return activeQ === id ? "bg-orange-600 text-white shadow-xl" : "bg-white";
   };
 
   return (
     <>
       <section
-        className=" faq-section bg-faq-section bg-no-repeat px-2 py-12 lg:py-24 bg-auto bg-orange-50 drop-shadow-xl drop-shadow-slate-900 rounded-3xl"
+        className=" faq-section bg-faq-section bg-no-repeat px-2 py-12 lg:py-24 bg-auto drop-shadow-xl drop-shadow-slate-900 rounded-3xl"
         style={{ backgroundPosition: "0 70%" }}
       >
         <div className="Container">
-          <div className="faq-content text-black flex flex-col">
+          <div className="faq-content text-black flex flex-col border pt-12 pb-20 rounded-lg shadow-lg">
             <div className="faq-content__title text-center max-w-[50rem] mx-auto flex flex-col leading-5">
               <h5 className="text-2xl font-bold">FAQ</h5>
               <h2 className="text-2xl lg:text-[42px] lg:leading-[3rem] lg:tracking-wide font-bold mb-5 mt-2 lg:mt-0">
