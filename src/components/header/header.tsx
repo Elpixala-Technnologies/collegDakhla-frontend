@@ -91,7 +91,7 @@ export default function Header() {
 
               <div className="flex gap-1 items-center">
                 <Link href={"/courses"}>Courses</Link>
-                <TfiAngleDown />
+                
               </div>
 
               {/* <div className="flex gap-1 items-center">

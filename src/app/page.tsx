@@ -34,12 +34,15 @@ import Carousel from "@/components/carousel/carousel";
 import ExamCard from "@/components/card/examCard";
 import Faq from "@/components/Faq-HomePage/faq";
 import { Snowman, Study } from "@/Asset";
+import { slideInFromLeft, slideInFromRight } from "@/components/Motion/motion";
+import WavyText from "@/components/Motion/Wave";
 
 export default function Home() {
   const [Stream, setStream] = useState<string>("");
   const [Limit, setLimit] = useState<number>(10);
   const [filterCollegeData, setFilterCollegeData] = useState<any[]>([]);
   const [filterCourseData, setFilterCourseData] = useState<any[]>([]);
+   const [replay, setReplay] = useState(true);
   //get all states
   const {
     loading: statesLoader,
@@ -143,13 +146,24 @@ export default function Home() {
 
   return (
     <>
-      <div className="mx-auto  bg-gradient-to-b from-amber-50 via-white to-orange-50">
+      <div className="mx-auto  bg-gradient-to-b from-amber-50 via-white to-orange-50 overflow-x-hidden">
         <section>
           <HeroSection />
         </section>
-        <section className="my-5 mx-4">
+        <motion.section className="my-5 sm:mt-20 mt-5 mx-4"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={{
+          visible: { opacity: 1, scale: 1 },
+          hidden: { opacity: 0, scale: 0 },
+        }}>
           <div className="max-w-screen-xl  mx-auto py-5 border border-gray-300 rounded-3xl px-5">
-            <div className="flex lg:flex-row flex-col items-center justify-between">
+            <motion.div className="flex lg:flex-row flex-col items-center justify-between"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={slideInFromLeft(0.5)}>
               <div className="text-3xl">
                 Top collection of{" "}
                 <b className="text-primary">
@@ -165,7 +179,7 @@ export default function Home() {
                   }`}
                   onClick={() => handleTrendingCollegeTabClick("Stream")}
                 >
-                  college
+                  College
                 </div>
 
                 <div
@@ -176,10 +190,10 @@ export default function Home() {
                   }`}
                   onClick={() => handleTrendingCollegeTabClick("Exams")}
                 >
-                  exams
+                  Exams
                 </div>
               </div>
-            </div>
+            </motion.div>
             <div className="flex flex-row items-center justify-between my-6">
               <div className="flex md:flex-row flex-col gap-10 md:items-center"></div>
               <div>
@@ -250,7 +264,7 @@ export default function Home() {
               )}
             </div>
           </div>
-        </section>
+        </motion.section>
         <section className="Banner-1 mt-4 pt-8 mx-4">
           <div className="max-w-screen-xl  mx-auto py-10 relative">
             <div className="h-36 flex flex-row items-center justify-between w-full bg-amber-200 rounded-3xl">
@@ -262,6 +276,7 @@ export default function Home() {
                   </b>
                   about US?
                 </span>
+                
 
                 <button
                   type="button"
@@ -287,8 +302,12 @@ export default function Home() {
 
         <section className="explore-course-section pt-16 mx-4">
           <div className="px-4  max-w-screen-xl mx-auto border border-gray-300 rounded-3xl p-6">
-            <h2 className="text-3xl font-semibold">Explore Courses</h2>
-            <div className="flex gap-4 my-2 overflow-x-auto py-2 md:py-0">
+            <motion.h2 className="text-3xl font-semibold"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={slideInFromLeft(0.5)}>Explore Courses</motion.h2>
+            <div className="flex gap-4 my-2 hide-scrollbar overflow-x-auto py-2 md:py-0">
               {streamsData?.streams?.data?.map((stream: any, index: any) => {
                 return (
                   <Link
@@ -310,7 +329,7 @@ export default function Home() {
                 slidesDesktop={5}
                 slidesTablet={4}
                 slidesMobile={3}
-                bgColor="bg-orange-200"
+                bgColor="bg-amber-200"
                 slides={coursesData?.courses?.data?.map(
                   (course: any, index: number, college: any) => {
                     const logoUrl = college?.collegeLogo?.data?.attributes?.url
@@ -326,7 +345,7 @@ export default function Home() {
                               <Image
                                 src={logoUrl!}
                                 alt={college?.collegeName}
-                                className="object-center w-full object-cover h-20"
+                                className="object-center w-full object-contain h-20"
                                 height={500}
                                 width={500}
                               />
@@ -337,14 +356,14 @@ export default function Home() {
                                 }
                               </div>
                             </div>
-                            <div className="font-semibold text-base line-clamp-1 text-black">
+                            <div className="font-semibold text-base line-clamp-1 text-primary">
                               {course?.attributes?.name}
                             </div>
                             <div className="flex flex-col gap-1">
                               <div className="flex justify-between w-52">
                                 <div className="text-black">Duration</div>
                                 <div>
-                                  <b className="text-black">
+                                  <b className="text-gray-500 font-light">
                                     {course?.attributes?.duration} Years
                                   </b>
                                 </div>
@@ -352,7 +371,7 @@ export default function Home() {
                               <div className="flex justify-between w-52">
                                 <div className="text-black">Total Avg. Fee</div>
                                 <div>
-                                  <b className="text-black">
+                                  <b className="text-gray-500 font-light">
                                     {formatFees(course?.attributes?.fees)}
                                   </b>
                                 </div>
@@ -360,7 +379,7 @@ export default function Home() {
                               <div className="flex justify-between w-52 ">
                                 <div className="text-black">Colleges</div>
                                 <div>
-                                  <b className="text-black">
+                                  <b className="text-gray-500 font-light">
                                     {course?.attributes?.colleges?.data?.length}
                                   </b>
                                 </div>
@@ -368,7 +387,7 @@ export default function Home() {
                             </div>
 
                             <div className="border-t border-extra-light-text flex justify-between items-center py-1">
-                              <span>Course Overview</span> <FaAngleRight />
+                              <span className="text-gray-800 font-semibold">Course Overview</span> <FaAngleRight />
                             </div>
                           </div>
                         </Link>
@@ -380,9 +399,21 @@ export default function Home() {
             </div>
           </div>
         </section>
+        
         <section className="max-w-screen-xl mx-auto px-4 my-10 py-4 rounded-3xl">
-          <div className="max-w-screen-xl mx-auto">
-            <h2 className="text-3xl font-semibold">Latest News & Stories</h2>
+          <motion.div className="max-w-screen-xl mx-auto"
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true }}
+           variants={{
+             visible: { opacity: 1, scale: 1 },
+             hidden: { opacity: 0, scale: 0 },
+           }}>
+            <motion.h2 className="text-3xl font-semibold"
+             initial="hidden"
+             whileInView="visible"
+             viewport={{ once: true }}
+             variants={slideInFromLeft(0.5)}>Latest News & Stories</motion.h2>
             <div className="flex gap-4 my-2 px-6 overflow-x-auto py-2 md:py-0">
               <CarouselSideBtn
                 showPagination={false}
@@ -402,7 +433,7 @@ export default function Home() {
                     return (
                       <div
                         key={index}
-                        className="flex flex-col gap-6  md:min-w-72 lg:min-w-80 min-w-40 p-2"
+                        className="flex flex-col gap-6  md:min-w-72 lg:min-w-80 min-w-40 p-2 border border-gray-200 rounded-xl"
                       >
                         <Image
                           src={featuredImageUrl!}
@@ -417,6 +448,7 @@ export default function Home() {
                         >
                           {news?.attributes?.title}
                         </Link>
+                        
                         <p className="line-clamp-4">
                           {news?.attributes?.excerpt}
                         </p>
@@ -430,7 +462,7 @@ export default function Home() {
                 )}
               />
             </div>
-          </div>
+          </motion.div>
         </section>
         <section className="Banner-2 mt-4 pt-8 mx-4">
           <div className="max-w-screen-xl  mx-auto py-10">
@@ -443,16 +475,19 @@ export default function Home() {
                   </b>
                 </span>
 
-                <button
+                <motion.button
                   type="button"
                   className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
 				   focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium 
 				   rounded-lg text-sm px-6 py-4 text-center me-2 mb-2"
-                >
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true }}
+           variants={slideInFromRight(0.5)}>
                   <Link href="/">
                     <span className="text-2xl">About-Us</span>
                   </Link>
-                </button>
+                </motion.button>
               </div>
               <Image
                 src={Study}
@@ -587,7 +622,11 @@ export default function Home() {
                 from program selection to visa requirements. We are here for
                 your success.
               </p>
-              <div className="flex flex-wrap gap-x-4 gap-y-1">
+              <motion.div className="flex flex-wrap gap-x-4 gap-y-1"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={slideInFromLeft(0.5)}>
                 <Image
                   src={"/study.svg"}
                   alt=""
@@ -595,7 +634,7 @@ export default function Home() {
                   height={100}
                   className="w-full"
                 />
-              </div>
+              </motion.div>
             </div>
             <div className="flex-1 min-w-[300px]">
               <div className="flex flex-col rounded-md overflow-hidden border-[0.5px] border-primary-text-light shadow-xl">
