@@ -329,8 +329,83 @@ export default function Home() {
                   </Link>
                 );
               })}
+              
             </div>
+             {/* crousel 1 */}
             <div>
+              <CarouselSideBtn
+                showPagination={false}
+                slidesDesktop={5}
+                slidesTablet={4}
+                slidesMobile={3}
+                bgColor="bg-amber-200"
+                slides={coursesData?.courses?.data?.map(
+                  (course: any, index: number, college: any) => {
+                    const logoUrl = college?.collegeLogo?.data?.attributes?.url
+                      ? getStrapiMedia(
+                          college?.collegeLogo?.data?.attributes?.url
+                        )
+                      : GetDefaultImage("logo");
+                    return (
+                      <div key={course?.id}>
+                        <Link href={`/courses/${course?.id}`}>
+                          <div className="border-4 border-gray-300 rounded-md bg-white flex flex-col gap-2 min-w-96 p-4 shadow-md">
+                            <div className="flex flex-col gap-2 items-center justify-center">
+                              <Image
+                                src={logoUrl!}
+                                alt={college?.collegeName}
+                                className="object-center w-20 object-contain h-20 rounded-full "
+                                height={500}
+                                width={500}
+                              />
+                              <div className=" px-4 py-1 w-max text-primary text-base font-semibold">
+                              {course?.attributes?.name}
+                              </div>
+                            </div>
+                            <div className="border-t border-b border-extra-light-text flex justify-between items-center py-4">
+                              <span className="text-gray-800 font-semibold text-lg">
+                                Course Overview
+                              </span>{" "}
+                              <FaAngleRight />
+                            </div>
+                            <div className="flex justify-evenly gap-5 m-0 ">
+                              <div className="flex flex-col items-center">
+                                <div className="text-black">Duration</div>
+                                <div className="border-4 border-primary rounded-full p-4 flex items-center justify-center text-center w-20 h-20">
+                                  <b className="text-gray-500 font-light">
+                                    {course?.attributes?.duration} Years
+                                  </b>
+                                </div>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="text-black">Total Avg. Fee</div>
+                                <div className="border-4 border-gray-400 rounded-full p-4 flex items-center justify-center text-center w-20 h-20">
+                                  <b className="text-gray-500 font-light ">
+                                    {formatFees(course?.attributes?.fees)}
+                                  </b>
+                                </div>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="text-black">Colleges</div>
+                                <div className="border-4 border-primary rounded-full p-4 flex items-center justify-center text-center w-20 h-20">
+                                  <b className="text-gray-500 font-light">
+                                    {course?.attributes?.colleges?.data?.length}
+                                  </b>
+                                </div>
+                              </div>
+                            </div>
+
+                            
+                          </div>
+                        </Link>
+                      </div>
+                    );
+                  }
+                )}
+              />
+            </div>
+            {/* crousel 2 */}
+            {/* <div>
               <CarouselSideBtn
                 showPagination={false}
                 slidesDesktop={5}
@@ -406,14 +481,17 @@ export default function Home() {
                   }
                 )}
               />
-            </div>
+            </div> */}
           </div>
         </section>
         <section className="max-w-screen-xl mx-auto px-4 my-10 py-4 rounded-3xl">
-          <div className="max-w-screen-xl mx-auto">
+          <div className="max-w-screen-xl mx-auto flex items-start justify-start flex-col">
             <h2 className="text-4xl font-semibold">Upcoming Event</h2>
+            <div className="flex justify-start ">
             <Image src="/tempImage.jpeg" alt="logo" height={1280} width={1920}
-              className="w-full object-contain p-4 m-2"/>
+              className=" object-contain p-4 m-2" style={{ maxHeight: '500px', width: '100%' }}/>
+            </div>
+
           </div>
         </section>
 

@@ -1,11 +1,9 @@
-export default function formatFees(fee: any) {
-	return (
-		parseInt(
-			fee ? fee : "200000"
-		).toLocaleString("en-IN", {
-			style: "currency",
-			currency: "INR",
-			minimumFractionDigits: 0,
-			maximumFractionDigits: 0,
-		}))
+export default function formatFees(amount: number) {
+    if (amount >= 100000) {
+        return `₹${(amount / 100000).toFixed(1)} Lakhs`;
+    } else if (amount >= 1000) {
+        return `₹${(amount / 1000).toFixed(1)} Thousand`;
+    } else {
+        return `₹${amount}`;
+    }
 }
