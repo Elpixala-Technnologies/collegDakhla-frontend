@@ -17,20 +17,6 @@ const PopDown = ({ inputValue, onChange , onRecentSearch }: any) => {
   // get college data
   const { data: initialData } = useQuery(getColleges);
 
-  // const {
-  //   loading: filterLoader,
-  //   error: filterError,
-  //   data: filteredCollege,
-  // } = useQuery(searchCollege, {
-  //   variables: {
-  //     Search,
-  //   },
-  // });
-
-  const handleRecentSearch = (search: any) => {
-    onRecentSearch(search);
-  };
-
   const handleSearch = (event: any) => {
     const value = event.target.value.slice(0, 2);
     setSearchValue(value);
@@ -51,10 +37,9 @@ const PopDown = ({ inputValue, onChange , onRecentSearch }: any) => {
     }
   }, [searchValue, initialData]);
 
-  const inputRef = useRef<HTMLInputElement>(null); // Ref for the input field
+  const inputRef = useRef<HTMLInputElement>(null); 
 
   useEffect(() => {
-    // Check if inputRef and its current property exist before calling focus
     if (inputRef.current) {
       inputRef.current.focus();
     }
@@ -78,7 +63,7 @@ const PopDown = ({ inputValue, onChange , onRecentSearch }: any) => {
           <Link href="/colleges">
             <div
               className="flex border-2 h-10 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer"
-              onClick={handleRecentSearch}
+              
             >
               <span>All Colleges</span> <MdOutlineSort />
             </div>

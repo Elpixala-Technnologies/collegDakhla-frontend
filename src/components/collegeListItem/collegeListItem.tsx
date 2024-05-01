@@ -35,6 +35,8 @@ export default function CollegeListItem(allColleges: any) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  console.log("all col ",allColleges)
+
   return (
     <>
       {allColleges?.colleges?.length > 0 ? (

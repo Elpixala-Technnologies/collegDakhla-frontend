@@ -1,53 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 
 import Link from "next/link";
-// import Button from "../button/button";
-// import { FaRegStar, FaRegUser } from "react-icons/fa";
-// import { PiBooksLight } from "react-icons/pi";
-// import Feature from "../feature/feature";
-// import { useQuery } from "@apollo/client";
-// import { getStates } from "@/query/schema";
 import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
-// import StarRating from "../starRating/starRating";
-// import { FaImage, FaVideo } from "react-icons/fa6";
 import Image from "next/image";
-// import { IoShieldCheckmark } from "react-icons/io5";
-
 export default function CollegeList(allColleges: any) {
-  //query to get all states
-  // const {
-  //   loading: statesLoader,
-  //   error: statesError,
-  //   data: statesData,
-  // } = useQuery(getStates);
-
-  // const collegeFee = parseInt(
-  //   allColleges?.colleges?.attributes?.fees
-  //     ? allColleges?.colleges?.attributes?.fees
-  //     : 200000
-  // ).toLocaleString("en-IN", {
-  //   style: "currency",
-  //   currency: "INR",
-  //   minimumFractionDigits: 0,
-  //   maximumFractionDigits: 0,
-  // });
-
-  // const handleClick = () => {
-  //   window.scrollTo({ top: 0, behavior: "smooth" });
-  // };
-
   return (
     <div className=" overflow-y-auto max-h-60 hide-scrollbar">
       {allColleges?.colleges?.length > 0 ? (
         <>
           {allColleges.colleges.map((college: any, index: any) => {
-            // const logoURL = college?.attributes?.collegeLogo?.data?.attributes
-            //   ?.url
-            //   ? getStrapiMedia(
-            //       college?.attributes?.collegeLogo?.data?.attributes?.url
-            //     )
-            //   : GetDefaultImage("logo");
-
             const bannerURL = college?.attributes?.banner?.data[0]
               ? getStrapiMedia(
                   college?.attributes?.banner?.data[0]?.attributes?.url
@@ -102,9 +63,9 @@ export default function CollegeList(allColleges: any) {
           })}
         </>
       ) : (
-          <p className="text-2xl text-center text-gray-500 my-5">
-            No data available
-          </p>
+        <p className="text-2xl text-center text-gray-500 my-5">
+          No data available
+        </p>
       )}
     </div>
   );

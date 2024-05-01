@@ -72,6 +72,10 @@ export default function CollegeDetail({ params }: Props) {
     link.click();
     document.body.removeChild(link);
   };
+  //to make it scrollable because of hero section modal
+  useEffect(() => {
+     document.body.style.overflow = "auto";
+  })
 
   return (
     <>

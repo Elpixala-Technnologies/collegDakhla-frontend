@@ -39,19 +39,23 @@ export default function HeroSection() {
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
-    document.body.style.overflow = "hidden";
-  };
+    if (!isModalOpen) {
+        document.body.style.overflow = "hidden";
+    } else {
+        document.body.style.overflow = "auto";
+    }
+};
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [isModalOpen]);
+  // useEffect(() => {
+  //   if (isModalOpen) {
+  //     document.body.style.overflow = "hidden";
+  //   } else {
+  //     document.body.style.overflow = "auto";
+  //   }
+  // }, [isModalOpen]);
 
   const handleInputChange = (event: any) => {
     setInputValue(event.target.value);

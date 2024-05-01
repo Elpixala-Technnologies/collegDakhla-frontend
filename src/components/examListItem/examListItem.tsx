@@ -9,19 +9,20 @@ import Carousel from "../carousel/carousel";
 import CourseCard from "../card/courseCard";
 import ExamCard from "../card/examCard";
 
-export default function ExamListItem({ exams, featuredExams }: any) {
+export default function ExamListItem({ exams}: any) {
+
 	return (
 		<>
-			{exams?.data?.length > 0 ? (
+			{exams?.length > 0 ? (
 				<>
-					{exams?.data.map((exam: any, index: number) => {
+					{exams?.map((exam: any, index: number) => {
 						const logoURL = exam?.attributes?.logo?.data?.attributes?.url
 							? getStrapiMedia(exam?.attributes?.logo?.data?.attributes?.url)
 							: GetDefaultImage("logo");
 
 						return (
-							<div className="py-4 border-b-2 border-[#DDDDDD]" key={index}>
-								<div className="px-4 py-4 md:py-0 flex item-center gap-4 bg-white shadow-sm rounded border flex-col md:flex-row ">
+							<div className="py-4 " key={index}>
+								<div className="px-4 py-4 md:py-0 flex item-center gap-4 bg-white drop-shadow-sm hover:drop-shadow-xl rounded-xl border flex-col md:flex-row ">
 									<div className="flex items-center">
 										<Image src={logoURL!} width={150} height={150} alt={""} />
 									</div>
@@ -163,7 +164,7 @@ export default function ExamListItem({ exams, featuredExams }: any) {
 											outline
 											width="w-40"
 											align="text-center"
-											bgColor="bg-white"
+											bgColor="bg-amber-400"
 											fontColor="text-primary-text"
 										/>
 										<Button
@@ -178,7 +179,7 @@ export default function ExamListItem({ exams, featuredExams }: any) {
 										/>
 									</div>
 								</div>
-								{index % 4 === 0 ? (
+								{/* {index % 4 === 0 ? (
 									<>
 										<div className="my-4 bg-white py-4 px-4">
 											<Carousel
@@ -198,7 +199,7 @@ export default function ExamListItem({ exams, featuredExams }: any) {
 									</>
 								) : (
 									<></>
-								)}
+								)} */}
 							</div>
 						);
 					})}
