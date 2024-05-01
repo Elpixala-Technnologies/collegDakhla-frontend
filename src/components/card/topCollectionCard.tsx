@@ -7,8 +7,10 @@ import Link from "next/link";
 export default function TopCollectionCard({ college, href }: any) {
   const logoUrl = college?.collegeLogo?.data?.attributes?.url
     ? getStrapiMedia(college?.collegeLogo?.data?.attributes?.url)
-    : GetDefaultImage("banner");
-
+    : GetDefaultImage("logo");
+    const bannerURL = college?.banner?.data[0]
+		? getStrapiMedia(college?.banner?.data[0]?.attributes?.url)
+		: GetDefaultImage("banner");
   const {
     loading: statesLoader,
     error: statesError,
@@ -18,16 +20,23 @@ export default function TopCollectionCard({ college, href }: any) {
   return (
     <>
       <div
-        className="min-w-48 h-96 border border-gray-300 bg-gray-50 rounded-lg drop-shadow hover:drop-shadow-2xl flex flex-col justify-start gap-4"
+        className="min-w-48 h-96 border border-gray-300 bg-gray-50 rounded-lg drop-shadow hover:drop-shadow-2xl flex flex-col justify-start gap-4 relative"
         onClick={college?.collegeLink}
       >
         {/* <div className="flex gap-1 items-center w-full h-16 p-2"> */}
         <Image
-          src={logoUrl!}
+          src={bannerURL!}
           alt={college?.collegeName}
-          className="object-center w-full object-cover h-40 p-1 rounded-lg"
+          className="object-center w-full object-cover h-40 p-1 rounded-lg drop-shadow-md"
           height={500}
           width={500}
+        />
+        <Image
+          src={logoUrl!}
+          alt={college?.collegeName}
+          className="object-center w-12 object-cover h-12 p-1 rounded-lg absolute top-1/3 ml-1 drop-shadow-lg"
+          height={100}
+          width={100}
         />
         {/* </div> */}
         <div className="p-2">

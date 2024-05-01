@@ -42,7 +42,7 @@ export default function Home() {
   const [Limit, setLimit] = useState<number>(10);
   const [filterCollegeData, setFilterCollegeData] = useState<any[]>([]);
   const [filterCourseData, setFilterCourseData] = useState<any[]>([]);
-   const [replay, setReplay] = useState(true);
+  const [replay, setReplay] = useState(true);
   //get all states
   const {
     loading: statesLoader,
@@ -150,20 +150,24 @@ export default function Home() {
         <section>
           <HeroSection />
         </section>
-        <motion.section className="my-5 sm:mt-20 mt-5 mx-4"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={{
-          visible: { opacity: 1, scale: 1 },
-          hidden: { opacity: 0, scale: 0 },
-        }}>
+        <motion.section
+          className="my-5 sm:mt-20 mt-5 mx-4"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            visible: { opacity: 1, scale: 1 },
+            hidden: { opacity: 0, scale: 0 },
+          }}
+        >
           <div className="max-w-screen-xl  mx-auto py-5 border border-gray-300 rounded-3xl px-5">
-            <motion.div className="flex lg:flex-row flex-col items-center justify-between"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={slideInFromLeft(0.5)}>
+            <motion.div
+              className="flex lg:flex-row flex-col items-center justify-between"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={slideInFromLeft(0.5)}
+            >
               <div className="text-3xl">
                 Top collection of{" "}
                 <b className="text-primary">
@@ -276,7 +280,6 @@ export default function Home() {
                   </b>
                   about US?
                 </span>
-                
 
                 <button
                   type="button"
@@ -302,11 +305,15 @@ export default function Home() {
 
         <section className="explore-course-section pt-16 mx-4">
           <div className="px-4  max-w-screen-xl mx-auto border border-gray-300 rounded-3xl p-6">
-            <motion.h2 className="text-3xl font-semibold"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={slideInFromLeft(0.5)}>Explore Courses</motion.h2>
+            <motion.h2
+              className="text-3xl font-semibold"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={slideInFromLeft(0.5)}
+            >
+              Explore Courses
+            </motion.h2>
             <div className="flex gap-4 my-2 hide-scrollbar overflow-x-auto py-2 md:py-0">
               {streamsData?.streams?.data?.map((stream: any, index: any) => {
                 return (
@@ -387,7 +394,10 @@ export default function Home() {
                             </div>
 
                             <div className="border-t border-extra-light-text flex justify-between items-center py-1">
-                              <span className="text-gray-800 font-semibold">Course Overview</span> <FaAngleRight />
+                              <span className="text-gray-800 font-semibold">
+                                Course Overview
+                              </span>{" "}
+                              <FaAngleRight />
                             </div>
                           </div>
                         </Link>
@@ -399,72 +409,15 @@ export default function Home() {
             </div>
           </div>
         </section>
-        
         <section className="max-w-screen-xl mx-auto px-4 my-10 py-4 rounded-3xl">
-          <motion.div className="max-w-screen-xl mx-auto"
-           initial="hidden"
-           whileInView="visible"
-           viewport={{ once: true }}
-           variants={{
-             visible: { opacity: 1, scale: 1 },
-             hidden: { opacity: 0, scale: 0 },
-           }}>
-            <motion.h2 className="text-3xl font-semibold"
-             initial="hidden"
-             whileInView="visible"
-             viewport={{ once: true }}
-             variants={slideInFromLeft(0.5)}>Latest News & Stories</motion.h2>
-            <div className="flex gap-4 my-2 px-6 overflow-x-auto py-2 md:py-0">
-              <CarouselSideBtn
-                showPagination={false}
-                slidesDesktop={5}
-                slidesTablet={4}
-                slidesMobile={3}
-                gap="gap-6"
-                slides={newsData?.news?.data?.map(
-                  (news: any, index: number) => {
-                    const featuredImageUrl = news?.attributes?.featuredImage
-                      ?.data[0]
-                      ? getStrapiMedia(
-                          news?.attributes?.featuredImage?.data[0]?.attributes
-                            ?.url
-                        )
-                      : GetDefaultImage("banner");
-                    return (
-                      <div
-                        key={index}
-                        className="flex flex-col gap-6  md:min-w-72 lg:min-w-80 min-w-40 p-2 border border-gray-200 rounded-xl"
-                      >
-                        <Image
-                          src={featuredImageUrl!}
-                          alt=""
-                          width={100}
-                          height={100}
-                          className="w-full sm:min-w-28 min-w-20 sm:h-36 h-20 rounded-lg object-contain object-center"
-                        />
-                        <Link
-                          href={`/news/${news?.id}`}
-                          className="cursor-pointer sm:text-2xl text-base font-semibold text-primary-text line-clamp-1"
-                        >
-                          {news?.attributes?.title}
-                        </Link>
-                        
-                        <p className="line-clamp-4">
-                          {news?.attributes?.excerpt}
-                        </p>
-                        <div className="flex justify-between text-primary-text-light text-base pr-4">
-                          <p>{getDate(news?.attributes?.publishedAt)}</p>
-                          <h4>{news?.attributes?.author}</h4>
-                        </div>
-                      </div>
-                    );
-                  }
-                )}
-              />
-            </div>
-          </motion.div>
+          <div className="max-w-screen-xl mx-auto">
+            <h2 className="text-4xl font-semibold">Upcoming Event</h2>
+            <Image src="/tempImage.jpeg" alt="logo" height={1280} width={1920}
+              className="w-full object-contain p-4 m-2"/>
+          </div>
         </section>
-        <section className="Banner-2 mt-4 pt-8 mx-4">
+
+        {/* <section className="Banner-2 mt-4 pt-8 mx-4">
           <div className="max-w-screen-xl  mx-auto py-10">
             <div className="h-36 flex flex-row items-center justify-end w-full bg-amber-200 rounded-3xl relative">
               <div className=" flex gap-8 px-4 items-baseline">
@@ -498,7 +451,7 @@ export default function Home() {
               />
             </div>
           </div>
-        </section>
+        </section> */}
         <section className="testimonials-section px-2 py-8 lg:py-24 text-black flex items-center justify-center mx-auto w-full">
           <div className="Container w-full">
             <div className="testimonials-content flex flex-col w-full rounded-lg">
@@ -518,9 +471,8 @@ export default function Home() {
               </div>
 
               <div className="flex flex-wrap gap-3 my-10 justify-around">
-                  
-                  <div className="w-full inline-flex flex-nowrap overflow-hidden sm:[mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-                    <ul className="flex items-center gap-x-6 justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll m-2">
+                <div className="w-full inline-flex flex-nowrap overflow-hidden sm:[mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+                  <ul className="flex items-center gap-x-6 justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll m-2">
                     {testimonialData.map((testimonial, index) => (
                       <div
                         key={index}
@@ -551,8 +503,8 @@ export default function Home() {
                         </div>
                       </div>
                     ))}
-                    </ul>
-                    <ul className="flex items-center gap-x-6 justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll m-2">
+                  </ul>
+                  <ul className="flex items-center gap-x-6 justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll m-2">
                     {testimonialData.map((testimonial, index) => (
                       <div
                         key={index}
@@ -583,11 +535,9 @@ export default function Home() {
                         </div>
                       </div>
                     ))}
-                    </ul>
-                  </div>
+                  </ul>
                 </div>
-             
-              
+              </div>
             </div>
           </div>
         </section>
@@ -622,11 +572,13 @@ export default function Home() {
                 from program selection to visa requirements. We are here for
                 your success.
               </p>
-              <motion.div className="flex flex-wrap gap-x-4 gap-y-1"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={slideInFromLeft(0.5)}>
+              <motion.div
+                className="flex flex-wrap gap-x-4 gap-y-1"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={slideInFromLeft(0.5)}
+              >
                 <Image
                   src={"/study.svg"}
                   alt=""
@@ -751,6 +703,76 @@ export default function Home() {
           <div className=" max-w-screen-xl mx-auto px-4">
             <Faq />
           </div>
+        </section>
+        <section className="max-w-screen-xl mx-auto px-4 my-10 py-4 rounded-3xl">
+          <motion.div
+            className="max-w-screen-xl mx-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              visible: { opacity: 1, scale: 1 },
+              hidden: { opacity: 0, scale: 0 },
+            }}
+          >
+            <motion.h2
+              className="text-3xl font-semibold"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={slideInFromLeft(0.5)}
+            >
+              Latest News & Stories
+            </motion.h2>
+            <div className="flex gap-4 my-2 px-6 overflow-x-auto py-2 md:py-0">
+              <CarouselSideBtn
+                showPagination={false}
+                slidesDesktop={5}
+                slidesTablet={4}
+                slidesMobile={3}
+                gap="gap-6"
+                slides={newsData?.news?.data?.map(
+                  (news: any, index: number) => {
+                    const featuredImageUrl = news?.attributes?.featuredImage
+                      ?.data[0]
+                      ? getStrapiMedia(
+                          news?.attributes?.featuredImage?.data[0]?.attributes
+                            ?.url
+                        )
+                      : GetDefaultImage("banner");
+                    return (
+                      <div
+                        key={index}
+                        className="flex flex-col gap-6  md:min-w-72 lg:min-w-80 min-w-40 p-2 border border-gray-200 rounded-xl"
+                      >
+                        <Image
+                          src={featuredImageUrl!}
+                          alt=""
+                          width={500}
+                          height={500}
+                          className="w-full sm:min-w-28 min-w-20 sm:h-36 h-20 rounded-lg object-cover object-center shadow-md shadow-gray-500"
+                        />
+                        <Link
+                          href={`/news/${news?.id}`}
+                          className="cursor-pointer sm:text-2xl text-base font-semibold text-primary-text line-clamp-1"
+                        >
+                          {news?.attributes?.title}
+                        </Link>
+
+                        <p className="line-clamp-4">
+                          {news?.attributes?.excerpt}
+                        </p>
+                        <div className="flex justify-between text-primary-text-light text-base pr-4">
+                          <p>{getDate(news?.attributes?.publishedAt)}</p>
+                          <h4>{news?.attributes?.author}</h4>
+                        </div>
+                      </div>
+                    );
+                  }
+                )}
+              />
+            </div>
+          </motion.div>
         </section>
         <section className="bg-[#F2F6F7]">
           <div className="max-w-screen-xl m-auto py-24 px-4 flex flex-col gap-12 items-center text-primary-text">
