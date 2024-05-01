@@ -126,7 +126,7 @@ export default function ExamFilters({
     <>
       <div className="bg-white hidden md:block rounded-lg">
         <h3 className="uppercase text-sm px-2 py-3">
-          Found <b>{totalExams}</b> colleges
+          Found <b>{""}</b> colleges
         </h3>
         {SelectedFilter.level ||
         SelectedFilter.mode ||

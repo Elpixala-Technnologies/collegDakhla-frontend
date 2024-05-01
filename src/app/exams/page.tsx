@@ -214,8 +214,8 @@ export default function ExamList() {
           </div>
         </section>
         <section className="collegeList">
-          <div className="flex flex-col md:flex-row gap-4 px-4">
-            <div className="flex-none w-56 drop-shadow-md hover:drop-shadow-xl">
+		<div className="flex flex-col md:flex-row gap-4 px-4">
+            <div className="flex-none w-64 h-full drop-shadow-md hover:drop-shadow-xl">
               <ExamFilters
                 LevelFilter={LevelFilter}
                 setLevelFilter={setLevelFilter}
@@ -228,7 +228,7 @@ export default function ExamList() {
             </div>
             <div className="flex-1 w-full overflow-hidden">
               <div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col">
-                <div className="bg-white h-10 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
+                <div className="bg-white h-12 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
                   <RiSearchLine />
                   <input
                     className="w-full flex-1 text-sm px-2 py-1 outline-none"
@@ -237,7 +237,10 @@ export default function ExamList() {
                   />
                 </div>
                 <div className="flex gap-4">
-                  <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
+                  <div
+                    className="flex border-2 h-10 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer"
+                    // onClick={handleClick}
+                  >
                     <span>Sort</span> <MdOutlineSort />
                   </div>
                   <div className="max-md:block hidden">

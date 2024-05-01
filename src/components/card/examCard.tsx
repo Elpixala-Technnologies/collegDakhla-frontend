@@ -52,16 +52,16 @@ export default function ExamCard({ featuredExams }: any) {
 							</Link>
 							<div className="flex flex-col text-sm tracking-tighter gap-2">
 								<div className="flex justify-between">
-									<div className="">Participating Colleges</div>
-									<div className="font-semibold">54</div>
+									<div className="text-gray-500 font-light">Participating Colleges</div>
+									<div className="font-medium text-lg tracking-wide">54</div>
 								</div>
 								<div className="flex justify-between">
-									<div className="">Exam Date</div>
-									<div className="font-semibold">{formatDate(featuredExams?.attributes?.examDate?.startDate)}</div>
+									<div className="text-gray-500 font-light">Exam Date</div>
+									<div className="font-medium text-lg">{formatDate(featuredExams?.attributes?.examDate?.startDate)}</div>
 								</div>
 								<div className="flex justify-between">
-									<div className="">Exam Level</div>
-									<div className="font-semibold">{featuredExams?.attributes?.examLevel?.data?.map((level: any, index: number) => {
+									<div className="text-gray-500 font-light">Exam Level</div>
+									<div className="font-medium text-lg tracking-wide">{featuredExams?.attributes?.examLevel?.data?.map((level: any, index: number) => {
 										return (
 											<span key={index}>
 												{" " + `${level?.attributes?.name}`}

@@ -45,6 +45,7 @@ export default function CourseList() {
 			document.body.style.overflow = "hidden";
 		}
 	};
+	console.log(coursesData)
 
 	return (
 		<>

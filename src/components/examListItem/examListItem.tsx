@@ -133,16 +133,7 @@ export default function ExamListItem({ exams}: any) {
 													outlineColor="border-primary"
 													bgcolor="bg-white"
 												/>
-												<Tag
-													text="College Predictor"
-													outlineColor="border-primary"
-													bgcolor="bg-white"
-												/>
-												<Tag
-													text="Accepting Colleges"
-													outlineColor="border-primary"
-													bgcolor="bg-white"
-												/>
+												
 											</div>
 										</div>
 									</div>

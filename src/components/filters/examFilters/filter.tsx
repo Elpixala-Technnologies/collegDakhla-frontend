@@ -10,10 +10,10 @@ export default function Filter(props: any) {
 	return (
 		<>
 			<div className=" p-2">
-				<div
-					className="bg-white px-2 py-2 flex items-center justify-between border border-black rounded-lg "
-					onClick={handleOpen}
-				>
+			<div
+          className=" px-2 py-2 flex items-center justify-between border border-gray-400 border-l-primary rounded-md"
+          onClick={handleOpen}
+        >
 					<span>{props.name}</span>{" "}
 					<span>{open ? <FaAngleDown /> : <FaAngleUp />}</span>
 				</div>

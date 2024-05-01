@@ -7,21 +7,21 @@ const Faq = () => {
   const faqData = [
     {
       id: "q1",
-      question: "What is special about comparing rental car deals?",
+      question: "What documents do I need to apply for college admission?",
       answer:
-        "Comparing rental car deals is important as it helps find the best deal that fits your budget and requirements, ensuring you get the most value for your money. By comparing various options, you can find deals that offer lower prices, additional services, or better car models. You can find car rental deals by researching online and comparing prices from different rental companies.",
+        "To apply for college admission, you typically need to provide documents such as your high school transcript, standardized test scores (e.g., SAT or ACT), letters of recommendation, personal statement or essay, and application fee.",
     },
     {
       id: "q2",
-      question: "How do I find the car rental deals?",
+      question: "How do I find scholarships and financial aid for college?",
       answer:
-        "You can find car rental deals by researching online and comparing prices from different rental companies. Websites such as Expedia, Kayak, and Travelocity allow you to compare prices and view available rental options. It is also recommended to sign up for email newsletters and follow rental car companies on social media to be informed of any special deals or promotions.",
+        "You can find scholarships and financial aid for college by researching online databases, contacting the financial aid offices of colleges you're interested in, and exploring opportunities offered by government agencies, private organizations, and community foundations.",
     },
     {
       id: "q3",
-      question: "How do I find such low rental car prices?",
+      question: "What is the college application process like?",
       answer:
-        "Book in advance: Booking your rental car ahead of time can often result in lower prices. Compare prices from multiple companies: Use websites like Kayak, Expedia, or Travelocity to compare prices from multiple rental car companies. Look for discount codes and coupons: Search for discount codes and coupons that you can use to lower the rental price. Renting from an off-airport location can sometimes result in lower prices.",
+        "The college application process typically involves several steps, including researching colleges, completing applications (which may include essays and personal statements), submitting required documents, such as transcripts and test scores, and waiting to hear back about admission decisions.",
     },
   ];
   const [activeQ, setActiveQ] = useState("q1");
@@ -54,8 +54,7 @@ const Faq = () => {
                 Frequently Asked Questions
               </h2>
               <p className="text-sm sm:text-base text-gray-500 ">
-                Frequently Asked Questions About the Car Rental Booking Process
-                on Our Website: Answers to Common Concerns and Inquiries.
+              Frequently Asked Questions About College Admission: Answers to Common Concerns and Inquiries.
               </p>
             </div>
 
