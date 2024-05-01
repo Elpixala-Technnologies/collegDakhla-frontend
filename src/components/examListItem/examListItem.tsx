@@ -140,7 +140,7 @@ export default function ExamListItem({ exams}: any) {
 
 									<div className="flex flex-row gap-1 flex-wrap md:justify-center md:flex-col md:gap-4 md:my-4 items-center">
 										<Button
-											href={`/college`}
+											href={`/`}
 											text="Register Now"
 											filled
 											fontSize="text-sm"
@@ -149,7 +149,7 @@ export default function ExamListItem({ exams}: any) {
 											bgColor="bg-primary"
 										/>
 										<Button
-											href={`/college`}
+											href={`/`}
 											text="Download Brochure"
 											fontSize="text-sm"
 											outline
@@ -159,7 +159,7 @@ export default function ExamListItem({ exams}: any) {
 											fontColor="text-primary-text"
 										/>
 										<Button
-											href={`/college`}
+											href={`/`}
 											text="Get Updates"
 											outline
 											fontSize="text-sm"

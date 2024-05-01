@@ -23,6 +23,11 @@ export default function ExamList() {
   const [MobileFilter, setMobileFilter] = useState(false);
   const [LevelFilter, setLevelFilter] = useState<string>("");
   const [ModeFilter, setModeFilter] = useState<string>("");
+  const [showReadMore, setShowReadMore] = useState(true);
+  const [showFullContent, setShowFullContent] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
+  const [displayCount, setDisplayCount] = useState(5);
+  const [searchValue, setSearchValue] = useState("");
 
   // get exams on search
   const {
@@ -56,9 +61,6 @@ export default function ExamList() {
     }
   };
 
-  const [showReadMore, setShowReadMore] = useState(true);
-  const [showFullContent, setShowFullContent] = useState(false);
-
   const handleReadMoreClick = () => {
     setShowFullContent(true);
     setShowReadMore(false);
@@ -69,28 +71,20 @@ export default function ExamList() {
     setShowReadMore(true);
   };
 
-
-  const [filteredData, setFilteredData] = useState([]);
-  const [displayCount, setDisplayCount] = useState(5);
-  const [searchValue, setSearchValue] = useState("");
+  const handleLoadMore = () => {
+    setDisplayCount((prevCount) => prevCount + 10);
+  };
 
   useEffect(() => {
     if (searchValue.trim() === "") {
       setFilteredData(examsData?.exams?.data.slice(0, displayCount));
-	}
-    else {
+    } else {
       const filtered = examsData?.exams?.data.filter((exam: any) =>
-        exam.attributes.name
-          .toLowerCase()
-          .includes(searchValue.toLowerCase())
+        exam.attributes.name.toLowerCase().includes(searchValue.toLowerCase())
       );
       setFilteredData(filtered);
     }
   }, [searchValue, examsData, displayCount]);
-
-   const handleLoadMore = () => {
-    setDisplayCount((prevCount) => prevCount + 10);
-  };
 
   return (
     <>
@@ -137,7 +131,7 @@ export default function ExamList() {
           </ul>
         </section>
         <section className="heroSection">
-          <div className="m-4 px-8 pt-8 bg-white flex flex-col rounded-sm">
+          <div className="m-4 px-8 pt-8 bg-white flex flex-col rounded-xl">
             <h1 className="text-xl font-bold mb-3 text-center text-primary">
               All Exams 2023-2024, Dates, Application Forms & Alerts
             </h1>
@@ -199,7 +193,7 @@ export default function ExamList() {
           </div>
         </section>
         <section className="topExams">
-          <div className="m-4 bg-white py-6 px-4">
+          <div className="m-4 bg-white py-6 px-4 rounded-xl">
             <Carousel
               slidesDesktop={4}
               slidesTablet={3}
@@ -214,7 +208,7 @@ export default function ExamList() {
           </div>
         </section>
         <section className="collegeList">
-		<div className="flex flex-col md:flex-row gap-4 px-4">
+          <div className="flex flex-col md:flex-row gap-4 px-4">
             <div className="flex-none w-64 h-full drop-shadow-md hover:drop-shadow-xl">
               <ExamFilters
                 LevelFilter={LevelFilter}

@@ -155,7 +155,7 @@ export default function CollegeList() {
           </ul>
         </section>
         <section className="heroSection">
-          <div className="m-4 px-8 pt-8 bg-white flex flex-col rounded-sm">
+          <div className="m-4 px-8 pt-8 bg-white flex flex-col rounded-xl">
             <h1 className="text-xl font-bold mb-3 text-center text-primary">
               Showing Top {filteredCollege?.colleges?.data?.length} Colleges in
               India
@@ -227,7 +227,7 @@ export default function CollegeList() {
           </div>
         </section>
         <section className="topCollege">
-          <div className="m-4 bg-white py-8 my-4 px-4">
+          <div className="m-4 bg-white py-8 my-4 px-4 rounded-xl">
             <h2 className="text-xl font-bold mb-3"></h2>
             <Carousel
               slidesDesktop={4}
