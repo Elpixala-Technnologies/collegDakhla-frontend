@@ -16,6 +16,9 @@ export default function CourseList() {
   const [SpecializationFilter, setSpecializationFilter] = useState<string>("");
   const [showReadMore, setShowReadMore] = useState(true);
   const [showFullContent, setShowFullContent] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
+  const [displayCount, setDisplayCount] = useState(5);
+  const [searchValue, setSearchValue] = useState("");
 
   //query to get and search all courses
   const {
@@ -57,9 +60,26 @@ export default function CourseList() {
     setShowFullContent(false);
     setShowReadMore(true);
   };
-  console.log(coursesData);
+  
 
-  return (
+  const handleLoadMore = () => {
+    setDisplayCount((prevCount) => prevCount + 5);
+  };
+
+  useEffect(() => {
+    if (searchValue.trim() === "") {
+      setFilteredData(coursesData?.courses?.data.slice(0, displayCount));
+    } else {
+      const filtered = coursesData?.courses?.data.filter((exam: any) =>
+        exam.attributes.name.toLowerCase().includes(searchValue.toLowerCase())
+      );
+      setFilteredData(filtered);
+    }
+  }, [searchValue, coursesData, displayCount]);
+
+  console.log(coursesData, "coursesData");
+  console.log(filteredData, "filteredData");
+    return (
     <>
       <div className="max-w-screen-xl mx-auto">
         <section className="heroSection">
@@ -171,9 +191,20 @@ export default function CourseList() {
                 </div>
               </div>
               <CourseListItem
-                courses={coursesData?.courses}
-                featuredCourses={featuredCourses?.courses}
+                courses={filteredData}
               />
+              {filteredData?.length >= 5 &&
+                  filteredData?.length < coursesData?.courses?.data.length && (
+                    <button
+                      className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow m-6"
+                      onClick={handleLoadMore}
+                    >
+                      <div className="absolute inset-0 w-3 bg-amber-400 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
+                      <span className="relative text-black group-hover:text-white">
+                        Load More
+                      </span>
+                    </button>
+                  )}
             </div>
           </div>
         </section>
