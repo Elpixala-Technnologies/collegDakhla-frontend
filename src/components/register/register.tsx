@@ -11,7 +11,6 @@ export default function Register() {
 	const { loading: streamLoader, error: streamsError, data: streamsData } = useQuery(getStreams);
 	const { loading: courseLevelLoader, error: courseLevelError, data: courseLevelData } = useQuery(getCourseLevels);
 
-	console.log("courseLevelData are ", courseLevelData);
 
 
 	function handleRegister(event: any): void {

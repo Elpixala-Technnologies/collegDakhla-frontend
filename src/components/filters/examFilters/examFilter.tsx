@@ -119,9 +119,6 @@ export default function ExamFilters({
     };
   }, [isMobile]);
 
-
-
-  console.log(streamsData, "streamsData");
   return (
     <>
       <div className="bg-white hidden md:block rounded-lg">

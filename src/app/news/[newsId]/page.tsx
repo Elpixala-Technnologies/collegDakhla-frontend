@@ -24,11 +24,8 @@ export default function NewsPage({ params }: Props) {
   } = useQuery(getNews, {
     variables: { newsID },
   });
-  console.log("news data is ", newsData);
 
   const news = newsData?.new?.data?.attributes;
-  console.log("news is ", news);
-
   const bannerUrl = news?.featuredImage?.data[0]
     ? getStrapiMedia(news?.featuredImage?.data[0]?.attributes?.url)
     : GetDefaultImage("banner");

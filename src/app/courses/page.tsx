@@ -77,8 +77,6 @@ export default function CourseList() {
     }
   }, [searchValue, coursesData, displayCount]);
 
-  console.log(coursesData, "coursesData");
-  console.log(filteredData, "filteredData");
     return (
     <>
       <div className="max-w-screen-xl mx-auto">

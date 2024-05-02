@@ -10,6 +10,7 @@ import { getStates } from "@/query/schema";
 import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
 // import StarRating from "../starRating/starRating";
 import { FaImage, FaVideo } from "react-icons/fa6";
+import Image from "next/image";
 // import { IoShieldCheckmark } from "react-icons/io5";
 
 export default function CollegeListItem(allColleges: any) {
@@ -35,8 +36,6 @@ export default function CollegeListItem(allColleges: any) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  console.log("all col ",allColleges)
-
   return (
     <>
       {allColleges?.colleges?.length > 0 ? (
@@ -60,8 +59,10 @@ export default function CollegeListItem(allColleges: any) {
                 <div className="mb-4 p-4 flex flex-col md:flex-row gap-4 shadow-lg bg-white rounded-lg drop-shadow hover:drop-shadow-xl">
                   <div className="relative h-44 rounded-lg">
               
-                    <img
-                      src={bannerURL!}
+                    <Image
+                      width={700}
+                      height={700}
+                      src={logoURL!}
                       alt={college?.collegeName}
                       className="w-full sm:w-48 h-44 object-fill rounded-lg max-w-44"
                     />

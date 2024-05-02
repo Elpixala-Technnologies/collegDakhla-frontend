@@ -143,11 +143,13 @@ export default function CollegeFilters(params?: any) {
     };
   }, [params.isMobile]);
 
+ 
+
   return (
     <>
       <div className="bg-white hidden md:block p-2 m-2 md:m-0 rounded-lg">
         <h3 className="uppercase text-sm px-2 py-3">
-          Found <b>{Object.keys(SelectedFilter).length > 0 ? filteredCollege?.colleges?.meta?.pagination?.total : 0}</b>
+          Found <b>{Object.keys(SelectedFilter).length > 0 ? filteredCollege?.colleges?.meta?.pagination?.total : null}</b>
           colleges
         </h3>
         {SelectedFilter.stream || SelectedFilter.state || SelectedFilter.courses ? (

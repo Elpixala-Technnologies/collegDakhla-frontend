@@ -94,7 +94,6 @@ export default function CollegeList() {
   const handleLoadMore = () => {
     setDisplayCount((prevCount) => prevCount + 10);
   };
-  console.log(initialData,"intialdata")
 
   useEffect(() => {
     if (searchValue.trim() === "") {
@@ -108,7 +107,6 @@ export default function CollegeList() {
       setFilteredData(filtered);
     }
   }, [searchValue, initialData, displayCount]);
-  console.log("filteredData" , filteredData)
 
   return (
     <>
