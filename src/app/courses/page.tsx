@@ -21,6 +21,8 @@ export default function CourseList() {
   const [searchValue, setSearchValue] = useState("");
 
   //query to get and search all courses
+
+  
   const {
     loading: coursesLoader,
     error: coursesError,
