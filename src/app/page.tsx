@@ -369,24 +369,24 @@ export default function Home() {
                             <div className="flex justify-evenly gap-5 pb-6 px-2">
                               <div className="flex flex-col items-center gap-1">
                                 <div className="text-black">Duration</div>
-                                <div className="border-4 border-orange-300 rounded-full p-4 flex items-center justify-center text-center w-20 h-20">
-                                  <b className="text-gray-500 font-light">
+                                <div className="border-4 border-orange-300 rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
+                                  <b className="text-gray-500 font-light text-xs">
                                     {course?.attributes?.duration} Years
                                   </b>
                                 </div>
                               </div>
                               <div className="flex flex-col items-center gap-1">
                                 <div className="text-black">Total Avg. Fee</div>
-                                <div className="border-4 border-gray-400 rounded-full p-4 flex items-center justify-center text-center w-20 h-20">
-                                  <b className="text-gray-500 font-light ">
+                                <div className="border-4 border-gray-400 rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
+                                  <b className="text-gray-500 font-light text-xs">
                                     {formatFees(course?.attributes?.fees)}
                                   </b>
                                 </div>
                               </div>
                               <div className="flex flex-col items-center gap-1">
                                 <div className="text-black">Colleges</div>
-                                <div className="border-4 border-orange-400 rounded-full p-4 flex items-center justify-center text-center w-20 h-20">
-                                  <b className="text-gray-500 font-light">
+                                <div className="border-4 border-orange-400 rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
+                                  <b className="text-gray-500 font-light text-xs">
                                     {course?.attributes?.colleges?.data?.length}
                                   </b>
                                 </div>

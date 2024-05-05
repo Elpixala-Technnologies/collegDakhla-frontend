@@ -28,7 +28,7 @@ export default function TopCollectionCard({ college, href }: any) {
         <Image
           src={bannerURL!}
           alt={college?.collegeName}
-          className="object-center w-full object-fill h-48 max-h-32 rounded-lg drop-shadow-md"
+          className="object-center w-full object-fill h-48 min-h-32 rounded-lg drop-shadow-md"
           height={500}
           width={500}
         />
@@ -63,14 +63,16 @@ export default function TopCollectionCard({ college, href }: any) {
               </h3>
               <h3 className="text-sm sm:text-md font-normal mt-0.5">
                 Approved by:{" "}
-                <span className="text-gray-900 font-medium">
+                {college?.approvedBy?.data[0]?.attributes?.name && 
+                <span className="text-gray-900 font-medium bg-blue-200 px-2 py-1 rounded-full ">
                   {college?.approvedBy?.data[0]?.attributes?.name}{" "}
                 </span>
+                }
               </h3>
             </div>
           </div>
           <Link href={href}>
-            <div className="mb-6 px-2 flex flex-row w-full justify-between">
+            <div className="mb-6 px-3 flex flex-row w-full justify-between">
               <span className="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner drop-shadow-lg drop-shadow-slate-100 group m-2 ">
                 <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease"></span>
                 <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease"></span>
@@ -84,9 +86,9 @@ export default function TopCollectionCard({ college, href }: any) {
 
               <a
                 href={href}
-                className="rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-[10px] cursor-pointer border-b-4 border-l-2 active:border-orange-600 active:shadow-none shadow-lg bg-gradient-to-tr from-orange-500 to-orange-500 border-orange-700 text-white"
+                className="rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-[10px] cursor-pointer active:border-orange-600 active:shadow-none shadow-lg bg-gradient-to-tr from-orange-500 to-orange-500 border-orange-700 text-white"
               >
-                <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-24 group-hover:h-24 opacity-10"></span>
+                <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-24 opacity-10"></span>
                 <span className="relative">Apply Now</span>
               </a>
             </div>

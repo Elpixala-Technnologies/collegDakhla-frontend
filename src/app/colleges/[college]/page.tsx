@@ -94,13 +94,13 @@ export default function CollegeDetail({ params }: Props) {
           />
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
           <div className="absolute my-6 max-w-screen-xl pt-6 px-4 inset-0 text-white flex gap-4 mx-auto">
-            <div className="collegeLogo mt-6">
+            <div className="collegeLogo">
               <Image
                 src={logoUrl!}
                 width={100}
                 height={100}
                 alt={college?.collegeName}
-                className="rounded-sm h-28"
+                className="rounded-sm h-28 object-center objext-contain"
               />
             </div>
             <div className="flex flex-col md:flex-row gap-4 flex-1">
@@ -118,10 +118,10 @@ export default function CollegeDetail({ params }: Props) {
                 <p>
                   Ranked by : {college?.rankedBy?.data[0]?.attributes?.name}
                 </p>
-                <div className="flex items-baseline gap-1 flex-wrap">
+                <div className="flex items-baseline gap-4 flex-wrap">
                   <Tag
                     text={
-                      (collegeType ? collegeType : "Autonomous") + " University"
+                      (collegeType ? collegeType : "Autonomous")
                     }
                     href={"/"}
                   />
@@ -169,6 +169,8 @@ export default function CollegeDetail({ params }: Props) {
                         fontSize="text-sm"
                         width="w-36"
                         align="text-center"
+                        bgColor="bg-white"
+                        fontColor="text-black"
                       />
                     </div>
                   </div>
