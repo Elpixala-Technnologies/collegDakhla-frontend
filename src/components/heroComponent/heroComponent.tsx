@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import Typewriter from "typewriter-effect";
 import PopDown from "./popDown";
+import Link from "next/link";
 
 const variations = [" 2500+ Colleges ", " 200+ Exams ", " 11000+ Vacancies "];
 export default function HeroSection() {
@@ -101,11 +102,11 @@ export default function HeroSection() {
         </div>
         <div className="absolute inset-0  bg-gradient-to-b from-[#1a1a1a]  to-transparent"></div>
         <div className="max-w-screen-xl mx-auto overflow-hidden hidden sm:block">
-          <div className=" absolute top-4  flex flex-wrap gap-3 md:gap-4 text-white px-4 text-xs md:text-sm text-nowrap overflow-hidden">
-            <div onClick={toggleVisibility}>All Courses</div>
+          <div className=" absolute top-4  flex flex-wrap gap-3 md:gap-4 text-white px-4 text-xs md:text-sm text-nowrap overflow-hidden z-10">
+            <Link href={`/courses`} onClick={toggleVisibility} className="hover:scale-110 cursor-pointer">All Courses</Link>
 
             {courses.map((course, index) => (
-              <div key={index}>{course}</div>
+              <Link href={`/courses`} key={index} className="hover:scale-110 cursor-pointer">{course}</Link>
             ))}
           </div>
         </div>

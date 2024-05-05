@@ -43,8 +43,8 @@ export default function Tag({
                         ${outlineColor}
                         ${
                           big
-                            ? `px-2 py-1 text-sm`
-                            : `px-1 ${fontSize} ${fontWeight}`
+                            ? `px-3 py-2 text-sm`
+                            : `px-2 py-1 ${fontSize} ${fontWeight}`
                         }
                         ${borderColor ? `border ${borderColor}` : null}
                         ${
