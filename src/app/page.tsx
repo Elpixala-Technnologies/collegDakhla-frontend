@@ -144,6 +144,7 @@ export default function Home() {
   ];
   const duplicatedTestimonialData = [...testimonialData, ...testimonialData];
 
+
   return (
     <>
       <div className="mx-auto overflow-x-hidden bg-white">
@@ -168,7 +169,7 @@ export default function Home() {
               viewport={{ once: true }}
               variants={slideInFromLeft(0.5)}
             >
-              <div className="text-3xl">
+              <div className="text-3xl font-semibold">
                 Top collection of{" "}
                 <b className="text-primary">
                   {activeTrendingCollege === "Stream" ? "Colleges" : "Exams"}
@@ -198,35 +199,10 @@ export default function Home() {
                 </div>
               </div>
             </motion.div>
-            <div className="flex flex-row items-center justify-between my-6">
-              <div className="flex md:flex-row flex-col gap-10 md:items-center"></div>
-              <div>
-                <Link
-                  href={
-                    activeTrendingCollege === "Stream" ? "/colleges" : "/exams"
-                  }
-                  className="flex text-lg text-nowrap gap-1 md:gap-2 text-[#1268F5] items-center"
-                >
-                  <span>View All</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height={25}
-                    width={25}
-                    viewBox="0 0 25 25"
-                    fill="none"
-                  >
-                    <path
-                      d="M17.6453 19.0736L24.2188 12.5002L17.6453 5.92676L16.5404 7.03164L21.2278 11.719H0.818556V13.2815H21.2277L16.5404 17.9688L17.6453 19.0736Z"
-                      fill="#1268F5"
-                    />
-                  </svg>
-                </Link>
-              </div>
-            </div>
 
             <div className="flex gap-4 my-5 overflow-x-auto  ">
               {activeTrendingCollege === "Stream" && (
-                <div className=" sm:grid flex flex-row hide-scrollbar overflow-x-scroll grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-4 py-4 w-full ">
+                <div className=" sm:grid flex flex-row hide-scrollbar overflow-x-scroll grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-4 w-full ">
                   {topCollegesData?.colleges?.data
                     ?.slice(0, 8)
                     .map((college: any, index: number) => {
@@ -266,6 +242,31 @@ export default function Home() {
                   </section>
                 </>
               )}
+            </div>
+            <div className="flex flex-row items-center justify-between my-6">
+              <div className="flex md:flex-row flex-col gap-10 md:items-center"></div>
+              <div>
+                <Link
+                  href={
+                    activeTrendingCollege === "Stream" ? "/colleges" : "/exams"
+                  }
+                  className="flex text-lg text-nowrap gap-1 md:gap-2 text-[#1268F5] items-center"
+                >
+                  <span>View All</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height={25}
+                    width={25}
+                    viewBox="0 0 25 25"
+                    fill="none"
+                  >
+                    <path
+                      d="M17.6453 19.0736L24.2188 12.5002L17.6453 5.92676L16.5404 7.03164L21.2278 11.719H0.818556V13.2815H21.2277L16.5404 17.9688L17.6453 19.0736Z"
+                      fill="#1268F5"
+                    />
+                  </svg>
+                </Link>
+              </div>
             </div>
           </div>
         </motion.section>
@@ -329,9 +330,8 @@ export default function Home() {
                   </Link>
                 );
               })}
-              
             </div>
-             {/* crousel 1 */}
+            {/* crousel 1 */}
             <div>
               <CarouselSideBtn
                 showPagination={false}
@@ -349,7 +349,7 @@ export default function Home() {
                     return (
                       <div key={course?.id}>
                         <Link href={`/courses/${course?.id}`}>
-                          <div className="border border-gray-300 rounded-md bg-white flex flex-col gap-2 min-w-96 p-4 shadow-md">
+                          <div className="border border-gray-300 rounded-md bg-white flex flex-col gap-2 min-w-80  shadow-md">
                             <div className="flex flex-col gap-2 items-center justify-center">
                               <Image
                                 src={logoUrl!}
@@ -359,7 +359,7 @@ export default function Home() {
                                 width={500}
                               />
                               <div className=" px-4 py-1 w-max text-primary text-base font-semibold">
-                              {course?.attributes?.name}
+                                {course?.attributes?.name}
                               </div>
                             </div>
                             <div className="border-t border-b border-extra-light-text flex justify-between items-center py-4">
@@ -394,8 +394,6 @@ export default function Home() {
                                 </div>
                               </div>
                             </div>
-
-                            
                           </div>
                         </Link>
                       </div>
@@ -486,12 +484,39 @@ export default function Home() {
         </section>
         <section className="max-w-screen-xl mx-auto px-4 py-14">
           <div className="max-w-screen-xl mx-auto flex items-start justify-start flex-col">
-            <h2 className="text-4xl font-semibold">Upcoming Event</h2>
+            <h2 className="text-3xl font-semibold">Upcoming Event</h2>
+            <div className="flex flex-row">
             <div className="flex justify-start ">
-            <Image src="/tempImage.jpeg" alt="logo" height={1280} width={1920}
-              className=" object-contain p-4 m-2" style={{ maxHeight: '300px', width: '100%' }}/>
+              <Image
+                src="/tempImage.jpeg"
+                alt="logo"
+                height={1280}
+                width={1920}
+                className=" object-contain p-4 m-2"
+                style={{ maxHeight: "300px", width: "100%" }}
+              />
             </div>
-
+            <div className="flex justify-start ">
+              <Image
+                src="/tempImage.jpeg"
+                alt="logo"
+                height={1280}
+                width={1920}
+                className=" object-contain p-4 m-2"
+                style={{ maxHeight: "300px", width: "100%" }}
+              />
+            </div>
+            <div className="flex justify-start ">
+              <Image
+                src="/tempImage.jpeg"
+                alt="logo"
+                height={1280}
+                width={1920}
+                className=" object-contain p-4 m-2"
+                style={{ maxHeight: "300px", width: "100%" }}
+              />
+            </div>
+            </div>
           </div>
         </section>
 
@@ -537,7 +562,7 @@ export default function Home() {
                 <h4 className="text-lg lg:text-2xl -tracking-wide font-medium font-rubik">
                   Reviewed by Students
                 </h4>
-                <h2 className="text-2xl lg:text-[2.5rem] lg:leading-[3.25rem] tracking-wide font-bold mb-3.5">
+                <h2 className="text-3xl lg:text-[2.5rem] lg:leading-[3.25rem] tracking-wide font-bold mb-3.5">
                   Students's Testimonials
                 </h2>
                 <span className="text-sm sm:text-base font-rubik text-gray-500 leading-snug">
@@ -623,7 +648,7 @@ export default function Home() {
           <div className="max-w-screen-xl mx-auto px-4 my-20 flex flex-wrap text-primary-text gap-16">
             <div className="flex-1">
               <div className="relative flex w-max">
-                <h3 className="text-2xl md:text-[35px] font-semibold">
+                <h3 className="text-3xl font-semibold md:text-[35px] ">
                   We have Got you Covered!
                 </h3>
                 <div className="absolute right-0 -bottom-2 md:-bottom-2">
@@ -782,9 +807,9 @@ export default function Home() {
             <Faq />
           </div>
         </section>
-        <section className="max-w-screen-xl mx-auto px-4 my-10 py-4 rounded-3xl">
+        <section className="max-w-screen-xl mx-auto px-4 my-10 py-4 rounded-3xl flex items-center">
           <motion.div
-            className="max-w-screen-xl mx-auto"
+            className="max-w-screen-xl mx-auto flex flex-col"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -793,62 +818,96 @@ export default function Home() {
               hidden: { opacity: 0, scale: 0 },
             }}
           >
-            <motion.h2
-              className="text-3xl font-semibold"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={slideInFromLeft(0.5)}
-            >
-              Latest News & Stories
-            </motion.h2>
-            <div className="flex gap-4 my-2 px-6 overflow-x-auto py-2 md:py-0">
-              <CarouselSideBtn
-                showPagination={false}
-                slidesDesktop={5}
-                slidesTablet={4}
-                slidesMobile={3}
-                gap="gap-6"
-                slides={newsData?.news?.data?.map(
-                  (news: any, index: number) => {
-                    const featuredImageUrl = news?.attributes?.featuredImage
-                      ?.data[0]
-                      ? getStrapiMedia(
-                          news?.attributes?.featuredImage?.data[0]?.attributes
-                            ?.url
-                        )
-                      : GetDefaultImage("banner");
-                    return (
-                      <div
-                        key={index}
-                        className="flex flex-col gap-6  md:min-w-72 lg:min-w-80 min-w-40 p-2 border border-gray-200 rounded-xl"
-                      >
-                        <Image
-                          src={featuredImageUrl!}
-                          alt=""
-                          width={500}
-                          height={500}
-                          className="w-full sm:min-w-28 min-w-20 sm:h-36 h-20 object-contain object-center"
-                        />
-                        <Link
-                          href={`/news/${news?.id}`}
-                          className="cursor-pointer sm:text-2xl text-base font-semibold text-primary-text line-clamp-1"
-                        >
-                          {news?.attributes?.title}
-                        </Link>
-
-                        <p className="line-clamp-4">
-                          {news?.attributes?.excerpt}
-                        </p>
-                        <div className="flex justify-between text-primary-text-light text-base pr-4">
-                          <p>{getDate(news?.attributes?.publishedAt)}</p>
-                          <h4>{news?.attributes?.author}</h4>
-                        </div>
-                      </div>
-                    );
-                  }
-                )}
-              />
+            <div className="flex flex-row items-center justify-between">
+              <motion.h2
+                className="text-3xl font-semibold"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={slideInFromLeft(0.5)}
+              >
+                Latest News & Stories
+              </motion.h2>
+              <div className="flex flex-row  my-6">
+                <div className="flex md:flex-row flex-col gap-10 md:items-center"></div>
+                <div>
+                  <Link
+                    href="/news"
+                    className="flex text-lg text-nowrap gap-1 md:gap-2 text-[#1268F5] items-center"
+                  >
+                    <span>View All</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height={25}
+                      width={25}
+                      viewBox="0 0 25 25"
+                      fill="none"
+                    >
+                      <path
+                        d="M17.6453 19.0736L24.2188 12.5002L17.6453 5.92676L16.5404 7.03164L21.2278 11.719H0.818556V13.2815H21.2277L16.5404 17.9688L17.6453 19.0736Z"
+                        fill="#1268F5"
+                      />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-4 my-2 px-0 overflow-x-auto py-2 md:py-0">
+              {newsData?.news?.data &&
+                Array.from({
+                  length: Math.ceil(newsData.news.data.length / 3),
+                }).map((chunk, index) => (
+                  <div key={index} className="flex gap-2 justify-evenly w-full">
+                    {newsData.news.data
+                      .slice(index * 3, index * 3 + 3)
+                      .map((news: any, idx: any) => {
+                        console.log(news,"news");
+                        const {
+                          title,
+                          excerpt,
+                          publishedAt,
+                          author,
+                          attributes: { featuredImage },
+                          id,
+                        } = news;
+                        const featuredImageUrl = featuredImage?.data[0]
+                          ? getStrapiMedia(featuredImage.data[0].attributes.url)
+                          : GetDefaultImage("banner");
+                        return (
+                          <div
+                            key={idx}
+                            className="flex flex-col gap-2 max-w-80 min-w-72 p-3  border border-gray-200 rounded-xl justify-between"
+                          >
+                            {news.attributes.featuredImage && (
+                              <Image
+                                src={featuredImageUrl!}
+                                alt=""
+                                width={500}
+                                height={500}
+                                className="w-full sm:min-w-28 min-w-20 sm:h-36 h-20 object-cover object-center rounded-lg"
+                              />
+                            )}
+                            <p className="text-gray-400 mt-1">
+                              Published at{" "}
+                              <span className="text-gray-800">{getDate(news.attributes.publishedAt)}</span>
+                            </p>
+                            <p className="sm:text-xl text-base font-normal text-primary-text line-clamp-1">
+                              {news.attributes.title}
+                            </p>
+                            <p className="sm:text-sm text-xs line-clamp-3">
+                              {news.attributes.excerpt}
+                            </p>
+                            <Link
+                              href={`/news/${news.id}`}
+                              className="hover:text-primary text-blue-600 text-lg hover:underline  pt-5"
+                            >
+                              Read more
+                            </Link>
+                          </div>
+                        );
+                      })}
+                  </div>
+                ))}
             </div>
           </motion.div>
         </section>

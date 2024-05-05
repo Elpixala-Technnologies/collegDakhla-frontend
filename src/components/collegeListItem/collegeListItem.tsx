@@ -268,7 +268,7 @@ export default function CollegeListItem(allColleges: any) {
                         outline
                         width="w-40"
                         align="text-center"
-                        bgColor="bg-amber-400"
+                        bgColor="bg-gray-400"
                         fontColor="text-white"
                       />
                       <Button

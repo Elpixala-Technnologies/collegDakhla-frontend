@@ -237,7 +237,7 @@ const NavbarSlider = ({
         <h4 className={`text-[30px] font-semibold ${titleColor}`}>{title}</h4>
       </div>
 
-      <div className="flex gap-4 relative lg:max-w-screen-xl ">
+      <div className="flex gap-4 relative lg:max-w-screen-xl pb-1s">
         {showButton ? (
           <div className="flex gap-4 items-center">
             <button

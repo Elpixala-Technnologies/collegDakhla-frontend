@@ -29,7 +29,7 @@ export default function ExamCard({ featuredExams }: any) {
 					</div>
 				</div>
 			</div>
-			<div className="relative flex flex-col">
+			<div className="relative flex flex-col h-60">
 				<div className="absolute left-2 -top-7 bg-white p-2 rounded">
 					<Image
 						src={logoURL!}

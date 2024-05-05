@@ -50,7 +50,7 @@ const Faq = () => {
           <div className="faq-content text-black flex flex-col  ">
             <div className="faq-content__title text-center max-w-[50rem] mx-auto flex flex-col leading-5">
               <h5 className="text-2xl font-bold">FAQ</h5>
-              <h2 className="text-2xl lg:text-[42px] lg:leading-[3rem] lg:tracking-wide font-bold mb-5 mt-2 lg:mt-0">
+              <h2 className="text-3xl font-semibold lg:text-[42px] lg:leading-[3rem] lg:tracking-wide mb-5 mt-2 lg:mt-0">
                 Frequently Asked Questions
               </h2>
               <p className="text-sm sm:text-base text-gray-500 ">

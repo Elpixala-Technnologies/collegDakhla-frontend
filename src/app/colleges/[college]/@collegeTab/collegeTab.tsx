@@ -46,7 +46,7 @@ export default function CollegeTab(props: any) {
               })}
             </div>
           </div>
-          <div className="right-wrapper basis-1/4 rounded min-w-72 hidden md:block">
+          <div className="right-wrapper basis-1/4 rounded-lg min-w-72 hidden md:block">
             <div className=" md:flex md:flex-col md:gap-2 ">
               {/* <Button
                 href={`/college/`}
@@ -67,7 +67,7 @@ export default function CollegeTab(props: any) {
                 fontColor="text-primary-text"
               /> */}
 
-              <div className="college-videos bg-gray-50 p-3">
+              <div className="college-videos bg-gray-50 p-3 rounded-3xl">
                 <h4 className="text-base font-bold font-poppins border-b-2 pb-2">
                   Videos
                 </h4>
@@ -85,7 +85,7 @@ export default function CollegeTab(props: any) {
                 </div>
               </div>
 
-              <div className="college-photos gap-2 columns-2">
+              <div className="college-photos gap-2 columns-2 rounded-lg">
                 <div className="col-6 pb-2">
                   <Image
                     src="/140724328776347_10150270122024944_741327732_n.webp"

@@ -87,10 +87,10 @@ export default function CollegeDetail({ params }: Props) {
             alt={college?.collegeName}
             width={100}
             height={100}
-            className="w-full h-56 md:h-36 object-fill"
+            className="w-full h-80  object-fill"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-          <div className="absolute my-6 max-w-screen-xl px-4 inset-0 text-white flex gap-4 mx-auto ">
+          <div className="absolute my-6 max-w-screen-xl pt-6 px-4 inset-0 text-white flex gap-4 mx-auto ">
             <div className="collegeLogo">
               <Image
                 src={logoUrl!}
@@ -103,17 +103,17 @@ export default function CollegeDetail({ params }: Props) {
             <div className="flex flex-col md:flex-row gap-4 flex-1">
               <div className="flex-1 flex flex-col gap-2">
                 <div className="flex gap-4 items-center">
-                  <h1 className="text-lg font-bold">{college?.collegeName!}</h1>
+                  <h1 className="text-3xl font-bold">{college?.collegeName!}</h1>
                   <div className="border-white border rounded-full p-1 text-sm cursor-pointer text-white">
                     <FaRegHeart />
                   </div>
                 </div>
-                <p className="text-xs">
+                <p className="text-lg">
                   {college?.city?.data?.attributes?.name},{" "}
                   {college?.state?.data?.attributes?.name} |{" "}
                   {college?.rating ? college?.rating : "8.6"}/10 (324 Reviews)
                 </p>
-                <div className="flex gap-1 flex-wrap">
+                <div className="flex items-baseline gap-1 flex-wrap">
                   <Tag
                     text={
                       (collegeType ? collegeType : "Autonomous") + " University"
@@ -159,9 +159,9 @@ export default function CollegeDetail({ params }: Props) {
             </div>
           </div>
         </div>
-        <div className="infoOption bg-white flex ">
-          <div className="sticky-nav-wrapper bg-white ">
-            <div className=" bg-white flex border-b border-b-primary-light max-w-screen-xl mx-auto ">
+        <div className="infoOption flex items-center max-w-screen-xl mx-auto">
+          <div className="sticky-nav-wrapper">
+            <div className=" bg-white flex border-b border-b-primary-light max-w-screen-xl mx-auto rounded-lg">
               <div className="lg:max-w-screen-xl lg:mx-auto px-1 md:px-4 md:w-full justify-center">
                 <NavbarSlider
                   buttonBorderColor="border-primary-text"
