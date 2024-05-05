@@ -170,8 +170,8 @@ export default function CollegeDetail({ params }: Props) {
                   slidesDesktop={10}
                   slidesTablet={5}
                   slidesMobile={3}
-                  slides={navbar?.map((tab: any) => (
-                    <ul className="max-w-screen-xl px-4 mx-auto flex gap-8 w-full items-stretch h-10 overflow-x-auto">
+                  slides={navbar?.map((tab: any, index:number) => (
+                    <ul className="max-w-screen-xl px-4 mx-auto flex gap-8 w-full items-stretch h-10 overflow-x-auto" key={index}>
                       {navbar?.map((tab: any) => {
                         return (
                           <li

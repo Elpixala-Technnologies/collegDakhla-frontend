@@ -20,7 +20,7 @@ export default function TopCollectionCard({ college, href }: any) {
   return (
     <>
       <div
-        className="min-w-48 h-96 border border-gray-300 bg-gray-50 rounded-lg drop-shadow hover:drop-shadow-2xl flex flex-col justify-start gap-4 relative"
+        className="min-w-48 h-96 border border-gray-300 rounded-lg drop-shadow hover:drop-shadow-2xl flex flex-col justify-start gap-4 relative"
         onClick={college?.collegeLink}
       >
         {/* <div className="flex gap-1 items-center w-full h-16 p-2"> */}

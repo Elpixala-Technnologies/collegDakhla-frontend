@@ -160,7 +160,7 @@ export default function Home() {
             hidden: { opacity: 0, scale: 0 },
           }}
         >
-          <div className="max-w-screen-xl  mx-auto py-5 border border-gray-300 rounded-3xl px-5">
+          <div className="max-w-screen-xl  mx-auto py-5 px-5">
             <motion.div
               className="flex lg:flex-row flex-col items-center justify-between"
               initial="hidden"
@@ -178,7 +178,7 @@ export default function Home() {
                 <div
                   className={`p-2 px-6 rounded-lg cursor-pointer ${
                     activeTrendingCollege === "Stream"
-                      ? "bg-primary text-white shadow-md shadow-black drop-shadow-md"
+                      ? "bg-primary text-white shadow-md "
                       : "border border-gray-400 text-black"
                   }`}
                   onClick={() => handleTrendingCollegeTabClick("Stream")}
@@ -189,7 +189,7 @@ export default function Home() {
                 <div
                   className={`p-2 rounded-lg px-6 cursor-pointer ${
                     activeTrendingCollege === "Exams"
-                      ? "bg-primary text-white shadow-md shadow-black drop-shadow-md"
+                      ? "bg-primary text-white shadow-md "
                       : "border border-gray-400 text-black"
                   }`}
                   onClick={() => handleTrendingCollegeTabClick("Exams")}
@@ -303,8 +303,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="explore-course-section pt-16 mx-4">
-          <div className="px-4  max-w-screen-xl mx-auto border border-gray-300 rounded-3xl p-6">
+        <section className="explore-course-section py-10 bg-[#F2F6F7]">
+          <div className="px-4  max-w-screen-xl mx-auto p-6">
             <motion.h2
               className="text-3xl font-semibold"
               initial="hidden"
@@ -323,9 +323,9 @@ export default function Home() {
                       pathname: `/streams/${stream.attributes.streamName.toLowerCase()}`,
                     }}
                   >
-                    <div className="border border-primary-light rounded-full py-2 px-4 bg-white text-nowrap">
+                    <p className="border rounded-full py-1 px-3 bg-white text-nowrap text-sm font-normal">
                       {stream?.attributes?.streamName}
-                    </div>
+                    </p>
                   </Link>
                 );
               })}
@@ -349,7 +349,7 @@ export default function Home() {
                     return (
                       <div key={course?.id}>
                         <Link href={`/courses/${course?.id}`}>
-                          <div className="border-4 border-gray-300 rounded-md bg-white flex flex-col gap-2 min-w-96 p-4 shadow-md">
+                          <div className="border border-gray-300 rounded-md bg-white flex flex-col gap-2 min-w-96 p-4 shadow-md">
                             <div className="flex flex-col gap-2 items-center justify-center">
                               <Image
                                 src={logoUrl!}
@@ -368,10 +368,10 @@ export default function Home() {
                               </span>{" "}
                               <FaAngleRight />
                             </div>
-                            <div className="flex justify-evenly gap-5 m-0 ">
+                            <div className="flex justify-evenly gap-5 ">
                               <div className="flex flex-col items-center">
                                 <div className="text-black">Duration</div>
-                                <div className="border-4 border-primary rounded-full p-4 flex items-center justify-center text-center w-20 h-20">
+                                <div className="ring-4 border-primary rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
                                   <b className="text-gray-500 font-light">
                                     {course?.attributes?.duration} Years
                                   </b>
@@ -379,7 +379,7 @@ export default function Home() {
                               </div>
                               <div className="flex flex-col items-center">
                                 <div className="text-black">Total Avg. Fee</div>
-                                <div className="border-4 border-gray-400 rounded-full p-4 flex items-center justify-center text-center w-20 h-20">
+                                <div className="border-4 border-gray-400 rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
                                   <b className="text-gray-500 font-light ">
                                     {formatFees(course?.attributes?.fees)}
                                   </b>
@@ -387,7 +387,7 @@ export default function Home() {
                               </div>
                               <div className="flex flex-col items-center">
                                 <div className="text-black">Colleges</div>
-                                <div className="border-4 border-primary rounded-full p-4 flex items-center justify-center text-center w-20 h-20">
+                                <div className="border-4 border-primary rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
                                   <b className="text-gray-500 font-light">
                                     {course?.attributes?.colleges?.data?.length}
                                   </b>
@@ -484,12 +484,12 @@ export default function Home() {
             </div> */}
           </div>
         </section>
-        <section className="max-w-screen-xl mx-auto px-4 my-10 py-4 rounded-3xl">
+        <section className="max-w-screen-xl mx-auto px-4 py-14">
           <div className="max-w-screen-xl mx-auto flex items-start justify-start flex-col">
             <h2 className="text-4xl font-semibold">Upcoming Event</h2>
             <div className="flex justify-start ">
             <Image src="/tempImage.jpeg" alt="logo" height={1280} width={1920}
-              className=" object-contain p-4 m-2" style={{ maxHeight: '500px', width: '100%' }}/>
+              className=" object-contain p-4 m-2" style={{ maxHeight: '300px', width: '100%' }}/>
             </div>
 
           </div>
@@ -530,7 +530,7 @@ export default function Home() {
             </div>
           </div>
         </section> */}
-        <section className="testimonials-section px-2 py-8 lg:py-24 text-black flex items-center justify-center mx-auto w-full">
+        <section className="testimonials-section px-2 py-8 lg:py-12 text-black flex items-center justify-center mx-auto w-full bg-[#F2F6F7]">
           <div className="Container w-full">
             <div className="testimonials-content flex flex-col w-full rounded-lg">
               <div className="testimonials-content__title flex flex-col text-center mb-12 max-w-[700px] mx-auto">
@@ -777,7 +777,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="py-8">
+        <section className="py-8 bg-[#F2F6F7]">
           <div className=" max-w-screen-xl mx-auto px-4">
             <Faq />
           </div>
@@ -828,7 +828,7 @@ export default function Home() {
                           alt=""
                           width={500}
                           height={500}
-                          className="w-full sm:min-w-28 min-w-20 sm:h-36 h-20 rounded-lg object-cover object-center shadow-md shadow-gray-500"
+                          className="w-full sm:min-w-28 min-w-20 sm:h-36 h-20 object-contain object-center"
                         />
                         <Link
                           href={`/news/${news?.id}`}
