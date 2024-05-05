@@ -8,7 +8,7 @@ const variations = [" 2500+ Colleges ", " 200+ Exams ", " 11000+ Vacancies "];
 export default function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const carouselRef = useRef(null);
-  const images = ["/collegeImg.jpg", "/news.jpg", "/collegeImg3.jpg"]; // Add your image URLs here
+  const images = ["/collegeImg.jpeg", "/news.jpg", "/collegeImg3.jpeg"]; // Add your image URLs here
   const collegeNames = [
     { name: "Sita Ram College of Commerce, Delhi", totalImages: images.length },
     {

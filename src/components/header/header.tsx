@@ -20,6 +20,15 @@ export default function Header() {
   const [ShowOptions, setShowOptions] = useState(false);
   const [Options, setOptions] = useState<ReactNode>(CollegeOption);
   const [CurrentOpenOption, setCurrentOpenOption] = useState("");
+  const [activeTab, setActiveTab] = useState(null);
+
+  const handleMouseEnter = (index: any) => {
+    setActiveTab(index);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveTab(null);
+  };
 
   const handleSearch = () => {
     setShowSearch(!ShowSearch);
@@ -71,43 +80,27 @@ export default function Header() {
         <div className="flex gap-8 items-center text-white">
           <div className="hidden sm:block">
             <div className="flex gap-2 md:gap-8">
-              <div
-                className="flex gap-1 items-center"
-                // onClick={() => {
-                //   handleShowOptions("college");
-                // }}
-              >
-                <div>
-                  <Link href={"/colleges"}>College</Link>
+              {[
+                { href: "/colleges", label: "College" },
+                { href: "/exams", label: "Exams" },
+                { href: "/courses", label: "Courses" },
+                { href: "/news", label: "News" },
+                { href: "/more", label: "More" },
+              ].map((tab, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col gap-1 items-center"
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <Link href={tab.href}>{tab.label}</Link>
+                  <div
+                    className={`bg-amber-500 h-[2px] w-0 ${
+                      activeTab === index ? "w-full" : ""
+                    } transition-all duration-500`}
+                  ></div>
                 </div>
-              </div>
-
-              <div
-                className="flex gap-1 items-center"
-                // onClick={() => handleShowOptions("exam")}
-              >
-                <Link href={"/exams"}>Exams</Link>
-              </div>
-
-              <div className="flex gap-1 items-center">
-                <Link href={"/courses"}>Courses</Link>
-                
-              </div>
-
-              {/* <div className="flex gap-1 items-center">
-                Career
-                <TfiAngleDown />
-              </div> */}
-
-              <div className="flex gap-1 items-center">
-                <Link href={"/news"}>News</Link>
-              </div>
-
-              <div className="flex gap-1 items-center">
-
-              <Link href={"/more"}>More</Link>
-                
-              </div>
+              ))}
             </div>
           </div>
           <LoginQASection />
