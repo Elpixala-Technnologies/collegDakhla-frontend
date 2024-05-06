@@ -23,7 +23,7 @@ export default function Filter(props: any) {
                 className="border border-extra-light-text p-2 text-sm focus:border-primary w-full my-2 rounded outline-none"
                 placeholder={`Search ${props.name}`}
               /> */}
-              <div className="h-full max-h-48  overflow-y-auto">
+              <div className="h-full">
                 {props.name === "Stream" ? (
                   <>
                     {props?.filters?.map((filter: any) => {

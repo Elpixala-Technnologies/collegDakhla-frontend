@@ -29,6 +29,7 @@ export default function CollegeList() {
   const [MobileFilter, setMobileFilter] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [Stream, setStream] = useState<string>("default");
+  const [sortOption, setSortOption] = useState<any>([]);
   // const [TopStream, setTopStream] = useState<string>("")
   const [Limit, setLimit] = useState<number>(10);
   const [displayCount, setDisplayCount] = useState(10); // Initial display count
@@ -68,6 +69,30 @@ export default function CollegeList() {
   } = useQuery(topColleges, {
     variables: { Limit },
   });
+
+  // sorting 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleSort = (option: React.SetStateAction<string>) => {
+    setSortOption(option ? [option] : []);
+    setIsOpen(false);
+  };
+
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  // End 
 
   const {
     loading: streamLoader,
@@ -159,9 +184,8 @@ export default function CollegeList() {
               India
             </h1>
             <p
-              className={`${
-                showFullContent ? "text-justify" : " text-center"
-              } text-base mb-3`}
+              className={`${showFullContent ? "text-justify" : " text-center"
+                } text-base mb-3`}
             >
               The list of top engineering colleges in India 2024 includes IT
               Madras, IIT Bombay, IIT Kanpur, IIT Roorkee, IIT Kharagpur, etc.
@@ -264,11 +288,45 @@ export default function CollegeList() {
                 </div>
                 <div className="flex gap-4">
                   <div
-                    className="flex border-2 h-10 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer"
-                    // onClick={handleClick}
+                    className="flex border-2  items-center px-8 py-2 border-extra-light-text gap-2 rounded-md cursor-pointer"
+                    onClick={toggleDropdown}
                   >
                     <span>Sort</span> <MdOutlineSort />
                   </div>
+
+                  {/* Dropdown content */}
+                  {isOpen && (
+                    <div className="absolute z-10 mt-12 right-0 bg-white rounded-md shadow-lg border">
+                      <div
+                        className="py-1"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="options-menu"
+                      >
+                        <div
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                          onClick={() => handleSort("college_name:asc")}
+                          role="menuitem"
+                        >
+                          Alphabetically
+                        </div>
+                        <div
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                          onClick={() => handleSort("updatedAt:asc")}
+                          role="menuitem"
+                        >
+                          Updated By
+                        </div>
+                        <div
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                          onClick={() => handleSort("createdAt:asc")}
+                          role="menuitem"
+                        >
+                          Reset Sort
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   <div className="max-md:block hidden">
                     <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
                       <span onClick={handleMobileFilter}>Filter</span>

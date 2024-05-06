@@ -33,6 +33,12 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                     </Link>
                     <div className="flex flex-col gap-3 items-stretch">
                       <p className="text-secondary-text font-light">
+                      <span className="text-primary font-semibold text-sm lg:text-lg">
+                          {formatFees(course?.attributes?.fees)}
+                        </span>{" "}
+                        - Total Fees
+                      </p>
+                      <p className="text-secondary-text font-light">
                         Average Duration:{" "}
                         <span className="text-primary-text font-medium">
                           {course?.attributes?.duration} Years
@@ -54,12 +60,12 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                           }
                         )}
                       </div>
-                      <p className="text-secondary-text font-light">
+                      {/* <p className="text-secondary-text font-light">
                         <span className="text-[#B12704] text-2xl font-medium">
                           {formatFees(course?.attributes?.fees)}
                         </span>{" "}
                         - Total Fees
-                      </p>
+                      </p> */}
                     </div>
                   </div>
 

@@ -1,10 +1,13 @@
 "use client";
 import Button from "@/components/button/button";
+import NewsCard from "@/components/card/newsCard";
 import ContainerWithTextBgImg from "@/components/containerWithTextBGImg/containerWithTextBGImg";
 import { getAllNews, getNewsCategories } from "@/query/schema";
 import { getStrapiMedia, GetDefaultImage } from "@/utils/api-helper";
 import { useQuery } from "@apollo/client";
 import Image from "next/image";
+import Link from "next/link";
+import { getDate } from "@/utils/formatDate";
 
 export default function News() {
   const {
@@ -22,7 +25,221 @@ export default function News() {
   return (
     <>
       <section className="first-category">
-        <div className="max-w-screen-xl mx-auto px-4 py-4">
+
+        <div className="flex flex-col gap-6 max-w-screen-xl mx-auto px-4 py-4 ">
+          <h3 className="text-3xl font-semibold text-primary">Latest News</h3>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="">
+              <div className="row-span-1 col-span-1">
+                <div className="relative rounded-lg overflow-hidden h-full">
+                  <div className="relative rounded-lg overflow-hidden h-full">
+                    <Image
+                      src={firstPostImage!}
+                      alt=""
+                      width={500}
+                      height={200}
+                      style={{ width: "100%", height: "400px" }}
+                    />
+                    <div className="absolute inset-0 bg-black opacity-20 h-full w-full pt-4" />
+                    <div className="absolute inset-0 p-4">
+                      <div className="flex">
+                      </div>
+                      <div className="h-full w-full flex flex-col gap-1 justify-end text-xs text-white">
+                        <div className="flex">
+                          <div className="text-xs mb-1">Results Declared - 20 May 2024</div>
+                        </div>
+                        <div className="text-xl font-semibold mb-8">
+                          CBSE Class 10th and 12th Results 2024 Likely to Be Declared After May 20
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="row-span-1 col-span-1 gap-4 pt-4">
+                <div className="relative rounded-lg overflow-hidden h-full">
+                  <Image
+                    src={firstPostImage!}
+                    alt=""
+                    width={500}
+                    height={200}
+                    style={{ width: "100%", height: "400px" }}
+                  />
+                  <div className="absolute inset-0 bg-black opacity-20 h-full w-full pt-4" />
+                  <div className="absolute inset-0 p-4">
+                    <div className="flex">
+                    </div>
+                    <div className="h-full w-full flex flex-col gap-1 justify-end text-xs text-white">
+                      <div className="flex">
+                        <div className="text-xs mb-1">Results Declared - 20 May 2024</div>
+                      </div>
+                      <div className="text-xl font-semibold mb-8">
+                        CBSE Class 10th and 12th Results 2024 Likely to Be Declared After May 20
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="w-full">
+              <div className="relative rounded-lg overflow-hidden h-full">
+                <Image
+                  src={firstPostImage!}
+                  alt=""
+                  width={500}
+                  height={200}
+                  style={{ width: "100%", height: "100%" }}
+                />
+                <div className="absolute inset-0 bg-black opacity-20 h-full w-full object-cover" />
+                <div className="absolute inset-0 p-4">
+                  <div className="h-full flex flex-col gap-1 justify-end text-xs text-white">
+                    <div className="flex ">
+                      <div className="text-xs">Intimation Slip - 27 Dec 2024</div>
+                    </div>
+                    <div className="text-2xl font-semibold ">
+                      NEET UG 2024 City Intimation Slip Soon: Check marking scheme, exam pattern, and more
+
+                    </div>
+                    <div className="flex justify-between">
+                      <div className="">2 Hours Ago</div>
+                      <div className="">CNN Indonesia</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="w-full">
+              <div className="row-span-1 col-span-1">
+                <div className="relative rounded-lg overflow-hidden h-full">
+                  <div className="relative rounded-lg overflow-hidden h-full">
+                    <Image
+                      src={firstPostImage!}
+                      alt=""
+                      width={500}
+                      height={200}
+                      style={{ width: "100%", height: "400px" }}
+                    />
+                    <div className="absolute inset-0 bg-black opacity-20 h-full w-full pt-4" />
+                    <div className="absolute inset-0 p-4">
+                      <div className="flex">
+                      </div>
+                      <div className="h-full w-full flex flex-col gap-1 justify-end text-xs text-white">
+                        <div className="flex">
+                          <div className="text-xs mb-1">Craig Bator - 27 Dec 2020</div>
+                        </div>
+                        <div className="text-xl font-semibold mb-8">
+                          They’re back! Kennedy Darling named to return to
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="row-span-1 col-span-1 gap-4 pt-4">
+                <div className="relative rounded-lg overflow-hidden h-full">
+                  <Image
+                    src={firstPostImage!}
+                    alt=""
+                    width={500}
+                    height={200}
+                    style={{ width: "100%", height: "400px" }}
+                  />
+                  <div className="absolute inset-0 bg-black opacity-20 h-full w-full pt-4" />
+                  <div className="absolute inset-0 p-4">
+                    <div className="flex">
+                    </div>
+                    <div className="h-full w-full flex flex-col gap-1 justify-end text-xs text-white">
+                      <div className="flex">
+                        <div className="text-xs mb-1">Examination released - 1 May 2024</div>
+                      </div>
+                      <div className="text-xl font-semibold mb-8">
+                        NEET 2024 Admit Card for the examination is released on 1 May
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section className="max-w-screen-xl mx-auto mb-8  my-10 px-4">
+          <h3 className="text-3xl font-semibold pb-3 text-primary">Recent Post</h3>
+          <div className="grid grid-cols-3 gap-8">
+            {/* {[1, 2, 3, 4, 5].map((item) => {
+              return (
+                <div><NewsCard /></div>
+              );
+            })} */}
+            {/* <NewsCard /> */}
+            <div className="flex flex-wrap gap-4 my-2 px-0 overflow-x-auto py-2 md:py-0">
+              {newsData?.news?.data &&
+                Array.from({
+                  length: Math.ceil(newsData.news.data.length / 3),
+                }).map((chunk, index) => (
+                  <div key={index} className="flex gap-2 justify-evenly w-full">
+                    {newsData.news.data
+                      .slice(index * 3, index * 3 + 3)
+                      .map((news: any, idx: any) => {
+                        console.log(news, "news12345");
+                        const {
+                          title,
+                          excerpt,
+                          publishedAt,
+                          author,
+                          attributes: { featuredImage },
+                          id,
+                        } = news;
+                        const featuredImageUrl = featuredImage?.data[0]
+                          ? getStrapiMedia(featuredImage.data[0].attributes.url)
+                          : GetDefaultImage("banner");
+                        return (
+                          <div
+                            key={idx}
+                            className="flex flex-col gap-2 max-w-80 min-w-72 p-3  border border-gray-200 rounded-xl justify-between"
+                          >
+                            {news.attributes.featuredImage && (
+                              <Image
+                                src={featuredImageUrl!}
+                                alt=""
+                                width={500}
+                                height={500}
+                                className="w-full sm:min-w-28 min-w-20 sm:h-36 h-20 object-cover object-center rounded-lg"
+                              />
+                            )}
+                            <p className="text-gray-400 mt-1">
+                              Published at{" "}
+                              <span className="text-gray-800">
+                                {getDate(news.attributes.publishedAt)}
+                              </span>
+                            </p>
+                            <p className="sm:text-xl text-base font-normal text-primary-text line-clamp-1">
+                              {news.attributes.title}
+                            </p>
+                            <p className="sm:text-sm text-xs line-clamp-3">
+                              {news.attributes.excerpt}
+                            </p>
+                            <Link
+                              href={`/news/${news.id}`}
+                              className="hover:text-primary text-blue-600 text-lg hover:underline  pt-5"
+                            >
+                              Read more
+                            </Link>
+                          </div>
+                        );
+                      })}
+                  </div>
+                ))}
+            </div>
+
+          </div>
+        </section>
+
+
+
+
+
+        {/* <div className="max-w-screen-xl mx-auto px-4 py-4">
           <div className="mb-4">
             <h3 className="text-2xl font-semibold">
               {firstCategory?.attributes?.category}
@@ -55,16 +272,15 @@ export default function News() {
               <div className="text-sm">{firstPost?.excerpt}</div>
             </div>
 
-            {/* first category posts */}
             {firstCategory?.attributes?.news?.data
               ?.slice(1, 6)
               .map((newsItem: any, index: number) => {
                 const featuredImageUrl = newsItem?.attributes.featuredImage
                   ?.data[0]
                   ? getStrapiMedia(
-                      newsItem?.attributes.featuredImage?.data[0].attributes
-                        ?.url
-                    )
+                    newsItem?.attributes.featuredImage?.data[0].attributes
+                      ?.url
+                  )
                   : GetDefaultImage("banner");
 
                 return (
@@ -98,10 +314,10 @@ export default function News() {
                 );
               })}
           </div>
-        </div>
+        </div> */}
       </section>
 
-      {newsData?.newsCategories?.data
+      {/* {newsData?.newsCategories?.data
         ?.slice(1)
         .map((newsCategory: any, index: number) => {
           if ((index + 1) % 2 == 0) {
@@ -122,8 +338,8 @@ export default function News() {
                       .map((news: any, index: any) => {
                         const featuredImageUrl = news?.featuredImage?.data[0]
                           ? getStrapiMedia(
-                              news?.featuredImage?.data[0].attributes?.url
-                            )
+                            news?.featuredImage?.data[0].attributes?.url
+                          )
                           : GetDefaultImage("banner");
                         return (
                           <div key={index} className="flex flex-col gap-3 w-56">
@@ -201,9 +417,9 @@ export default function News() {
                           const featuredImageUrl = news?.attributes
                             .featuredImage?.data[0]
                             ? getStrapiMedia(
-                                news?.attributes.featuredImage?.data[0]
-                                  .attributes?.url
-                              )
+                              news?.attributes.featuredImage?.data[0]
+                                .attributes?.url
+                            )
                             : GetDefaultImage("banner");
 
                           return (
@@ -237,7 +453,7 @@ export default function News() {
               </section>
             );
           }
-        })}
+        })} */}
     </>
   );
 }
