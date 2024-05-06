@@ -144,7 +144,6 @@ export default function Home() {
   ];
   const duplicatedTestimonialData = [...testimonialData, ...testimonialData];
 
-
   return (
     <>
       <div className="mx-auto overflow-x-hidden bg-white">
@@ -202,7 +201,7 @@ export default function Home() {
 
             <div className="flex gap-4 my-5 overflow-x-auto  ">
               {activeTrendingCollege === "Stream" && (
-                <div className=" sm:grid flex flex-row hide-scrollbar overflow-x-scroll grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-4 w-full ">
+                <div className=" sm:grid flex flex-row hide-scrollbar overflow-x-scroll grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-4 w-full ">
                   {topCollegesData?.colleges?.data
                     ?.slice(0, 8)
                     .map((college: any, index: number) => {
@@ -270,7 +269,7 @@ export default function Home() {
             </div>
           </div>
         </motion.section>
-        <section className="Banner-1 mt-4 pt-8 mx-4">
+        <section className="Banner-1 my-4 py-8 mx-4">
           <div className="max-w-screen-xl  mx-auto py-10 relative">
             <div className="h-36 flex flex-row items-center justify-between w-full bg-amber-200 rounded-3xl">
               <div className=" flex sm:gap-8 gap-4 px-4 items-baseline md:flex-row flex-col">
@@ -281,17 +280,16 @@ export default function Home() {
                   </b>
                   about US?
                 </span>
-
-                <button
-                  type="button"
-                  className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
+                <Link href="/more">
+                  <button
+                    type="button"
+                    className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
 				   focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium 
 				   rounded-lg text-sm px-6 py-4 text-center me-2 mb-2 "
-                >
-                  <Link href="/more">
+                  >
                     <span className="sm:text-2xl text-sm">Explore More </span>
-                  </Link>
-                </button>
+                  </button>
+                </Link>
               </div>
               <Image
                 src={Snowman}
@@ -305,9 +303,9 @@ export default function Home() {
         </section>
 
         <section className="explore-course-section py-10 bg-[#F2F6F7]">
-          <div className="px-4  max-w-screen-xl mx-auto p-6">
+          <div className="px-4  max-w-screen-xl mx-auto p-2">
             <motion.h2
-              className="text-3xl font-semibold"
+              className="text-3xl font-semibold pb-6"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -349,8 +347,8 @@ export default function Home() {
                     return (
                       <div key={course?.id}>
                         <Link href={`/courses/${course?.id}`}>
-                          <div className="border border-gray-300 rounded-md bg-white flex flex-col gap-2 min-w-80  shadow-md">
-                            <div className="flex flex-col gap-2 items-center justify-center">
+                          <div className="border border-gray-300 rounded-md bg-white flex flex-col gap-2 min-w-80 shadow-md">
+                            <div className="flex flex-col py-4 gap-2 items-center justify-center">
                               <Image
                                 src={logoUrl!}
                                 alt={college?.collegeName}
@@ -362,33 +360,33 @@ export default function Home() {
                                 {course?.attributes?.name}
                               </div>
                             </div>
-                            <div className="border-t border-b border-extra-light-text flex justify-between items-center py-4">
+                            <div className="border-t border-b border-extra-light-text flex justify-between items-center py-4 px-2">
                               <span className="text-gray-800 font-semibold text-lg">
                                 Course Overview
                               </span>{" "}
                               <FaAngleRight />
                             </div>
-                            <div className="flex justify-evenly gap-5 ">
-                              <div className="flex flex-col items-center">
+                            <div className="flex justify-evenly gap-5 pb-6 px-2">
+                              <div className="flex flex-col items-center gap-1">
                                 <div className="text-black">Duration</div>
-                                <div className="ring-4 border-primary rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
-                                  <b className="text-gray-500 font-light">
+                                <div className="border-4 border-orange-300 rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
+                                  <b className="text-gray-500 font-light text-xs">
                                     {course?.attributes?.duration} Years
                                   </b>
                                 </div>
                               </div>
-                              <div className="flex flex-col items-center">
+                              <div className="flex flex-col items-center gap-1">
                                 <div className="text-black">Total Avg. Fee</div>
                                 <div className="border-4 border-gray-400 rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
-                                  <b className="text-gray-500 font-light ">
+                                  <b className="text-gray-500 font-light text-xs">
                                     {formatFees(course?.attributes?.fees)}
                                   </b>
                                 </div>
                               </div>
-                              <div className="flex flex-col items-center">
+                              <div className="flex flex-col items-center gap-1">
                                 <div className="text-black">Colleges</div>
-                                <div className="border-4 border-primary rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
-                                  <b className="text-gray-500 font-light">
+                                <div className="border-4 border-orange-400 rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
+                                  <b className="text-gray-500 font-light text-xs">
                                     {course?.attributes?.colleges?.data?.length}
                                   </b>
                                 </div>
@@ -486,36 +484,36 @@ export default function Home() {
           <div className="max-w-screen-xl mx-auto flex items-start justify-start flex-col">
             <h2 className="text-3xl font-semibold">Upcoming Event</h2>
             <div className="flex flex-row">
-            <div className="flex justify-start ">
-              <Image
-                src="/tempImage.jpeg"
-                alt="logo"
-                height={1280}
-                width={1920}
-                className=" object-contain p-4 m-2"
-                style={{ maxHeight: "300px", width: "100%" }}
-              />
-            </div>
-            <div className="flex justify-start ">
-              <Image
-                src="/tempImage.jpeg"
-                alt="logo"
-                height={1280}
-                width={1920}
-                className=" object-contain p-4 m-2"
-                style={{ maxHeight: "300px", width: "100%" }}
-              />
-            </div>
-            <div className="flex justify-start ">
-              <Image
-                src="/tempImage.jpeg"
-                alt="logo"
-                height={1280}
-                width={1920}
-                className=" object-contain p-4 m-2"
-                style={{ maxHeight: "300px", width: "100%" }}
-              />
-            </div>
+              <div className="flex justify-start ">
+                <Image
+                  src="/tempImage.jpeg"
+                  alt="logo"
+                  height={1280}
+                  width={1920}
+                  className=" object-contain p-4 m-2"
+                  style={{ maxHeight: "300px", width: "100%" }}
+                />
+              </div>
+              <div className="flex justify-start ">
+                <Image
+                  src="/tempImage.jpeg"
+                  alt="logo"
+                  height={1280}
+                  width={1920}
+                  className=" object-contain p-4 m-2"
+                  style={{ maxHeight: "300px", width: "100%" }}
+                />
+              </div>
+              <div className="flex justify-start ">
+                <Image
+                  src="/tempImage.jpeg"
+                  alt="logo"
+                  height={1280}
+                  width={1920}
+                  className=" object-contain p-4 m-2"
+                  style={{ maxHeight: "300px", width: "100%" }}
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -861,7 +859,7 @@ export default function Home() {
                     {newsData.news.data
                       .slice(index * 3, index * 3 + 3)
                       .map((news: any, idx: any) => {
-                        console.log(news,"news");
+                        console.log(news, "news");
                         const {
                           title,
                           excerpt,
@@ -889,7 +887,9 @@ export default function Home() {
                             )}
                             <p className="text-gray-400 mt-1">
                               Published at{" "}
-                              <span className="text-gray-800">{getDate(news.attributes.publishedAt)}</span>
+                              <span className="text-gray-800">
+                                {getDate(news.attributes.publishedAt)}
+                              </span>
                             </p>
                             <p className="sm:text-xl text-base font-normal text-primary-text line-clamp-1">
                               {news.attributes.title}

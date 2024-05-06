@@ -239,7 +239,7 @@ const NavbarSlider = ({
 
       <div className="flex gap-4 relative lg:max-w-screen-xl pb-1s">
         {showButton ? (
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-4 items-center mb-2">
             <button
               data-testid="prev-button"
               className={`border ${buttonBorderColor} p-1 md:p-3 cursor-pointer rounded-lg ${buttonTextColor} ${isBeginning ? 'opacity-50 pointer-events-none' : ''}`}

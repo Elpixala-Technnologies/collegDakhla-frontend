@@ -80,7 +80,7 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                       outline
                       width="w-40"
                       align="text-center"
-                      bgColor="bg-amber-400"
+                      bgColor="bg-gray-400"
                       fontColor="text-primary-text"
                     />
                     <Button
