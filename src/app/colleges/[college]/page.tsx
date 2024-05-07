@@ -46,7 +46,6 @@ export default function CollegeDetail({ params }: Props) {
   const navbar = college?.navbars?.data;
 
   const tabData = college?.pageData;
-  console.log(college, "college");
 
   const handleTab = (value: string) => {
     setCurrentTab(value);

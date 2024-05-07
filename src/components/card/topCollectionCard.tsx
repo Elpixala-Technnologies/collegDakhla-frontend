@@ -16,7 +16,6 @@ export default function TopCollectionCard({ college, href }: any) {
     error: statesError,
     data: statesData,
   } = useQuery(getStates);
-  console.log(college, "college");
 
   return (
     <>

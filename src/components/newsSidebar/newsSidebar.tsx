@@ -16,7 +16,6 @@ import Button from "../button/button";
 
 
 export default function NewsSidebar({NewsData}: any) {
-  console.log(NewsData , "NewsData")
 
   return (
     <div className="flex flex-col gap-6 w-72">
@@ -114,9 +113,9 @@ export default function NewsSidebar({NewsData}: any) {
         <h6 className="text-xl font-semibold">Categories</h6>
         <div className="w-full border-t border-t-primary-text my-4" />
         <div className="flex flex-col gap-4">
-          {NewsData?.categories?.data?.map((item:any) => {
+          {NewsData?.categories?.data?.map((item:any,index:number) => {
             return (
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center" key={index}>
                 <div className="flex gap-2">
                   <div>
                     <FaAngleRight />

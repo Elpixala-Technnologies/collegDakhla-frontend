@@ -108,7 +108,6 @@ export default function CollegeFilters(params?: any) {
 
   const resetFilters = () => {
     const updatedFilter = {};
-    console.log("selected ", SelectedFilter);
     params.handleMobileFilter();
   };
 

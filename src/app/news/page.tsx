@@ -16,7 +16,6 @@ export default function News() {
     error: newsError,
     data: newsData,
   } = useQuery(getAllNews);
-  console.log("newdata", newsData)
 
   const firstCategory = newsData?.newsCategories?.data[0];
   const firstPost = firstCategory?.attributes?.news?.data[0]?.attributes;
@@ -27,7 +26,6 @@ export default function News() {
   return (
     <>
       <section className="first-category">
-
         <div className="flex flex-col gap-6 max-w-screen-xl mx-auto px-4 py-4 ">
           <h3 className="text-3xl font-semibold text-primary">Latest News</h3>
           <div className="grid grid-cols-3 gap-4">
@@ -39,7 +37,6 @@ export default function News() {
                   {newsData.news.data
                     .slice(index * 3, index * 3 + 3)
                     .map((news: any, idx: any) => {
-                      console.log(news, "news12345");
                       const {
                         title,
                         excerpt,
@@ -71,11 +68,14 @@ export default function News() {
                               {getDate(news.attributes.publishedAt)}
                             </span>
                           </p>
-                          <p className="sm:text-xl text-base font-normal text-primary-text line-clamp-1">
-                            {news.attributes.title}
-                          </p>
+                          <Link href={""}>
+                            <p className="sm:text-xl text-base font-normal text-primary-text line-clamp-1">
+                              {news?.attributes.title}
+                            </p>
+                          </Link>
+
                           <p className="sm:text-sm text-xs line-clamp-3">
-                            {news.attributes.excerpt}
+                            {news?.attributes.excerpt}
                           </p>
                           <Link
                             href={`/news/${news.id}`}
@@ -93,7 +93,7 @@ export default function News() {
             <NewsSidebar />
           </div> */}
         </div>
-      </section >
+      </section>
     </>
   );
 }

@@ -112,31 +112,31 @@ export default function Home() {
   const testimonialData = [
     {
       text: "I had an amazing experience with the institute. The faculty is highly knowledgeable and supportive, always ready to clarify doubts. The course curriculum is well-structured and covers all essential topics. The practical sessions were particularly helpful in understanding complex concepts. Overall, I highly recommend this institute to anyone looking to enhance their skills.",
-      img: "/user_img_1.jpg",
+      // img: "/user_img_1.jpg",
       name: "Arun Kumar",
       location: "Chennai, Tamil Nadu, India",
     },
     {
       text: "The institute exceeded my expectations in every aspect. The teaching staff is top-notch, providing personalized attention to each student. The facilities are excellent, creating a conducive learning environment. I am grateful for the opportunities provided by the institute, which have helped me grow both personally and professionally.",
-      img: "/user_img_2.jpg",
+      // img: "/user_img_2.jpg",
       name: "Priya Patel",
       location: "Mumbai, Maharashtra, India",
     },
     {
       text: "I am immensely satisfied with my decision to join this institute. The faculty members are experts in their fields and deliver lectures with great clarity. The institute's focus on practical learning has equipped me with valuable skills that are directly applicable in the industry. I am confident that the knowledge gained here will serve me well in my career.",
-      img: "/user_img_3.jpg",
+      // img: "/user_img_3.jpg",
       name: "Rajesh Singh",
       location: "Delhi, India",
     },
     {
       text: "This institute provides an exceptional learning experience. The faculty members go above and beyond to ensure that students understand the concepts thoroughly. The hands-on approach to learning has boosted my confidence in applying theoretical knowledge to real-world scenarios. I am grateful for the support and guidance I received throughout my journey.",
-      img: "/user_img_4.jpg",
+      // img: "/user_img_4.jpg",
       name: "Neha Sharma",
       location: "Kolkata, West Bengal, India",
     },
     {
       text: "Enrolling in this institute was one of the best decisions I've made. The course content is comprehensive, covering all relevant topics in depth. The faculty members are approachable and encourage interactive learning. The institute's emphasis on practical skills development has prepared me well for the challenges of the industry. I would highly recommend this institute to anyone seeking quality education.",
-      img: "/user_img_5.jpg",
+      // img: "/user_img_5.jpg",
       name: "Vikram Singh",
       location: "Bangalore, Karnataka, India",
     },
@@ -587,7 +587,7 @@ export default function Home() {
                         </p>
                         <div className="all-testimonials__box__name__profile flex items-center gap-5">
                           <Image
-                            src={testimonial.img}
+                            src={testimonial?.img}
                             alt={`user_img_${index}`}
                             className="w-16 h-16 rounded-full"
                             width={500}
@@ -859,7 +859,6 @@ export default function Home() {
                     {newsData.news.data
                       .slice(index * 3, index * 3 + 3)
                       .map((news: any, idx: any) => {
-                        console.log(news, "news");
                         const {
                           title,
                           excerpt,
@@ -871,7 +870,6 @@ export default function Home() {
                         const featuredImageUrl = featuredImage?.data[0]
                           ? getStrapiMedia(featuredImage.data[0].attributes.url)
                           : GetDefaultImage("banner");
-                          console.log('news data', news);
                         return (
                           <div
                             key={idx}

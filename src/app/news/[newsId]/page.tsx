@@ -17,26 +17,21 @@ type Props = {
 };
 export default function NewsPage({ params }: Props) {
   const newsID = params?.newsId;
-  // const { GetSingleNewsById, NewCategoryData } = useQuery(getNews);
-  // const { singleNewsData, loading, error } = GetSingleNewsById(newsID);
+  const { loading, error, data:newsById } = useQuery(getNews, {
+    variables: { newsID: newsID },
+  });
+  console.log("News Heading", newsById?.new?.data?.attributes?.title)
+  const newsTitle = newsById?.new?.data?.attributes?.title
 
-  // get exam data
-  // const {
-  //   loading,
-  //   error,
-  //   data: newsData,
-  // } = useQuery(getNews, {
-  //   variables: { newsID },
-  // });
   const {
     loading: newsLoader,
     error: newsError,
     data: newsData,
   } = useQuery(getAllNews);
-  console.log('RelatedNews', newsData)
+
+
 
   const news = newsData?.new?.data?.attributes;
-  console.log('news123', news);
   const bannerUrl = news?.featuredImage?.data[0]
     ? getStrapiMedia(news?.featuredImage?.data[0]?.attributes?.url)
     : GetDefaultImage("banner");
@@ -57,7 +52,7 @@ export default function NewsPage({ params }: Props) {
         <div className="max-w-screen-xl mx-auto px-4">
           <div className="grid grid-cols-4 gap-4">
             <div className="col-span-4 md:col-span-3 flex flex-col gap-8 text-wrap">
-              {newsData?.news?.data &&
+              {/* {newsData?.news?.data &&
                 Array.from({
                   length: Math.ceil(newsData.news.data.length / 3),
                 }).map((chunk, index) => (
@@ -65,7 +60,6 @@ export default function NewsPage({ params }: Props) {
                     {newsData.news.data
                       .slice(index)
                       .map((news: any, idx: any) => {
-                        console.log(news, "news12345");
                         const {
                           title,
                           excerpt,
@@ -78,20 +72,24 @@ export default function NewsPage({ params }: Props) {
                           ? getStrapiMedia(featuredImage.data[0].attributes.url)
                           : GetDefaultImage("banner");
                         return (
-                          <div>
-
+                          <div key={idx}>
                             {/* <h2 className="text-3xl font-semibold my-4">{news?.title}</h2> */}
-                            <div className="flex gap-4 items-center">
+                            {/* <div className="flex gap-4 items-center">
                               <div className="flex flex-col gap-1 justify-center">
-                                <div className="text-sm font-semibold">{news.attributes.title}</div>
-                                <div className="text-xs">{getDate(news.attributes.publishedAt)}</div>
+                                <div className="text-sm font-semibold">
+                                  {news.attributes.title}
+                                </div>
+                                <div className="text-xs">
+                                  {getDate(news.attributes.publishedAt)}
+                                </div>
                               </div>
                             </div>
                           </div>
                         );
-                      })}
-                  </div>
-                ))}
+                      })} */}
+                  {/* </div> */}
+                {/* ))} */} 
+                <h4 className="text-3xl">{newsTitle}</h4>
               <div className="">
                 <ContainerWithTextBgImg imagePath={bannerUrl!}>
                   <div className="h-full flex flex-col gap-5 justify-end text-primary">
@@ -164,10 +162,11 @@ export default function NewsPage({ params }: Props) {
                       return (
                         <div
                           key={index}
-                          className={`border-l-[3px] ${index === 1
-                            ? "border-primary text-primary"
-                            : "border-transparent"
-                            } px-4 py-2 cursor-pointer`}
+                          className={`border-l-[3px] ${
+                            index === 1
+                              ? "border-primary text-primary"
+                              : "border-transparent"
+                          } px-4 py-2 cursor-pointer`}
                         >
                           {item.name}
                         </div>

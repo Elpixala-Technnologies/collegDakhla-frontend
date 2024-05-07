@@ -31,7 +31,6 @@ export default function NewsCard() {
                             {newsData.news.data
                                 .slice(index * 3, index * 3 + 3)
                                 .map((news: any, idx: any) => {
-                                    console.log(news, "news12345");
                                     const {
                                         title,
                                         excerpt,
