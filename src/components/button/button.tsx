@@ -5,6 +5,7 @@ type Props = {
   text: string;
   icon?: React.ReactNode;
   filled?: Boolean;
+  filledColor?: string;
   outline?: boolean;
   color?: string;
   outlineColor?: string;
@@ -26,6 +27,7 @@ export default function Button({
   text,
   icon,
   filled,
+  filledColor = "bg-primary",
   outline = false,
   color,
   outlineColor = "border-secondary-text",

@@ -871,6 +871,7 @@ export default function Home() {
                         const featuredImageUrl = featuredImage?.data[0]
                           ? getStrapiMedia(featuredImage.data[0].attributes.url)
                           : GetDefaultImage("banner");
+                          console.log('news data', news);
                         return (
                           <div
                             key={idx}
