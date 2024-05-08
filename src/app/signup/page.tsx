@@ -27,14 +27,9 @@ export default function Signup() {
 	const { userCheck, checkOTP } = useSignup();
 	const { userMetaCreate } = useUserMetaData();
 	const dispatch = useAppDispatch();
-
-
-
 	const { data: streamsData } = useQuery(getStreams);
 	const { data: courseLevelData } = useQuery(getCourseLevels);
 	const checkUser = userCheck(phoneNumber, email);
-	console.log("user data: " + checkUser);
-
 	const otpchecker = checkOTP(userId!, phoneNumber, userOtp)
 
 

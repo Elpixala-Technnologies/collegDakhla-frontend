@@ -3,28 +3,22 @@ import { ID } from "@/types/global";
 import { checkUser, checkUserOtp } from "../graphql/signup";
 
 
-const userCheck = (number: string, email: string) => {
+const userCheck = (number: string, email?: string) => {
+
 	const { loading, error, data } = useQuery<any>(checkUser, {
 		variables: {
 			number,
-			email
+			email: email ? email : ""
 		},
 		skip: number.length !== 10
 	});
-
-	console.log("userCheck", data);
-
 
 	if (data?.usersData?.data?.length === 0) {
 		return false
 	}
 	else if (data?.usersData?.data?.length === 1) {
-		return true
+		return { userData: data?.usersData }
 	}
-	else {
-		return "multiple users";
-	}
-
 }
 
 const checkOTP = (userID: ID, number: string, userOtp: string) => {
