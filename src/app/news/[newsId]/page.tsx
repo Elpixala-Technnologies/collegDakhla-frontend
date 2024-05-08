@@ -7,9 +7,7 @@ import { useQuery } from "@apollo/client";
 import Image from "next/image";
 import { FaLinkedin, FaSquareFacebook, FaXTwitter } from "react-icons/fa6";
 import "../../../utils/css/tableStyle.css";
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { slideInFromLeft } from "@/components/Motion/motion";
 
 type Props = {
   params: {
@@ -35,18 +33,6 @@ export default function NewsPage({ params }: Props) {
     data: newsRelatedData,
   } = useQuery(getAllNews);
 
-
-  // useEffect(() => {
-  //   if (news.length > 0) {
-  //     const currentIndex = news.findIndex((news) => news.id === currentNewsId);
-  //     if (currentIndex !== -1) {
-  //       const upcoming = news.filter((_, index) => index !== currentIndex);
-  //       setUpcomingNews(upcoming);
-  //     }
-  //   }
-  // }, [news, currentNewsId]);
-
-
   const news = newsData?.new?.data?.attributes;
   const relatednews = newsRelatedData?.new?.data?.attributes;
   const bannerUrl = news?.featuredImage?.data[0]
@@ -62,7 +48,7 @@ export default function NewsPage({ params }: Props) {
     { name: "Conclusion: Embracing AI in Blog Creation" },
     { name: "Afterword: The AI Behind This Articles" },
   ];
-  console.log("newdata112", newsData);
+ 
   return (
     <div className="my-6 sm:my-16">
       <section className="left-section">
@@ -205,6 +191,7 @@ export default function NewsPage({ params }: Props) {
                 <div key={index} className="flex gap-2 justify-evenly w-full">
                   {newsRelatedData.news.data
                     .slice(index * 3, index * 3 + 3)
+                    .filter((relatedNews: any) => relatedNews.id !== newsID)
                     .map((relatedNews: any, idx: any) => {
                       const {
                         title,

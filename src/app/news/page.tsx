@@ -1,14 +1,10 @@
 "use client";
-import Button from "@/components/button/button";
-import NewsCard from "@/components/card/newsCard";
-import ContainerWithTextBgImg from "@/components/containerWithTextBGImg/containerWithTextBGImg";
 import { getAllNews, getNewsCategories } from "@/query/schema";
 import { getStrapiMedia, GetDefaultImage } from "@/utils/api-helper";
+import { getDate } from "@/utils/formatDate";
 import { useQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
-import { formatDate, getDate } from "@/utils/formatDate";
-import NewsSidebar from "@/components/newsSidebar/newsSidebar";
 
 export default function News() {
   const {
