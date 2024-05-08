@@ -1,13 +1,12 @@
 "use client";
 import ContainerWithTextBgImg from "@/components/containerWithTextBGImg/containerWithTextBGImg";
-import { getAllNews, getNews } from "@/query/schema";
+import { getNews } from "@/query/schema";
 import { getStrapiMedia, GetDefaultImage } from "@/utils/api-helper";
-import { formatDate, getDate } from "@/utils/formatDate";
+import { getDate } from "@/utils/formatDate";
 import { useQuery } from "@apollo/client";
 import Image from "next/image";
 import { FaLinkedin, FaSquareFacebook, FaXTwitter } from "react-icons/fa6";
 import "../../../utils/css/tableStyle.css";
-import Link from "next/link";
 import { useEffect } from "react";
 
 type Props = {
@@ -17,20 +16,27 @@ type Props = {
 };
 export default function NewsPage({ params }: Props) {
   const newsID = params?.newsId;
-  const { loading, error, data:newsById } = useQuery(getNews, {
-    variables: { newsID: newsID },
-  });
-  console.log("News Heading", newsById?.new?.data?.attributes?.title)
-  const newsTitle = newsById?.new?.data?.attributes?.title
 
+  // get exam data
   const {
-    loading: newsLoader,
-    error: newsError,
+    loading,
+    error,
     data: newsData,
-  } = useQuery(getAllNews);
+  } = useQuery(getNews, {
+    variables: { newsID },
+  });
 
+  // useEffect(() => {
+  //   if (news.length > 0) {
+  //     const currentIndex = news.findIndex((news) => news.id === currentNewsId);
+  //     if (currentIndex !== -1) {
+  //       const upcoming = news.filter((_, index) => index !== currentIndex);
+  //       setUpcomingNews(upcoming);
+  //     }
+  //   }
+  // }, [news, currentNewsId]);
 
-
+  
   const news = newsData?.new?.data?.attributes;
   const bannerUrl = news?.featuredImage?.data[0]
     ? getStrapiMedia(news?.featuredImage?.data[0]?.attributes?.url)
@@ -45,51 +51,20 @@ export default function NewsPage({ params }: Props) {
     { name: "Conclusion: Embracing AI in Blog Creation" },
     { name: "Afterword: The AI Behind This Articles" },
   ];
-
   return (
     <div className="my-6 sm:my-16">
       <section className="left-section">
         <div className="max-w-screen-xl mx-auto px-4">
           <div className="grid grid-cols-4 gap-4">
             <div className="col-span-4 md:col-span-3 flex flex-col gap-8 text-wrap">
-              {/* {newsData?.news?.data &&
-                Array.from({
-                  length: Math.ceil(newsData.news.data.length / 3),
-                }).map((chunk, index) => (
-                  <div key={index}>
-                    {newsData.news.data
-                      .slice(index)
-                      .map((news: any, idx: any) => {
-                        const {
-                          title,
-                          excerpt,
-                          publishedAt,
-                          author,
-                          attributes: { featuredImage },
-                          id,
-                        } = news;
-                        const featuredImageUrl = featuredImage?.data[0]
-                          ? getStrapiMedia(featuredImage.data[0].attributes.url)
-                          : GetDefaultImage("banner");
-                        return (
-                          <div key={idx}>
-                            {/* <h2 className="text-3xl font-semibold my-4">{news?.title}</h2> */}
-                            {/* <div className="flex gap-4 items-center">
-                              <div className="flex flex-col gap-1 justify-center">
-                                <div className="text-sm font-semibold">
-                                  {news.attributes.title}
-                                </div>
-                                <div className="text-xs">
-                                  {getDate(news.attributes.publishedAt)}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })} */}
-                  {/* </div> */}
-                {/* ))} */} 
-                <h4 className="text-3xl">{newsTitle}</h4>
+              <div>
+                <h2 className="text-3xl font-semibold my-4">{news?.title}</h2>
+                <div className="flex gap-4 items-center">
+                  <div className="flex flex-col gap-1 justify-center">
+                    <div className="text-xs">{getDate(news?.publishedAt)}</div>
+                  </div>
+                </div>
+              </div>
               <div className="">
                 <ContainerWithTextBgImg imagePath={bannerUrl!}>
                   <div className="h-full flex flex-col gap-5 justify-end text-primary">
@@ -100,7 +75,6 @@ export default function NewsPage({ params }: Props) {
                 </ContainerWithTextBgImg>
               </div>
               <div className="flex flex-col gap-4 p-4 bg-white">
-                {/* <div dangerouslySetInnerHTML={{ __html: news?.content }} className="text-wrap !overflow-x-auto"></div> */}
                 <div
                   dangerouslySetInnerHTML={{ __html: news?.content }}
                   className="font-poppins text-base text-wrap !overflow-x-auto overflow-hidden"
@@ -138,23 +112,6 @@ export default function NewsPage({ params }: Props) {
                     </div>
                   </div>
                 </div>
-
-                <div className="flex flex-col gap-4 text-primary-text w-80">
-                  <div className="font-semibold text-xl">You might like</div>
-                  <div>
-                    {articleContent.map((item, index) => {
-                      return (
-                        <div
-                          key={index}
-                          className={`py-1 font-medium cursor-pointer hover:text-primary`}
-                        >
-                          {item.name}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
                 <div className="flex flex-col gap-4 text-primary-text w-80">
                   <div className="font-semibold text-xl">In this article</div>
                   <div>
@@ -174,7 +131,7 @@ export default function NewsPage({ params }: Props) {
                     })}
                   </div>
                 </div>
-                {/* <div className="flex flex-col gap-4 text-primary-text w-80">
+                <div className="flex flex-col gap-4 text-primary-text w-80">
                   <div className="font-semibold text-xl">You might like</div>
                   <div>
                     {articleContent.map((item, index) => {
@@ -188,16 +145,16 @@ export default function NewsPage({ params }: Props) {
                       );
                     })}
                   </div>
-                </div> */}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-      {/* <section className="right-section">
+      <section className="right-section">
         <div className="max-w-screen-xl mx-auto px-4 my-10 flex flex-col gap-8">
           <div>
-            <h3 className="text-xl font-semibold">Recent News</h3>
+            <h3 className="text-xl font-semibold">Related Articles</h3>
           </div>
           <div className="grid grid-cols-4 gap-x-6 gap-y-10 flex-wrap">
             {[1, 2, 3, 4].map((item, index) => {
@@ -235,7 +192,7 @@ export default function NewsPage({ params }: Props) {
             })}
           </div>
         </div>
-      </section> */}
+      </section>
     </div>
   );
 }
