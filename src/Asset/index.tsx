@@ -256,6 +256,8 @@ import Newspaper_3 from "./newpaper/newspaper3.png";
 import Newspaper_4 from "./newpaper/newspaper4.png";
 import MediaBanner from "./newpaper/mediaBanner.png";
 
+import SignUp from "./Images/signup.jpg";
+
 export {
   Man,
   LearnTest,
@@ -502,4 +504,6 @@ export {
   SupportIcon,
   LoginInfo,
   Arrow,
+
+  SignUp,
 };
