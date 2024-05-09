@@ -8,6 +8,7 @@ import CourseListItem from "@/components/courseListItem/courseListItem";
 import Carousel from "@/components/carousel/carousel";
 import CourseCard from "@/components/card/courseCard";
 import CourseFilters from "@/components/filters/courseFilters/courseFilters";
+import SortButton from "@/components/sortButton/SortButton";
 
 export default function CourseList() {
   const [Search, setSearch] = useState<string>("");
@@ -60,10 +61,26 @@ export default function CourseList() {
     setShowFullContent(false);
     setShowReadMore(true);
   };
-  
 
   const handleLoadMore = () => {
     setDisplayCount((prevCount) => prevCount + 5);
+  };
+
+  const handleFilterOptionClick = (option: any) => {
+    if (option === "a-z") {
+      const sortedData: any = [...coursesData?.courses?.data].sort(
+        (a: any, b: any) => {
+          return a?.attributes?.name.localeCompare(b?.attributes?.name);
+        }
+      );
+      setFilteredData(sortedData.slice(0, displayCount));
+    } else if (option === "reset") {
+      const resetArray: any = [...coursesData?.courses?.data].slice(
+        0,
+        displayCount
+      );
+      setFilteredData(resetArray);
+    }
   };
 
   useEffect(() => {
@@ -77,7 +94,7 @@ export default function CourseList() {
     }
   }, [searchValue, coursesData, displayCount]);
 
-    return (
+  return (
     <>
       <div className="max-w-screen-xl mx-auto">
         <section className="heroSection">
@@ -177,9 +194,10 @@ export default function CourseList() {
                   />
                 </div>
                 <div className="flex gap-4">
-                  <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
-                    <span>Sort</span> <MdOutlineSort />
-                  </div>
+                  {/* sort button  */}
+                  <SortButton
+                    handleFilterOptionClick={handleFilterOptionClick}
+                  />
                   <div className="max-md:block hidden">
                     <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
                       <span onClick={handleMobileFilter}>Filter</span>
@@ -188,21 +206,19 @@ export default function CourseList() {
                   </div>
                 </div>
               </div>
-              <CourseListItem
-                courses={filteredData}
-              />
+              <CourseListItem courses={filteredData} />
               {filteredData?.length >= 5 &&
-                  filteredData?.length < coursesData?.courses?.data.length && (
-                    <button
-                      className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow m-6"
-                      onClick={handleLoadMore}
-                    >
-                      <div className="absolute inset-0 w-3 bg-amber-400 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
-                      <span className="relative text-black group-hover:text-white">
-                        Load More
-                      </span>
-                    </button>
-                  )}
+                filteredData?.length < coursesData?.courses?.data.length && (
+                  <button
+                    className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow m-6"
+                    onClick={handleLoadMore}
+                  >
+                    <div className="absolute inset-0 w-3 bg-amber-400 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
+                    <span className="relative text-black group-hover:text-white">
+                      Load More
+                    </span>
+                  </button>
+                )}
             </div>
           </div>
         </section>

@@ -37,6 +37,7 @@ import { Snowman, Study } from "@/Asset";
 import { slideInFromLeft, slideInFromRight } from "@/components/Motion/motion";
 import WavyText from "@/components/Motion/Wave";
 
+
 export default function Home() {
   const [Stream, setStream] = useState<string>("");
   const [Limit, setLimit] = useState<number>(10);
