@@ -1,16 +1,18 @@
 // src/lib/client.tsx
 "use client";
 import { HttpLink, ApolloLink } from "@apollo/client";
+import { STRAPI_URL } from "@/utils/network";
 import {
 	NextSSRApolloClient,
 	ApolloNextAppProvider,
 	NextSSRInMemoryCache,
 	SSRMultipartLink,
 } from "@apollo/experimental-nextjs-app-support/ssr";
-const STRAPI_URL = "https://college-dakhla-backend-qtpvh.ondigitalocean.app";
+
+
 function makeClient() {
 	const httpLink = new HttpLink({
-		uri: `${STRAPI_URL}/graphql`,
+		uri: STRAPI_URL,
 	});
 	return new NextSSRApolloClient({
 		cache: new NextSSRInMemoryCache(),
