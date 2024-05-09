@@ -73,13 +73,13 @@ export default function TopCollectionCard({ college, href }: any) {
           </div>
           <Link href={href}>
             <div className="mb-6 px-3 flex flex-row w-full justify-between">
-              <span className="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner drop-shadow-lg drop-shadow-slate-100 group m-2 ">
+              <span className="relative px-3.5 py-2 m-[10px] overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner drop-shadow-lg drop-shadow-slate-100 group">
                 <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease"></span>
                 <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease"></span>
                 <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full ease"></span>
                 <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full ease"></span>
                 <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-orange-500 opacity-0 group-hover:opacity-100"></span>
-                <span className="relative transition-colors duration-300 delay-200 group-hover:text-white ease">
+                <span className="relative transition-colors duration-300 delay-200 group-hover:text-white ease whitespace-nowrap">
                   View Details
                 </span>
               </span>
@@ -89,7 +89,7 @@ export default function TopCollectionCard({ college, href }: any) {
                 className="rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-[10px] cursor-pointer active:border-orange-600 active:shadow-none shadow-lg bg-gradient-to-tr from-orange-500 to-orange-500 border-orange-700 text-white"
               >
                 <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-24 opacity-10"></span>
-                <span className="relative">Apply Now</span>
+                <span className="relative whitespace-nowrap">Apply Now</span>
               </a>
             </div>
           </Link>
