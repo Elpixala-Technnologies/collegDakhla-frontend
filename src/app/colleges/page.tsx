@@ -22,6 +22,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import Link from "next/link";
+import SortButton from "@/components/sortButton/SortButton";
 // import { FaCircleChevronRight } from "react-icons/fa6";
 
 export default function CollegeList() {
@@ -93,6 +94,23 @@ export default function CollegeList() {
 
   const handleLoadMore = () => {
     setDisplayCount((prevCount) => prevCount + 10);
+  };
+
+  const handleFilterOptionClick = (option: any) => {
+    if (option === "a-z") {
+      const sortedData: any = [...initialData?.colleges?.data].sort(
+        (a: any, b: any) => {
+          return a?.attributes?.collegeName.localeCompare(b?.attributes?.collegeName);
+        }
+      );
+      setFilteredData(sortedData.slice(0, displayCount));
+    } else if (option === "reset") {
+      const resetArray: any = [...initialData?.colleges?.data].slice(
+        0,
+        displayCount
+      );
+      setFilteredData(resetArray);
+    }
   };
 
   useEffect(() => {
@@ -263,12 +281,10 @@ export default function CollegeList() {
                   />
                 </div>
                 <div className="flex gap-4">
-                  <div
-                    className="flex border-2 h-10 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer"
-                    // onClick={handleClick}
-                  >
-                    <span>Sort</span> <MdOutlineSort />
-                  </div>
+                  {/* sort button  */}
+                  <SortButton
+                    handleFilterOptionClick={handleFilterOptionClick}
+                  />
                   <div className="max-md:block hidden">
                     <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
                       <span onClick={handleMobileFilter}>Filter</span>

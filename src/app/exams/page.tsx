@@ -17,6 +17,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import Link from "next/link";
+import SortButton from "@/components/sortButton/SortButton";
 
 export default function ExamList() {
   const [Search, setSearch] = useState("");
@@ -73,6 +74,25 @@ export default function ExamList() {
 
   const handleLoadMore = () => {
     setDisplayCount((prevCount) => prevCount + 10);
+  };
+
+  // console.log(examsData?.exams?.data, "filteredData");
+
+  const handleFilterOptionClick = (option: any) => {
+    if (option === "a-z") {
+      const sortedData: any = [...examsData?.exams?.data].sort(
+        (a: any, b: any) => {
+          return a?.attributes?.name.localeCompare(b?.attributes?.name);
+        }
+      );
+      setFilteredData(sortedData.slice(0, displayCount));
+    } else if (option === "reset") {
+      const resetArray: any = [...examsData?.exams?.data].slice(
+        0,
+        displayCount
+      );
+      setFilteredData(resetArray);
+    }
   };
 
   useEffect(() => {
@@ -231,12 +251,9 @@ export default function ExamList() {
                   />
                 </div>
                 <div className="flex gap-4">
-                  <div
-                    className="flex border-2 h-10 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer"
-                    // onClick={handleClick}
-                  >
-                    <span>Sort</span> <MdOutlineSort />
-                  </div>
+                  {/* sort button  */}
+                  <SortButton handleFilterOptionClick={handleFilterOptionClick} />
+                  
                   <div className="max-md:block hidden">
                     <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
                       <span onClick={handleMobileFilter}>Filter</span>
