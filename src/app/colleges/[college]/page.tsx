@@ -119,9 +119,7 @@ export default function CollegeDetail({ params }: Props) {
                 </p>
                 <div className="flex items-baseline gap-4 flex-wrap">
                   <Tag
-                    text={
-                      (collegeType ? collegeType : "Autonomous")
-                    }
+                    text={collegeType ? collegeType : "Autonomous"}
                     href={"/"}
                   />
                   <Tag
@@ -197,17 +195,13 @@ export default function CollegeDetail({ params }: Props) {
                         className="max-w-screen-xl px-4 mx-auto flex gap-8 w-full items-stretch h-10 overflow-x-auto"
                         key={index}
                       >
-                        {navbar?.map((tab: any) => {
-                          return (
-                            <li
-                              key={tab?.attributes?.name}
-                              onClick={() => handleTab(tab?.attributes?.name)}
-                              className="text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm mt-2"
-                            >
-                              {tab?.attributes?.name}
-                            </li>
-                          );
-                        })}
+                        <li
+                          key={tab?.attributes?.name}
+                          onClick={() => handleTab(tab?.attributes?.name)}
+                          className="text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm mt-2"
+                        >
+                          {tab?.attributes?.name}
+                        </li>
                       </ul>
                     ))}
                   />
