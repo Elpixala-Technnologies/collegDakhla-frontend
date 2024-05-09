@@ -156,7 +156,7 @@ export default function NewsPage({ params }: Props) {
         </div>
       </section>
       <section className="right-section">
-        <div className="max-w-screen-xl mx-auto px-4 py-5 my-10 flex flex-col gap-4 bg-white rounded-lg">
+        <div className="max-w-screen-xl mx-auto px-4 py-5 my-10 flex flex-col gap-1 bg-white rounded-lg">
           <div className="flex flex-row items-center justify-between">
             <h3 className="text-3xl font-semibold p-4">Related News</h3>
             <div className="flex flex-row  my-6">
@@ -183,12 +183,12 @@ export default function NewsPage({ params }: Props) {
               </div>
             </div>
           </div>
-          <div className="flex flex-wrap gap-4 my-2 px-0 overflow-x-auto py-2 md:py-0">
+          <div className="flex flex-nowrap gap-4 my-2 px-0 overflow-x-auto py-2 md:py-0">
             {newsRelatedData?.news?.data &&
               Array.from({
                 length: Math.ceil(newsRelatedData.news.data.length / 3),
               }).map((chunk, index) => (
-                <div key={index} className="flex gap-2 justify-evenly w-full">
+                <div key={index} className="flex gap-2 justify w-full">
                   {newsRelatedData.news.data
                     .slice(index * 3, index * 3 + 3)
                     .filter((relatedNews: any) => relatedNews.id !== newsID)
