@@ -5,6 +5,7 @@ export default function Filter(props: any) {
   const [open, setOpen] = useState(true);
   const handleOpen = () => setOpen(open ? false : true);
 
+  console.log(props.filters, "pankaj");
   return (
     <>
       <div className=" sm:py-4 py-1">
@@ -25,13 +26,14 @@ export default function Filter(props: any) {
               /> */}
               <div className="h-full">
                 {props.name === "Stream" ? (
+                  // Stream 
                   <>
-                    {props?.filters?.map((filter: any) => {
+                    {props?.filters?.map((filter: any) => {                     
                       return (
                         <div
                           key={filter.id}
                           className="flex gap-1 items-center my-2 cursor-pointer"
-                        >
+                        >                      
                           <input
                             type="radio"
                             id={filter.id}
@@ -51,7 +53,36 @@ export default function Filter(props: any) {
                       );
                     })}
                   </>
+                ) : props.name === "CollegeType" ? (
+                  // CollegeType 
+                  <>
+                    {props?.filters?.map((filter: any) => {
+                      return (
+                        <div
+                          key={filter.id}
+                          className="flex gap-1 items-center my-2 cursor-pointer"
+                        >
+                          <input
+                            type="radio"
+                            id={filter.id}
+                            name={filter.attributes.collegeTypeName}
+                            checked={
+                              props.checked === filter.attributes.type
+                            }
+                            className=""
+                            onChange={() =>
+                              props.handleFilter(filter.attributes.type)
+                            }
+                          />
+                          <span className="text-base font-medium text-secondary-text hover:text-primary">
+                            {filter.attributes.type}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </>
                 ) : (
+                  // State | Course
                   <>
                     {props?.filters?.map((filter: any) => {
                       return (

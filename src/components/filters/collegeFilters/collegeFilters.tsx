@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Filter from "./filter";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { getStreams, getStates, getCollegesFilter,getCourses  } from "@/query/schema";
+import { getStreams, getStates, getCollegesFilter,getCourses, collegeTypes  } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -18,11 +18,15 @@ export default function CollegeFilters(params?: any) {
     state: "",
     city: "", 
     courses: "", 
+    collegeType:"",
   });
+  // console.log(params?.allColleges?.colleges?.data, "pankaj");
+
   const [StreamFilter, setStreamFilter] = useState<string>("");
   const [StateFilter, setStateFilter] = useState<string>("");
   const [CityFilter, setCityFilter] = useState<string>(""); 
   const [CoursesFilter, setCoursesFilter] = useState<string>(""); 
+  const [collegeTypeFilter, setcollegeTypeFilter] = useState<string>(""); 
   const {
     loading: streamLoader,
     error: streamsError,
@@ -41,6 +45,12 @@ export default function CollegeFilters(params?: any) {
     data: coursesData,
   } = useQuery(getCourses);
 
+  const {
+    loading: collegeTypeLoader,
+    error: collegeTypeError,
+    data: collegeTypesData,
+  } = useQuery(collegeTypes);
+
 
   const {
     loading: filterLoader,
@@ -53,6 +63,7 @@ export default function CollegeFilters(params?: any) {
       StateFilter,
       CityFilter,
       CoursesFilter,
+      collegeTypeFilter
     },
   });
 
@@ -91,6 +102,14 @@ export default function CollegeFilters(params?: any) {
     }));
   };
 
+  const handlecollegeTypeFilter = (name: string) => {
+    setcollegeTypeFilter(name);
+    setSelectedFilter(prevData => ({
+      ...prevData,
+      collegeType: name,
+    }));
+  };
+
 
   const handleUnselectFilter = (filter?: string, name?: string) => {
     if (filter === "stream") {
@@ -103,6 +122,10 @@ export default function CollegeFilters(params?: any) {
     else if (filter === "courses") {
       setCoursesFilter("");
       SelectedFilter.courses = "";
+    }
+    else if (filter === "collegeType") {
+      setcollegeTypeFilter("");
+      SelectedFilter.collegeType = "";
     }
   };
 
@@ -142,8 +165,6 @@ export default function CollegeFilters(params?: any) {
     };
   }, [params.isMobile]);
 
- 
-
   return (
     <>
       <div className="bg-white hidden md:block p-2 m-2 md:m-0 rounded-lg">
@@ -151,7 +172,7 @@ export default function CollegeFilters(params?: any) {
           Found <b>{Object.keys(SelectedFilter).length > 0 ? filteredCollege?.colleges?.meta?.pagination?.total : null}</b>
           colleges
         </h3>
-        {SelectedFilter.stream || SelectedFilter.state || SelectedFilter.courses ? (
+        {SelectedFilter.stream || SelectedFilter.state || SelectedFilter.courses || SelectedFilter.collegeType ? (
           <>
             <div
               className="bg-gray-200 px-2 py-2 flex items-center justify-between"
@@ -208,6 +229,13 @@ export default function CollegeFilters(params?: any) {
         <Filter
           name="Courses"
           filters={coursesData?.courses?.data} 
+          handleFilter={handleCoursesFilter}
+          checked={CoursesFilter}
+        />
+
+        <Filter
+          name="CollegeType"
+          filters={collegeTypesData?.collegeTypes?.data} 
           handleFilter={handleCoursesFilter}
           checked={CoursesFilter}
         />

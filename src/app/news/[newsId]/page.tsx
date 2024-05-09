@@ -39,6 +39,8 @@ export default function NewsPage({ params }: Props) {
     ? getStrapiMedia(news?.featuredImage?.data[0]?.attributes?.url)
     : GetDefaultImage("banner");
 
+// console.log(newsData?.new?.data?.attributes?.content, "pankaj");
+
   const articleContent = [
     { name: "Exploring Generative AI in Content Creation" },
     { name: "Steering Clear of Common AI Writing Pitfalls" },

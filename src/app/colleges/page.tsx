@@ -22,6 +22,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import Link from "next/link";
+import SortButton from "@/components/sortButton/SortButton";
 // import { FaCircleChevronRight } from "react-icons/fa6";
 
 export default function CollegeList() {
@@ -118,6 +119,23 @@ export default function CollegeList() {
 
   const handleLoadMore = () => {
     setDisplayCount((prevCount) => prevCount + 10);
+  };
+
+  const handleFilterOptionClick = (option: any) => {
+    if (option === "a-z") {
+      const sortedData: any = [...initialData?.colleges?.data].sort(
+        (a: any, b: any) => {
+          return a?.attributes?.collegeName.localeCompare(b?.attributes?.collegeName);
+        }
+      );
+      setFilteredData(sortedData.slice(0, displayCount));
+    } else if (option === "reset") {
+      const resetArray: any = [...initialData?.colleges?.data].slice(
+        0,
+        displayCount
+      );
+      setFilteredData(resetArray);
+    }
   };
 
   useEffect(() => {
@@ -287,46 +305,10 @@ export default function CollegeList() {
                   />
                 </div>
                 <div className="flex gap-4">
-                  <div
-                    className="flex border-2  items-center px-8 py-2 border-extra-light-text gap-2 rounded-md cursor-pointer"
-                    onClick={toggleDropdown}
-                  >
-                    <span>Sort</span> <MdOutlineSort />
-                  </div>
-
-                  {/* Dropdown content */}
-                  {isOpen && (
-                    <div className="absolute z-10 mt-12 right-0 bg-white rounded-md shadow-lg border">
-                      <div
-                        className="py-1"
-                        role="menu"
-                        aria-orientation="vertical"
-                        aria-labelledby="options-menu"
-                      >
-                        <div
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                          onClick={() => handleSort("college_name:asc")}
-                          role="menuitem"
-                        >
-                          Alphabetically
-                        </div>
-                        <div
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                          onClick={() => handleSort("updatedAt:asc")}
-                          role="menuitem"
-                        >
-                          Updated By
-                        </div>
-                        <div
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                          onClick={() => handleSort("createdAt:asc")}
-                          role="menuitem"
-                        >
-                          Reset Sort
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                  {/* sort button  */}
+                  <SortButton
+                    handleFilterOptionClick={handleFilterOptionClick}
+                  />
                   <div className="max-md:block hidden">
                     <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
                       <span onClick={handleMobileFilter}>Filter</span>
