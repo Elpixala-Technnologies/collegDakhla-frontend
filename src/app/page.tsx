@@ -37,7 +37,6 @@ import { Snowman, Study } from "@/Asset";
 import { slideInFromLeft, slideInFromRight } from "@/components/Motion/motion";
 import WavyText from "@/components/Motion/Wave";
 
-
 export default function Home() {
   const [Stream, setStream] = useState<string>("");
   const [Limit, setLimit] = useState<number>(10);
@@ -852,59 +851,60 @@ export default function Home() {
               </div>
             </div>
             <div className="flex flex-wrap gap-4 my-2 px-0 overflow-x-auto py-2 md:py-0">
-  {newsData?.news?.data && (
-    <div className="flex gap-2 justify-evenly w-full">
-      {newsData.news.data.slice().reverse().slice(0, 3).map((news:any, idx:any) => {
-        const {
-          title,
-          excerpt,
-          publishedAt,
-          author,
-          attributes: { featuredImage },
-          id,
-        } = news;
-        const featuredImageUrl = featuredImage?.data[0]
-          ? getStrapiMedia(featuredImage.data[0].attributes.url)
-          : GetDefaultImage("banner");
-        return (
-          <div
-            key={idx}
-            className="flex flex-col gap-2 max-w-80 min-w-72 p-3  border border-gray-200 rounded-xl justify-between"
-          >
-            {news.attributes.featuredImage && (
-              <Image
-                src={featuredImageUrl!}
-                alt=""
-                width={500}
-                height={500}
-                className="w-full sm:min-w-28 min-w-20 sm:h-36 h-20 object-cover object-center rounded-lg"
-              />
-            )}
-            <p className="text-gray-400 mt-1">
-              Published at{" "}
-              <span className="text-gray-800">
-                {getDate(news.attributes.publishedAt)}
-              </span>
-            </p>
-            <p className="sm:text-xl text-base font-normal text-primary-text line-clamp-1">
-              {news.attributes.title}
-            </p>
-            <p className="sm:text-sm text-xs line-clamp-3">
-              {news.attributes.excerpt}
-            </p>
-            <Link
-              href={`/news/${news.id}`}
-              className="hover:text-primary text-blue-600 text-lg hover:underline  pt-5"
-            >
-              Read more
-            </Link>
-          </div>
-        );
-      })}
-    </div>
-  )}
-</div>
-
+              {newsData?.news?.data && (
+                <div className="flex gap-2 justify-evenly w-full">
+                  {newsData.news.data
+                    .slice(0, 3)
+                    .map((news: any, idx: any) => {
+                      const {
+                        title,
+                        excerpt,
+                        publishedAt,
+                        author,
+                        attributes: { featuredImage },
+                        id,
+                      } = news;
+                      const featuredImageUrl = featuredImage?.data[0]
+                        ? getStrapiMedia(featuredImage.data[0].attributes.url)
+                        : GetDefaultImage("banner");
+                      return (
+                        <div
+                          key={idx}
+                          className="flex flex-col gap-2 max-w-80 min-w-72 p-3  border border-gray-200 rounded-xl justify-between"
+                        >
+                          {news.attributes.featuredImage && (
+                            <Image
+                              src={featuredImageUrl!}
+                              alt=""
+                              width={500}
+                              height={500}
+                              className="w-full sm:min-w-28 min-w-20 sm:h-36 h-20 object-cover object-center rounded-lg"
+                            />
+                          )}
+                          <p className="text-gray-400 mt-1">
+                            Published at{" "}
+                            <span className="text-gray-800">
+                              {getDate(news.attributes.publishedAt)}
+                            </span>
+                          </p>
+                          <p className="sm:text-xl text-base font-normal text-primary-text line-clamp-1">
+                            {news.attributes.title}
+                          </p>
+                          <p className="sm:text-sm text-xs line-clamp-3">
+                            {news.attributes.excerpt}
+                          </p>
+                          <Link
+                            href={`/news/${news.id}`}
+                            className="hover:text-primary text-blue-600 text-lg hover:underline  pt-5"
+                          >
+                            Read more
+                          </Link>
+                        </div>
+                      );
+                    })}
+                </div>
+              )}
+            </div>
           </motion.div>
         </section>
         <section className="bg-[#F2F6F7]">

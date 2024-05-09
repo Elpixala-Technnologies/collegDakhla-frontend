@@ -55,26 +55,26 @@ export default function News() {
                                 className="h-full w-full"
                               />
                             )}
-                            <div className="absolute inset-0 bg-black opacity-20 h-full w-full object-cover" />
+                            <div className="absolute inset-0 bg-black opacity-50 h-full w-full object-cover" />
                             <div className="absolute inset-0 p-6">
-                              <div className="h-full flex flex-col gap-10 justify-end text-xs text-black">
-                                <div className="text-3xl font-bold text-black">
+                              <div className="h-full flex flex-col gap-10 justify-end text-xs text-white">
+                                <div className="text-3xl font-bold text-white line-clamp-2">
                                   <Link href={`/news/${news.id}`}>
                                     {news?.attributes?.title}
                                   </Link>
                                 </div>
-                                <div className="flex gap-20">
+                                <div className="flex gap-20 text-xl">
                                   <div>
                                     {getDate(news.attributes.publishedAt)}
                                   </div>
-                                  <div>CNN Indonesia</div>
+                                  <div>CNN</div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div className="w-full">
-                          <div className="text-lg leading-8 text-primary-text">
+                          <div className="text-lg leading-8 text-primary-text line-clamp-3">
                             {news?.attributes?.excerpt}
                           </div>
                           <div>
@@ -92,7 +92,7 @@ export default function News() {
 
             <div className="flex flex-col w-2/3">
               {newsData?.news?.data && (
-                <div className="flex flex-col gap-4 h-9/12 w-full overflow-y-scroll">
+                <div className="flex flex-col gap-4 h-9/12 w-full overflow-y-scroll m-2">
                   {newsData.news.data.slice(1).map((news: any, idx: any) => {
                     const {
                       title,
@@ -118,19 +118,19 @@ export default function News() {
                                 className="h-full w-full"
                               />
                             )}
-                            <div className="absolute inset-0 bg-black opacity-20 h-full w-full object-cover" />
-                            <div className="absolute inset-0 p-6">
-                              <div className="h-full flex flex-col gap-10 justify-end text-xs text-white">
-                                <div className="text-3xl font-bold text-white">
+                            <div className="absolute inset-0 bg-black opacity-40 h-full w-full object-cover" />
+                            <div className="absolute inset-0 p-1 pb-3">
+                              <div className="h-full flex flex-col gap-10 justify-end text-xs text-white mt-2">
+                                <div className="text-sm font-bold text-white line-clamp-2">
                                   <Link href={`/news/${news.id}`}>
                                     {news?.attributes?.title}
                                   </Link>
                                 </div>
-                                <div className="flex gap-20">
+                                <div className="flex gap-5 text-xs w-full">
                                   <div>
                                     {getDate(news.attributes.publishedAt)}
                                   </div>
-                                  <div>CNN Indonesia</div>
+                                  <div>CNN </div>
                                 </div>
                               </div>
                             </div>
