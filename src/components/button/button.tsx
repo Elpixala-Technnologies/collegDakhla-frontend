@@ -48,7 +48,7 @@ export default function Button({
       {outline ? (
         <>
           <div
-            className={`button flex cursor-pointer ${width} ${bgColor} items-center ${paddingX} ${paddingY} border ${fontSize} ${fontWeight} ${outlineColor} ${fontColor} hover:border-primary hover:${textColor} ${
+            className={`button flex cursor-pointer ${width} ${bgColor} items-center ${paddingX} ${paddingY} border ${fontSize} ${fontWeight} ${outlineColor} ${fontColor} hover:border-secondary hover:${textColor} ${
               rounded ? "rounded-full" : "rounded-md"
             }`}
             onClick={onClick}

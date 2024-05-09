@@ -36,6 +36,7 @@ export default function ExamDetail({ params }: Props) {
     ? getStrapiMedia(exam?.banner?.data[0]?.attributes?.url)
     : GetDefaultImage("banner");
   const navbar = exam?.navbars?.data;
+  console.log("first Exam Tab", navbar);
 
   const tabData = exam?.pageData;
 

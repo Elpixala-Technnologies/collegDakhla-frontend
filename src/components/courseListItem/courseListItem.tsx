@@ -24,16 +24,16 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                     <Image src={logoURL!} width={150} height={150} alt={""} />
                   </div>
                   <div className="my-4 flex flex-1 flex-col gap-4 border-r border-r-primary-light ">
-                    <Link href={`/courses/${course.id}`}>
-                      <div>
-                        <h2 className="text-xl font-semibold text-primary">
-                          {course?.attributes?.name}
-                        </h2>
-                      </div>
-                    </Link>
-                    <div className="flex flex-col gap-3 items-stretch">
+                    <div className="flex flex-col text-sm items-stretch">
+                      <Link href={`/courses/${course.id}`}>
+                        <div>
+                          <h2 className="text-xl font-semibold text-primary">
+                            {course?.attributes?.name}
+                          </h2>
+                        </div>
+                      </Link>
                       <p className="text-secondary-text font-light">
-                      <span className="text-primary font-semibold text-sm lg:text-lg">
+                        <span className="text-primary font-semibold text-sm lg:text-lg">
                           {formatFees(course?.attributes?.fees)}
                         </span>{" "}
                         - Total Fees

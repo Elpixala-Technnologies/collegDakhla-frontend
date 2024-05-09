@@ -5,12 +5,9 @@ import Tag from "../tag/tags";
 import Button from "../button/button";
 import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
 import { formatDate } from "@/utils/formatDate";
-import Carousel from "../carousel/carousel";
-import CourseCard from "../card/courseCard";
-import ExamCard from "../card/examCard";
 
-export default function ExamListItem({ exams}: any) {
 
+export default function ExamListItem({ exams }: any) {
 	return (
 		<>
 			{exams?.length > 0 ? (
@@ -19,7 +16,6 @@ export default function ExamListItem({ exams}: any) {
 						const logoURL = exam?.attributes?.logo?.data?.attributes?.url
 							? getStrapiMedia(exam?.attributes?.logo?.data?.attributes?.url)
 							: GetDefaultImage("logo");
-
 						return (
 							<div className="py-4 " key={index}>
 								<div className="px-4 py-4 md:py-0 flex item-center gap-4 bg-white drop-shadow-sm hover:drop-shadow-xl rounded-xl border flex-col md:flex-row ">
@@ -27,15 +23,15 @@ export default function ExamListItem({ exams}: any) {
 										<Image src={logoURL!} width={150} height={150} alt={""} />
 									</div>
 									<div className="my-4 flex flex-1 flex-col gap-4 border-r border-r-primary-light ">
-										<Link href={`/exams/${exam.id}`}>
-											<div>
-												<h2 className="text-xl font-semibold text-primary">
-													{exam?.attributes?.name}
-												</h2>
-											</div>
-										</Link>
-										<div className="flex flex-col gap-1 items-stretch">
-											<p className="text-secondary-text font-light">
+										<div className="flex flex-col gap-1 text-sm items-stretch">
+											<Link href={`/exams/${exam.id}`}>
+												<div>
+													<h2 className="text-xl font-semibold text-primary">
+														{exam?.attributes?.name}
+													</h2>
+												</div>
+											</Link>
+											<p className="text-secondary-text text-sm font-light">
 												Application Date:{" "}
 												<span className="text-primary-text font-medium">
 													{formatDate(
@@ -108,7 +104,7 @@ export default function ExamListItem({ exams}: any) {
 													outlineColor="border-primary"
 													bgcolor="bg-white"
 												/>
-												<Tag
+												{/* <Tag
 													text="Preparation Materials"
 													outlineColor="border-primary"
 													bgcolor="bg-white"
@@ -132,8 +128,8 @@ export default function ExamListItem({ exams}: any) {
 													text="Cut-off"
 													outlineColor="border-primary"
 													bgcolor="bg-white"
-												/>
-												
+												/> */}
+
 											</div>
 										</div>
 									</div>
