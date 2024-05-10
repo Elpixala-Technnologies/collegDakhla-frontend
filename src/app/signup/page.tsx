@@ -14,6 +14,7 @@ import { useAppDispatch } from "@/store";
 import { setAuthState } from "@/store/authSlice";
 import useUserMetaData from "@/query/hooks/useUserMetaData";
 const axios = require('axios');
+import { useRouter } from 'next/navigation'
 
 export default function Signup() {
 	const [name, setName] = useState("");
@@ -31,7 +32,7 @@ export default function Signup() {
 	const { data: courseLevelData } = useQuery(getCourseLevels);
 	const checkUser = userCheck(phoneNumber, email);
 	const otpchecker = checkOTP(userId!, phoneNumber, userOtp)
-
+	const router = useRouter()
 
 
 
@@ -107,9 +108,8 @@ export default function Signup() {
 						publishedAt,
 					},
 				});
-
 				console.log("user signed up");
-
+				router.push("/")
 			}
 			catch (error) {
 				console.error("Error publishing user:", error);
@@ -241,16 +241,18 @@ export default function Signup() {
 								</select>
 							</div>
 						</div >
-						<div className="p-6 pt-0">
-							<button
-								className="block w-full select-none rounded-lg bg-primary py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-								type="submit"
-								onClick={!isOtp ? sendSignupOtp : handleSubmitSignup}							>
-								Send OTP
-							</button>
-						</div>
 					</>
 				)}
+				<div className="p-6 pt-0">
+					<button
+						className="block w-full select-none rounded-lg bg-primary py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+						type="submit"
+						onClick={!isOtp ? sendSignupOtp : handleSubmitSignup}							>
+						{isOtp ? "Signup" : "Send OTP"}
+					</button>
+				</div>
+
+
 
 				<div className="">
 					<p className="flex justify-center mt-6 font-sans text-sm antialiased font-light leading-normal text-inherit">
