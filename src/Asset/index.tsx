@@ -77,6 +77,7 @@ import Australia from "./Icons/Australia.svg";
 import Austria from "./Icons/Austria.svg";
 import Azerbaijan from "./Icons/Azerbaijan.svg";
 import Bahamas from "./Icons/Bahamas.svg";
+import RupeeBaves from "./Icons/mynaui_rupee-waves.svg";
 import BluePhoneIcon from "./Icons/blue-phone-icon.png";
 import SendMailIcon from "./Icons/send-mail-icon.png";
 import PeopleMeetingIcon from "./Icons/people-meeting-icon.png";
@@ -255,7 +256,11 @@ import Newspaper_2 from "./newpaper/newspaper2.png";
 import Newspaper_3 from "./newpaper/newspaper3.png";
 import Newspaper_4 from "./newpaper/newspaper4.png";
 import MediaBanner from "./newpaper/mediaBanner.png";
-
+import Accreditation from "./Icons/Accreditation.svg";
+import AvgPackage from "./Icons/Avg Package.svg";
+import Exams from "./Icons/Exams.svg";
+import Reviews from "./Icons/reviews.svg";
+import LocationCity from "./Icons/Location_city.svg";
 export {
   Man,
   LearnTest,
@@ -336,6 +341,7 @@ export {
   DownAngleIcon,
   DownAngleThinIcon,
   IndiaFlagIcon,
+  RupeeBaves,
   PinkStarIcon,
   CameraIcon,
   ArtHumanityIcon,
@@ -502,4 +508,9 @@ export {
   SupportIcon,
   LoginInfo,
   Arrow,
+  Accreditation,
+  AvgPackage,
+  Exams,
+  Reviews,
+  LocationCity
 };
