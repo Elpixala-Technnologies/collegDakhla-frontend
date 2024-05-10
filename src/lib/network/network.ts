@@ -1,0 +1,1 @@
+export const BasedURL = "https://college-dakhla-backend-qtpvh.ondigitalocean.app"
