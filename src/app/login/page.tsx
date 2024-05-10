@@ -12,6 +12,7 @@ import { restUrl } from "@/utils/network";
 import axios from "axios";
 import { useAppDispatch } from "@/store";
 import { setAuthState } from "@/store/authSlice";
+import { useRouter } from "next/router";
 
 export default function Login() {
 	const [phoneNumber, setPhoneNumber] = useState("");
@@ -23,6 +24,7 @@ export default function Login() {
 	const checkUser = userCheck(phoneNumber);
 	const otpchecker = checkOTP(userId!, phoneNumber, userOtp)
 	const dispatch = useAppDispatch();
+	const router = useRouter()
 
 	const sendLoginOtp = async (e: any) => {
 		e.preventDefault();
@@ -73,6 +75,7 @@ export default function Login() {
 				"user logged in successfully",
 				checkUser?.userData?.data[0]?.attributes?.name
 			);
+			router.push("/")
 		} else {
 			console.log("wrong otp");
 		}
