@@ -8,12 +8,12 @@ export const createUserMetaData = gql`
     $userDataId: ID!
     $publishedAt: DateTime!
   ) {
-    createUsersMetaData(
+    createUserMetaData(
       data: {
         name: $name
         email: $email
         number: $number
-        user_data: $userDataId
+        userData: $userDataId
         publishedAt: $publishedAt
       }
     ) {
@@ -37,7 +37,7 @@ export const updateUserMetaData = gql`
     $appliedColleges: [ComponentUsermetaAppliedCollegesComponentInput]
     $professionalExperience: [ComponentUsermetaProfessionalExperienceComponentInput]
   ) {
-    updateUsersMetaData(
+    updateUserMetaData(
       id: $id
       data: {
         gender: $gender
