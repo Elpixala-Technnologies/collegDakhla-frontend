@@ -25,13 +25,13 @@ export default function Signup() {
 	const [userOtp, setUserOtp] = useState("");
 	const [userId, setUserId] = useState<ID>();
 	const [isOtp, setIsOtp] = useState(false);
-	const { userCheck, checkOTP } = useSignup();
+	const { UserCheck, CheckOTP } = useSignup();
 	const { userMetaCreate } = useUserMetaData();
 	const dispatch = useAppDispatch();
 	const { data: streamsData } = useQuery(getStreams);
 	const { data: courseLevelData } = useQuery(getCourseLevels);
-	const checkUser = userCheck(phoneNumber, email);
-	const otpchecker = checkOTP(userId!, phoneNumber, userOtp)
+	const checkUser = UserCheck(phoneNumber, email);
+	const otpchecker = CheckOTP(userId!, phoneNumber, userOtp)
 	const router = useRouter()
 
 

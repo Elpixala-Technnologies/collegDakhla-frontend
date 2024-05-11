@@ -31,3 +31,19 @@ query UsersData($userID: ID!, $number:String!, $userOtp: String) {
 		}
 	}
 }`
+
+export const getUserMetaId = gql`
+query UserData($userID: ID!) {
+	userData(id: $userID) {
+		data {
+			attributes {
+				userMetaData {
+					data {
+						id
+					}
+				}
+			}
+		}
+	}
+}
+`
