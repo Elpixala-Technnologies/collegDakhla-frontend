@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Carousel from "@/components/carousel/carousel";
 import { getStreams, getCourseLevels } from "@/query/schema";
@@ -36,68 +36,69 @@ export default function Signup() {
 
 
 
-	const sendSignupOtp = async (e: any) => {
-		e.preventDefault();
+  const sendSignupOtp = async (e: any) => {
+    e.preventDefault();
 
-		const currentDate = new Date();
-		const publishedAt = currentDate.toISOString();
+    const currentDate = new Date();
+    const publishedAt = currentDate.toISOString();
 
-		if (checkUser === false) {
-			try {
-				let data = JSON.stringify({
-					"data": {
-						"name": name,
-						"email": email,
-						"number": phoneNumber,
-						"stream": stream,
-						"courseLevel": courseLevel,
-						"publishedAt": publishedAt
-					}
-				});
-				console.log("data ", data);
+    if (checkUser === false) {
+      try {
+        let data = JSON.stringify({
+          data: {
+            name: name,
+            email: email,
+            number: phoneNumber,
+            stream: stream,
+            courseLevel: courseLevel,
+            publishedAt: publishedAt,
+          },
+        });
+        console.log("data ", data);
 
-				let config = {
-					method: 'post',
-					maxBodyLength: Infinity,
-					url: `${restUrl}/api/users-data`,
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					data: data
-				};
+        let config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: `${restUrl}/api/users-data`,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: data,
+        };
 
-				axios.request(config)
-					.then((response: any) => {
-						setUserId(response?.data?.data?.id);
-						setIsOtp(true);
-					})
-					.catch((error: any) => {
-						console.log(error);
-					});
-			} catch (error) {
-				console.error("Error adding user:", error);
-			}
-		} else {
-			console.log("user already exists");
-		}
-	};
+        axios
+          .request(config)
+          .then((response: any) => {
+            setUserId(response?.data?.data?.id);
+            setIsOtp(true);
+          })
+          .catch((error: any) => {
+            console.log(error);
+          });
+      } catch (error) {
+        console.error("Error adding user:", error);
+      }
+    } else {
+      console.log("user already exists");
+    }
+  };
 
-	const handleSubmitSignup = async (e: any) => {
-		e.preventDefault();
-		const currentDate = new Date();
-		const publishedAt = currentDate.toISOString();
+  const handleSubmitSignup = async (e: any) => {
+    e.preventDefault();
+    const currentDate = new Date();
+    const publishedAt = currentDate.toISOString();
 
-		if (otpchecker != false) {
-			try {
-				dispatch(
-					setAuthState({
-						authState: true,
-						userID: otpchecker?.loggedInUser?.id,
-						userName: otpchecker?.loggedInUser?.attributes?.name,
-						email: otpchecker?.loggedInUser?.attributes?.email,
-						number: otpchecker?.loggedInUser?.attributes?.number,
-					})
-				);
+    if (otpchecker != false) {
+      try {
+        dispatch(
+          setAuthState({
+            authState: true,
+            userID: otpchecker?.loggedInUser?.id,
+            userName: otpchecker?.loggedInUser?.attributes?.name,
+            email: otpchecker?.loggedInUser?.attributes?.email,
+            number: otpchecker?.loggedInUser?.attributes?.number,
+          })
+        );
 
 				await userMetaCreate({
 					variables: {
@@ -254,18 +255,18 @@ export default function Signup() {
 
 
 
-				<div className="">
-					<p className="flex justify-center mt-6 font-sans text-sm antialiased font-light leading-normal text-inherit">
-						Already have an account?
-						<Link
-							href="/login"
-							className="block ml-1 font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900 text-primary"
-						>
-							Log in
-						</Link>
-					</p>
-				</div>
-			</div >
-		</div >
-	)
+        <div className="">
+          <p className="flex justify-center mt-6 font-sans text-sm antialiased font-light leading-normal text-inherit">
+            Already have an account?
+            <Link
+              href="/login"
+              className="block ml-1 font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900 text-primary"
+            >
+              Log in
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
