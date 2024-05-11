@@ -259,19 +259,19 @@ export default function CollegeListItem(allColleges: any) {
                   <div className="flex">
                     <div className="w-5/6">
                       <div className="flex flex-wrap items-stretch p-2 py-4 text-primary gap-y-2">
-                        <div className="pr-2 mr-2 border-r border-primary">
+                        <div className="pr-2 mr-2 border-r border-[#565959]">
                           <p className="text-sm t font-light">Date</p>
                         </div>
-                        <div className="pr-2 mr-2 border-r border-primary">
+                        <div className="pr-2 mr-2 border-r border-[#565959]">
                           <p className="text-sm  font-light">News</p>
                         </div>
-                        <div className="pr-2 mr-2 border-r border-primary">
+                        <div className="pr-2 mr-2 border-r border-[#565959]">
                           <p className="text-sm  font-light">Admission</p>
                         </div>
-                        <div className="pr-2 mr-2 border-r border-primary">
+                        <div className="pr-2 mr-2 border-r border-[#565959]">
                           <p className="text-sm  font-light">Broshure</p>
                         </div>
-                        <div className="pr-2 mr-2 border-r border-primary">
+                        <div className="pr-2 mr-2 border-r border-[#565959]">
                           <p className="text-sm  font-light">Placement</p>
                         </div>
                         <div className="pr-2 mr-2">
@@ -296,8 +296,8 @@ export default function CollegeListItem(allColleges: any) {
                           fontSize="text-sm"
                           outline
                           width="w-40"
-                          outlineColor = "border-primary-text"
-                          fontColor="text-primary-text"
+                          outlineColor="border-primary"
+                          fontColor="text-primary"
                           align="text-center"
                           bgColor="bg-white"
                         />
