@@ -2,15 +2,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import React, {
-  ReactNode,
-  useEffect,
-  useState,
-} from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { FaAngleDown, FaAngleUp, FaRegQuestionCircle } from "react-icons/fa";
 import Tooltip from "../tooltip/tooltip";
 import { RiSearchLine } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { IoLogOutOutline } from "react-icons/io5";
 import { getStreams } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import { FaRegCircleUser } from "react-icons/fa6";
@@ -18,6 +15,9 @@ import Accordion from "../accordian/accordian";
 
 import { SignUpModule } from "./SignUpModule";
 
+import { useAppDispatch, useAppSelector } from "@/store";
+import { clearAuthState } from "@/store/authSlice";
+import { MdOutlinePerson } from "react-icons/md";
 
 export default function Header() {
   const [Path, setPath] = useState("");
@@ -168,6 +168,8 @@ const NavOption = () => {
 };
 
 const LoginQASection = () => {
+  const isUserloggedIn = useAppSelector((state) => state.auth.authState);
+  const dispatch = useAppDispatch();
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const openLoginPopup = () => {
     setShowLoginPopup(true);
@@ -177,19 +179,38 @@ const LoginQASection = () => {
     setShowLoginPopup(false);
   };
 
+  const handleLogout = () => {
+    dispatch(clearAuthState());
+  };
+
   return (
     <>
-      <div className="flex gap-4 max-sm:hidden">
-        <div>
-          <div onClick={openLoginPopup} className="text-2xl hover:text-primary">
-            <FaRegCircleUser />
+      <div className="flex items-center gap-4 max-sm:hidden">
+        {isUserloggedIn ? (
+          <div className="relative group">
+              <FaRegCircleUser className="text-2xl hover:text-primary cursor-pointer group" />
+            <div className="absolute z-10 top-6 right-0 hidden group-hover:block bg-white border text-zinc-600 text-sm border-gray-200 rounded-md py-1 w-max">
+              <Link href={"/profile"}  className="flex item-center gap-x-2 px-3 py-1 hover:bg-gray-100 cursor-pointer">
+              <MdOutlinePerson className="mt-0.5" /> Profile
+              </Link>
+              <div className="flex item-center gap-x-2 px-3 py-1 hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>
+              <IoLogOutOutline className="mt-0.5" /> Logout
+              </div>
+            </div>
           </div>
-        </div>
-        <div>
-          <Link href={"/"} className="text-2xl hover:text-primary">
-            <FaRegQuestionCircle />
-          </Link>
-        </div>
+        ) : (
+          <div
+            onClick={openLoginPopup}
+            className="overflow-hidden rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-[10px] cursor-pointer active:border-orange-600 active:shadow-none shadow-lg bg-gradient-to-tr from-orange-500 to-orange-500 border-orange-700 text-white"
+          >
+            <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-24 opacity-10"></span>
+            <span className="relative whitespace-nowrap">Login/ SignUp</span>
+          </div>
+        )}
+
+        <Link href={"/"}>
+          <FaRegQuestionCircle className="text-2xl hover:text-primary" />
+        </Link>
       </div>
 
       {/* Pop-up Module */}
@@ -197,8 +218,6 @@ const LoginQASection = () => {
     </>
   );
 };
-
-
 
 const MobileOption = () => {
   return (

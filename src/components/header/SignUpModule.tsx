@@ -16,6 +16,8 @@ import { restUrl } from "@/utils/network";
 import { setAuthState } from "@/store/authSlice";
 import { ID } from "@/types/global";
 import { OTPInput } from "../otpInput/otp";
+import Carousel from "./Carousel";
+import { sliderContent } from "./data";
 
 export function SignUpModule({ closeLoginPopup }: any) {
   const route = useRouter();
@@ -161,19 +163,19 @@ export function SignUpModule({ closeLoginPopup }: any) {
       onClick={handleOverlayClick}
     >
       {/* Sign-up Module  */}
-      <div className="z-10   md:w-[60%] w-full max-md:h-max min-h-3/4 bg-white flex rounded shadow-lg">
+      <div className="z-10 md:w-[60%] w-full bg-white flex rounded shadow-lg">
         {/* Left Side  */}
-        <div className="[flex:5] text-black">
+        <div className="[flex:5] text-black px-5 py-10 hidden md:block">
           <Image
             src={SignUp}
             alt="SignUp"
-            className="w-full h-[40%] object-cover rounded-l mt-5"
+            className="w-full h-[250px] object-cover rounded-l"
           />
           <div className="p-5">
             <h3 className="font-bold text-center text-orange-500">
               Why we are better then rest?
             </h3>
-            <ul className="list-disc p-5">
+            <ul className="list-disc">
               <li>
                 <strong>Proven Success : </strong> 90% admission success rate to
                 top-choice colleges.
@@ -186,6 +188,9 @@ export function SignUpModule({ closeLoginPopup }: any) {
                 choice.{" "}
               </li>
             </ul>
+          </div>
+          <div className="relative w-full">
+            <Carousel autoSlide={true}>{sliderContent}</Carousel>
           </div>
         </div>
         {/* Right Side  */}
