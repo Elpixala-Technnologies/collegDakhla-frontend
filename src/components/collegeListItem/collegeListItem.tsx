@@ -58,16 +58,18 @@ export default function CollegeListItem(allColleges: any) {
 
             return (
               <div key={index}>
-                <div className="mb-4 p-4 flex flex-wrap md:flex-row gap-4 shadow-lg bg-white rounded-lg drop-shadow hover:drop-shadow-xl">
+                <div className="mb-4 pt-4 flex flex-wrap md:flex-row gap-4 shadow-lg bg-white rounded-lg drop-shadow hover:drop-shadow-xl">
                   <div className="relative h-44 rounded-lg">
-                    <Image
-                      width={700}
-                      height={700}
-                      src={logoURL!}
-                      alt={college?.collegeName}
-                      className="w-full sm:w-48 h-44 object-fill rounded-lg max-w-44"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
+                    <div className="p-2">
+                      <Image
+                        width={700}
+                        height={700}
+                        src={logoURL!}
+                        alt={college?.collegeName}
+                        className="w-full sm:w-48 h-44 object-fill rounded-lg max-w-44"
+                      />
+                    </div>
+                    <div className="absolute bg-black bg-opacity-50 rounded-lg"></div>
                     {/* <div className="absolute inset-0 text-white  mx-auto my-2 w-10/12">
                       <div className="flex justify-between">
                         <div className="flex gap-3 items-start">
@@ -92,7 +94,7 @@ export default function CollegeListItem(allColleges: any) {
                     </div> */}
                   </div>
                   <div className="flex flex-col">
-                    <div className="pb-4 flex flex-1 flex-col gap-3">
+                    <div className="flex flex-1 flex-col gap-3">
                       <Link href={`/colleges/${college.id}`}>
                         <div className="flex items-stretch p-1">
                           <div className="pr-6 mr-6">
@@ -161,11 +163,11 @@ export default function CollegeListItem(allColleges: any) {
                             </p>
                           </div>
                         </div>
-                        <h2 className="text-xl text-[#202020]  font-bold pt-2">
+                        <h2 className="text-xl text-[#202020]  font-semibold">
                           {college?.attributes?.collegeName}
                         </h2>
                       </Link>
-                      <div className="flex items-stretch p-1">
+                      <div className="flex items-stretch">
                         <div className="pr-6 mr-6">
                           <p className="text-primary flex gap-1 items-center font-semibold text-sm lg:text-lg">
                             <Image
@@ -256,7 +258,7 @@ export default function CollegeListItem(allColleges: any) {
                   <Separator />
                   <div className="flex">
                     <div className="w-5/6">
-                      <div className="flex flex-wrap items-stretch pt-2 text-primary gap-y-2">
+                      <div className="flex flex-wrap items-stretch p-2 py-4 text-primary gap-y-2">
                         <div className="pr-2 mr-2 border-r border-primary">
                           <p className="text-sm t font-light">Date</p>
                         </div>
@@ -294,9 +296,10 @@ export default function CollegeListItem(allColleges: any) {
                           fontSize="text-sm"
                           outline
                           width="w-40"
+                          outlineColor = "border-primary-text"
+                          fontColor="text-primary-text"
                           align="text-center"
-                          bgColor="bg-gray-400"
-                          fontColor="text-white"
+                          bgColor="bg-white"
                         />
                       </div>
                     </div>
