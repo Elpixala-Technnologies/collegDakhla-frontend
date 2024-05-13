@@ -219,6 +219,7 @@ import Trouble from "./Icons/trouble.svg";
 import Support from "./Icons/support.svg";
 import Billing from "./Icons/bill.svg";
 import Arrow from "./Icons/Arrow.svg";
+import Duration from "./Icons/history.svg";
 
 import DaynamiceHomeBanner from "./Banners/daynamiceBanner.png";
 
@@ -267,7 +268,7 @@ export {
   Bufferrr,
   Women,
   TeamWork,
-
+  Duration,
   Faqq,
   Study,
   Snowman,

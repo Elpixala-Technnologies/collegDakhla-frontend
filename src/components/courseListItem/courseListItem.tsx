@@ -9,6 +9,8 @@ import CourseCard from "../card/courseCard";
 import { Rating } from "@mui/material";
 import { RiFlagLine } from "react-icons/ri";
 import { CiLocationOn } from "react-icons/ci";
+import { Duration, RupeeBaves } from "@/Asset";
+import { FaBabyCarriage } from "react-icons/fa";
 
 export default function CourseListItem({ courses, featuredCourses }: any) {
   return (
@@ -29,7 +31,12 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                     </div> */}
                     <div className="flex flex-1 flex-row gap-4 p-2 border-r-primary-light ">
                       <div className="flex items-center">
-                        <Image src={logoURL!} width={150} height={150} alt={""} />
+                        <Image
+                          src={logoURL!}
+                          width={150}
+                          height={150}
+                          alt={""}
+                        />
                       </div>
                       <div className="flex flex-col gap-2">
                         <div className="flex flex-row gap-4">
@@ -40,7 +47,9 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                           />
                           <div className="flex flex-row gap-2">
                             <CiLocationOn className="text-2xl text-gray-400" />
-                            <span className="text-blue-800">Chennai, Tamil Nadu</span>
+                            <span className="text-blue-800">
+                              Chennai, Tamil Nadu
+                            </span>
                           </div>
                           <div className="flex flex-row gap-2">
                             <RiFlagLine className="text-2xl text-gray-400" />
@@ -53,8 +62,12 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                           </div>
                           <div className="flex flex-row">
                             <span className="text-secondary-text">#</span>
-                            <span className="text-primary pr-1">{course?.id}</span>
-                            <span className="text-blue-800 font-bold">NIRF</span>
+                            <span className="text-primary pr-1">
+                              {course?.id}
+                            </span>
+                            <span className="text-blue-800 font-bold">
+                              NIRF
+                            </span>
                           </div>
                         </div>
                         <div className="flex flex-col gap-2 mt-1">
@@ -65,34 +78,54 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                               </h2>
                             </div>
                           </Link>
-                          <p className="text-secondary-text font-light">
+                          <p className="text-secondary-text font-light flex items-center gap-2">
+                          <Image
+                                src={RupeeBaves}
+                                width={25}
+                                height={25}
+                                alt={"approvedBy"}
+                              />
                             <span className="text-primary font-semibold text-sm lg:text-lg">
                               {formatFees(course?.attributes?.fees)}
                             </span>{" "}
                             - Total Fees
                           </p>
-                          <p className="text-secondary-text font-light">
-                            Average Duration:{" "}
-                            <span className="text-primary-text font-medium">
+                          <p className="text-secondary-text font-light flex items-center gap-2">
+                          <Image
+                                src={Duration}
+                                width={25}
+                                height={25}
+                                alt={"approvedBy"}
+                              />
+                          <span className="text-primary-text font-medium">
                               {course?.attributes?.duration} Years
                             </span>
+                            - Average Duration:{" "}
+                            
                           </p>
-                          <div className="text-secondary-text font-light flex flex-wrap items-center gap-2">
+                          <div className="font-normal flex flex-wrap items-center gap-2 mr-5">
+                          <FaBabyCarriage className="text-xl ml-1 text-gray-700" />
                             Offered by:{" "}
                             {course?.attributes?.colleges?.data.map(
                               (college: any, index: number) => {
                                 return (
-                                  <Tag
-                                    text={college?.attributes?.collegeName}
-                                    bgcolor="bg-pink-100"
-                                    color="text-pink-500"
-                                    rounded
-                                    key={index}
-                                  />
+                                  <div className="text-sm hover:text-primary cursor-pointer font-medium text-secondary-text">
+                                    {college?.attributes?.collegeName}
+                                    {index <
+                                      course?.attributes?.colleges?.data
+                                        .length -
+                                        1 && " | "}
+                                  </div>
                                 );
                               }
                             )}
                           </div>
+                          <div className="mr-5">
+                          Lorem ipsum dolor, sit amet consectetur adipisicing
+                          elit , perferendis aspernatur! Lorem ipsum dolor, sit
+                          amet consectetur adipisicing elit , perferendis
+                          aspernatur!
+                        </div>
                           {/* <p className="text-secondary-text font-light">
                         <span className="text-[#B12704] text-2xl font-medium">
                           {formatFees(course?.attributes?.fees)}

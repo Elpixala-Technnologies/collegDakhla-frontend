@@ -33,7 +33,7 @@ import CourseMiniList from "@/components/courseListItem/courseMiniList";
 import Carousel from "@/components/carousel/carousel";
 import ExamCard from "@/components/card/examCard";
 import Faq from "@/components/Faq-HomePage/faq";
-import { Snowman, Study } from "@/Asset";
+import { Snowman, Study, Vector } from "@/Asset";
 import { slideInFromLeft, slideInFromRight } from "@/components/Motion/motion";
 import WavyText from "@/components/Motion/Wave";
 
@@ -587,7 +587,7 @@ export default function Home() {
                         </p>
                         <div className="all-testimonials__box__name__profile flex items-center gap-5">
                           <Image
-                            src={testimonial?.img}
+                            src={Vector} //temporary icons
                             alt={`user_img_${index}`}
                             className="w-16 h-16 rounded-full"
                             width={500}
@@ -619,7 +619,7 @@ export default function Home() {
                         </p>
                         <div className="all-testimonials__box__name__profile flex items-center gap-5">
                           <Image
-                            src={testimonial.img}
+                            src={Vector} //tempp icons
                             alt={`user_img_${index}`}
                             className="w-16 h-16 rounded-full"
                             width={500}
