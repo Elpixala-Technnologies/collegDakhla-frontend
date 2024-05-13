@@ -259,11 +259,11 @@ import MediaBanner from "./newpaper/mediaBanner.png";
 import SignUp from "./Images/signup.jpg";
 
 export {
-  Man,
-  LearnTest,
-  Bufferrr,
-  Women,
-  TeamWork,
+	Man,
+	LearnTest,
+	Bufferrr,
+	Women,
+	TeamWork,
 
   Faqq,
   Study,

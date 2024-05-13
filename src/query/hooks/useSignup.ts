@@ -1,9 +1,9 @@
 import { useMutation, useQuery } from "@apollo/client"
 import { ID } from "@/types/global";
-import { checkUser, checkUserOtp } from "../graphql/signup";
+import { checkUser, checkUserOtp, getUserMetaId } from "../graphql/signup";
 
 
-const userCheck = (number: string, email?: string) => {
+const UserCheck = (number: string, email?: string) => {
 
 	const { loading, error, data } = useQuery<any>(checkUser, {
 		variables: {
@@ -21,7 +21,7 @@ const userCheck = (number: string, email?: string) => {
 	}
 }
 
-const checkOTP = (userID: ID, number: string, userOtp: string) => {
+const CheckOTP = (userID: ID, number: string, userOtp: string) => {
 
 	const { loading, error, data } = useQuery<any>(checkUserOtp, {
 		variables: {
@@ -40,10 +40,20 @@ const checkOTP = (userID: ID, number: string, userOtp: string) => {
 	}
 }
 
+const GetUserDataMetaId = (userID: ID) => {
+	const { loading, error, data } = useQuery<any>(getUserMetaId, {
+		variables: { userID },
+	});
+
+	const userMetaDataId: ID = Number(data?.userData?.data?.attributes?.userMetaData?.data?.id);
+
+	return userMetaDataId;
+}
+
 const useSignup = () => {
 
 
-	return { userCheck, checkOTP };
+	return { UserCheck, CheckOTP, GetUserDataMetaId };
 };
 
 export default useSignup;

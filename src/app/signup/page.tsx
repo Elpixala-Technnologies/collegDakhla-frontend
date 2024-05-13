@@ -17,22 +17,24 @@ const axios = require("axios");
 import { useRouter } from "next/navigation";
 
 export default function Signup() {
-  const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [stream, setStream] = useState("");
-  const [courseLevel, setCourseLevel] = useState("");
-  const [email, setEmail] = useState("");
-  const [userOtp, setUserOtp] = useState("");
-  const [userId, setUserId] = useState<ID>();
-  const [isOtp, setIsOtp] = useState(false);
-  const { userCheck, checkOTP } = useSignup();
-  const { userMetaCreate } = useUserMetaData();
-  const dispatch = useAppDispatch();
-  const { data: streamsData } = useQuery(getStreams);
-  const { data: courseLevelData } = useQuery(getCourseLevels);
-  const checkUser = userCheck(phoneNumber, email);
-  const otpchecker = checkOTP(userId!, phoneNumber, userOtp);
-  const router = useRouter();
+	const [name, setName] = useState("");
+	const [phoneNumber, setPhoneNumber] = useState("");
+	const [stream, setStream] = useState("");
+	const [courseLevel, setCourseLevel] = useState("");
+	const [email, setEmail] = useState("");
+	const [userOtp, setUserOtp] = useState("");
+	const [userId, setUserId] = useState<ID>();
+	const [isOtp, setIsOtp] = useState(false);
+	const { UserCheck, CheckOTP } = useSignup();
+	const { userMetaCreate } = useUserMetaData();
+	const dispatch = useAppDispatch();
+	const { data: streamsData } = useQuery(getStreams);
+	const { data: courseLevelData } = useQuery(getCourseLevels);
+	const checkUser = UserCheck(phoneNumber, email);
+	const otpchecker = CheckOTP(userId!, phoneNumber, userOtp)
+	const router = useRouter()
+
+
 
   const sendSignupOtp = async (e: any) => {
     e.preventDefault();
