@@ -39,15 +39,16 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                         />
                       </div>
                       <div className="flex flex-col gap-2">
-                        <div className="flex flex-row gap-4">
+                        <div className="flex flex-row gap-1">
                           <Rating
                             name="half-rating"
                             defaultValue={2.5}
                             precision={0.5}
+                            size="small"
                           />
-                          <div className="flex flex-row gap-2">
-                            <CiLocationOn className="text-2xl text-gray-400" />
-                            <span className="text-blue-800">
+                          <div className="flex flex-row gap-1 items-center">
+                            <CiLocationOn className="text-lg text-gray-400" />
+                            <span className="text-blue-800 text-sm">
                               Chennai, Tamil Nadu
                             </span>
                           </div>
@@ -109,7 +110,7 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                             {course?.attributes?.colleges?.data.map(
                               (college: any, index: number) => {
                                 return (
-                                  <div className="text-sm hover:text-primary cursor-pointer font-medium text-secondary-text">
+                                  <div className="text-sm hover:text-primary cursor-pointer font-medium text-secondary-text" key={index}>
                                     {college?.attributes?.collegeName}
                                     {index <
                                       course?.attributes?.colleges?.data
@@ -120,12 +121,12 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                               }
                             )}
                           </div>
-                          <div className="mr-5">
+                          {/* <div className="mr-5">
                           Lorem ipsum dolor, sit amet consectetur adipisicing
                           elit , perferendis aspernatur! Lorem ipsum dolor, sit
                           amet consectetur adipisicing elit , perferendis
                           aspernatur!
-                        </div>
+                        </div> */}
                           {/* <p className="text-secondary-text font-light">
                         <span className="text-[#B12704] text-2xl font-medium">
                           {formatFees(course?.attributes?.fees)}

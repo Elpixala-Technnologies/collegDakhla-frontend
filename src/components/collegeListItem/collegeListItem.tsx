@@ -67,14 +67,14 @@ export default function CollegeListItem(allColleges: any) {
               <div key={index}>
                 <div className="mb-4 pt-4 flex flex-wrap md:flex-row gap-4 shadow-lg bg-white rounded-lg drop-shadow hover:drop-shadow-xl">
                   <div className="flex flex-row">
-                    <div className="relative h-44 rounded-lg">
+                    <div className="relative rounded-lg">
                       <div className="p-2">
                         <Image
                           width={700}
                           height={700}
                           src={logoURL!}
                           alt={college?.collegeName}
-                          className="w-full sm:w-48 h-44 object-fill rounded-lg max-w-44"
+                          className="w-full sm:w-36 object-fill rounded-lg max-w-44"
                         />
                       </div>
 
@@ -103,79 +103,78 @@ export default function CollegeListItem(allColleges: any) {
                     </div>
                     <div className="flex flex-col">
                       <div className="flex flex-col gap-1">
-                        
-                          <div className="flex flex-row gap-8 p-1">
-                            <div className="">
-                              <p className="text-[#0F4988] flex gap-1 items-center  text-sm lg:text-sm">
-                                <Image
-                                  src={Reviews}
-                                  width={35}
-                                  height={35}
-                                  alt={"approvedBy"}
-                                />
-                                {college?.attributes?.rating
-                                  ? college?.attributes?.rating
-                                  : 4.5}{" "}
-                                /10{" "}
-                              </p>
-                            </div>
-                            <div className="  border-extra-light-text">
-                              <p className="text-[#0F4988] flex gap-1 items-center text-sm">
-                                <Image
-                                  src={LocationCity}
-                                  width={20}
-                                  height={20}
-                                  alt={"approvedBy"}
-                                />
-                                {
-                                  college?.attributes?.city?.data?.attributes
-                                    ?.name
-                                }
-                                ,
-                                {
-                                  college?.attributes?.state?.data?.attributes
-                                    ?.name
-                                }{" "}
-                              </p>
-                            </div>
-                            <div className="">
-                              <p className="text-[#0F4988] flex gap-1 items-center font-semibold text-sm">
-                                <Image
-                                  src={AvgPackage}
-                                  width={20}
-                                  height={20}
-                                  alt={"approvedBy"}
-                                />
-                                {college?.attributes?.rankedBy?.data[0]
-                                  ?.attributes?.name
-                                  ? college?.attributes?.rankedBy?.data[0]
-                                      ?.attributes?.name
-                                  : "UGC"}{" "}
-                              </p>
-                            </div>
-                            <div className="">
-                              <p className="text-[#0F4988] flex gap-1 items-center font-semibold text-sm">
-                                <Image
-                                  src={FlagIcon}
-                                  width={15}
-                                  height={15}
-                                  alt={"approvedBy"}
-                                />
-                                {college?.attributes?.college_type?.data
-                                  ?.attributes?.type
-                                  ? college?.attributes?.college_type?.data
-                                      ?.attributes?.type
-                                  : "Private"}{" "}
-                                | {"Rank 6"}
-                              </p>
-                            </div>
+                        <div className="flex flex-row gap-8 p-1">
+                          <div className="">
+                            <p className="text-[#0F4988] flex gap-1 items-center  text-sm lg:text-sm">
+                              <Image
+                                src={Reviews}
+                                width={35}
+                                height={35}
+                                alt={"approvedBy"}
+                              />
+                              {college?.attributes?.rating
+                                ? college?.attributes?.rating
+                                : 4.5}{" "}
+                              /10{" "}
+                            </p>
                           </div>
-                         <Link href={`/colleges/${college.id}`}>
-                         <h2 className="text-xl text-[#202020]  font-semibold">
+                          <div className="  border-extra-light-text">
+                            <p className="text-[#0F4988] flex gap-1 items-center text-sm">
+                              <Image
+                                src={LocationCity}
+                                width={20}
+                                height={20}
+                                alt={"approvedBy"}
+                              />
+                              {
+                                college?.attributes?.city?.data?.attributes
+                                  ?.name
+                              }
+                              ,
+                              {
+                                college?.attributes?.state?.data?.attributes
+                                  ?.name
+                              }{" "}
+                            </p>
+                          </div>
+                          <div className="">
+                            <p className="text-[#0F4988] flex gap-1 items-center font-semibold text-sm">
+                              <Image
+                                src={AvgPackage}
+                                width={20}
+                                height={20}
+                                alt={"approvedBy"}
+                              />
+                              {college?.attributes?.rankedBy?.data[0]
+                                ?.attributes?.name
+                                ? college?.attributes?.rankedBy?.data[0]
+                                    ?.attributes?.name
+                                : "UGC"}{" "}
+                            </p>
+                          </div>
+                          <div className="">
+                            <p className="text-[#0F4988] flex gap-1 items-center font-semibold text-sm">
+                              <Image
+                                src={FlagIcon}
+                                width={15}
+                                height={15}
+                                alt={"approvedBy"}
+                              />
+                              {college?.attributes?.college_type?.data
+                                ?.attributes?.type
+                                ? college?.attributes?.college_type?.data
+                                    ?.attributes?.type
+                                : "Private"}{" "}
+                              | {"Rank 6"}
+                            </p>
+                          </div>
+                        </div>
+                        <Link href={`/colleges/${college.id}`}>
+                          <h2 className="text-xl text-[#202020]  font-semibold">
                             {college?.attributes?.collegeName}
                           </h2>
-                         </Link>
-                      
+                        </Link>
+
                         <div className="flex items-stretch">
                           <div className="pr-6 mr-6">
                             <p className="text-primary flex gap-1 items-center font-semibold text-sm lg:text-lg">
@@ -259,43 +258,42 @@ export default function CollegeListItem(allColleges: any) {
                             fontColor="text-primary-text"
                           />
                         </div>
-                        <div>
+                        {/* <div>
                           Lorem ipsum dolor, sit amet consectetur adipisicing
                           elit , perferendis aspernatur! Lorem ipsum dolor, sit
                           amet consectetur adipisicing elit , perferendis
                           aspernatur!
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
                   <Separator />
-                  <div className="flex">
-                    <div className="w-full flex items-center justify-between pb-4">
-                      <div className="xl:flex flex-wrap items-stretch  px-2 text-primary w-3/4 hidden">
-                        <div className="pr-2 mr-2 border-r border-[#565959]">
-                          <p className="text-base font-light">Date</p>
-                        </div>
-                        <div className="pr-2 mr-2 border-r border-[#565959]">
-                          <p className="text-base  font-light">News</p>
-                        </div>
-                        <div className="pr-2 mr-2 border-r border-[#565959]">
-                          <p className="text-base  font-light">Admission</p>
-                        </div>
-                        <div className="pr-2 mr-2 border-r border-[#565959]">
-                          <p className="text-base  font-light">Broshure</p>
-                        </div>
-                        <div className="pr-2 mr-2 border-r border-[#565959] lg:flex hidden">
-                          <p className="text-base  font-light">Placement</p>
-                        </div>
-                        <div className="pr-2 mr-2 lg:flex hidden">
-                          <p className="text-base  font-light">Course</p>
-                        </div>
+                  <div className="w-full flex items-center justify-evenly pb-4">
+                    <div className="xl:flex flex-wrap items-stretch  px-2 text-primary w-3/4 hidden">
+                      <div className="pr-2 mr-2 border-r border-[#565959]">
+                        <p className="text-base font-light">Date</p>
                       </div>
+                      <div className="pr-2 mr-2 border-r border-[#565959]">
+                        <p className="text-base  font-light">News</p>
+                      </div>
+                      <div className="pr-2 mr-2 border-r border-[#565959]">
+                        <p className="text-base  font-light">Admission</p>
+                      </div>
+                      <div className="pr-2 mr-2 border-r border-[#565959]">
+                        <p className="text-base  font-light">Broshure</p>
+                      </div>
+                      <div className="pr-2 mr-2 border-r border-[#565959] lg:flex hidden">
+                        <p className="text-base  font-light">Placement</p>
+                      </div>
+                      <div className="pr-2 mr-2 lg:flex hidden">
+                        <p className="text-base  font-light">Course</p>
+                      </div>
+                    </div>
 
-                      <div className="w-1/4">
-                      <div className="flex flex-row gap-1 text-primary college-btn">
+                    <div className="">
+                      <div className="flex flex-row gap-4 text-primary college-btn">
                         <Button
-                         href={`/college/${college.id}`}
+                          href={`/college/${college.id}`}
                           onClick={handleClick}
                           text="Apply Now"
                           filled
@@ -305,7 +303,6 @@ export default function CollegeListItem(allColleges: any) {
                           bgColor="bg-primary"
                         />
                         <Button
-                         
                           text="Download Brochure"
                           fontSize="text-sm"
                           outline
@@ -317,8 +314,6 @@ export default function CollegeListItem(allColleges: any) {
                         />
                       </div>
                     </div>
-                    </div>
-                    
                   </div>
                 </div>
                 {(index + 1) % 4 == 0 ? (

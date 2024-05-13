@@ -33,7 +33,7 @@ export default function ExamListItem({ exams }: any) {
                           width={150}
                           height={150}
                           alt={""}
-                          className="w-64 h-40 rounded-lg"
+                          className="w-full h-32 max-w-40 rounded-lg"
                         />
                       </div>
                       <div className="flex flex-col gap-2">
@@ -42,19 +42,20 @@ export default function ExamListItem({ exams }: any) {
                             name="half-rating"
                             defaultValue={2.5}
                             precision={0.5}
+                            size="small"
                           />
-                          <div className="flex flex-row gap-2">
-                            <CiLocationOn className="text-2xl text-gray-400" />
-                            <span className="text-blue-800">Chennai, Tamil Nadu</span>
+                          <div className="flex flex-row items-center gap-1">
+                            <CiLocationOn className="text-lg text-gray-400" />
+                            <span className="text-blue-800 text-sm">Chennai, Tamil Nadu</span>
                           </div>
-                          <div className="flex flex-row gap-2">
-                            <RiFlagLine className="text-2xl text-gray-400" />
-                            <span>
+                          <div className="flex flex-row gap-1 items-center">
+                            <RiFlagLine className="text-lg text-gray-400" />
+                            <h6 className="text-sm">
                               {
                                 exam?.attributes?.examLevel?.data?.[0]
                                   .attributes?.name
                               }
-                            </span>
+                            </h6>
                           </div>
                           <div className="flex flex-row">
                             <span className="text-secondary-text">#</span>
@@ -136,11 +137,11 @@ export default function ExamListItem({ exams }: any) {
                             </div>
                           </div>
                         </div>
-                        <div className="w-3/4 pt-2">
+                        {/* <div className="w-3/4 pt-2">
                           <span className="text-gray-600 text-sm line-clamp-2">
                           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                           </span>
-                        </div>
+                        </div> */}
                         </div>
                       </div>
                     </div>
