@@ -12,7 +12,7 @@ import { restUrl } from "@/utils/network";
 import axios from "axios";
 import { useAppDispatch } from "@/store";
 import { setAuthState } from "@/store/authSlice";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
 	const [phoneNumber, setPhoneNumber] = useState("");
