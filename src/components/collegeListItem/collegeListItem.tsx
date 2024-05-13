@@ -44,12 +44,12 @@ export default function CollegeListItem(allColleges: any) {
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
+  // console.log(allColleges?.colleges[1]?.attributes, "pppp")
   return (
     <>
       {allColleges?.colleges?.length > 0 ? (
         <>
-          {allColleges.colleges.map((college: any, index: any) => {
+          {allColleges?.colleges.map((college: any, index: any) => {
             const logoURL = college?.attributes?.collegeLogo?.data?.attributes
               ?.url
               ? getStrapiMedia(
@@ -101,192 +101,177 @@ export default function CollegeListItem(allColleges: any) {
                       </div>
                     </div> */}
                     </div>
-                    <div className="flex flex-col">
-                      <div className="flex flex-col gap-1">
-                        <div className="flex flex-row gap-8 p-1">
-                          <div className="">
-                            <p className="text-[#0F4988] flex gap-1 items-center  text-sm lg:text-sm">
-                              <Image
-                                src={Reviews}
-                                width={35}
-                                height={35}
-                                alt={"approvedBy"}
-                              />
-                              {college?.attributes?.rating
-                                ? college?.attributes?.rating
-                                : 4.5}{" "}
-                              /10{" "}
-                            </p>
-                          </div>
-                          <div className="  border-extra-light-text">
-                            <p className="text-[#0F4988] flex gap-1 items-center text-sm">
-                              <Image
-                                src={LocationCity}
-                                width={20}
-                                height={20}
-                                alt={"approvedBy"}
-                              />
-                              {
-                                college?.attributes?.city?.data?.attributes
-                                  ?.name
-                              }
-                              ,
-                              {
-                                college?.attributes?.state?.data?.attributes
-                                  ?.name
-                              }{" "}
-                            </p>
-                          </div>
-                          <div className="">
-                            <p className="text-[#0F4988] flex gap-1 items-center font-semibold text-sm">
-                              <Image
-                                src={AvgPackage}
-                                width={20}
-                                height={20}
-                                alt={"approvedBy"}
-                              />
-                              {college?.attributes?.rankedBy?.data[0]
-                                ?.attributes?.name
-                                ? college?.attributes?.rankedBy?.data[0]
-                                    ?.attributes?.name
-                                : "UGC"}{" "}
-                            </p>
-                          </div>
-                          <div className="">
-                            <p className="text-[#0F4988] flex gap-1 items-center font-semibold text-sm">
-                              <Image
-                                src={FlagIcon}
-                                width={15}
-                                height={15}
-                                alt={"approvedBy"}
-                              />
-                              {college?.attributes?.college_type?.data
-                                ?.attributes?.type
-                                ? college?.attributes?.college_type?.data
-                                    ?.attributes?.type
-                                : "Private"}{" "}
-                              | {"Rank 6"}
-                            </p>
-                          </div>
-                        </div>
-                        <Link href={`/colleges/${college.id}`}>
-                          <h2 className="text-xl text-[#202020]  font-semibold">
-                            {college?.attributes?.collegeName}
-                          </h2>
-                        </Link>
-
-                        <div className="flex items-stretch">
-                          <div className="pr-6 mr-6">
-                            <p className="text-primary flex gap-1 items-center font-semibold text-sm lg:text-lg">
-                              <Image
-                                src={RupeeBaves}
-                                width={25}
-                                height={25}
-                                alt={"approvedBy"}
-                              />
-                              {collegeFee}
-                            </p>
-                            <p className="text-xs text-secondary-text">
-                              BE/B.Tech First year fees
-                            </p>
-                          </div>
-                          <div className="pr-6 mr-6  border-extra-light-text">
-                            <p className="text-primary flex gap-1 items-center font-semibold text-lg">
-                              <Image
-                                src={Exams}
-                                width={25}
-                                height={25}
-                                alt={"approvedBy"}
-                              />
-                              JEE Advance
-                            </p>
-                            <p className="text-xs flex gap-1 items-center text-secondary-text font-light">
-                              Exam Accepting
-                            </p>
-                          </div>
-                          <div className="pr-6 mr-4">
-                            <p className="text-primary flex gap-1 items-center font-semibold text-lg">
-                              <Image
-                                src={AvgPackage}
-                                width={25}
-                                height={25}
-                                alt={"approvedBy"}
-                              />
-                              {college?.attributes?.rating
-                                ? college?.attributes?.rating
-                                : 8.6}
-                              /10
-                            </p>
-                            <p className="text-xs text-secondary-text font-light">
-                              Based on user review
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex gap-6 flex-wrap">
-                          <Button
-                            href={`/college/${college.id}`}
-                            text="Admission 2024"
-                            icon={<FaRegUser />}
-                            fontSize="text-xxs"
-                            outline
-                            color="text-primary"
-                            rounded
-                            textColor="text-primary"
-                            bgColor="bg-white"
-                            fontColor="text-primary-text"
+                    <div className="flex flex-col gap-1">
+                      {/* line 1  */}
+                      <div className="flex flex-row gap-8 p-1">
+                        {/* rating  */}
+                        <p className="text-[#0F4988] flex gap-1 items-center text-sm lg:text-sm">
+                          <Image
+                            src={Reviews}
+                            width={35}
+                            height={35}
+                            alt={"approvedBy"}
                           />
-                          <Button
-                            href={`/college/${college.id}`}
-                            text="Review"
-                            icon={<FaRegStar />}
-                            outline
-                            rounded
-                            bgColor="bg-white"
-                            textColor="text-primary"
-                            fontSize="text-xxs"
-                            fontColor="text-black"
-                          />
-                          <Button
-                            href={`/college/${college.id}`}
-                            text="Course & Fees"
-                            icon={<PiBooksLight />}
-                            outline
-                            rounded
-                            bgColor="bg-white"
-                            textColor="text-primary"
-                            fontSize="text-xs"
-                            fontColor="text-primary-text"
-                          />
+                          {college?.attributes?.rating
+                            ? college?.attributes?.rating
+                            : 4.5}{" "}
+                          /10{" "}
+                        </p>
+                        {/* location  */}
+                        <div className="  border-extra-light-text">
+                          <p className="text-[#0F4988] flex gap-1 items-center text-sm">
+                            <Image
+                              src={LocationCity}
+                              width={20}
+                              height={20}
+                              alt={"approvedBy"}
+                            />
+                            {college?.attributes?.city?.data?.attributes?.name},
+                            {college?.attributes?.state?.data?.attributes?.name}{" "}
+                          </p>
                         </div>
-                        {/* <div>
+                        {/* UGC  */}
+                        <p className="text-[#0F4988] flex gap-1 items-center font-semibold text-sm">
+                          <Image
+                            src={AvgPackage}
+                            width={20}
+                            height={20}
+                            alt={"approvedBy"}
+                          />
+                          {college?.attributes?.rankedBy?.data[0]?.attributes
+                            ?.name
+                            ? college?.attributes?.rankedBy?.data[0]?.attributes
+                                ?.name
+                            : "UGC"}{" "}
+                        </p>
+                        {/* college_type  */}
+                          <p className="text-[#0F4988] flex gap-1 items-center font-semibold text-sm">
+                            <Image
+                              src={FlagIcon}
+                              width={15}
+                              height={15}
+                              alt={"approvedBy"}
+                            />
+                            {college?.attributes?.college_type?.data?.attributes
+                              ?.type
+                              ? college?.attributes?.college_type?.data
+                                  ?.attributes?.type
+                              : "Private"}{" "}
+                            | {"Rank 6"}
+                          </p>
+                      </div>
+                      {/* line 2  */}
+                      <Link href={`/colleges/${college.id}`}>
+                        <h2 className="text-xl text-[#202020]  font-semibold">
+                          {college?.attributes?.collegeName}
+                        </h2>
+                      </Link>
+                      {/* line 3  */}
+                      <div className="flex items-stretch">
+                        <div className="pr-6 mr-6">
+                          <div className="text-primary flex gap-1 items-center font-semibold text-sm lg:text-lg">
+                            <Image
+                              src={RupeeBaves}
+                              width={25}
+                              height={25}
+                              alt={"approvedBy"}
+                            />
+                            {collegeFee}
+                          </div>
+                          <p className="text-xs text-secondary-text ml-7">
+                            BE/B.Tech First year fees
+                          </p>
+                        </div>
+                        <div className="pr-6 mr-6  border-extra-light-text">
+                          <p className="text-primary flex gap-1 items-center font-semibold text-lg">
+                            <Image
+                              src={Exams}
+                              width={25}
+                              height={25}
+                              alt={"approvedBy"}
+                            />
+                            JEE Advance
+                          </p>
+                          <p className="text-xs flex gap-1 items-center text-secondary-text font-light ml-7">
+                            Exam Accepting
+                          </p>
+                        </div>
+                        <div className="pr-6 mr-4">
+                          <p className="text-primary flex gap-1 items-center font-semibold text-lg">
+                            <Image
+                              src={AvgPackage}
+                              width={25}
+                              height={25}
+                              alt={"approvedBy"}
+                            />
+                            {college?.attributes?.rating
+                              ? college?.attributes?.rating
+                              : 8.6}
+                            /10
+                          </p>
+                          <p className="text-xs text-secondary-text font-light ml-7">
+                            Based on user review
+                          </p>
+                        </div>
+                      </div>
+                      {/* line 4  */}
+                      <div className="flex gap-x-6 flex-wrap mt-2">
+                        <Button
+                          href={`/college/${college.id}`}
+                          text="Admission 2024"
+                          icon={<FaRegUser />}
+                          fontSize="text-xxs"
+                          outline
+                          color="text-primary"
+                          rounded
+                          textColor="text-primary"
+                          bgColor="bg-white"
+                          fontColor="text-primary-text"
+                        />
+                        <Button
+                          href={`/college/${college.id}`}
+                          text="Review"
+                          icon={<FaRegStar />}
+                          outline
+                          rounded
+                          bgColor="bg-white"
+                          textColor="text-primary"
+                          fontSize="text-xxs"
+                          fontColor="text-black"
+                        />
+                        <Button
+                          href={`/college/${college.id}`}
+                          text="Course & Fees"
+                          icon={<PiBooksLight />}
+                          outline
+                          rounded
+                          bgColor="bg-white"
+                          textColor="text-primary"
+                          fontSize="text-xs"
+                          fontColor="text-primary-text"
+                        />
+                      </div>
+                      {/* <div>
                           Lorem ipsum dolor, sit amet consectetur adipisicing
                           elit , perferendis aspernatur! Lorem ipsum dolor, sit
                           amet consectetur adipisicing elit , perferendis
                           aspernatur!
                         </div> */}
-                      </div>
                     </div>
                   </div>
-                  <Separator />
-                  <div className="w-full flex items-center justify-evenly pb-4">
+                  {/* <Separator /> */}
+                  <div className="w-full flex items-center justify-evenly p-4 border-t-2 border-[#0F4988]">
                     <div className="xl:flex flex-wrap items-stretch  px-2 text-primary w-3/4 hidden">
+                      {college?.navbars?.data.map((tab: any, index: number) => (
+                        <div
+                          key={tab?.attributes?.name}
+                          className="mr-2 border-r border-[#565959] text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm flex justify-center items-center w-max h-full text-center"
+                        >
+                          {tab?.attributes?.name}
+                        </div>
+                      ))}
                       <div className="pr-2 mr-2 border-r border-[#565959]">
                         <p className="text-base font-light">Date</p>
-                      </div>
-                      <div className="pr-2 mr-2 border-r border-[#565959]">
-                        <p className="text-base  font-light">News</p>
-                      </div>
-                      <div className="pr-2 mr-2 border-r border-[#565959]">
-                        <p className="text-base  font-light">Admission</p>
-                      </div>
-                      <div className="pr-2 mr-2 border-r border-[#565959]">
-                        <p className="text-base  font-light">Broshure</p>
-                      </div>
-                      <div className="pr-2 mr-2 border-r border-[#565959] lg:flex hidden">
-                        <p className="text-base  font-light">Placement</p>
-                      </div>
-                      <div className="pr-2 mr-2 lg:flex hidden">
-                        <p className="text-base  font-light">Course</p>
                       </div>
                     </div>
 

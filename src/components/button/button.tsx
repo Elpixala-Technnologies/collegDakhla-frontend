@@ -48,13 +48,13 @@ export default function Button({
       {outline ? (
         <>
           <div
-            className={`button flex cursor-pointer ${width} ${bgColor} items-center ${paddingX} ${paddingY} border ${fontSize} ${fontWeight} ${outlineColor} ${fontColor} hover:border-secondary hover:${textColor} ${
+            className={`gap-x-1 button flex cursor-pointer ${width} ${bgColor} items-center ${paddingX} ${paddingY} border ${fontSize} ${fontWeight} ${outlineColor} ${fontColor} hover:border-secondary hover:${textColor} ${
               rounded ? "rounded-full" : "rounded-md"
             }`}
             onClick={onClick}
           >
-            {icon ? <div className="mr-2">{icon}</div> : <></>}
             <div className={`flex-1 ${align}`}>{text}</div>
+            {icon ? <div className="mr-2">{icon}</div> : <></>}
           </div>
         </>
       ) : (
