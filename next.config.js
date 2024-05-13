@@ -3,7 +3,7 @@ module.exports = {
 		remotePatterns: [
 			{
 				protocol: "https",
-				hostname: "college-dakhla-backend-qtpvh.ondigitalocean.app",
+				hostname: "collegedakhla-backend.onrender.com",
 				port: "",
 				pathname: "/uploads/**",
 			},
