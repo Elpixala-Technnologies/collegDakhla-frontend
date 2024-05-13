@@ -6,6 +6,9 @@ import { getStrapiMedia, GetDefaultImage } from "@/utils/api-helper";
 import Carousel from "@/components/carousel/carousel";
 import formatFees from "@/utils/formatFees";
 import CourseCard from "../card/courseCard";
+import { Rating } from "@mui/material";
+import { RiFlagLine } from "react-icons/ri";
+import { CiLocationOn } from "react-icons/ci";
 
 export default function CourseListItem({ courses, featuredCourses }: any) {
   return (
@@ -19,86 +22,126 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
 
             return (
               <div className="py-4" key={index}>
-                <div className="px-4 py-4 md:py-0 flex md:items-center gap-4 bg-white drop-shadow-sm hover:drop-shadow-xl rounded border flex-col md:flex-row">
-                  <div className="flex items-center">
-                    <Image src={logoURL!} width={150} height={150} alt={""} />
-                  </div>
-                  <div className="my-4 flex flex-1 flex-col gap-4 border-r border-r-primary-light ">
-                    <div className="flex flex-col text-sm items-stretch">
-                      <Link href={`/courses/${course.id}`}>
-                        <div>
-                          <h2 className="text-xl font-semibold text-primary">
-                            {course?.attributes?.name}
-                          </h2>
-                        </div>
-                      </Link>
-                      <p className="text-secondary-text font-light">
-                        <span className="text-primary font-semibold text-sm lg:text-lg">
-                          {formatFees(course?.attributes?.fees)}
-                        </span>{" "}
-                        - Total Fees
-                      </p>
-                      <p className="text-secondary-text font-light">
-                        Average Duration:{" "}
-                        <span className="text-primary-text font-medium">
-                          {course?.attributes?.duration} Years
-                        </span>
-                      </p>
-                      <div className="text-secondary-text font-light flex flex-wrap items-center gap-2">
-                        Offered by:{" "}
-                        {course?.attributes?.colleges?.data.map(
-                          (college: any, index: number) => {
-                            return (
-                              <Tag
-                                text={college?.attributes?.collegeName}
-                                bgcolor="bg-pink-100"
-                                color="text-pink-500"
-                                rounded
-                                key={index}
-                              />
-                            );
-                          }
-                        )}
+                <div className=" py-4 md:py-0 flex item-center gap-4 bg-white drop-shadow-sm hover:drop-shadow-xl rounded-xl border flex-col md:flex-row ">
+                  <div className="flex flex-col gap-4 w-full">
+                    {/* <div className="flex items-center">
+                      <Image src={logoURL!} width={150} height={150} alt={""} />
+                    </div> */}
+                    <div className="flex flex-1 flex-row gap-4 p-2 border-r-primary-light ">
+                      <div className="flex items-center">
+                        <Image src={logoURL!} width={150} height={150} alt={""} />
                       </div>
-                      {/* <p className="text-secondary-text font-light">
+                      <div className="flex flex-col gap-2">
+                        <div className="flex flex-row gap-4">
+                          <Rating
+                            name="half-rating"
+                            defaultValue={2.5}
+                            precision={0.5}
+                          />
+                          <div className="flex flex-row gap-2">
+                            <CiLocationOn className="text-2xl text-gray-400" />
+                            <span className="text-blue-800">Chennai, Tamil Nadu</span>
+                          </div>
+                          <div className="flex flex-row gap-2">
+                            <RiFlagLine className="text-2xl text-gray-400" />
+                            <span>
+                              {
+                                course?.attributes?.examLevel?.data?.[0]
+                                  .attributes?.name
+                              }
+                            </span>
+                          </div>
+                          <div className="flex flex-row">
+                            <span className="text-secondary-text">#</span>
+                            <span className="text-primary pr-1">{course?.id}</span>
+                            <span className="text-blue-800 font-bold">NIRF</span>
+                          </div>
+                        </div>
+                        <div className="flex flex-col gap-2 mt-1">
+                          <Link href={`/courses/${course.id}`}>
+                            <div>
+                              <h2 className="text-xl font-semibold text-black">
+                                {course?.attributes?.name}
+                              </h2>
+                            </div>
+                          </Link>
+                          <p className="text-secondary-text font-light">
+                            <span className="text-primary font-semibold text-sm lg:text-lg">
+                              {formatFees(course?.attributes?.fees)}
+                            </span>{" "}
+                            - Total Fees
+                          </p>
+                          <p className="text-secondary-text font-light">
+                            Average Duration:{" "}
+                            <span className="text-primary-text font-medium">
+                              {course?.attributes?.duration} Years
+                            </span>
+                          </p>
+                          <div className="text-secondary-text font-light flex flex-wrap items-center gap-2">
+                            Offered by:{" "}
+                            {course?.attributes?.colleges?.data.map(
+                              (college: any, index: number) => {
+                                return (
+                                  <Tag
+                                    text={college?.attributes?.collegeName}
+                                    bgcolor="bg-pink-100"
+                                    color="text-pink-500"
+                                    rounded
+                                    key={index}
+                                  />
+                                );
+                              }
+                            )}
+                          </div>
+                          {/* <p className="text-secondary-text font-light">
                         <span className="text-[#B12704] text-2xl font-medium">
                           {formatFees(course?.attributes?.fees)}
                         </span>{" "}
                         - Total Fees
                       </p> */}
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="flex flex-row gap-1 flex-wrap md:justify-center md:flex-col md:gap-4 md:my-4 items-center">
-                    <Button
-                      href={`/college`}
-                      text="Register Now"
-                      filled
-                      fontSize="text-sm"
-                      width="w-40"
-                      align="text-center"
-                      bgColor="bg-primary"
-                    />
-                    <Button
-                      href={`/college`}
-                      text="Download Brochure"
-                      fontSize="text-sm"
-                      outline
-                      width="w-40"
-                      align="text-center"
-                      bgColor="bg-gray-400"
-                      fontColor="text-primary-text"
-                    />
-                    <Button
-                      href={`/college`}
-                      text="Get Updates"
-                      outline
-                      fontSize="text-sm"
-                      width="w-40"
-                      fontColor="text-black"
-                      align="text-center"
-                      bgColor="bg-white"
-                    />
+                    <div className="flex flex-row gap-2 items-center justify-between w-full border-t border-black px-2 py-4">
+                      <div className="flex gap-2">
+                        <span className="lg:text-base text-sm border-r border-gray-300 p-2 text-primary cursor-pointer">
+                          Overview
+                        </span>
+                        <span className="lg:text-base text-sm border-r border-gray-300 p-2 text-primary cursor-pointer">
+                          Eligibility
+                        </span>
+                        <span className="lg:text-base text-sm border-r  border-gray-300 p-2 text-primary cursor-pointer">
+                          Exam Pattern
+                        </span>
+                        <span className="lg:text-base text-sm  p-2 text-primary cursor-pointer lg:flex hidden">
+                          Application
+                        </span>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button
+                          href={`/`}
+                          text="Apply Now"
+                          filled
+                          fontSize="text-sm"
+                          width="w-40"
+                          align="text-center"
+                          bgColor="bg-primary"
+                          paddingY="py-3"
+                        />
+                        <Button
+                          href={`/`}
+                          text="Download Brochure"
+                          fontSize="text-sm"
+                          outline
+                          width="w-40"
+                          align="text-center"
+                          bgColor="bg-white"
+                          fontColor="text-primary"
+                          paddingY="py-3"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
                 {/* {(index + 1) % 4 === 0 ? (
