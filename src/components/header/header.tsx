@@ -186,7 +186,7 @@ const LoginQASection = () => {
   return (
     <>
       <div className="flex items-center gap-4 max-sm:hidden">
-        {isUserloggedIn ? (
+        {!isUserloggedIn ? (
           <div className="relative group">
               <FaRegCircleUser className="text-2xl hover:text-primary cursor-pointer group" />
             <div className="absolute z-10 top-6 right-0 hidden group-hover:block bg-white border text-zinc-600 text-sm border-gray-200 rounded-md py-1 w-max">

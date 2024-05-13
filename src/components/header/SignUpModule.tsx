@@ -41,16 +41,16 @@ export function SignUpModule({ closeLoginPopup }: any) {
   const [userOtp, setUserOtp] = useState("");
   const [userId, setUserId] = useState<ID>();
   const [isOtp, setIsOtp] = useState(false);
-  const { userCheck, checkOTP } = useSignup();
+  const { UserCheck, CheckOTP } = useSignup();
   const { userMetaCreate } = useUserMetaData();
   const dispatch = useAppDispatch();
   const { data: streamsData } = useQuery(getStreams);
   const { data: courseLevelData } = useQuery(getCourseLevels);
-  const checkUser = userCheck(
+  const checkUser = UserCheck(
     userSubmittedData?.mobileNo,
     userSubmittedData?.email
   );
-  const otpchecker = checkOTP(userId!, userSubmittedData?.mobileNo, userOtp);
+  const otpchecker = CheckOTP(userId!, userSubmittedData?.mobileNo, userOtp);
 
   interface UserSubmittedData {
     name: string;
