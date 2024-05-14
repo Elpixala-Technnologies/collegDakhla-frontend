@@ -1,12 +1,9 @@
 "use client";
 
 import React from "react";
-import { sendOtp, verifyOtp } from "@/utils/sendOtp";
-import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { OTPInput } from "@/components/otpInput/otp";
-import { truncate } from "fs/promises";
 import useSignup from "@/query/hooks/useSignup";
 import { ID } from "@/types/global";
 import { restUrl } from "@/utils/network";
@@ -54,10 +51,11 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 					console.log("otp sent");
 				})
 				.catch((error: any) => {
+					setMessage("Something went wrong. Please try again.")
 					console.log(error);
 				});
 		} else {
-			console.log("user does not exists");
+			setMessage("User does not exists.")
 		}
 	};
 
@@ -73,14 +71,11 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 				})
 			);
 
-			console.log(
-				"user logged in successfully",
-				checkUser?.userData?.data[0]?.attributes?.name
-			);
 			router.push("/");
 			closeLoginPopup();
-		} else {
-			console.log("wrong otp");
+		}
+		else {
+			setMessage("Wrong OTP");
 		}
 	};
 
@@ -115,7 +110,8 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 						name="Mobile No."
 						value={phoneNumber}
 						onChange={(e) => setPhoneNumber(e.target.value)}
-						type="tel"
+						type="phone"
+						maxLength={10}
 						pattern="[0-9]{10}"
 						title="Please enter a valid phone number"
 						required
@@ -125,13 +121,17 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 					</label>
 				</div>
 				{!isOtp ? (
-					<button
-						className="block w-full select-none rounded-lg bg-primary py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md  transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85]"
-						type="submit"
-						onClick={sendLoginOtp}
-					>
-						Generate OTP
-					</button>
+					<>
+						<button
+							className="block w-full select-none rounded-lg bg-primary py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md  transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85]"
+							type="submit"
+							onClick={sendLoginOtp}
+						>
+							Generate OTP
+						</button>
+						{message && <p className="text-red-600 mt-5 text-center">{message}</p>}
+					</>
+
 				) : (
 					<>
 						<div className="relative h-11 w-full min-w-[200px]">
@@ -150,8 +150,8 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 								>
 									Sign In
 								</button>
-								<p>{message}</p>
 							</div>
+							{message && <p className="text-red-600 mt-5 text-center">{message}</p>}
 						</div>
 					</>
 				)}
