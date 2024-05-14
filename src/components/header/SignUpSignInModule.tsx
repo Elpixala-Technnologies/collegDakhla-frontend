@@ -355,6 +355,9 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
             {/* Error Message */}
             {error && <p className="text-red-600 mt-5 text-center">{error}</p>}
           </div>
+
+
+
         )}
       </div>
     </section>
