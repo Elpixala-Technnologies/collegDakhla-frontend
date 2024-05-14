@@ -16,7 +16,7 @@ import { ID, UserSubmittedData } from "@/types/global";
 import { OTPInput } from "../otpInput/otp";
 import Carousel from "./Carousel";
 import { sliderContent } from "./data";
-import { SignInContainer } from "./SignInContanier";
+import { SignInContainer } from "./SignInContainer";
 
 export function SignUpSignInModule({ closeLoginPopup }: any) {
 	const router = useRouter();
@@ -59,6 +59,7 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 		const publishedAt = currentDate.toISOString();
 
 		if (await checkUser === false) {
+			setError("")
 			try {
 				let data = JSON.stringify({
 					data: {
@@ -135,7 +136,6 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 	};
 
 	const handleFormSubmit = async (data: any) => {
-		console.log("form data received", data);
 
 		setuserSubmittedData(data);
 		!isOtp ? sendSignupOtp() : handleSubmitSignup();

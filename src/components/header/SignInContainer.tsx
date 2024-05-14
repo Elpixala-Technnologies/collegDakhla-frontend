@@ -28,8 +28,9 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 		e.preventDefault();
 
 		if (checkUser != false) {
+			console.log("check user", checkUser);
 
-			setUserId(await checkUser?.userData?.data[0]?.id);
+			setUserId(checkUser?.userData?.data[0]?.id);
 			setIsOtp(true);
 			let data = JSON.stringify({
 				data: {},
@@ -121,17 +122,13 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 					</label>
 				</div>
 				{!isOtp ? (
-					<>
-						<button
-							className="block w-full select-none rounded-lg bg-primary py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md  transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85]"
-							type="submit"
-							onClick={sendLoginOtp}
-						>
-							Generate OTP
-						</button>
-						{message && <p className="text-red-600 mt-5 text-center">{message}</p>}
-					</>
-
+					<button
+						className="block w-full select-none rounded-lg bg-primary py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md  transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85]"
+						type="submit"
+						onClick={sendLoginOtp}
+					>
+						Generate OTP
+					</button>
 				) : (
 					<>
 						<div className="relative h-11 w-full min-w-[200px]">
