@@ -3,9 +3,9 @@ import { ID } from "@/types/global";
 import { checkUser, checkUserOtp, getUserMetaId } from "../graphql/signup";
 
 
-const UserCheck = (number: string, email?: string) => {
+const UserCheck = async (number: string, email?: string) => {
 
-	const { loading, error, data } = useQuery<any>(checkUser, {
+	const { loading, error, data } = await useQuery<any>(checkUser, {
 		variables: {
 			number,
 			email: email ? email : ""
