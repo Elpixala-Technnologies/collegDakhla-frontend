@@ -13,7 +13,8 @@ import { useQuery } from "@apollo/client";
 import { FaRegCircleUser } from "react-icons/fa6";
 import Accordion from "../accordian/accordian";
 
-import { SignUpModule } from "./SignUpModule";
+import { SignUpSignInModule } from "./SignUpSignInModule";
+
 
 import { useAppDispatch, useAppSelector } from "@/store";
 import { clearAuthState } from "@/store/authSlice";
@@ -188,13 +189,19 @@ const LoginQASection = () => {
       <div className="flex items-center gap-4 max-sm:hidden">
         {isUserloggedIn ? (
           <div className="relative group">
-              <FaRegCircleUser className="text-2xl hover:text-primary cursor-pointer group" />
+            <FaRegCircleUser className="text-2xl hover:text-primary cursor-pointer group" />
             <div className="absolute z-10 top-6 right-0 hidden group-hover:block bg-white border text-zinc-600 text-sm border-gray-200 rounded-md py-1 w-max">
-              <Link href={"/profile"}  className="flex item-center gap-x-2 px-3 py-1 hover:bg-gray-100 cursor-pointer">
-              <MdOutlinePerson className="mt-0.5" /> Profile
+              <Link
+                href={"/profile"}
+                className="flex item-center gap-x-2 px-3 py-1 hover:bg-gray-100 cursor-pointer"
+              >
+                <MdOutlinePerson className="mt-0.5" /> Profile
               </Link>
-              <div className="flex item-center gap-x-2 px-3 py-1 hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>
-              <IoLogOutOutline className="mt-0.5" /> Logout
+              <div
+                className="flex item-center gap-x-2 px-3 py-1 hover:bg-gray-100 cursor-pointer"
+                onClick={handleLogout}
+              >
+                <IoLogOutOutline className="mt-0.5" /> Logout
               </div>
             </div>
           </div>
@@ -214,7 +221,8 @@ const LoginQASection = () => {
       </div>
 
       {/* Pop-up Module */}
-      {showLoginPopup && <SignUpModule closeLoginPopup={closeLoginPopup} />}
+      {showLoginPopup && <SignUpSignInModule closeLoginPopup={closeLoginPopup} />}
+      {/* {showLoginPopup && <SignInModule closeLoginPopup={closeLoginPopup} />} */}
     </>
   );
 };
