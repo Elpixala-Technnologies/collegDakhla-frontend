@@ -18,8 +18,9 @@ import { ID } from "@/types/global";
 import { OTPInput } from "../otpInput/otp";
 import Carousel from "./Carousel";
 import { sliderContent } from "./data";
+import { SignInContainer } from "./SignInContanier";
 
-export function SignUpModule({ closeLoginPopup }: any) {
+export function SignUpSignInModule({ closeLoginPopup }: any) {
   const route = useRouter();
   const {
     register,
@@ -51,6 +52,8 @@ export function SignUpModule({ closeLoginPopup }: any) {
     userSubmittedData?.email
   );
   const otpchecker = CheckOTP(userId!, userSubmittedData?.mobileNo, userOtp);
+
+  const [isLogIn, setIsLogin] = useState(true);
 
   interface UserSubmittedData {
     name: string;
@@ -194,155 +197,165 @@ export function SignUpModule({ closeLoginPopup }: any) {
           </div>
         </div>
         {/* Right Side  */}
-        <div className="[flex:5] relative flex flex-col justify-center bg-gradient-to-r from-red-400 to-orange-500 text-black p-8 rounded-r rounded-b">
-          <button
-            className="absolute top-[0.05rem] right-[0.05rem] w-max text-sm  text-white   hover:underline p-3"
-            onClick={closeLoginPopup}
-            type="button"
-          >
-            Close
-          </button>
-          <h1 className="font-bold text-zinc-800">
-            Explore Top-notch college counseling from experts at absolutely no
-            cost. <span>Sign Up Now!</span>
-          </h1>
-
-          <form onSubmit={handleSubmit(handleFormSubmit)}>
-            {isOtp ? (
-              <div className="flex text-xs mb-2">
-                <OTPInput
-                  userOtp={userOtp}
-                  setUserOtp={setUserOtp}
-                  otpLength={6}
-                />
-              </div>
-            ) : (
-              <>
-                <Input
-                  label="Name "
-                  placeholder=" "
-                  {...register("name", {
-                    required: "Name is required",
-                  })}
-                />
-                {errors?.name && (
-                  <p className="text-red-600">{errors?.name?.message}</p>
-                )}
-                {/* Mobile No.  */}
-                <Input
-                  label="Mobile No "
-                  type="text"
-                  placeholder=" "
-                  {...register("mobileNo", {
-                    required: "Mobile No. is required",
-                    pattern: {
-                      value: mobileRegex,
-                      message: "Please enter a valid 10-digit mobile number",
-                    },
-                  })}
-                />
-                {errors.mobileNo && (
-                  <p className="text-red-600">{errors.mobileNo.message}</p>
-                )}
-                {/* Email  */}
-                <Input
-                  label="Email ID "
-                  type="email"
-                  placeholder=" "
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: emailRegex,
-                      message: "Please enter a valid email address",
-                    },
-                  })}
-                />
-                {errors.email && (
-                  <p className="text-red-600">{errors.email.message}</p>
-                )}
-                {/* Stream  */}
-                <select
-                  className="px-3 py-2 my-2 rounded-lg bg-white text-black outline-none focus:outline-zinc-300 duration-200 border border-gray-200 w-full"
-                  {...register("stream", {
-                    // required: "Stream Selection is required",
-                  })}
-                >
-                  <option disabled={true} selected={true} value="">
-                    Select Stream
-                  </option>
-                  {streamsData?.streams?.data?.map(
-                    (stream: any, index: any) => {
-                      return (
-                        <option value={stream?.id} key={index}>
-                          {stream?.attributes?.streamName}
-                        </option>
-                      );
-                    }
-                  )}
-                </select>
-                {errors.stream && (
-                  <p className="text-red-600">{errors.stream.message}</p>
-                )}
-                {/* Level  */}
-                <select
-                  className="px-3 py-2 my-2 rounded-lg bg-white text-black outline-none focus:outline-zinc-300 duration-200 border border-gray-200 w-full"
-                  {...register("level", {
-                    // required: "level Selection is required",
-                  })}
-                >
-                  <option disabled={true} selected={true} value="">
-                    Select Level
-                  </option>
-                  {courseLevelData?.courseLevels?.data?.map(
-                    (level: any, index: any) => {
-                      return (
-                        <option value={level?.id} key={index}>
-                          {level?.attributes?.levelName}
-                        </option>
-                      );
-                    }
-                  )}
-                </select>
-                {errors.level && (
-                  <p className="text-red-600">{errors.level.message}</p>
-                )}
-                {/* Whatsapp No. Check  */}
-                <div className="flex items-center">
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input
-                      type="checkbox"
-                      value=""
-                      className="sr-only peer"
-                      {...register("isWhatsappNo", {})}
-                    />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-300 dark:peer-focus:ring-orange-800 rounded-full peer dark:bg-orange-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-orange-600"></div>
-                  </label>
-                  <span className="ml-3 text-sm font-medium text-gray-900">
-                    Whatsapp number is the same as provided above
-                  </span>
-                </div>
-              </>
-            )}
+        {isLogIn ? (
+          // Sign In Container
+          <SignInContainer
+            setIsLogin={setIsLogin}
+            isLogIn={isLogIn}
+            closeLoginPopup={closeLoginPopup}
+          />
+        ) : (
+          // Sign Up Container
+          <div className="[flex:5] relative flex flex-col justify-center bg-gradient-to-r from-red-400 to-orange-500 text-black p-8 rounded-r rounded-b">
             <button
-              className="px-3 py-2 my-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 hover:font-bold w-full"
-              type="submit"
+              className="absolute top-[0.05rem] right-[0.05rem] w-max text-sm  text-white   hover:underline p-3"
+              onClick={closeLoginPopup}
+              type="button"
             >
-              {isOtp ? "Sign Up" : "Send OTP"}
+              Close
             </button>
-          </form>
+            <h1 className="font-bold text-zinc-800">
+              Explore Top-notch college counseling from experts at absolutely no
+              cost. <span>Sign Up Now!</span>
+            </h1>
 
-          <p className="flex font-sans text-sm antialiased  leading-normal text-inherit">
-            Already have an account?
-            <Link
-              href="/login"
-              className="block ml-1 font-sans text-sm antialiased font-bold leading-normal  text-blue-600 hover:underline"
-            >
-              LogIn
-            </Link>
-          </p>
-          {/* Error Message */}
-          {error && <p className="text-red-600 mt-5 text-center">{error}</p>}
-        </div>
+            <form onSubmit={handleSubmit(handleFormSubmit)}>
+              {isOtp ? (
+                <div className="flex text-xs mb-2">
+                  <OTPInput
+                    userOtp={userOtp}
+                    setUserOtp={setUserOtp}
+                    otpLength={6}
+                  />
+                </div>
+              ) : (
+                <>
+                  <Input
+                    label="Name "
+                    placeholder=" "
+                    {...register("name", {
+                      required: "Name is required",
+                    })}
+                  />
+                  {errors?.name && (
+                    <p className="text-red-600">{errors?.name?.message}</p>
+                  )}
+                  {/* Mobile No.  */}
+                  <Input
+                    label="Mobile No "
+                    type="text"
+                    placeholder=" "
+                    {...register("mobileNo", {
+                      required: "Mobile No. is required",
+                      pattern: {
+                        value: mobileRegex,
+                        message: "Please enter a valid 10-digit mobile number",
+                      },
+                    })}
+                  />
+                  {errors.mobileNo && (
+                    <p className="text-red-600">{errors.mobileNo.message}</p>
+                  )}
+                  {/* Email  */}
+                  <Input
+                    label="Email ID "
+                    type="email"
+                    placeholder=" "
+                    {...register("email", {
+                      required: "Email is required",
+                      pattern: {
+                        value: emailRegex,
+                        message: "Please enter a valid email address",
+                      },
+                    })}
+                  />
+                  {errors.email && (
+                    <p className="text-red-600">{errors.email.message}</p>
+                  )}
+                  {/* Stream  */}
+                  <select
+                    className="px-3 py-2 my-2 rounded-lg bg-white text-black outline-none focus:outline-zinc-300 duration-200 border border-gray-200 w-full"
+                    {...register("stream", {
+                      // required: "Stream Selection is required",
+                    })}
+                  >
+                    <option disabled={true} selected={true} value="">
+                      Select Stream
+                    </option>
+                    {streamsData?.streams?.data?.map(
+                      (stream: any, index: any) => {
+                        return (
+                          <option value={stream?.id} key={index}>
+                            {stream?.attributes?.streamName}
+                          </option>
+                        );
+                      }
+                    )}
+                  </select>
+                  {errors.stream && (
+                    <p className="text-red-600">{errors.stream.message}</p>
+                  )}
+                  {/* Level  */}
+                  <select
+                    className="px-3 py-2 my-2 rounded-lg bg-white text-black outline-none focus:outline-zinc-300 duration-200 border border-gray-200 w-full"
+                    {...register("level", {
+                      // required: "level Selection is required",
+                    })}
+                  >
+                    <option disabled={true} selected={true} value="">
+                      Select Level
+                    </option>
+                    {courseLevelData?.courseLevels?.data?.map(
+                      (level: any, index: any) => {
+                        return (
+                          <option value={level?.id} key={index}>
+                            {level?.attributes?.levelName}
+                          </option>
+                        );
+                      }
+                    )}
+                  </select>
+                  {errors.level && (
+                    <p className="text-red-600">{errors.level.message}</p>
+                  )}
+                  {/* Whatsapp No. Check  */}
+                  <div className="flex items-center">
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        value=""
+                        className="sr-only peer"
+                        {...register("isWhatsappNo", {})}
+                      />
+                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-300 dark:peer-focus:ring-orange-800 rounded-full peer dark:bg-orange-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-orange-600"></div>
+                    </label>
+                    <span className="ml-3 text-sm font-medium text-gray-900">
+                      Whatsapp number is the same as provided above
+                    </span>
+                  </div>
+                </>
+              )}
+              <button
+                className="px-3 py-2 my-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 hover:font-bold w-full"
+                type="submit"
+              >
+                {isOtp ? "Sign Up" : "Send OTP"}
+              </button>
+            </form>
+
+            <p className="flex font-sans text-sm antialiased  leading-normal text-inherit">
+              Already have an account?
+              <span
+                onClick={() => setIsLogin((pre) => !pre)}
+                className="block ml-1 font-sans text-sm antialiased font-bold leading-normal  text-blue-600 hover:underline cursor-pointer"
+              >
+                LogIn
+              </span>
+            </p>
+            {/* Error Message */}
+            {error && <p className="text-red-600 mt-5 text-center">{error}</p>}
+          </div>
+        )}
       </div>
     </section>
   );
