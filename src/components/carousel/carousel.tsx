@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 // components/Carousel.js
 import { ReactNode, useEffect, useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";

@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
 import Link from "next/link";
 import Image from "next/image";

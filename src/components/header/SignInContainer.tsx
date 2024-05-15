@@ -27,11 +27,8 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 	const sendLoginOtp = async (e: any) => {
 		e.preventDefault();
 
-		if (checkUser != false) {
-			console.log("check user", checkUser);
-
-			setUserId(checkUser?.userData?.data[0]?.id);
-			setIsOtp(true);
+		if (checkUser) {
+			setUserId(checkUser?.usersData?.data[0]?.id);
 			let data = JSON.stringify({
 				data: {},
 			});
@@ -39,7 +36,7 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 			let config = {
 				method: "put",
 				maxBodyLength: Infinity,
-				url: `${restUrl}/api/users-data/${checkUser?.userData?.data[0]?.id}`,
+				url: `${restUrl}/api/users-data/${checkUser?.usersData?.data[0]?.id}`,
 				headers: {
 					"Content-Type": "application/json",
 				},
@@ -49,6 +46,7 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 			axios
 				.request(config)
 				.then((response: any) => {
+					setIsOtp(true);
 					console.log("otp sent");
 				})
 				.catch((error: any) => {
@@ -65,10 +63,10 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 			dispatch(
 				setAuthState({
 					authState: true,
-					userName: checkUser?.userData?.data[0]?.attributes?.name,
-					email: checkUser?.userData?.data[0]?.attributes?.email,
-					number: checkUser?.userData?.data[0]?.attributes?.number,
-					userID: checkUser?.userData?.data?.[0]?.id,
+					userName: checkUser?.usersData?.data[0]?.attributes?.name,
+					email: checkUser?.usersData?.data[0]?.attributes?.email,
+					number: checkUser?.usersData?.data[0]?.attributes?.number,
+					userID: checkUser?.usersData?.data?.[0]?.id,
 				})
 			);
 
