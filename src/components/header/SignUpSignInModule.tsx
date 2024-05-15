@@ -45,7 +45,7 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 	const dispatch = useAppDispatch();
 	const { data: streamsData } = useQuery(getStreams);
 	const { data: courseLevelData } = useQuery(getCourseLevels);
-	const checkUser = UserCheck(
+	let checkUser = UserCheck(
 		userSubmittedData?.mobileNo,
 		userSubmittedData?.email
 	);
@@ -94,7 +94,7 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 			} catch (error) {
 				console.error("Error adding user:", error);
 			}
-		} else {
+		} else if (checkUser != false && checkUser != undefined) {
 			setError("User already exists")
 		}
 	};
@@ -126,6 +126,7 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 				});
 
 				router.push("/");
+				closeLoginPopup();
 			} catch (error) {
 				setError("Something went wrong. Please try again.");
 				console.error("Error publishing user:", error);
