@@ -427,15 +427,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
     },
   ];
 
-  const selectedAppliedCountries = [
-    {
-      id: 1,
-      attributes: {
-        countries: id,
-        current_step: "3",
-      },
-    },
-  ];
+
 
   const handleSubmit = async () => {
     // if (isLogin === false) {
@@ -667,7 +659,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                           </div>
                         )}
 
-                        {selectedCourseName === "Under Graduation" &&
+                        {selectedCourseName === "Undergraduate" &&
                           field?.filed_type === "course_level" && (
                             <div className="my-4">
                               <select
@@ -1150,7 +1142,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                         className="outline-none placeholder:text-white border border-white text-white bg-transparent w-full p-2 rounded-md"
                                       />
                                     </div>
-                                    <div className="my-4">
+                                    {/* <div className="my-4">
                                       <div className="mt-4">
                                         <input
                                           type="range"
@@ -1163,7 +1155,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         />
                                       </div>
-                                    </div>
+                                    </div> */}
                                   </div>
 
                                   <div>
