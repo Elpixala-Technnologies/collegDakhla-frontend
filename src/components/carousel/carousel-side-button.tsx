@@ -76,7 +76,7 @@ const CarouselSideBtn = ({
       </div>
       <div className=" flex gap-2">
         {showButton ? (
-          <div className="absolute top-1/2 -left-5 z-40  flex gap-4 items-center">
+          <div className="absolute top-1/2 -left-5 z-40  flex gap-4 items-center hover:scale-110">
             <button
               className={`bg-white ${buttonBorderColor} p-5 cursor-pointer rounded-full shadow-lg ${buttonTextColor}`}
               onClick={prevSlide}
@@ -102,7 +102,7 @@ const CarouselSideBtn = ({
                 <div
                   key={index}
                   className="flex-shrink-0 w-full h-full"
-                  style={{ flex: `0 0 ${100 / slidesToShow}%` }}
+                  style={{ flex: `0 0 ${50 / slidesToShow}%` }}
                 >
                   {slide}
                 </div>
@@ -111,7 +111,7 @@ const CarouselSideBtn = ({
           </div>
         </div>
         {showButton ? (
-          <div className="flex gap-4 items-center absolute top-1/2 -right-5 z-40  ">
+          <div className="flex gap-4 items-center absolute top-1/2 -right-5 z-40 hover:scale-110 ">
             <button
               className={`bg-white ${buttonBorderColor}  p-5 cursor-pointer rounded-full shadow-lg ${buttonTextColor}`}
               onClick={nextSlide}

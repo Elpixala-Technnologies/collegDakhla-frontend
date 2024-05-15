@@ -121,8 +121,6 @@ export function SignUpModule({ closeLoginPopup }: any) {
 						publishedAt,
 					},
 				});
-
-				console.log("user signed up");
 				closeLoginPopup();
 				router.push("/")
 
