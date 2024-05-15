@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import Filter from "./filter";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
