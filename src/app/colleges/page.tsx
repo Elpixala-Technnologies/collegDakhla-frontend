@@ -30,6 +30,7 @@ export default function CollegeList() {
   const [MobileFilter, setMobileFilter] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [Stream, setStream] = useState<string>("default");
+  const [sortOption, setSortOption] = useState<any>([]);
   // const [TopStream, setTopStream] = useState<string>("")
   const [Limit, setLimit] = useState<number>(10);
   const [displayCount, setDisplayCount] = useState(10); // Initial display count
@@ -69,6 +70,30 @@ export default function CollegeList() {
   } = useQuery(topColleges, {
     variables: { Limit },
   });
+
+  // sorting 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleSort = (option: React.SetStateAction<string>) => {
+    setSortOption(option ? [option] : []);
+    setIsOpen(false);
+  };
+
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  // End 
 
   const {
     loading: streamLoader,
@@ -126,10 +151,6 @@ export default function CollegeList() {
     }
   }, [searchValue, initialData, displayCount]);
 
-
-
-console.log(filteredData, "filteredData=")
-
   
 
   return (
@@ -183,9 +204,8 @@ console.log(filteredData, "filteredData=")
               India
             </h1>
             <p
-              className={`${
-                showFullContent ? "text-justify" : " text-center"
-              } text-base mb-3`}
+              className={`${showFullContent ? "text-justify" : " text-center"
+                } text-base mb-3`}
             >
               The list of top engineering colleges in India 2024 includes IT
               Madras, IIT Bombay, IIT Kanpur, IIT Roorkee, IIT Kharagpur, etc.
@@ -265,7 +285,7 @@ console.log(filteredData, "filteredData=")
           </div>
         </section>
         <section className="collegeList">
-          <div className="flex flex-col md:flex-row gap-4 px-4">
+          <div className="flex flex-col md:flex-row gap-3 px-4">
             <div className="flex-none w-64 h-full drop-shadow-md hover:drop-shadow-xl">
               <CollegeFilters
                 allColleges={initialData}
@@ -276,7 +296,8 @@ console.log(filteredData, "filteredData=")
               />
             </div>
             <div className="flex-1 w-full">
-              <div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col">
+              
+              <div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col px-2">
                 <div className="bg-white h-12 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
                   <RiSearchLine />
                   <input
@@ -299,7 +320,8 @@ console.log(filteredData, "filteredData=")
                   </div>
                 </div>
               </div>
-              <div className="flex sm:flex-col flex-row overflow-x-scroll">
+              {/* CollegeListItem */}
+              <div className="flex sm:flex-col flex-row overflow-x-scroll p-2">
                 <CollegeListItem colleges={filteredData} />
 
                 {filteredData?.length >= 10 &&

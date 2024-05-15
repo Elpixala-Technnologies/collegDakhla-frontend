@@ -273,12 +273,12 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 										})}
 									>
 										<option disabled={true} selected={true} value="">
-											Select Stream
+											Select Courses
 										</option>
 										{streamsData?.streams?.data?.map(
 											(stream: any, index: any) => {
 												return (
-													<option value={stream?.id} key={index}>
+													<option value={stream?.id} key={index} className="overflow-y-auto h-24">
 														{stream?.attributes?.streamName}
 													</option>
 												);

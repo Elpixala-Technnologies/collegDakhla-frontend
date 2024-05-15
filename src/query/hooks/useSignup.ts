@@ -15,7 +15,6 @@ const UserCheck = (number: string, email?: string) => {
 	});
 
 	if (data && data !== undefined) {
-		console.log("user check query loaded", data);
 		if (data?.usersData?.data?.length === 0) {
 			return false
 		}
