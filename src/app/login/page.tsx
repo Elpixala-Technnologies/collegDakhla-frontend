@@ -12,7 +12,7 @@ import { restUrl } from "@/utils/network";
 import axios from "axios";
 import { useAppDispatch } from "@/store";
 import { setAuthState } from "@/store/authSlice";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
 	const [phoneNumber, setPhoneNumber] = useState("");
@@ -20,9 +20,9 @@ export default function Login() {
 	const [message, setMessage] = useState("");
 	const [isOtp, setIsOtp] = useState(false);
 	const [userId, setUserId] = useState<ID>();
-	const { userCheck, checkOTP } = useSignup();
-	const checkUser = userCheck(phoneNumber);
-	const otpchecker = checkOTP(userId!, phoneNumber, userOtp)
+	const { UserCheck, CheckOTP } = useSignup();
+	const checkUser = UserCheck(phoneNumber);
+	const otpchecker = CheckOTP(userId!, phoneNumber, userOtp)
 	const dispatch = useAppDispatch();
 	const router = useRouter()
 

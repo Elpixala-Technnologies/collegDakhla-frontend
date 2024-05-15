@@ -31,6 +31,12 @@ module.exports = {
 				hostname: "college-dakhla.blr1.cdn.digitaloceanspaces.com",
 				port: "",
 				pathname: "/**",
+			},
+			{
+				protocol: "https",
+				hostname: "xfcxufxzntfzaggkften.supabase.co",
+				port: "",
+				pathname: "/**",
 			}
 		],
 	},

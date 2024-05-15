@@ -31,11 +31,11 @@ export const updateUserMetaData = gql`
     $city: String
     $name: String
     $course: ID
-    $graduationDetails: ComponentCommonGraduationInfoComponentInput
-    $secondaryDetails: ComponentCommon12ThClassInfoComponentInput
-    $primaryDetails: ComponentCommon10thClassInfoComponentInput
-    $appliedColleges: [ComponentUsermetaAppliedCollegesComponentInput]
-    $professionalExperience: [ComponentUsermetaProfessionalExperienceComponentInput]
+    $graduationDetails: ComponentCommonGraduationDetailsInput
+    $secondaryDetails: ComponentCommonEducationDetails12Input
+    $primaryDetails: ComponentCommonEducationDetails10Input
+    $appliedColleges: [ComponentCommonAppliedCollegesInput]
+    $professionalExperience: [ComponentCommonProfessionalExperienceInput]
   ) {
     updateUserMetaData(
       id: $id
@@ -47,7 +47,7 @@ export const updateUserMetaData = gql`
         graduationDetails: $graduationDetails
         educationDetailsSecondary: $secondaryDetails
         educationDetailsPrimary: $primaryDetails
-        applied_colleges: $appliedColleges
+        appliedColleges: $appliedColleges
         professionalExperience: $professionalExperience
       }
     ) {
@@ -61,9 +61,9 @@ export const updateUserMetaData = gql`
   }
 `;
 
-export const getAllUserMetaDataID = gql`
-  query UsersMetaData($id: ID!) {
-    usersMetaData(id: $id) {
+export const getAllUserMetaDataByID = gql`
+  query UserMetaData($id: ID!) {
+    userMetaData(id: $id) {
       data {
         id
         attributes {
@@ -72,35 +72,27 @@ export const getAllUserMetaDataID = gql`
           number
           gender
           city
-          user_data {
+          userData {
             data {
               id
               attributes {
                 stream {
                   data {
                     attributes {
-                      stream_name
-                    }
-                  }
-                }
-                courseLevel {
-                  data {
-                    id
-                    attributes {
-                      course_level_name
+                      streamName
                     }
                   }
                 }
               }
             }
           }
-          applied_colleges {
+          appliedColleges {
             id
             college {
               data {
                 id
                 attributes {
-                  college_name
+                  collegeName
                 }
               }
             }
@@ -125,7 +117,7 @@ export const getAllUserMetaDataID = gql`
             data {
               id
               attributes {
-                course_name
+                name
               }
             }
           }
