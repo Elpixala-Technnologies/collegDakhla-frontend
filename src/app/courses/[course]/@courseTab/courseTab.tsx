@@ -34,10 +34,10 @@ export default function CourseTab({ tabData }: any) {
 						<div className="bg-primary-extra-light flex flex-col gap-4">
 							{tabData?.map((item: any, index: number) => {
 								return (
-									<Accordion title={item?.heading} titlePrimary opened>
+									<Accordion key={index} title={item?.heading} titlePrimary opened>
 										<div
 											className="content bg-gray-50 rounded-xl px-5 pt-5 mb-5"
-											key={index}>
+											>
 											<PageData data={item} />
 										</div>
 									</Accordion>

@@ -61,6 +61,7 @@ export default function Button({
             className={`button flex cursor-pointer ${width} items-center ${paddingX} ${paddingY}   ${fontSize} ${fontWeight} ${bgColor} ${fontColor} ${
               rounded ? "rounded-full" : "rounded-md"
             }`}
+            onClick={onClick}
           >
             {icon ? <div className="mr-2">{icon}</div> : <></>}
             <div className={`flex-1 ${align}`}>{text}</div>
