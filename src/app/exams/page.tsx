@@ -18,6 +18,7 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import SortButton from "@/components/sortButton/SortButton";
+import useExmas from "@/hooks/useExmas";
 
 export default function ExamList() {
   const [Search, setSearch] = useState("");
@@ -29,6 +30,7 @@ export default function ExamList() {
   const [filteredData, setFilteredData] = useState([]);
   const [displayCount, setDisplayCount] = useState(5);
   const [searchValue, setSearchValue] = useState("");
+  const [sortOption, setSortOption] = useState<any>([]);
 
   // get exams on search
   const {
@@ -42,6 +44,31 @@ export default function ExamList() {
       ModeFilter,
     },
   });
+const {AllExamData} = useExmas()
+console.log(AllExamData, "checkdata, examsData",examsData)
+  // sorting 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleSort = (option: React.SetStateAction<string>) => {
+    setSortOption(option ? [option] : []);
+    setIsOpen(false);
+  };
+
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  // End 
 
   // get featured exams
   const {
@@ -75,8 +102,6 @@ export default function ExamList() {
   const handleLoadMore = () => {
     setDisplayCount((prevCount) => prevCount + 10);
   };
-
-  // console.log(examsData?.exams?.data, "filteredData");
 
   const handleFilterOptionClick = (option: any) => {
     if (option === "a-z") {
@@ -156,9 +181,8 @@ export default function ExamList() {
               All Exams 2023-2024, Dates, Application Forms & Alerts
             </h1>
             <p
-              className={`${
-                showFullContent ? "text-justify" : " text-center"
-              } text-base mb-3`}
+              className={`${showFullContent ? "text-justify" : " text-center"
+                } text-base mb-3`}
             >
               In the upcoming academic year of 2024-2025, numerous exams are
               scheduled across various educational levels and disciplines. These
@@ -263,7 +287,7 @@ export default function ExamList() {
                 </div>
               </div>
               <div className="flex sm:flex-col flex-row overflow-x-scroll">
-                <ExamListItem exams={filteredData} />
+                <ExamListItem exams={AllExamData} />
 
                 {filteredData?.length >= 5 &&
                   filteredData?.length < examsData?.exams?.data.length && (

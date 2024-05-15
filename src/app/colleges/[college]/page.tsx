@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { FaRegHeart } from "react-icons/fa";
+import { FaFileDownload, FaRegHeart } from "react-icons/fa";
+import { FiDownload } from "react-icons/fi";
 import CollegeTab from "./@collegeTab/collegeTab";
 import Tag from "@/components/tag/tags";
 import Button from "@/components/button/button";
@@ -46,7 +48,6 @@ export default function CollegeDetail({ params }: Props) {
   const navbar = college?.navbars?.data;
 
   const tabData = college?.pageData;
-  console.log(college, "college");
 
   const handleTab = (value: string) => {
     setCurrentTab(value);
@@ -120,9 +121,7 @@ export default function CollegeDetail({ params }: Props) {
                 </p>
                 <div className="flex items-baseline gap-4 flex-wrap">
                   <Tag
-                    text={
-                      (collegeType ? collegeType : "Autonomous")
-                    }
+                    text={collegeType ? collegeType : "Autonomous"}
                     href={"/"}
                   />
                   <Tag
@@ -164,13 +163,14 @@ export default function CollegeDetail({ params }: Props) {
                       <Button
                         href={""}
                         onClick={handleDownload}
-                        text="Download Brochure"
+                        text="Brochure"
                         outline
                         fontSize="text-sm"
                         width="w-36"
                         align="text-center"
                         bgColor="bg-white"
                         fontColor="text-black"
+                        icon={<FiDownload />}
                       />
                     </div>
                   </div>
@@ -185,7 +185,7 @@ export default function CollegeDetail({ params }: Props) {
           <div className="infoOption flex items-center max-w-screen-xl mr-2">
             <div className="sticky-nav-wrapper w-full flex items-center justify-center">
               <div className=" bg-white flex border-b border-b-primary-light w-full rounded-lg">
-                <div className="sm:max-w-screen-xl lg:mx-auto px-1 md:px-4 w-full justify-center">
+                <div className="sm:max-w-screen-xl lg:mx-auto px-1 py-1 md:px-4 w-full justify-center ">
                   <NavbarSlider
                     buttonBorderColor="border-primary-text"
                     buttonTextColor="text-primary-text"
@@ -194,22 +194,13 @@ export default function CollegeDetail({ params }: Props) {
                     slidesTablet={5}
                     slidesMobile={3}
                     slides={navbar?.map((tab: any, index: number) => (
-                      <ul
-                        className="max-w-screen-xl px-4 mx-auto flex gap-8 w-full items-stretch h-10 overflow-x-auto"
-                        key={index}
+                      <div
+                        key={tab?.attributes?.name}
+                        onClick={() => handleTab(tab?.attributes?.name)}
+                        className="text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm flex justify-center items-center w-max h-full text-center"
                       >
-                        {navbar?.map((tab: any) => {
-                          return (
-                            <li
-                              key={tab?.attributes?.name}
-                              onClick={() => handleTab(tab?.attributes?.name)}
-                              className="text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm mt-2"
-                            >
-                              {tab?.attributes?.name}
-                            </li>
-                          );
-                        })}
-                      </ul>
+                      {tab?.attributes?.name}
+                      </div>
                     ))}
                   />
                 </div>

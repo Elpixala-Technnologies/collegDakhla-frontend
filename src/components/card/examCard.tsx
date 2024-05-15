@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
 import Link from "next/link";
 import Image from "next/image";
@@ -29,7 +30,7 @@ export default function ExamCard({ featuredExams }: any) {
 					</div>
 				</div>
 			</div>
-			<div className="relative flex flex-col h-60">
+			<div className="relative flex flex-col h-52">
 				<div className="absolute left-2 -top-7 bg-white p-2 rounded">
 					<Image
 						src={logoURL!}
@@ -39,13 +40,13 @@ export default function ExamCard({ featuredExams }: any) {
 						height={60}
 					/>
 				</div>
-				<div className="p-2 pt-4 flex-1 h-72 shadow flex flex-col gap-2">
+				<div className="p-2 pt-2 flex-1 h-60 shadow flex flex-col gap-2">
 					<div className=" flex justify-end">
 						<span className="bg-primary-light text-sm px-2 py-1 rounded-full">
 							{featuredExams?.attributes?.examMode?.data?.attributes?.mode}
 						</span>
 					</div>
-					<div className="p-2 pt-4 flex-1 flex flex-col gap-2">
+					<div className="p-2 pt-2 flex-1 flex flex-col gap-2">
 						<div>
 							<Link href={`/exams/${featuredExams?.id}`}>
 								<h4 className="text-primary font-semibold truncate max-w-60">{featuredExams?.attributes?.name}</h4>

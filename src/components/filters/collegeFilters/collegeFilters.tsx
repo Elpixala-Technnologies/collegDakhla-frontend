@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import Filter from "./filter";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
@@ -20,7 +21,6 @@ export default function CollegeFilters(params?: any) {
     courses: "", 
     collegeType:"",
   });
-  // console.log(params?.allColleges?.colleges?.data, "pankaj");
 
   const [StreamFilter, setStreamFilter] = useState<string>("");
   const [StateFilter, setStateFilter] = useState<string>("");
@@ -131,7 +131,6 @@ export default function CollegeFilters(params?: any) {
 
   const resetFilters = () => {
     const updatedFilter = {};
-    // console.log("selected ", SelectedFilter);
     params.handleMobileFilter();
   };
 

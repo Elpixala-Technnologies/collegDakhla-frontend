@@ -12,7 +12,6 @@ import { Rating } from "@mui/material";
 import { RiFlagLine } from "react-icons/ri";
 
 export default function ExamListItem({ exams }: any) {
-  console.log(exams, "exams");
   return (
     <>
       {exams?.length > 0 ? (
