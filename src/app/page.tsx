@@ -805,9 +805,9 @@ export default function Home() {
             <Faq />
           </div>
         </section>
-        <section className="max-w-screen-xl mx-auto px-4 my-10 py-4 rounded-3xl flex items-center">
+        <section className="max-w-screen-xl mx-auto px-4 my-10 py-4 rounded-3xl flex items-center w-full">
           <motion.div
-            className="max-w-screen-xl mx-auto flex flex-col"
+            className="max-w-screen-xl mx- flex flex-col w-full"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -816,7 +816,7 @@ export default function Home() {
               hidden: { opacity: 0, scale: 0 },
             }}
           >
-            <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-row items-center justify-between w-full flex-1">
               <motion.h2
                 className="text-3xl font-semibold"
                 initial="hidden"
@@ -852,7 +852,7 @@ export default function Home() {
             </div>
             <div className="flex flex-wrap gap-4 my-2 px-0 overflow-x-auto py-2 md:py-0">
               {newsData?.news?.data && (
-                <div className="flex gap-2 justify-evenly w-full">
+                <div className="flex gap-2 justify-start w-full">
                   {newsData.news.data
                     .slice(0, 3)
                     .map((news: any, idx: any) => {

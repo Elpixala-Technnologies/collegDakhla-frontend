@@ -162,20 +162,20 @@ export default function CollegeListItem(allColleges: any) {
                             : "UGC"}{" "}
                         </p>
                         {/* college_type  */}
-                          <p className="text-[#0F4988] flex gap-1 items-center font-semibold text-sm">
-                            <Image
-                              src={FlagIcon}
-                              width={15}
-                              height={15}
-                              alt={"approvedBy"}
-                            />
-                            {college?.attributes?.college_type?.data?.attributes
-                              ?.type
-                              ? college?.attributes?.college_type?.data
-                                  ?.attributes?.type
-                              : "Private"}{" "}
-                            | {"Rank 6"}
-                          </p>
+                        <p className="text-[#0F4988] flex gap-1 items-center font-semibold text-sm">
+                          <Image
+                            src={FlagIcon}
+                            width={15}
+                            height={15}
+                            alt={"approvedBy"}
+                          />
+                          {college?.attributes?.college_type?.data?.attributes
+                            ?.type
+                            ? college?.attributes?.college_type?.data
+                                ?.attributes?.type
+                            : "Private"}{" "}
+                          | {"Rank 6"}
+                        </p>
                       </div>
                       {/* line 2  */}
                       <Link href={`/colleges/${college.id}`}>
@@ -279,14 +279,17 @@ export default function CollegeListItem(allColleges: any) {
                   {/* <Separator /> */}
                   <div className="w-full flex items-center justify-evenly p-4 border-t border-[#0F4988]">
                     <div className="xl:flex flex-wrap items-stretch  px-2 text-primary w-3/4 hidden">
-                      {college?.navbars?.data.map((tab: any, index: number) => (
-                        <div
-                          key={tab?.attributes?.name}
-                          className="mr-2 border-r border-[#565959] text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm flex justify-center items-center w-max h-full text-center"
-                        >
-                          {tab?.attributes?.name}
-                        </div>
-                      ))}
+                      {college?.navbars?.data.map((tab: any, index: number) => {
+                        console.log("college navbar",college)
+                        return (
+                          <div
+                            key={tab?.attributes?.name}
+                            className="mr-2 border-r border-[#565959] text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm flex justify-center items-center w-max h-full text-center"
+                          >
+                            {tab?.attributes?.name}
+                          </div>
+                        );
+                      })}
                       <div className="pr-2 mr-2 border-r border-[#565959]">
                         <p className="text-base font-light">Date</p>
                       </div>
