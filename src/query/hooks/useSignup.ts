@@ -3,21 +3,24 @@ import { ID } from "@/types/global";
 import { checkUser, checkUserOtp, getUserMetaId } from "../graphql/signup";
 
 
-const UserCheck = async (number: string, email?: string) => {
+const UserCheck = (number: string, email?: string) => {
 
-	const { loading, error, data } = await useQuery<any>(checkUser, {
+	const { loading, error, data } = useQuery<any>(checkUser, {
 		variables: {
 			number,
 			email: email ? email : ""
 		},
-		skip: number.length !== 10
+		skip: number.length != 10
 	});
 
-	if (data?.usersData?.data?.length === 0) {
-		return false
-	}
-	else if (data?.usersData?.data?.length === 1) {
-		return { userData: data?.usersData }
+	if (data && data !== undefined) {
+		console.log("user check query loaded", data);
+		if (data?.usersData?.data?.length === 0) {
+			return false
+		}
+		else if (data?.usersData?.data?.length === 1) {
+			return { userData: data?.usersData }
+		}
 	}
 }
 
