@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation, useQuery } from "@apollo/client"
 import { ID } from "@/types/global";
 import { checkUser, checkUserOtp } from "../graphql/signup";
