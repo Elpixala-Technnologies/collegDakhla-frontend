@@ -515,9 +515,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
 
   const renderStep = () => {
     const step = FromStep && FromStep[currentStep];
-
-    console.log(step, "step==");
-
+ 
     if (!step) {
       return null;
     }
@@ -555,7 +553,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
               </div>
 
               {/* Right Panel */}
-              <div className="w-4/5 md:w-1/2 bg-gradient-to-tl from-[#428BC1] via-[#4280BE] to-[#00529E] relative">
+              <div className="w-4/5 md:w-1/2 bg-gradient-to-tl from-[#EF5F43] via-[#EF5F43] to-[#ff9355] relative">
                 {/* Close Button */}
                 <button
                   onClick={onClose}
@@ -649,10 +647,9 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                 </option>
                                 {AllCourseLevelData?.map(
                                   (courseLevel: any, index: any) => {
-                                    // Ensure courseLevel is not null or undefined
                                     const courseLevelName =
                                       courseLevel?.attributes
-                                        ?.course_level_name ?? "";
+                                        ?.levelName ?? "";
                                     const value = `${courseLevel?.id}|${courseLevelName}`;
                                     return (
                                       <option
@@ -708,13 +705,15 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                 </option>
                                 {AllStreamData?.map(
                                   (stream: any, index: any) => {
+
+                                    console.log(stream , "stream")
                                     return (
                                       <option
                                         key={index + "stream"}
                                         className="text-black"
                                         value={stream?.id}
                                       >
-                                        {stream?.attributes?.stream_name}
+                                        {stream?.attributes?.streamName}
                                       </option>
                                     );
                                   }
@@ -1257,7 +1256,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                           </>
                         )}
 
-                        {selectedCourseName === "Doctorate" && (
+                        {selectedCourseName === "Master" && (
                           <>
                             {field?.filed_type === "doctorate_details" && (
                               <>
