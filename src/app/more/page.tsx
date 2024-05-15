@@ -1,3 +1,4 @@
+/* eslint-disable react/no-deprecated */
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
@@ -21,7 +22,7 @@ import WavyText from "@/components/Motion/Wave";
 
 const MorePage = () => {
   const [isHovered, setIsHovered] = useState(true);
-  const spanRef = useRef(null);
+  const spanRef = useRef<any>(null);
   const [spanWidth, setSpanWidth] = useState(39);
   const [replay, setReplay] = useState(true);
 

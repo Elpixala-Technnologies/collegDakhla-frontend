@@ -110,3 +110,11 @@ export interface ProfessionalInformation {
 		};
 	}[];
 }
+export interface UserSubmittedData {
+	name: string;
+	email: string;
+	mobileNo: string;
+	isWhatsappNo: boolean;
+	stream: string;
+	level: string;
+}

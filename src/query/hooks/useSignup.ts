@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation, useQuery } from "@apollo/client"
 import { ID } from "@/types/global";
 import { checkUser, checkUserOtp, getUserMetaId } from "../graphql/signup";
@@ -10,14 +11,17 @@ const UserCheck = (number: string, email?: string) => {
 			number,
 			email: email ? email : ""
 		},
-		skip: number.length !== 10
+		skip: number.length != 10
 	});
 
-	if (data?.usersData?.data?.length === 0) {
-		return false
-	}
-	else if (data?.usersData?.data?.length === 1) {
-		return { userData: data?.usersData }
+	if (data && data !== undefined) {
+		console.log("user check query loaded", data);
+		if (data?.usersData?.data?.length === 0) {
+			return false
+		}
+		else if (data?.usersData?.data?.length === 1) {
+			return { userData: data?.usersData }
+		}
 	}
 }
 

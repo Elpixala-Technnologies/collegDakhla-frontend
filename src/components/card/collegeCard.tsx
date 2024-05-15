@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,6 +16,7 @@ export default function CollegeCard({ featuredCollege }: any) {
 	const bannerURL = college?.banner?.data[0]
 		? getStrapiMedia(college?.banner?.data[0]?.attributes?.url)
 		: GetDefaultImage("banner");
+		console.log(featuredCollege,"saurrabh salary")
 	return (
 		<div className="flex flex-col items-stretch min-w-56 bg-white rounded-lg drop-shadow-sm hover:drop-shadow-lg">
 			<div className="relative rounded-t-lg">

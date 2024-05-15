@@ -262,6 +262,8 @@ import AvgPackage from "./Icons/Avg Package.svg";
 import Exams from "./Icons/Exams.svg";
 import Reviews from "./Icons/reviews.svg";
 import LocationCity from "./Icons/Location_city.svg";
+import SignUp from "./Images/signup.jpg";
+
 export {
   Man,
   LearnTest,
@@ -513,5 +515,6 @@ export {
   AvgPackage,
   Exams,
   Reviews,
-  LocationCity
+  LocationCity,
+	SignUp,
 };

@@ -9,6 +9,7 @@ import {
   FaPhone,
   FaTwitter,
 } from "react-icons/fa6";
+import React from "react";
 
 export default function Footer() {
   return (
@@ -30,114 +31,102 @@ export default function Footer() {
               <div className="address flex items-center my-2">
                 <FaLocationDot />
                 <span className="ml-2">
-                  First Floor, Plot No. 2, Niti Khand 1, Near Mangal Chowk,{" "}
-                  <br />
-                  Indrapuram. Ghaziabad (UP) 201014
+                  {footerContent?.contactDetails?.address
+                    .split("\n")
+                    .map((line, index) => (
+                      <React.Fragment key={index}>
+                        {line}
+                        <br />
+                      </React.Fragment>
+                    ))}
                 </span>
               </div>
               <div className="email flex items-center my-2">
                 <MdEmail />
-                <span className="ml-2">director@collegedakhla.com</span>
+                <Link href={`mailto:${footerContent?.contactDetails?.email}`}>
+                  <span className="ml-2">
+                    {footerContent?.contactDetails?.email}
+                  </span>
+                </Link>
               </div>
               <div className="contact flex items-center my-2">
                 <FaPhone />
-                <span className="ml-2">+919899880100</span>
+                <Link href={`tel:${footerContent?.contactDetails?.phone}`}>
+                  <span className="ml-2">
+                    {footerContent?.contactDetails?.phone}
+                  </span>
+                </Link>
               </div>
             </div>
             <div className=" text-white quick-links text-left">
-              <h1 className="text-2xl font-semibold">Quick Links</h1>
+              <h1 className="text-2xl font-semibold max-w-max group flex flex-col items-center">
+                {footerContent.section1.title}
+                <div className="bg-amber-500 h-[0.20rem] w-0 group-hover:w-full transition-all duration-500"></div>
+              </h1>
               <ul className="mt-2">
-                <li>
-                  <Link href="/">MBBS</Link>
-                </li>
-                <li>
-                  <Link href="/">B.Tech</Link>
-                </li>
-                <li>
-                  <Link href="/">BCA</Link>
-                </li>
-                <li>
-                  <Link href="/">Enquiry</Link>
-                </li>
+                {footerContent?.section1?.list.map((item: any, index: any) => (
+                  <Link href={item.link} key={index}>
+                    <li className="max-w-max group flex flex-col items-center">
+                      {item.label}
+                      <div className="bg-amber-500 h-[0.10rem] w-0 group-hover:w-full transition-all duration-500"></div>
+                    </li>
+                  </Link>
+                ))}
               </ul>
             </div>
             <div className=" text-white helpful-links">
-              <h1 className="text-2xl font-semibold">Helpful Links</h1>
+              <h1 className="text-2xl font-semibold max-w-max group flex flex-col items-center">
+                {footerContent.section2.title}
+                <div className="bg-amber-500 h-[0.20rem] w-0 group-hover:w-full transition-all duration-500"></div>
+              </h1>
               <ul className="mt-2">
-                <li>
-                  <Link href="/">Terms of Service</Link>
-                </li>
-                <li>
-                  <Link href="/">Privacy Policy</Link>
-                </li>
-                <li>
-                  <Link href="/">Cookie Policy</Link>
-                </li>
-                <li>
-                  <Link href="/">Contact Us</Link>
-                </li>
+                {footerContent?.section2?.list.map((item: any, index: any) => (
+                  <Link href={item.link} key={index}>
+                    <li className="max-w-max group flex flex-col items-center">
+                      {item.label}
+                      <div className="bg-amber-500 h-[0.10rem] w-0 group-hover:w-full transition-all duration-500"></div>
+                    </li>
+                  </Link>
+                ))}
               </ul>
             </div>
             <div className=" text-white page">
-              <h1 className="text-2xl font-semibold">Page</h1>
+              <h1 className="text-2xl font-semibold max-w-max group flex flex-col items-center">
+                {footerContent.section3.title}
+                <div className="bg-amber-500 h-[0.20rem] w-0 group-hover:w-full transition-all duration-500"></div>
+              </h1>
               <ul className="mt-2">
-                <li>
-                  <Link href="/">About Us</Link>
-                </li>
-                <li>
-                  <Link href="/">Careers</Link>
-                </li>
-                <li>
-                  <Link href="/">News & Article</Link>
-                </li>
-                <li>
-                  <Link href="/">Legal Notice</Link>
-                </li>
+                {footerContent?.section3?.list.map((item: any, index: any) => (
+                  <Link href={item.link} key={index}>
+                    <li className="max-w-max group flex flex-col items-center">
+                      {item.label}
+                      <div className="bg-amber-500 h-[0.10rem] w-0 group-hover:w-full transition-all duration-500"></div>
+                    </li>
+                  </Link>
+                ))}
               </ul>
             </div>
           </div>
           <div className="footer-middle border md:my-10 my-5"></div>
           <div className="footer-bottom flex flex-wrap justify-between text-white md:text-sm max-md:flex-col gap-4 text-sm ">
-            <div className="social-icons flex items-center gap-3 md:gap-4 text-xl">
-              <span>
-                <Link href="/">
-                  <FaInstagram />
+            <ul className="social-icons flex items-center gap-3 md:gap-4 text-xl">
+              {footerContent.socialLinks.map((item: any, index: any) => (
+                <Link href={item.link} key={index}>
+                  <li className="hover:text-amber-500">{item.label}</li>
                 </Link>
-              </span>
-              <span>
-                <Link href="/">
-                  <FaFacebook />
-                </Link>
-              </span>
-              <span>
-                <Link href="/">
-                  <FaTwitter />
-                </Link>
-              </span>
-              <span>
-                <Link href="/">
-                  <FaLinkedin />
-                </Link>
-              </span>
-            </div>
+              ))}
+            </ul>
             <div className="bottom-links">
               <ul className="list-none flex max-sm:flex-col flex-wrap gap-4 max-sm:gap-0">
-                <li>
-                  <Link href="/">Terms of Service</Link>
-                </li>
-                <li className="">
-                  <Link href="/">Privacy Policy</Link>
-                </li>
-                <li className="">
-                  <Link href="/">Cookie Policy</Link>
-                </li>
-                <li className="">
-                  <Link href="/">Contact Us</Link>
-                </li>
+                {footerContent.bottomLinks.map((item: any, index: any) => (
+                  <Link href={item.link} key={index}>
+                    <li className="hover:text-amber-500">{item.label}</li>
+                  </Link>
+                ))}
               </ul>
             </div>
             <div className="copyright">
-              <span>Copyright © 2022 College Dakhla, All rights reserved.</span>
+              <span>{footerContent?.copyright}</span>
             </div>
           </div>
         </div>
@@ -145,3 +134,58 @@ export default function Footer() {
     </>
   );
 }
+
+const footerContent = {
+  contactDetails: {
+    address:
+      "First Floor, Plot No. 2, Niti Khand 1, Near Mangal Chowk, \n Indrapuram. Ghaziabad (UP) 201014",
+    email: "director@collegedakhla.com",
+    phone: "+919899880100",
+  },
+  section1: {
+    title: "Quick Links",
+    list: [
+      { label: "MBBS", link: "/mbbs" },
+      { label: "B.Tech", link: "/btech" },
+      { label: "BCA", link: "/bca" },
+      { label: "Enquiry", link: "/enquiry" },
+    ],
+  },
+  section2: {
+    title: "Helpful Links",
+    list: [
+      { label: "Terms of Service", link: "/terms" },
+      { label: "Privacy Policy", link: "/privacy" },
+      { label: "Cookie Policy", link: "/cookie" },
+      { label: "Contact Us", link: "/contact" },
+    ],
+  },
+  section3: {
+    title: "Page",
+    list: [
+      { label: "About Us", link: "/about" },
+      { label: "Careers", link: "/careers" },
+      { label: "News & Article", link: "/news" },
+      { label: "Legal Notice", link: "/legal" },
+    ],
+  },
+  socialLinks: [
+    {
+      label: <FaInstagram />,
+      link: "https://www.instagram.com/collegedakhla/",
+    },
+    { label: <FaFacebook />, link: "https://www.facebook.com/collegedakhla/" },
+    { label: <FaTwitter />, link: "https://twitter.com/collegedakhla" },
+    {
+      label: <FaLinkedin />,
+      link: "https://www.linkedin.com/company/collegedakhla/",
+    },
+  ],
+  bottomLinks: [
+    { label: "Terms of Service", link: "/terms" },
+    { label: "Privacy Policy", link: "/privacy" },
+    { label: "Cookie Policy", link: "/cookie" },
+    { label: "Contact Us", link: "/contact" },
+  ],
+  copyright: "Copyright © 2024 College Dakhla, All rights reserved.",
+};

@@ -287,7 +287,7 @@ export default function ExamList() {
                 </div>
               </div>
               <div className="flex sm:flex-col flex-row overflow-x-scroll">
-                <ExamListItem exams={filteredData} />
+                <ExamListItem exams={examsData} />
 
                 {filteredData?.length >= 5 &&
                   filteredData?.length < examsData?.exams?.data.length && (
