@@ -118,6 +118,7 @@ export default function CourseList() {
       setFilteredData(filtered);
     }
   }, [searchValue, coursesData, displayCount]);
+  console.log(coursesData,)
 
   return (
     <>

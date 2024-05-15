@@ -10,8 +10,25 @@ import { BsCalendarDate } from "react-icons/bs";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { Rating } from "@mui/material";
 import { RiFlagLine } from "react-icons/ri";
+import { useState } from "react";
+import userFrom from "@/hooks/userFrom";
+import ApplyNowModal from "../consultingModule/ApplyNowModal/ApplyNowModal";
 
 export default function ExamListItem({ exams }: any) {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { CollegeApplicatonListData } = userFrom();
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+    document.body.classList.add("overflow-hidden");
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    document.body.classList.remove("overflow-hidden");
+  };
+  const FromStep: any = CollegeApplicatonListData?.form_stape;
   return (
     <>
       {exams?.length > 0 ? (
@@ -160,7 +177,8 @@ export default function ExamListItem({ exams }: any) {
                       </div>
                       <div className="flex gap-2">
                         <Button
-                          href={`/`}
+                          // href={`/`}
+                          onClick={handleOpenModal}
                           text="Apply Now"
                           filled
                           fontSize="text-sm"
@@ -247,6 +265,14 @@ export default function ExamListItem({ exams }: any) {
             No data available
           </p>
         </div>
+      )}
+      {isModalOpen && (
+        <ApplyNowModal
+          id={11}
+          FromStep={FromStep}
+          isSectionCheck={"College"}
+          onClose={handleCloseModal}
+        />
       )}
     </>
   );

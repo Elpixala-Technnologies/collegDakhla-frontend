@@ -151,6 +151,8 @@ export default function CollegeList() {
     }
   }, [searchValue, initialData, displayCount]);
 
+  
+
   return (
     <>
       <div className="max-w-screen-xl mx-auto">

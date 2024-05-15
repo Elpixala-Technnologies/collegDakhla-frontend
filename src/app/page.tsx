@@ -494,7 +494,7 @@ export default function Home() {
                   style={{ maxHeight: "300px", width: "100%" }}
                 />
               </div>
-              <div className="flex justify-start ">
+              {/* <div className="flex justify-start ">
                 <Image
                   src="/tempImage.jpeg"
                   alt="logo"
@@ -513,7 +513,7 @@ export default function Home() {
                   className=" object-contain p-4 m-2"
                   style={{ maxHeight: "300px", width: "100%" }}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
         </section>

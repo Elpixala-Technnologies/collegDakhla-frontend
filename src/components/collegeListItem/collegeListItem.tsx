@@ -80,6 +80,8 @@ export default function CollegeListItem(allColleges: any) {
                 )
               : GetDefaultImage("banner");
 
+            console.log(college, "saurabh");
+
             return (
               <div key={index}>
                 <div className="mb-4 pt-4 flex flex-wrap md:flex-row gap-4 shadow-lg bg-white rounded-lg drop-shadow hover:drop-shadow-xl">
@@ -279,19 +281,21 @@ export default function CollegeListItem(allColleges: any) {
                   {/* <Separator /> */}
                   <div className="w-full flex items-center justify-evenly p-4 border-t border-[#0F4988]">
                     <div className="xl:flex flex-wrap items-stretch  px-2 text-primary w-3/4 hidden">
-                      {college?.navbars?.data.map((tab: any, index: number) => {
-                        console.log("college navbar",college)
-                        return (
-                          <div
-                            key={tab?.attributes?.name}
-                            className="mr-2 border-r border-[#565959] text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm flex justify-center items-center w-max h-full text-center"
-                          >
-                            {tab?.attributes?.name}
-                          </div>
-                        );
-                      })}
                       <div className="pr-2 mr-2 border-r border-[#565959]">
-                        <p className="text-base font-light">Date</p>
+                        <p className="text-base font-light">Info</p>
+                      </div>
+                      <div className="pr-2 mr-2 border-r border-[#565959]">
+                        <p className="text-base font-light">Courses</p>
+                      </div>
+                      <div className="pr-2 mr-2 border-r border-[#565959]">
+                        <p className="text-base font-light">Scholarship</p>
+                      </div>
+
+                      <div className="pr-2 mr-2 border-r border-[#565959]">
+                        <p className="text-base font-light">Review</p>
+                      </div>
+                      <div className="pr-2 mr-2">
+                        <p className="text-base font-light">Placement</p>
                       </div>
                     </div>
 

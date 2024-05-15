@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import Tag from "../tag/tags";
@@ -11,8 +12,27 @@ import { RiFlagLine } from "react-icons/ri";
 import { CiLocationOn } from "react-icons/ci";
 import { Duration, RupeeBaves } from "@/Asset";
 import { FaBabyCarriage } from "react-icons/fa";
+import { useState } from "react";
+import ApplyNowModal from "../consultingModule/ApplyNowModal/ApplyNowModal";
+import userFrom from "@/hooks/userFrom";
+
 
 export default function CourseListItem({ courses, featuredCourses }: any) {
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { CollegeApplicatonListData } = userFrom();
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+    document.body.classList.add("overflow-hidden");
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    document.body.classList.remove("overflow-hidden");
+  };
+
+  const FromStep: any = CollegeApplicatonListData?.form_stape;
   return (
     <>
       {courses?.length > 0 ? (
@@ -154,7 +174,8 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                       </div>
                       <div className="flex gap-2">
                         <Button
-                          href={`/`}
+                          // href={`/`}
+                          onClick={handleOpenModal}
                           text="Apply Now"
                           filled
                           fontSize="text-sm"
@@ -209,6 +230,15 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
             No data available
           </p>
         </div>
+      )}
+
+      {isModalOpen && (
+        <ApplyNowModal
+          id={11}
+          FromStep={FromStep}
+          isSectionCheck={"College"}
+          onClose={handleCloseModal}
+        />
       )}
     </>
   );

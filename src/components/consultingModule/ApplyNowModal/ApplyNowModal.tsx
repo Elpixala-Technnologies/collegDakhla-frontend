@@ -252,7 +252,6 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
             publishedAt: publishedAt,
           },
         });
-        console.log("data ", data);
 
         let config = {
           method: "post",
@@ -516,7 +515,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
       <>
         {modalOpen === "basic" && (
           <div className="fixed inset-0  overflow-x-auto flex items-center justify-center z-[999] bg-gray-500 bg-opacity-30">
-            <div className="flex justify-center w-full lg:w-[900px] mt-20">
+            <div className="flex justify-center w-full lg:w-[900px] mt-10">
               {/* Left Panel */}
               <div className="relative w-2/5 bg-white hidden md:block">
                 <div className="flex flex-col items-center">
@@ -567,10 +566,10 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                 </button>
 
                 {/* Right panel content */}
-                <div className="flex flex-col justify-center mx-4 my-6 md:my-10 md:mx-6 p-6 h-[60vh] overflow-y-scroll hide-scrollbar">
+                <div className="flex flex-col justify-center mx-4 md:mx-6 p-6 h-[60vh] overflow-y-scroll hide-scrollbar">
                   {/* Right panel content */}
                   <div className="space-y-2">
-                    <h1 className="text-white mt-[3rem] mb-2 font-semibold text-base text-left font-sans  md:text-xl">
+                    <h1 className="text-white mt-[3rem] mb-8 font-semibold text-base text-left font-sans  md:text-xl">
                       {step.step_label}
                     </h1>
 

@@ -59,7 +59,6 @@ export default function CollegeDetail({ params }: Props) {
 
   useEffect(() => {
     if (loading) {
-      console.log("loading ", loading);
     }
     if (!loading && currentTab === "") {
       handleTab("Info");
