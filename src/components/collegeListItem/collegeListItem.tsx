@@ -80,8 +80,6 @@ export default function CollegeListItem(allColleges: any) {
                 )
               : GetDefaultImage("banner");
 
-            console.log(college, "saurabh");
-
             return (
               <div key={index}>
                 <div className="mb-4 pt-4 flex flex-wrap md:flex-row gap-4 shadow-lg bg-white rounded-lg drop-shadow hover:drop-shadow-xl">

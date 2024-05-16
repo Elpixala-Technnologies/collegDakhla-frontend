@@ -145,9 +145,6 @@ export default function CollegeFilters(params?: any) {
         collegeType: "",
       }));
     }
-  
-    // Reset filtered data
-    params.setFilteredData(null);
   };
   
   
@@ -164,14 +161,22 @@ export default function CollegeFilters(params?: any) {
   };
 
   // render data when filter values are changed
+  
   useEffect(() => {
     params?.setFilteredData(filteredCollege?.colleges?.data);
   }, [filteredCollege, filterLoader]);
 
-  // check for SelectedFilter
   useEffect(() => {
-    const hasData = Object.values(SelectedFilter).some((value) => !!value);
-  }, [SelectedFilter]);
+  if (!filterLoader && filteredCollege) {
+    // Reset all filter states to empty strings
+    setStreamFilter("");
+    setStateFilter("");
+    setCityFilter("");
+    setCoursesFilter("");
+    setcollegeTypeFilter("");
+  }
+}, [filterLoader, filteredCollege]);
+
 
   useEffect(() => {
     if (params.isMobile) {
@@ -227,16 +232,13 @@ export default function CollegeFilters(params?: any) {
           <></>
         )}
 
-        {params.page != "stream" ? (
           <Filter
             name="Stream"
             filters={streamsData?.streams?.data}
             handleFilter={handleStreamFilter}
             checked={StreamFilter}
           />
-        ) : (
-          ""
-        )}
+    
         <Filter
           name="State"
           filters={statesData?.states?.data}

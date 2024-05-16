@@ -126,8 +126,6 @@ export default function ExamList() {
     }
   }, [searchValue, AllExamData, displayCount]);
 
-  console.log(filteredData, AllExamData, "filteredData");
-
   return (
     <>
       <div className="max-w-screen-xl mx-auto">

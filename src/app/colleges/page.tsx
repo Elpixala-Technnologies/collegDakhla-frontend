@@ -137,15 +137,19 @@ export default function CollegeList() {
       setFilteredData(resetArray);
     }
   };
-
+  // useEffect(() => {
+  //   if(initialData){
+  //   setFilteredData(initialData?.colleges?.data.slice(0, displayCount));}
+  // }, [initialData, displayCount]);
+  
   useEffect(() => {
     if (searchValue.trim() === "") {
+      // If search input is empty, display all data
       setFilteredData(initialData?.colleges?.data.slice(0, displayCount));
     } else {
+      // Filter data based on search input
       const filtered = initialData?.colleges?.data.filter((college: any) =>
-        college.attributes.collegeName
-          .toLowerCase()
-          .includes(searchValue.toLowerCase())
+        college.attributes.collegeName.toLowerCase().includes(searchValue.toLowerCase())
       );
       setFilteredData(filtered);
     }
