@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { OTPInput } from "@/components/otpInput/otp";
 import useSignup from "@/query/hooks/useSignup";
 import { ID } from "@/types/global";
