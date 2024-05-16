@@ -5,8 +5,6 @@ import CollegeData from "@/components/collegeData/collegeData";
 import YoutubeVideo from "@/components/youtubeVideo/youtubeVideo";
 import PageData from "@/components/pageData/pageData";
 import Accordion from "@/components/accordian/accordian";
-import Accordion from "@/components/accordian/accordian";
-
 export default function CourseTab({ tabData }: any) {
 	return (
 		<>
@@ -68,7 +66,6 @@ export default function CourseTab({ tabData }: any) {
 								width="w-full"
 								align="text-center"
 								fontColor="text-primary-text"
-							/> */}
 							/> */}
 							<div className="college-videos bg-gray-50 p-3">
 								<h4 className="text-base font-bold font-poppins border-b-2 pb-2">
