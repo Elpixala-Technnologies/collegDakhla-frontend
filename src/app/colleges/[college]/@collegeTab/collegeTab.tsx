@@ -3,12 +3,8 @@ import Button from "@/components/button/button";
 import Image from "next/image";
 import YoutubeVideo from "@/components/youtubeVideo/youtubeVideo";
 import PageData from "@/components/pageData/pageData";
-import NavbarSlider from "@/components/carousel/navbar-carousal";
 import Accordion from "@/components/accordian/accordian";
-import Accordian from "@/components/accordian/accordian";
 import NavbarSlider from "@/components/carousel/navbar-carousal";
-import Accordion from "@/components/accordian/accordian";
-import Accordian from "@/components/accordian/accordian";
 
 export default function CollegeTab(props: any) {
 	return (
