@@ -11,7 +11,7 @@ export default function ExamCard({ featuredExams }: any) {
 		: GetDefaultImage("logo");
 	const bannerUrl = featuredExams?.attributes?.banner?.data[0] ? getStrapiMedia(featuredExams?.attributes?.banner?.data[0]?.attributes?.url) : GetDefaultImage("banner")
 	return (
-		<div className="flex flex-col items-stretch min-w-56 bg-white rounded-lg shadow-xl">
+		<div className="flex flex-col items-stretch min-w-56 bg-white rounded-lg drop-shadow hover:drop-shadow-lg">
 			<div className="relative rounded-t-lg">
 				<img
 					src={bannerUrl!}
@@ -29,7 +29,7 @@ export default function ExamCard({ featuredExams }: any) {
 					</div>
 				</div>
 			</div>
-			<div className="relative flex flex-col">
+			<div className="relative flex flex-col h-60">
 				<div className="absolute left-2 -top-7 bg-white p-2 rounded">
 					<Image
 						src={logoURL!}
@@ -50,18 +50,18 @@ export default function ExamCard({ featuredExams }: any) {
 							<Link href={`/exams/${featuredExams?.id}`}>
 								<h4 className="text-primary font-semibold truncate max-w-60">{featuredExams?.attributes?.name}</h4>
 							</Link>
-							<div className="flex flex-col text-sm tracking-tighter gap-2">
+							<div className="flex flex-col text-sm tracking-tighter gap-2 ">
 								<div className="flex justify-between">
-									<div className="">Participating Colleges</div>
-									<div className="font-semibold">54</div>
+									<div className="text-gray-500 font-light">Participating Colleges</div>
+									<div className="font-medium text-sm tracking-wide">54</div>
 								</div>
 								<div className="flex justify-between">
-									<div className="">Exam Date</div>
-									<div className="font-semibold">{formatDate(featuredExams?.attributes?.examDate?.startDate)}</div>
+									<div className="text-gray-500 font-light">Exam Date</div>
+									<div className="font-medium text-sm">{formatDate(featuredExams?.attributes?.examDate?.startDate)}</div>
 								</div>
 								<div className="flex justify-between">
-									<div className="">Exam Level</div>
-									<div className="font-semibold">{featuredExams?.attributes?.examLevel?.data?.map((level: any, index: number) => {
+									<div className="text-gray-500 font-light">Exam Level</div>
+									<div className="font-medium text-sm tracking-wide">{featuredExams?.attributes?.examLevel?.data?.map((level: any, index: number) => {
 										return (
 											<span key={index}>
 												{" " + `${level?.attributes?.name}`}

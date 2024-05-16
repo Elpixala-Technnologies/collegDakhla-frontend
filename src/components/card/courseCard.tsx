@@ -54,18 +54,18 @@ export default function CourseCard({ featuredCourse }: any) {
 						</Link>
 						<div className="flex flex-col text-sm tracking-tighter gap-2">
 							<div className="flex justify-between">
-								<div className="">Specializations</div>
-								<div className="font-semibold">
+								<div className="text-gray-500 font-light">Specializations</div>
+								<div className="font-medium text-lg tracking-wide">
 									{featuredCourse?.attributes?.specializations?.data?.length}
 								</div>
 							</div>
 							<div className="flex justify-between">
-								<div className="">Course Duration</div>
-								<div className="font-semibold">{featuredCourse?.attributes?.duration} Years</div>
+								<div className="text-gray-500 font-light">Course Duration</div>
+								<div className=" font-medium text-lg tracking-wide">{featuredCourse?.attributes?.duration} Years</div>
 							</div>
 							<div className="flex justify-between">
-								<div className="">Course Level</div>
-								<div className="font-semibold">{featuredCourse?.attributes?.courseLevels?.data?.map((level: any, index: number) => {
+								<div className="text-gray-500 font-light">Course Level</div>
+								<div className="font-medium text-lg tracking-wide">{featuredCourse?.attributes?.courseLevels?.data?.map((level: any, index: number) => {
 									return (
 										<span key={index}>
 											{" " + `${level?.attributes?.levelName}`}

@@ -10,16 +10,16 @@ import CourseCard from "../card/courseCard";
 export default function CourseListItem({ courses, featuredCourses }: any) {
   return (
     <>
-      {courses?.data?.length > 0 ? (
+      {courses?.length > 0 ? (
         <>
-          {courses?.data.map((course: any, index: number) => {
+          {courses?.map((course: any, index: number) => {
             const logoURL = course?.attributes?.logo?.data?.attributes?.url
               ? getStrapiMedia(course?.attributes?.logo?.data?.attributes?.url)
               : GetDefaultImage("logo");
 
             return (
-              <div className="py-4 border-b-2 border-[#DDDDDD]" key={index}>
-                <div className="px-4 py-4 md:py-0 flex md:items-center gap-4 bg-white shadow-sm rounded border flex-col md:flex-row">
+              <div className="py-4" key={index}>
+                <div className="px-4 py-4 md:py-0 flex md:items-center gap-4 bg-white drop-shadow-sm hover:drop-shadow-xl rounded border flex-col md:flex-row">
                   <div className="flex items-center">
                     <Image src={logoURL!} width={150} height={150} alt={""} />
                   </div>
@@ -80,7 +80,7 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                       outline
                       width="w-40"
                       align="text-center"
-                      bgColor="bg-white"
+                      bgColor="bg-gray-400"
                       fontColor="text-primary-text"
                     />
                     <Button
@@ -89,12 +89,13 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                       outline
                       fontSize="text-sm"
                       width="w-40"
-                      fontColor="text-primary-text"
+                      fontColor="text-black"
                       align="text-center"
+                      bgColor="bg-white"
                     />
                   </div>
                 </div>
-                {(index + 1) % 4 === 0 ? (
+                {/* {(index + 1) % 4 === 0 ? (
                   <>
                     <div className="my-4 bg-white py-4 px-4">
                       <Carousel
@@ -114,7 +115,7 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                   </>
                 ) : (
                   <></>
-                )}
+                )} */}
               </div>
             );
           })}

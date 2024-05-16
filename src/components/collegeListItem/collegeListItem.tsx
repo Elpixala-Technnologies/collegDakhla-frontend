@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import Link from "next/link";
 import Button from "../button/button";
 import { FaRegStar, FaRegUser } from "react-icons/fa";
@@ -6,9 +8,10 @@ import Feature from "../feature/feature";
 import { useQuery } from "@apollo/client";
 import { getStates } from "@/query/schema";
 import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
-import StarRating from "../starRating/starRating";
+// import StarRating from "../starRating/starRating";
 import { FaImage, FaVideo } from "react-icons/fa6";
-import { IoShieldCheckmark } from "react-icons/io5";
+import Image from "next/image";
+// import { IoShieldCheckmark } from "react-icons/io5";
 
 export default function CollegeListItem(allColleges: any) {
   //query to get all states
@@ -28,6 +31,10 @@ export default function CollegeListItem(allColleges: any) {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });
+  
+  const handleClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   return (
     <>
@@ -49,14 +56,17 @@ export default function CollegeListItem(allColleges: any) {
 
             return (
               <div key={index}>
-                <div className="mb-4 p-4 flex flex-col md:flex-row gap-4 shadow-lg bg-white">
-                  <div className="relative h-44">
-                    <img
-                      src={bannerURL!}
+                <div className="mb-4 p-4 flex flex-col md:flex-row gap-4 shadow-lg bg-white rounded-lg drop-shadow hover:drop-shadow-xl">
+                  <div className="relative h-44 rounded-lg">
+              
+                    <Image
+                      width={700}
+                      height={700}
+                      src={logoURL!}
                       alt={college?.collegeName}
-                      className="w-full sm:w-48 h-44 object-fill rounded-sm max-w-44"
+                      className="w-full sm:w-48 h-44 object-fill rounded-lg max-w-44"
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-50 rounded-sm"></div>
+                    <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
                     <div className="absolute inset-0 text-white  mx-auto my-2 w-10/12">
                       <div className="flex justify-between">
                         <div className="flex gap-3 items-start">
@@ -160,6 +170,8 @@ export default function CollegeListItem(allColleges: any) {
                           outline
                           color="text-primary"
                           rounded
+                          textColor="text-primary"
+                          bgColor="bg-white"
                           fontColor="text-primary-text"
                         />
                         <Button
@@ -168,8 +180,10 @@ export default function CollegeListItem(allColleges: any) {
                           icon={<FaRegStar />}
                           outline
                           rounded
+                          bgColor="bg-white"
+                          textColor="text-primary"
                           fontSize="text-xxs"
-                          fontColor="text-primary-text"
+                          fontColor="text-black"
                         />
                         <Button
                           href={`/college/${college.id}`}
@@ -177,6 +191,8 @@ export default function CollegeListItem(allColleges: any) {
                           icon={<PiBooksLight />}
                           outline
                           rounded
+                          bgColor="bg-white"
+                          textColor="text-primary"
                           fontSize="text-xxs"
                           fontColor="text-primary-text"
                         />
@@ -237,7 +253,7 @@ export default function CollegeListItem(allColleges: any) {
                     </div>
                     <div className="flex flex-row gap-1 flex-wrap lg:justify-center lg:flex-col md:gap-4 md:my-4 items-center lg:border-l lg:border-l-extra-light-text lg:px-4">
                       <Button
-                        href={`/college/${college.id}`}
+                        onClick={handleClick}
                         text="Apply Now"
                         filled
                         fontSize="text-sm"
@@ -252,8 +268,8 @@ export default function CollegeListItem(allColleges: any) {
                         outline
                         width="w-40"
                         align="text-center"
-                        bgColor="bg-white"
-                        fontColor="text-primary-text"
+                        bgColor="bg-gray-400"
+                        fontColor="text-white"
                       />
                       <Button
                         href={`/college/${college.id}`}
@@ -263,6 +279,7 @@ export default function CollegeListItem(allColleges: any) {
                         width="w-40"
                         fontColor="text-primary-text"
                         align="text-center"
+                        bgColor="bg-white"
                       />
                     </div>
                   </div>

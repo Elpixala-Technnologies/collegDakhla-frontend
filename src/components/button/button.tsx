@@ -17,6 +17,9 @@ type Props = {
   fontColor?: string;
   paddingX?: string;
   paddingY?: string;
+  onClick?: () => void; 
+  textColor?: string;
+  
 };
 export default function Button({
   href,
@@ -35,15 +38,18 @@ export default function Button({
   fontColor = "text-white",
   paddingX = "px-2",
   paddingY = "py-2",
+  textColor="",
+  onClick
 }: Props) {
   const ButtonContent = (
     <>
       {outline ? (
         <>
           <div
-            className={`button flex ${width} items-center ${paddingX} ${paddingY} border ${fontSize} ${fontWeight} ${outlineColor} ${fontColor} hover:border-primary hover:text-primary ${
+            className={`button flex cursor-pointer ${width} ${bgColor} items-center ${paddingX} ${paddingY} border ${fontSize} ${fontWeight} ${outlineColor} ${fontColor} hover:border-primary hover:${textColor} ${
               rounded ? "rounded-full" : "rounded-md"
             }`}
+            onClick={onClick}
           >
             {icon ? <div className="mr-2">{icon}</div> : <></>}
             <div className={`flex-1 ${align}`}>{text}</div>
@@ -52,7 +58,7 @@ export default function Button({
       ) : (
         <>
           <div
-            className={`button flex ${width} items-center ${paddingX} ${paddingY}   ${fontSize} ${fontWeight} ${bgColor} ${fontColor} ${
+            className={`button flex cursor-pointer ${width} items-center ${paddingX} ${paddingY}   ${fontSize} ${fontWeight} ${bgColor} ${fontColor} ${
               rounded ? "rounded-full" : "rounded-md"
             }`}
           >

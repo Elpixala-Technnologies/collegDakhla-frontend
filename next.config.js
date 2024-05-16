@@ -3,7 +3,7 @@ module.exports = {
 		remotePatterns: [
 			{
 				protocol: "https",
-				hostname: "college-dakhla-backend-qtpvh.ondigitalocean.app",
+				hostname: "collegedakhla-backend.onrender.com",
 				port: "",
 				pathname: "/uploads/**",
 			},
@@ -22,6 +22,12 @@ module.exports = {
 			{
 				protocol: "https",
 				hostname: "college-dakhla.blr1.cdn.digitaloceanspaces.com",
+				port: "",
+				pathname: "/**",
+			},
+			{
+				protocol: "https",
+				hostname: "xfcxufxzntfzaggkften.supabase.co",
 				port: "",
 				pathname: "/**",
 			}

@@ -4,6 +4,7 @@ import Image from "next/image";
 import CollegeData from "@/components/collegeData/collegeData";
 import YoutubeVideo from "@/components/youtubeVideo/youtubeVideo";
 import PageData from "@/components/pageData/pageData";
+import Accordion from "@/components/accordian/accordian";
 
 export default function ExamTab({ tabData }: any) {
 	return (
@@ -14,7 +15,7 @@ export default function ExamTab({ tabData }: any) {
 						<div className="author-section bg-gray-50 rounded-xl p-5">
 							<Author />
 						</div>
-						<div className="page-data-wrapper">
+						{/* <div className="page-data-wrapper">
 							{tabData?.map((item: any, index: number) => {
 								return (
 									<div
@@ -29,11 +30,24 @@ export default function ExamTab({ tabData }: any) {
 									</div>
 								);
 							})}
+						</div> */}
+						<div className="bg-primary-extra-light flex flex-col gap-4">
+							{tabData?.map((item: any, index: number) => {
+								return (
+									<Accordion title={item?.heading} titlePrimary opened>
+										<div
+											className="content bg-gray-50 rounded-xl px-5 pt-5 mb-5"
+											key={index}>
+											<PageData data={item} />
+										</div>
+									</Accordion>
+								);
+							})}
 						</div>
 					</div>
 					<div className="right-wrapper basis-1/4 rounded min-w-72 hidden md:block">
 						<div className="md:flex md:flex-col md:gap-2 hidden">
-							<Button
+							{/* <Button
 								href={`/college/`}
 								text="Apply Now"
 								filled
@@ -49,7 +63,7 @@ export default function ExamTab({ tabData }: any) {
 								fontSize="text-sm"
 								width="w-full"
 								align="text-center"
-							/>
+							/> */}
 							<div className="college-videos bg-gray-50 p-3">
 								<h4 className="text-base font-bold font-poppins border-b-2 pb-2">
 									Videos

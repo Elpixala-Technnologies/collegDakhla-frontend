@@ -1,83 +1,199 @@
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
-export default function HeroSection() {
-	return (
-		<>
-			<div className="relative w-full h-[80vh]">
-				<img
-					src={"/collegeImg.jpg"}
-					alt="College"
-					className="object-cover w-full h-full"
-				/>
-				<div className="absolute inset-0  bg-gradient-to-b from-[#1a1a1a]  to-transparent"></div>
-				<div className="max-w-screen-xl mx-auto overflow-hidden hidden sm:block">
-					<div className=" absolute top-4  flex flex-wrap gap-3 md:gap-4 text-white px-4 text-xs md:text-sm text-nowrap overflow-hidden">
-						<div>All Courses</div>
-						<div>B.Tech</div>
-						<div>MBA</div>
-						<div>M.Tech</div>
-						<div>MBBS</div>
-						<div>B.Com</div>
-						<div>B.Sc</div>
-						<div>B.Sc Nursing</div>
-						<div>BCA</div>
-						<div>BBA</div>
-						<div>BA</div>
-					</div>
-				</div>
-				<div className="absolute inset-0 p-2 flex flex-col justify-center items-center  max-w-screen-xl mx-auto">
-					<h1 className="text-white text-3xl sm:text-4xl py-4">
-						Find 2500+ Colleges in India
-					</h1>
-					<div className="Search flex bg-white items-center rounded-md w-8/12 mx-4 min-w-min">
-						<div className="p-3 text-extra-light-text">
-							<RiSearchLine />
-						</div>
-						<div className="flex-1">
-							<input type="text" placeholder="Search For college, Exam" />
-						</div>
-						<div className="px-4 py-2 bg-primary text-white font-bold text-base md:text-lg rounded-r-md">
-							search
-						</div>
-					</div>
-					<div className="flex gap-4 my-4 w-8/12 justify-center md:justify-between items-center text-nowrap flex-wrap">
-						<div className="flex text-white items-center gap-4">
-							<div className="font-semibold">Recent Visit:</div>
-							<div className="p-1 border border-white rounded text-sm">BCA</div>
-							<div className="p-1 border border-white rounded text-sm">BBA</div>
-							<div className="p-1 border border-white rounded text-sm">
-								B.Tech
-							</div>
-						</div>
-						<div className="bg-primary text-white text-sm font-semibold py-1 px-8 rounded">
-							Need Counselling
-						</div>
-					</div>
-				</div>
-				<div className="w-8/12 mx-auto text-right">
-					<div className="absolute bottom-4 right-2 md:right-20 text-white px-4 text-sm justify-end">
-						Sita Ram College of Commerse, Delhi{" "}
-						<span className="bg-black bg-opacity-50 p-1 rounded-md">1/3</span>
-					</div>
-				</div>
-			</div>
-		</>
-	);
-}
+import Typewriter from "typewriter-effect";
+import PopDown from "./popDown";
+import Link from "next/link";
 
-{
-	/* <div className="relative w-screen h-[90vh] overflow-hidden">
-	<img
-		src={"/collegeImg.jpg"}
-		alt="College"
-		className="object-cover w-full h-full"
-	/>
-	<div className="absolute inset-0 bg-black bg-opacity-50"></div>
-	<div className="absolute inset-0 p-2 flex flex-col justify-center  items-center">
-		<div className="bg-white rounded-full px-2 py-1 text-xs">
-			Featured
-		</div>
-	</div>
-</div>
-</div> */
+const variations = [" 2500+ Colleges ", " 200+ Exams ", " 11000+ Vacancies "];
+export default function HeroSection() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const carouselRef = useRef(null);
+  const images = ["/collegeImg.jpeg", "/news.jpg", "/collegeImg3.jpeg"]; // Add your image URLs here
+  const collegeNames = [
+    { name: "Sita Ram College of Commerce, Delhi", totalImages: images.length },
+    {
+      name: "Ram Manohar College of Commerce, Delhi",
+      totalImages: images.length,
+    },
+    {
+      name: "Come back Iron man  College of Commerce, Delhi",
+      totalImages: images.length,
+    },
+  ];
+
+  // Function to handle automatic scrolling
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // Change the interval as needed (milliseconds)
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  // CSS classes for image container and individual images
+  const containerClass = "relative w-full overflow-hidden";
+  const imageClass = "object-cover object-center w-full h-[50vh]";
+
+  const [isVisible, setIsVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+    if (!isModalOpen) {
+        document.body.style.overflow = "hidden";
+    } else {
+        document.body.style.overflow = "auto";
+    }
+};
+
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
+  // useEffect(() => {
+  //   if (isModalOpen) {
+  //     document.body.style.overflow = "hidden";
+  //   } else {
+  //     document.body.style.overflow = "auto";
+  //   }
+  // }, [isModalOpen]);
+
+  const handleInputChange = (event: any) => {
+    setInputValue(event.target.value);
+  };
+
+  const [recentVisits, setRecentVisits] = useState<string[]>([]);
+
+  // Handle recent searches
+  const handleRecentSearch = (search: any) => {
+    setRecentVisits((prevVisits) => [search, ...prevVisits.slice(0, 2)]);
+  };
+
+  // Define course items as constants
+  const courses = [
+    "B.Tech",
+    "MBA",
+    "M.Tech",
+    "MBBS",
+    "B.Com",
+    "B.Sc",
+    "B.Sc Nursing",
+    "BCA",
+    "BBA",
+    "BA",
+  ];
+
+  return (
+    <>
+      <div className="relative w-full">
+        <div className={containerClass} ref={carouselRef}>
+          {images.map((image, index) => (
+            <Image
+              width={1000}
+              height={1000}
+              key={index}
+              src={image}
+              alt={`Image ${index + 1}`}
+              className={`${imageClass} ${
+                index === currentIndex ? "" : "hidden"
+              }`}
+            />
+          ))}
+        </div>
+        <div className="absolute inset-0  bg-gradient-to-b from-[#1a1a1a]  to-transparent"></div>
+        <div className="max-w-screen-xl mx-auto overflow-hidden hidden sm:block">
+          <div className=" absolute top-4  flex flex-wrap gap-3 md:gap-4 text-white px-4 text-xs md:text-sm text-nowrap overflow-hidden z-10">
+            <Link href={`/courses`} onClick={toggleVisibility} className="hover:scale-110 cursor-pointer">All Courses</Link>
+
+            {courses.map((course, index) => (
+              <Link href={`/courses`} key={index} className="hover:scale-110 cursor-pointer">{course}</Link>
+            ))}
+          </div>
+        </div>
+        <div className="absolute inset-0 p-2 flex flex-col justify-center items-center  max-w-screen-xl mx-auto">
+          <h1 className="text-white text-3xl sm:text-4xl py-4 flex flex-row">
+            <span>Find</span>
+            <span>&nbsp;</span>
+            <Typewriter
+              options={{
+                strings: variations,
+                autoStart: true,
+                loop: true,
+                delay: 100,
+              }}
+            />
+            <span>in India</span>
+          </h1>
+          <div className="Search flex  items-center rounded-md w-8/12 mx-4 min-w-min">
+            <div className=" h-11 flex border-2 bg-white rounded-l-xl gap-2 border-extra-light-text flex-1 items-center text-primary-text px-2">
+              <RiSearchLine />
+              <input
+                className="w-full focus:outline-none"
+                type="text"
+                placeholder="Search colleges..."
+                onClick={toggleModal}
+              />
+            </div>
+            <div className="px-4 py-2 bg-primary text-white font-bold text-base md:text-lg rounded-r-md cursor-pointer">
+              Search
+            </div>
+          </div>
+          
+          <div className="flex gap-4 my-4 w-8/12 justify-center md:justify-between items-center text-nowrap flex-wrap">
+            <div className="mt-2">
+              <p className="text-white font-medium">Recent Searches:</p>
+              <ul>
+                {recentVisits.map((search: any, index: any) => (
+                  <li key={index} className="text-sm text-gray-600">
+                    {search}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-primary text-white text-sm font-semibold py-1 px-8 rounded">
+              Need Counselling
+            </div>
+          </div>
+        </div>
+        <div className="w-8/12 mx-auto text-right">
+          <div className="absolute bottom-4 right-2 md:right-20 text-white px-4 text-sm justify-end">
+            {collegeNames.map(
+              (college, index) =>
+                index === currentIndex && (
+                  <h4 className="" key={index}>
+                    {college.name}{" "}
+                    <span className="bg-black bg-opacity-50 p-1 rounded-md">
+                      {currentIndex + 1}/{college.totalImages}
+                    </span>
+                  </h4>
+                )
+            )}
+          </div>
+        </div>
+        {isModalOpen && (
+            <div className="fixed top-0 mt-5 left-0 w-full h-fit bg-black bg-opacity-50 flex z-50">
+              <div className="bg-white p-8 rounded-md w-full">
+                <PopDown
+                  inputValue={inputValue}
+                  onChange={handleInputChange}
+                  onRecentSearch={handleRecentSearch}
+                />
+                <button onClick={toggleModal} className="ml-4 cursor-pointer mt-10">
+                  <span className="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner drop-shadow-lg drop-shadow-slate-100 group m-2 ">
+                    <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease"></span>
+                    <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease"></span>
+                    <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full ease"></span>
+                    <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full ease"></span>
+                    <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-gray-900 opacity-0 group-hover:opacity-100"></span>
+                    <span className="relative transition-colors duration-300 delay-200 group-hover:text-white ease">
+                      Close
+                    </span>
+                  </span>
+                </button>
+              </div>
+            </div>
+          )}
+      </div>
+    </>
+  );
 }

@@ -74,13 +74,13 @@ const Carousel = ({
         {showButton ? (
           <div className="flex gap-4 items-center">
             <button
-              className="border border-primary p-2 cursor-pointer rounded-sm text-primary"
+              className="border border-primary p-2 cursor-pointer rounded-md text-primary"
               onClick={prevSlide}
             >
               <FaAngleLeft />
             </button>
             <button
-              className="border border-primary p-2 cursor-pointer rounded-sm text-primary"
+              className="border border-primary p-2 cursor-pointer rounded-md text-primary"
               onClick={nextSlide}
             >
               <FaAngleRight />
@@ -93,7 +93,7 @@ const Carousel = ({
 
       <div className="overflow-hidden w-full">
         <div
-          className={`flex ${slideGap} transition-transform duration-300 ease-in-out`}
+          className={`flex ${slideGap} transition-transform duration-300 ease-in-out p-2`}
           style={{
             transform: `translateX(-${activeIndex * (100 / slidesToShow)}%)`,
           }}
