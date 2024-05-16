@@ -17,7 +17,7 @@ query UsersData($number: String, $email: String) {
 `
 
 export const checkUserOtp = gql`
-query UsersData($userID: ID!, $number:String!, $userOtp: String) {
+query UsersData($userID: ID, $number:String, $userOtp: String) {
 	usersData(
 		filters: {and : [{ id: { eq: $userID }, otp: { eq: $userOtp }, number: { eq: $number } }]}
 	) {

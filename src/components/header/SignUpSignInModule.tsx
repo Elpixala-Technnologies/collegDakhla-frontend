@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useId, useState } from "react";
+import React, { ChangeEvent, useId, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { SignUp } from "@/Asset";
@@ -30,12 +30,17 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 		{
 			name: "",
 			email: "",
-			mobileNo: "",
+			number: "",
 			isWhatsappNo: false,
-			stream: "",
-			level: "",
+			stream: "18",
+			courseLevel: "1",
 		}
 	);
+	const [StreamValue, setStreamValue] = useState("");
+	const [LevelValue, setLevelValue] = useState("");
+	const [NameValue, setNameValue] = useState("");
+	const [EmailValue, setEmailValue] = useState("");
+	const [PhoneValue, setPhoneValue] = useState("");
 
 	const [userOtp, setUserOtp] = useState("");
 	const [userId, setUserId] = useState<ID>();
@@ -45,31 +50,30 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 	const dispatch = useAppDispatch();
 	const { data: streamsData } = useQuery(getStreams);
 	const { data: courseLevelData } = useQuery(getCourseLevels);
-	let checkUser = UserCheck(
-		userSubmittedData?.mobileNo,
-		userSubmittedData?.email
+	const checkUser = UserCheck(
+		PhoneValue,
+		EmailValue
 	);
-	const otpchecker = CheckOTP(userId!, userSubmittedData?.mobileNo, userOtp);
-
+	const otpchecker = CheckOTP(userId!, PhoneValue, userOtp);
 	const [isLogIn, setIsLogin] = useState(true);
 
-	async function sendSignupOtp() {
-
+	const sendSignupOtp = (e: any) => {
+		e.preventDefault();
 		const currentDate = new Date();
 		const publishedAt = currentDate.toISOString();
 
-		if (await checkUser === false) {
+		if (checkUser === false) {
 			setError("")
 			try {
 				let data = JSON.stringify({
 					data: {
-						name: userSubmittedData.name,
-						email: userSubmittedData.email,
-						number: userSubmittedData.mobileNo,
-						stream: userSubmittedData.stream,
-						courseLevel: userSubmittedData.level,
+						name: NameValue,
+						email: EmailValue,
+						number: PhoneValue,
+						stream: StreamValue,
+						courseLevel: LevelValue,
 						publishedAt
-					},
+					}
 				});
 
 				let config = {
@@ -92,14 +96,16 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 						console.log(error);
 					});
 			} catch (error) {
+				setError("Something went wrong. Please try again.")
 				console.error("Error adding user:", error);
 			}
-		} else if (checkUser != false && checkUser != undefined) {
+		} else {
 			setError("User already exists")
 		}
 	};
 
-	async function handleSubmitSignup() {
+	const handleSubmitSignup = async (e: any) => {
+		e.preventDefault();
 		const currentDate = new Date();
 		const publishedAt = currentDate.toISOString();
 
@@ -108,24 +114,24 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 				dispatch(
 					setAuthState({
 						authState: true,
-						userID: otpchecker?.loggedInUser?.id,
-						userName: otpchecker?.loggedInUser?.attributes?.name,
-						email: otpchecker?.loggedInUser?.attributes?.email,
-						number: otpchecker?.loggedInUser?.attributes?.number,
+						userID: otpchecker?.id,
+						userName: otpchecker?.attributes?.name,
+						email: otpchecker?.attributes?.email,
+						number: otpchecker?.attributes?.number,
 					})
 				);
 
 				await userMetaCreate({
 					variables: {
-						name: userSubmittedData.name,
-						email: userSubmittedData.email,
-						number: userSubmittedData.mobileNo,
+						name: NameValue,
+						email: EmailValue,
+						number: PhoneValue,
 						userDataId: userId,
 						publishedAt,
 					},
 				});
 
-				router.push("/");
+				// router.push("/");
 				closeLoginPopup();
 			} catch (error) {
 				setError("Something went wrong. Please try again.");
@@ -136,11 +142,6 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 		}
 	};
 
-	const handleFormSubmit = async (data: any) => {
-
-		setuserSubmittedData(data);
-		!isOtp ? sendSignupOtp() : handleSubmitSignup();
-	};
 	const handleOverlayClick = (e: any) => {
 		// Check if the click occurred on the overlay (the background)
 		if (e.target === e.currentTarget) {
@@ -211,7 +212,7 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 							cost. <span>Sign Up Now!</span>
 						</h1>
 
-						<form onSubmit={handleSubmit(handleFormSubmit)}>
+						<div>
 							{isOtp ? (
 								<div className="flex text-xs mb-2">
 									<OTPInput
@@ -225,9 +226,8 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 									<Input
 										label="Name "
 										placeholder=" "
-										{...register("name", {
-											required: "Name is required",
-										})}
+										name="name"
+										onChange={(e: any) => setNameValue(e.target.value)}
 									/>
 									{errors?.name && (
 										<p className="text-red-600">{errors?.name?.message}</p>
@@ -238,13 +238,17 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 										type="phone"
 										placeholder=" "
 										maxLength={10}
-										{...register("mobileNo", {
-											required: "Mobile No. is required",
-											pattern: {
-												value: mobileRegex,
-												message: "Please enter a valid 10-digit mobile number",
-											},
-										})}
+										name="number"
+										onChange={(e: any) =>
+											setPhoneValue(e.target.value)
+										}
+									// {...register("mobileNo", {
+									// 	required: "Mobile No. is required",
+									// 	pattern: {
+									// 		value: mobileRegex,
+									// 		message: "Please enter a valid 10-digit mobile number",
+									// 	},
+									// })}
 									/>
 									{errors.mobileNo && (
 										<p className="text-red-600">{errors.mobileNo.message}</p>
@@ -254,13 +258,15 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 										label="Email ID "
 										type="email"
 										placeholder=" "
-										{...register("email", {
-											required: "Email is required",
-											pattern: {
-												value: emailRegex,
-												message: "Please enter a valid email address",
-											},
-										})}
+										name="email"
+										onChange={(e: any) => setEmailValue(e.target.value)}
+									// {...register("email", {
+									// 	required: "Email is required",
+									// 	pattern: {
+									// 		value: emailRegex,
+									// 		message: "Please enter a valid email address",
+									// 	},
+									// })}
 									/>
 									{errors.email && (
 										<p className="text-red-600">{errors.email.message}</p>
@@ -268,17 +274,18 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 									{/* Stream  */}
 									<select
 										className="px-3 py-2 my-2 rounded-lg bg-white text-black outline-none focus:outline-zinc-300 duration-200 border border-gray-200 w-full"
-										{...register("stream", {
-											// required: "Stream Selection is required",
-										})}
+										onChange={(e) => setStreamValue(e.target.value)}
+									// {...register("stream", {
+									// 	// required: "Stream Selection is required",
+									// })}
 									>
 										<option disabled={true} selected={true} value="">
-											Select Courses
+											Select Stream
 										</option>
 										{streamsData?.streams?.data?.map(
 											(stream: any, index: any) => {
 												return (
-													<option value={stream?.id} key={index} className="overflow-y-auto h-24">
+													<option value={stream?.id} key={index}>
 														{stream?.attributes?.streamName}
 													</option>
 												);
@@ -291,9 +298,10 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 									{/* Level  */}
 									<select
 										className="px-3 py-2 my-2 rounded-lg bg-white text-black outline-none focus:outline-zinc-300 duration-200 border border-gray-200 w-full"
-										{...register("level", {
-											// required: "level Selection is required",
-										})}
+										onChange={(e) => setLevelValue(e.target.value)}
+									// {...register("level", {
+									// 	// required: "level Selection is required",
+									// })}
 									>
 										<option disabled={true} selected={true} value="">
 											Select Level
@@ -331,10 +339,11 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 							<button
 								className="px-3 py-2 my-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 hover:font-bold w-full"
 								type="submit"
+								onClick={!isOtp ? sendSignupOtp : handleSubmitSignup}
 							>
 								{isOtp ? "Sign Up" : "Send OTP"}
 							</button>
-						</form>
+						</div>
 
 						<p className="flex font-sans text-sm antialiased  leading-normal text-inherit">
 							Already have an account?

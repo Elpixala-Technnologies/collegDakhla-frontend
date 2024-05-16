@@ -20,7 +20,7 @@ export default function Filter(props: any) {
 				{open ? (
 					<>
 						<div className="px-2 py-1">
-							<div className="h-full">
+							<div className="h-full max-h-48 overflow-x-auto">
 								{props.name === "Duration" ? (
 									<>
 										{Search.trim.length === 0 &&
