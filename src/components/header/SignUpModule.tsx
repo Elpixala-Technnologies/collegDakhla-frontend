@@ -30,10 +30,10 @@ export function SignUpModule({ closeLoginPopup }: any) {
 		{
 			name: "",
 			email: "",
-			mobileNo: "",
+			number: "",
 			isWhatsappNo: false,
 			stream: "",
-			level: "",
+			courseLevel: "",
 		}
 	);
 
@@ -46,10 +46,10 @@ export function SignUpModule({ closeLoginPopup }: any) {
 	const { data: streamsData } = useQuery(getStreams);
 	const { data: courseLevelData } = useQuery(getCourseLevels);
 	const checkUser = UserCheck(
-		userSubmittedData?.mobileNo,
+		userSubmittedData?.number,
 		userSubmittedData?.email
 	);
-	const otpchecker = CheckOTP(userId!, userSubmittedData?.mobileNo, userOtp);
+	const otpchecker = CheckOTP(userId!, userSubmittedData?.number, userOtp);
 
 	async function sendSignupOtp() {
 
@@ -62,9 +62,9 @@ export function SignUpModule({ closeLoginPopup }: any) {
 					data: {
 						name: userSubmittedData.name,
 						email: userSubmittedData.email,
-						number: userSubmittedData.mobileNo,
+						number: userSubmittedData.number,
 						stream: userSubmittedData.stream,
-						courseLevel: userSubmittedData.level
+						courseLevel: userSubmittedData.courseLevel
 					},
 				});
 
@@ -116,7 +116,7 @@ export function SignUpModule({ closeLoginPopup }: any) {
 					variables: {
 						name: userSubmittedData.name,
 						email: userSubmittedData.email,
-						number: userSubmittedData.mobileNo,
+						number: userSubmittedData.number,
 						userDataId: userId,
 						publishedAt,
 					},
@@ -228,7 +228,7 @@ export function SignUpModule({ closeLoginPopup }: any) {
 									type="phone"
 									placeholder=" "
 									maxLength={10}
-									{...register("mobileNo", {
+									{...register("number", {
 										required: "Mobile No. is required",
 										pattern: {
 											value: mobileRegex,
@@ -236,8 +236,8 @@ export function SignUpModule({ closeLoginPopup }: any) {
 										},
 									})}
 								/>
-								{errors.mobileNo && (
-									<p className="text-red-600">{errors.mobileNo.message}</p>
+								{errors.number && (
+									<p className="text-red-600">{errors.number.message}</p>
 								)}
 								{/* Email  */}
 								<Input
@@ -278,28 +278,28 @@ export function SignUpModule({ closeLoginPopup }: any) {
 								{errors.stream && (
 									<p className="text-red-600">{errors.stream.message}</p>
 								)}
-								{/* Level  */}
+								{/* courseLevel  */}
 								<select
 									className="px-3 py-2 my-2 rounded-lg bg-white text-black outline-none focus:outline-zinc-300 duration-200 border border-gray-200 w-full"
-									{...register("level", {
-										// required: "level Selection is required",
+									{...register("courseLevel", {
+										// required: "courseLevel Selection is required",
 									})}
 								>
 									<option disabled={true} selected={true} value="">
-										Select Level
+										Select courseLevel
 									</option>
 									{courseLevelData?.courseLevels?.data?.map(
-										(level: any, index: any) => {
+										(courseLevel: any, index: any) => {
 											return (
-												<option value={level?.id} key={index}>
-													{level?.attributes?.levelName}
+												<option value={courseLevel?.id} key={index}>
+													{courseLevel?.attributes?.levelName}
 												</option>
 											);
 										}
 									)}
 								</select>
-								{errors.level && (
-									<p className="text-red-600">{errors.level.message}</p>
+								{errors.courseLevel && (
+									<p className="text-red-600">{errors.courseLevel.message}</p>
 								)}
 								{/* Whatsapp No. Check  */}
 								<div className="flex items-center">

@@ -5,7 +5,6 @@ import CollegeData from "@/components/collegeData/collegeData";
 import YoutubeVideo from "@/components/youtubeVideo/youtubeVideo";
 import PageData from "@/components/pageData/pageData";
 import Accordion from "@/components/accordian/accordian";
-
 export default function CourseTab({ tabData }: any) {
 	return (
 		<>
@@ -15,6 +14,7 @@ export default function CourseTab({ tabData }: any) {
 						<div className="author-section bg-gray-50 rounded-xl p-5">
 							<Author />
 						</div>
+						{/* <div className="page-data-wrapper">
 						{/* <div className="page-data-wrapper">
 							{tabData?.map((item: any, index: number) => {
 								return (
@@ -34,7 +34,7 @@ export default function CourseTab({ tabData }: any) {
 						<div className="bg-primary-extra-light flex flex-col gap-4">
 							{tabData?.map((item: any, index: number) => {
 								return (
-									<Accordion title={item?.heading} titlePrimary opened>
+									<Accordion title={item?.heading} titlePrimary opened key={index}>
 										<div
 											className="content bg-gray-50 rounded-xl px-5 pt-5 mb-5"
 											key={index}>
@@ -45,9 +45,10 @@ export default function CourseTab({ tabData }: any) {
 							})}
 						</div>
 					</div>
-				
+
 					<div className="right-wrapper basis-1/4 rounded min-w-72 hidden md:block">
 						<div className=" md:flex md:flex-col md:gap-2">
+							{/* <Button
 							{/* <Button
 								href={`/college/`}
 								text="Apply Now"
