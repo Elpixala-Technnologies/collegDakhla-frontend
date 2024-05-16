@@ -33,9 +33,10 @@ import CourseMiniList from "@/components/courseListItem/courseMiniList";
 import Carousel from "@/components/carousel/carousel";
 import ExamCard from "@/components/card/examCard";
 import Faq from "@/components/Faq-HomePage/faq";
-import { Snowman, Study, Vector } from "@/Asset";
+import { Snowman, Study } from "@/Asset";
 import { slideInFromLeft, slideInFromRight } from "@/components/Motion/motion";
 import WavyText from "@/components/Motion/Wave";
+
 
 export default function Home() {
 	const [Stream, setStream] = useState<string>("");
@@ -112,31 +113,31 @@ export default function Home() {
 	const testimonialData = [
 		{
 			text: "I had an amazing experience with the institute. The faculty is highly knowledgeable and supportive, always ready to clarify doubts. The course curriculum is well-structured and covers all essential topics. The practical sessions were particularly helpful in understanding complex concepts. Overall, I highly recommend this institute to anyone looking to enhance their skills.",
-			// img: "/user_img_1.jpg",
+			img: "/user_img_1.jpg",
 			name: "Arun Kumar",
 			location: "Chennai, Tamil Nadu, India",
 		},
 		{
 			text: "The institute exceeded my expectations in every aspect. The teaching staff is top-notch, providing personalized attention to each student. The facilities are excellent, creating a conducive learning environment. I am grateful for the opportunities provided by the institute, which have helped me grow both personally and professionally.",
-			// img: "/user_img_2.jpg",
+			img: "/user_img_2.jpg",
 			name: "Priya Patel",
 			location: "Mumbai, Maharashtra, India",
 		},
 		{
 			text: "I am immensely satisfied with my decision to join this institute. The faculty members are experts in their fields and deliver lectures with great clarity. The institute's focus on practical learning has equipped me with valuable skills that are directly applicable in the industry. I am confident that the knowledge gained here will serve me well in my career.",
-			// img: "/user_img_3.jpg",
+			img: "/user_img_3.jpg",
 			name: "Rajesh Singh",
 			location: "Delhi, India",
 		},
 		{
 			text: "This institute provides an exceptional learning experience. The faculty members go above and beyond to ensure that students understand the concepts thoroughly. The hands-on approach to learning has boosted my confidence in applying theoretical knowledge to real-world scenarios. I am grateful for the support and guidance I received throughout my journey.",
-			// img: "/user_img_4.jpg",
+			img: "/user_img_4.jpg",
 			name: "Neha Sharma",
 			location: "Kolkata, West Bengal, India",
 		},
 		{
 			text: "Enrolling in this institute was one of the best decisions I've made. The course content is comprehensive, covering all relevant topics in depth. The faculty members are approachable and encourage interactive learning. The institute's emphasis on practical skills development has prepared me well for the challenges of the industry. I would highly recommend this institute to anyone seeking quality education.",
-			// img: "/user_img_5.jpg",
+			img: "/user_img_5.jpg",
 			name: "Vikram Singh",
 			location: "Bangalore, Karnataka, India",
 		},
@@ -177,8 +178,8 @@ export default function Home() {
 							<div className="flex items-center mt-2 gap-4 md:gap-2">
 								<div
 									className={`p-2 px-6 rounded-lg cursor-pointer ${activeTrendingCollege === "Stream"
-										? "bg-primary text-white shadow-md "
-										: "border border-gray-400 text-black"
+											? "bg-primary text-white shadow-md "
+											: "border border-gray-400 text-black"
 										}`}
 									onClick={() => handleTrendingCollegeTabClick("Stream")}
 								>
@@ -187,8 +188,8 @@ export default function Home() {
 
 								<div
 									className={`p-2 rounded-lg px-6 cursor-pointer ${activeTrendingCollege === "Exams"
-										? "bg-primary text-white shadow-md "
-										: "border border-gray-400 text-black"
+											? "bg-primary text-white shadow-md "
+											: "border border-gray-400 text-black"
 										}`}
 									onClick={() => handleTrendingCollegeTabClick("Exams")}
 								>
@@ -492,26 +493,26 @@ export default function Home() {
 									style={{ maxHeight: "300px", width: "100%" }}
 								/>
 							</div>
-							{/* <div className="flex justify-start ">
-                <Image
-                  src="/tempImage.jpeg"
-                  alt="logo"
-                  height={1280}
-                  width={1920}
-                  className=" object-contain p-4 m-2"
-                  style={{ maxHeight: "300px", width: "100%" }}
-                />
-              </div>
-              <div className="flex justify-start ">
-                <Image
-                  src="/tempImage.jpeg"
-                  alt="logo"
-                  height={1280}
-                  width={1920}
-                  className=" object-contain p-4 m-2"
-                  style={{ maxHeight: "300px", width: "100%" }}
-                />
-              </div> */}
+							<div className="flex justify-start ">
+								<Image
+									src="/tempImage.jpeg"
+									alt="logo"
+									height={1280}
+									width={1920}
+									className=" object-contain p-4 m-2"
+									style={{ maxHeight: "300px", width: "100%" }}
+								/>
+							</div>
+							<div className="flex justify-start ">
+								<Image
+									src="/tempImage.jpeg"
+									alt="logo"
+									height={1280}
+									width={1920}
+									className=" object-contain p-4 m-2"
+									style={{ maxHeight: "300px", width: "100%" }}
+								/>
+							</div>
 						</div>
 					</div>
 				</section>
@@ -585,7 +586,7 @@ export default function Home() {
 												</p>
 												<div className="all-testimonials__box__name__profile flex items-center gap-5">
 													<Image
-														src={Vector} //temporary icons
+														src={testimonial.img}
 														alt={`user_img_${index}`}
 														className="w-16 h-16 rounded-full"
 														width={500}
@@ -617,7 +618,7 @@ export default function Home() {
 												</p>
 												<div className="all-testimonials__box__name__profile flex items-center gap-5">
 													<Image
-														src={Vector} //tempp icons
+														src={testimonial.img}
 														alt={`user_img_${index}`}
 														className="w-16 h-16 rounded-full"
 														width={500}
@@ -803,9 +804,9 @@ export default function Home() {
 						<Faq />
 					</div>
 				</section>
-				<section className="max-w-screen-xl mx-auto px-4 my-10 py-4 rounded-3xl flex items-center w-full">
+				<section className="max-w-screen-xl mx-auto px-4 my-10 py-4 rounded-3xl flex items-center">
 					<motion.div
-						className="max-w-screen-xl mx- flex flex-col w-full"
+						className="max-w-screen-xl mx-auto flex flex-col"
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true }}
@@ -814,7 +815,7 @@ export default function Home() {
 							hidden: { opacity: 0, scale: 0 },
 						}}
 					>
-						<div className="flex flex-row items-center justify-between w-full flex-1">
+						<div className="flex flex-row items-center justify-between">
 							<motion.h2
 								className="text-3xl font-semibold"
 								initial="hidden"
@@ -849,59 +850,62 @@ export default function Home() {
 							</div>
 						</div>
 						<div className="flex flex-wrap gap-4 my-2 px-0 overflow-x-auto py-2 md:py-0">
-							{newsData?.news?.data && (
-								<div className="flex gap-2 justify-start w-full">
-									{newsData.news.data
-										.slice(0, 3)
-										.map((news: any, idx: any) => {
-											const {
-												title,
-												excerpt,
-												publishedAt,
-												author,
-												attributes: { featuredImage },
-												id,
-											} = news;
-											const featuredImageUrl = featuredImage?.data[0]
-												? getStrapiMedia(featuredImage.data[0].attributes.url)
-												: GetDefaultImage("banner");
-											return (
-												<div
-													key={idx}
-													className="flex flex-col gap-2 max-w-80 min-w-72 p-3  border border-gray-200 rounded-xl justify-between"
-												>
-													{news.attributes.featuredImage && (
-														<Image
-															src={featuredImageUrl!}
-															alt=""
-															width={500}
-															height={500}
-															className="w-full sm:min-w-28 min-w-20 sm:h-36 h-20 object-cover object-center rounded-lg"
-														/>
-													)}
-													<p className="text-gray-400 mt-1">
-														Published at{" "}
-														<span className="text-gray-800">
-															{getDate(news.attributes.publishedAt)}
-														</span>
-													</p>
-													<p className="sm:text-xl text-base font-normal text-primary-text line-clamp-1">
-														{news.attributes.title}
-													</p>
-													<p className="sm:text-sm text-xs line-clamp-3">
-														{news.attributes.excerpt}
-													</p>
-													<Link
-														href={`/news/${news.id}`}
-														className="hover:text-primary text-blue-600 text-lg hover:underline  pt-5"
+							{newsData?.news?.data &&
+								Array.from({
+									length: Math.ceil(newsData.news.data.length / 3),
+								}).map((chunk, index) => (
+									<div key={index} className="flex gap-2 justify-evenly w-full">
+										{newsData.news.data
+											.slice(index * 3, index * 3 + 3)
+											.map((news: any, idx: any) => {
+												const {
+													title,
+													excerpt,
+													publishedAt,
+													author,
+													attributes: { featuredImage },
+													id,
+												} = news;
+												const featuredImageUrl = featuredImage?.data[0]
+													? getStrapiMedia(featuredImage.data[0].attributes.url)
+													: GetDefaultImage("banner");
+												return (
+													<div
+														key={idx}
+														className="flex flex-col gap-2 max-w-80 min-w-72 p-3  border border-gray-200 rounded-xl justify-between"
 													>
-														Read more
-													</Link>
-												</div>
-											);
-										})}
-								</div>
-							)}
+														{news.attributes.featuredImage && (
+															<Image
+																src={featuredImageUrl!}
+																alt=""
+																width={500}
+																height={500}
+																className="w-full sm:min-w-28 min-w-20 sm:h-36 h-20 object-cover object-center rounded-lg"
+															/>
+														)}
+														<p className="text-gray-400 mt-1">
+															Published at{" "}
+															<span className="text-gray-800">
+																{getDate(news.attributes.publishedAt)}
+															</span>
+														</p>
+														<p className="sm:text-xl text-base font-normal text-primary-text line-clamp-1">
+															{news.attributes.title}
+														</p>
+														<p className="sm:text-sm text-xs line-clamp-3">
+															{news.attributes.excerpt}
+														</p>
+														<Link
+															href={`/news/${news.id}`}
+															className="hover:text-primary text-blue-600 text-lg hover:underline  pt-5"
+														>
+															Read more
+														</Link>
+													</div>
+												);
+											})}
+									</div>
+								))}
 						</div>
 					</motion.div>
 				</section>

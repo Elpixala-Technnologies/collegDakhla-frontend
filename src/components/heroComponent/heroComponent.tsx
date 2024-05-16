@@ -139,7 +139,7 @@ export default function HeroSection() {
             </div>
           </div>
           
-          {/* <div className="flex gap-4 my-4 w-8/12 justify-center md:justify-between items-center text-nowrap flex-wrap">
+          <div className="flex gap-4 my-4 w-8/12 justify-center md:justify-between items-center text-nowrap flex-wrap">
             <div className="mt-2">
               <p className="text-white font-medium">Recent Searches:</p>
               <ul>
@@ -153,7 +153,7 @@ export default function HeroSection() {
             <div className="bg-primary text-white text-sm font-semibold py-1 px-8 rounded">
               Need Counselling
             </div>
-          </div> */}
+          </div>
         </div>
         <div className="w-8/12 mx-auto text-right">
           <div className="absolute bottom-4 right-2 md:right-20 text-white px-4 text-sm justify-end">
@@ -161,8 +161,8 @@ export default function HeroSection() {
               (college, index) =>
                 index === currentIndex && (
                   <h4 className="" key={index}>
-                    {/* {college.name}{" "} */}
-                    <span className="bg-black bg-opacity-50 px-4 rounded-md">
+                    {college.name}{" "}
+                    <span className="bg-black bg-opacity-50 p-1 rounded-md">
                       {currentIndex + 1}/{college.totalImages}
                     </span>
                   </h4>

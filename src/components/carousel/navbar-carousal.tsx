@@ -154,6 +154,8 @@
 
 // export default NavbarSlider;
 
+
+
 import { ReactNode, useEffect, useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
@@ -230,21 +232,17 @@ const NavbarSlider = ({
   };
 
   return (
-    <div className="relative flex  flex-col md:gap-4 max-w-screen-xl">
-      {title && (
-        <div className="flex justify-between">
-          <h4 className={`text-[30px] font-semibold ${titleColor}`}>{title}</h4>
-        </div>
-      )}
+    <div className="relative flex flex-col md:gap-4 max-w-screen-xl">
+      <div className="flex justify-between">
+        <h4 className={`text-[30px] font-semibold ${titleColor}`}>{title}</h4>
+      </div>
 
-      <div className="flex gap-4 relative lg:max-w-screen-xl">
+      <div className="flex gap-4 relative lg:max-w-screen-xl pb-1s">
         {showButton ? (
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-4 items-center mb-2">
             <button
               data-testid="prev-button"
-              className={`border ${buttonBorderColor} p-2 md:p-3 cursor-pointer rounded-lg ${buttonTextColor} ${
-                isBeginning ? "opacity-50 pointer-events-none" : ""
-              }`}
+              className={`border ${buttonBorderColor} p-1 md:p-3 cursor-pointer rounded-lg ${buttonTextColor} ${isBeginning ? 'opacity-50 pointer-events-none' : ''}`}
               onClick={prevSlide}
               aria-label="Previous Slide"
               disabled={isBeginning}
@@ -257,17 +255,21 @@ const NavbarSlider = ({
         )}
 
         <div className="w-full overflow-hidden ">
-          <div
-            className="flex gap-x-20 items-center transition-transform duration-300 ease-in-out h-full"
-            style={{
-              transform: `translateX(-${(100 / totalSlides) * activeIndex}%)`,
-            }}
-          >
-            {slides?.map((slide, index) => (
-              <div key={index} className="flex justify-start items-center">
-                {slide}
-              </div>
-            ))}
+          <div>
+            <div
+              className="flex gap-4 transition-transform duration-300 ease-in-out"
+              style={{
+                transform: `translateX(-${
+                  (100 / totalSlides) * activeIndex
+                }%)`,
+              }}
+            >
+              {slides?.map((slide, index) => (
+                <div key={index} className="w-full">
+                  {slide}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -275,9 +277,7 @@ const NavbarSlider = ({
           <div className="flex gap-4 items-center">
             <button
               data-testid="next-button"
-              className={`border ${buttonBorderColor} p-1 md:p-3 cursor-pointer rounded-lg ${buttonTextColor} ${
-                isEnd ? "opacity-50 pointer-events-none" : ""
-              }`}
+              className={`border ${buttonBorderColor} p-1 md:p-3 cursor-pointer rounded-lg ${buttonTextColor} ${isEnd ? 'opacity-50 pointer-events-none' : ''}`}
               onClick={nextSlide}
               aria-label="Next Slide"
               disabled={isEnd}

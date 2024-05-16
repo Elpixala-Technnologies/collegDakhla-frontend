@@ -4,7 +4,8 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 export default function Filter(props: any) {
   const [open, setOpen] = useState(true);
   const handleOpen = () => setOpen(open ? false : true);
-  
+
+  console.log(props.filters, "pankaj");
   return (
     <>
       <div className=" sm:py-4 py-1">
@@ -23,7 +24,7 @@ export default function Filter(props: any) {
                 className="border border-extra-light-text p-2 text-sm focus:border-primary w-full my-2 rounded outline-none"
                 placeholder={`Search ${props.name}`}
               /> */}
-              <div className="h-full">
+              <div className="h-full max-h-48  overflow-y-auto">
                 {props.name === "Stream" ? (
                   // Stream 
                   <>

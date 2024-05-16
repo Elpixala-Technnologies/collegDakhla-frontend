@@ -29,27 +29,21 @@ export default function ExamCard({ featuredExams }: any) {
 					</div>
 				</div>
 			</div>
-			<div className="relative flex flex-col h-52">
+			<div className="relative flex flex-col h-60">
 				<div className="absolute left-2 -top-7 bg-white p-2 rounded">
 					<Image
 						src={logoURL!}
 						alt=""
-						className="shadow-md rounded-sm w-12 h-12"
+						className="shadow-md rounded-sm "
 						width={60}
 						height={60}
-						
 					/>
 				</div>
-				<div className="p-2 pt-2 flex-1 h-60 shadow flex flex-col gap-2">
+				<div className="p-2 pt-4 flex-1 h-72 shadow flex flex-col gap-2">
 					<div className=" flex justify-end">
-					{featuredExams?.attributes?.examMode?.data?.attributes?.mode && (
 						<span className="bg-primary-light text-sm px-2 py-1 rounded-full">
-						{featuredExams?.attributes?.examMode?.data?.attributes?.mode}
-					</span>
-					)
-					
-					}
-						
+							{featuredExams?.attributes?.examMode?.data?.attributes?.mode}
+						</span>
 					</div>
 					<div className="p-2 pt-4 flex-1 flex flex-col gap-2">
 						<div>

@@ -13,17 +13,16 @@ const UserCheck = (number: string, email?: string) => {
 		skip: number.length != 10
 	});
 
-	if (data == undefined) {
-		refetch();
-	}
-	else if (data?.usersData?.data.length === 1) {
+	if (data?.usersData?.data.length === 1) {
 		// return { userData: data?.usersData }
 		return data
 	}
 	else if (data?.usersData?.data.length === 0) {
 		return false;
 	}
-
+	else if (data == undefined) {
+		return refetch();
+	}
 }
 
 const CheckOTP = (userID: ID, number: string, userOtp: string) => {
