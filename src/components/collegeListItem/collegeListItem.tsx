@@ -328,6 +328,8 @@ import userFrom from "@/hooks/userFrom";
 
 export default function CollegeListItem(allColleges: any) {
   const { CollegeApplicatonListData } = userFrom();
+  const [slectedId, setSelectedId] = useState<any>(null)
+
 
   // query to get all states
   const {
@@ -353,9 +355,9 @@ export default function CollegeListItem(allColleges: any) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOpenModal = () => {
-    console.log("Open Modal Clicked"); 
+  const handleOpenModal = (id:any) => {
     setIsModalOpen(true);
+    setSelectedId(id)
     document.body.classList.add("overflow-hidden");
   };
 
@@ -549,7 +551,7 @@ export default function CollegeListItem(allColleges: any) {
                     </div>
                     <div className="flex flex-row gap-1 flex-wrap lg:justify-center lg:flex-col md:gap-4 md:my-4 items-center lg:border-l lg:border-l-extra-light-text lg:px-4">
                       <Button
-                        onClick={handleOpenModal}
+                        onClick={()=>handleOpenModal(college?.id)}
                         text="Apply Now"
                         filled
                         fontSize="text-sm"
@@ -602,7 +604,7 @@ export default function CollegeListItem(allColleges: any) {
 
       {isModalOpen && (
         <ApplyNowModal
-          id={11}
+          id={slectedId}
           FromStep={FromStep}
           isSectionCheck={"College"}
           onClose={handleCloseModal}

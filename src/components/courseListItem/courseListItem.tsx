@@ -6,8 +6,29 @@ import { getStrapiMedia, GetDefaultImage } from "@/utils/api-helper";
 import Carousel from "@/components/carousel/carousel";
 import formatFees from "@/utils/formatFees";
 import CourseCard from "../card/courseCard";
+import userFrom from "@/hooks/userFrom";
+import { useState } from "react";
+import ApplyNowModal from "../consultingModule/ApplyNowModal/ApplyNowModal";
 
 export default function CourseListItem({ courses, featuredCourses }: any) {
+  const { CollegeApplicatonListData } = userFrom();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [slectedId, setSelectedId] = useState<any>(null)
+
+
+  const handleOpenModal = (id:any) => {
+    setIsModalOpen(true);
+    setSelectedId(id)
+    document.body.classList.add("overflow-hidden");
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    document.body.classList.remove("overflow-hidden");
+  };
+
+  const FromStep: any = CollegeApplicatonListData?.form_stape;
+
   return (
     <>
       {courses?.length > 0 ? (
@@ -65,7 +86,7 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
 
                   <div className="flex flex-row gap-1 flex-wrap md:justify-center md:flex-col md:gap-4 md:my-4 items-center">
                     <Button
-                      href={`/college`}
+                      onClick={()=>handleOpenModal(course?.id)}
                       text="Register Now"
                       filled
                       fontSize="text-sm"
@@ -126,6 +147,15 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
             No data available
           </p>
         </div>
+      )}
+
+      {isModalOpen && (
+        <ApplyNowModal
+          id={slectedId}
+          FromStep={FromStep}
+          isSectionCheck={"Course"}
+          onClose={handleCloseModal}
+        />
       )}
     </>
   );

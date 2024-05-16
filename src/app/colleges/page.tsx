@@ -127,10 +127,7 @@ export default function CollegeList() {
   }, [searchValue, initialData, displayCount]);
 
 
-
-console.log(filteredData, "filteredData=")
-
-  
+ 
 
   return (
     <>
