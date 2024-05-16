@@ -178,7 +178,7 @@ export default function ExamFilters({
         />
       </div>
       {isMobile ? (
-        <div className="absolute top-0 right-0 left-0 h-full w-full bg-black/[0.5] z-50">
+        <div className="absolute top-0 right-0 left-0 h-full w-full bg-black/[0.5] z-50 overscroll-none">
           <div className="opacity-100 z-50 block fixed right-0 bottom-0 left-0 w-screen h-4/6 bg-white text-black rounded-xl">
             <div className="flex justify-between px-5 py-5 w-full border-b-2 border-gray-300">
               <h5 className="text-base font-bold">All Filter</h5>

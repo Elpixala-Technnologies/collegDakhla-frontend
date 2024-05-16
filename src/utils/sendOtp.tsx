@@ -6,6 +6,8 @@ const corsMiddleware = cors();
 
 let OTP: string;
 export async function sendOtp(phoneNumber: string) {
+	console.log("inside send otp");
+
 	try {
 		// Code to send OTP using Fast2SMS
 		// Make sure to replace YOUR_API_KEY and YOUR_SENDER_ID with your actual Fast2SMS API Key and sender ID

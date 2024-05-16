@@ -18,7 +18,6 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import SortButton from "@/components/sortButton/SortButton";
-import useExmas from "@/hooks/useExmas";
 
 export default function ExamList() {
   const [Search, setSearch] = useState("");
@@ -30,7 +29,6 @@ export default function ExamList() {
   const [filteredData, setFilteredData] = useState([]);
   const [displayCount, setDisplayCount] = useState(5);
   const [searchValue, setSearchValue] = useState("");
-  const [sortOption, setSortOption] = useState<any>([]);
 
   // get exams on search
   const {
@@ -44,29 +42,6 @@ export default function ExamList() {
       ModeFilter,
     },
   });
-  const { AllExamData } = useExmas();
-  // sorting 
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleSort = (option: React.SetStateAction<string>) => {
-    setSortOption(option ? [option] : []);
-    setIsOpen(false);
-  };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-  // End 
 
   // get featured exams
   const {
@@ -101,32 +76,35 @@ export default function ExamList() {
     setDisplayCount((prevCount) => prevCount + 10);
   };
 
+  // console.log(examsData?.exams?.data, "filteredData");
+
   const handleFilterOptionClick = (option: any) => {
     if (option === "a-z") {
-      const sortedData: any = [...AllExamData].sort(
+      const sortedData: any = [...examsData?.exams?.data].sort(
         (a: any, b: any) => {
           return a?.attributes?.name.localeCompare(b?.attributes?.name);
         }
       );
       setFilteredData(sortedData.slice(0, displayCount));
     } else if (option === "reset") {
-      const resetArray: any = [...AllExamData].slice(0, displayCount);
+      const resetArray: any = [...examsData?.exams?.data].slice(
+        0,
+        displayCount
+      );
       setFilteredData(resetArray);
     }
   };
 
   useEffect(() => {
     if (searchValue.trim() === "") {
-      setFilteredData(AllExamData?.slice(0, displayCount));
+      setFilteredData(examsData?.exams?.data.slice(0, displayCount));
     } else {
-      const filtered = AllExamData?.filter((exam: any) =>
+      const filtered = examsData?.exams?.data.filter((exam: any) =>
         exam.attributes.name.toLowerCase().includes(searchValue.toLowerCase())
       );
       setFilteredData(filtered);
     }
-  }, [searchValue, AllExamData, displayCount]);
-
-  console.log(filteredData, AllExamData, "filteredData");
+  }, [searchValue, examsData, displayCount]);
 
   return (
     <>
@@ -178,8 +156,9 @@ export default function ExamList() {
               All Exams 2023-2024, Dates, Application Forms & Alerts
             </h1>
             <p
-              className={`${showFullContent ? "text-justify" : " text-center"
-                } text-base mb-3`}
+              className={`${
+                showFullContent ? "text-justify" : " text-center"
+              } text-base mb-3`}
             >
               In the upcoming academic year of 2024-2025, numerous exams are
               scheduled across various educational levels and disciplines. These
@@ -287,17 +266,17 @@ export default function ExamList() {
                 <ExamListItem exams={filteredData} />
 
                 {filteredData?.length >= 5 &&
-        filteredData?.length < AllExamData?.length && (
-          <button
-            className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow m-6"
-            onClick={handleLoadMore}
-          >
-            <div className="absolute inset-0 w-3 bg-amber-400 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
-            <span className="relative text-black group-hover:text-white">
-              Load More
-            </span>
-          </button>
-        )}
+                  filteredData?.length < examsData?.exams?.data.length && (
+                    <button
+                      className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow m-6"
+                      onClick={handleLoadMore}
+                    >
+                      <div className="absolute inset-0 w-3 bg-amber-400 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
+                      <span className="relative text-black group-hover:text-white">
+                        Load More
+                      </span>
+                    </button>
+                  )}
               </div>
             </div>
           </div>

@@ -12,6 +12,7 @@
   height: 90px;
 } */
 
+
 body {
   scrollbar-width: thin;
   scrollbar-color: #cccccc #f4f4f4;
@@ -45,10 +46,6 @@ body::-webkit-scrollbar-track {
 
 .hide-scrollbar {
   -ms-overflow-style: none; /* Edge */
-}
-
-.college-btn {
-  float: inline-start;
 }
 
 /* THin scrollbar */

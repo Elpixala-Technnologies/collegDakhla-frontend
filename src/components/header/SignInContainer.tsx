@@ -27,9 +27,8 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 	const sendLoginOtp = async (e: any) => {
 		e.preventDefault();
 
-		if (checkUser != false) {
-			setUserId(checkUser?.userData?.data[0]?.id);
-			setIsOtp(true);
+		if (checkUser) {
+			setUserId(checkUser?.usersData?.data[0]?.id);
 			let data = JSON.stringify({
 				data: {},
 			});
@@ -37,7 +36,7 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 			let config = {
 				method: "put",
 				maxBodyLength: Infinity,
-				url: `${restUrl}/api/users-data/${checkUser?.userData?.data[0]?.id}`,
+				url: `${restUrl}/api/users-data/${checkUser?.usersData?.data[0]?.id}`,
 				headers: {
 					"Content-Type": "application/json",
 				},
@@ -47,6 +46,7 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 			axios
 				.request(config)
 				.then((response: any) => {
+					setIsOtp(true);
 					console.log("otp sent");
 				})
 				.catch((error: any) => {
@@ -63,14 +63,14 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 			dispatch(
 				setAuthState({
 					authState: true,
-					userName: checkUser?.userData?.data[0]?.attributes?.name,
-					email: checkUser?.userData?.data[0]?.attributes?.email,
-					number: checkUser?.userData?.data[0]?.attributes?.number,
-					userID: checkUser?.userData?.data?.[0]?.id,
+					userName: checkUser?.usersData?.data[0]?.attributes?.name,
+					email: checkUser?.usersData?.data[0]?.attributes?.email,
+					number: checkUser?.usersData?.data[0]?.attributes?.number,
+					userID: checkUser?.usersData?.data?.[0]?.id,
 				})
 			);
 
-			router.push("/");
+			// router.push("/");
 			closeLoginPopup();
 		}
 		else {
@@ -101,7 +101,7 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 				</span>
 			</div>
 
-			<div className=" gap-4 px-6 pb-6  flex flex-col items-center">
+			<div className="flex flex-col gap-4 px-6 pb-6">
 				<div className="relative h-11 w-full min-w-[200px]">
 					<input
 						className="bg-white w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-primary focus:border-t-transparent focus:outline-0 "
@@ -121,7 +121,7 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 				</div>
 				{!isOtp ? (
 					<button
-						className="block w-1/3 select-none rounded-lg bg-white py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md  transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85]"
+						className="block w-full select-none rounded-lg bg-primary py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md  transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85]"
 						type="submit"
 						onClick={sendLoginOtp}
 					>
@@ -139,7 +139,7 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 							</div>
 							<div className="p-3 ">
 								<button
-									className="block w-full select-none rounded-lg  py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md bg-white transition-all"
+									className="block w-full select-none rounded-lg  py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md bg-primary transition-all"
 									type="submit"
 									onClick={handleSignin}
 								>

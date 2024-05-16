@@ -1,9 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import Filter from "./filter";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { getStreams, getStates, getCollegesFilter,getCourses, collegeTypes, getColleges  } from "@/query/schema";
+import { getStreams, getStates, getCollegesFilter,getCourses, collegeTypes  } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -21,6 +20,7 @@ export default function CollegeFilters(params?: any) {
     courses: "", 
     collegeType:"",
   });
+  // console.log(params?.allColleges?.colleges?.data, "pankaj");
 
   const [StreamFilter, setStreamFilter] = useState<string>("");
   const [StateFilter, setStateFilter] = useState<string>("");
@@ -66,8 +66,6 @@ export default function CollegeFilters(params?: any) {
       collegeTypeFilter
     },
   });
-
-  const { loading, error, data: initialData } = useQuery(getColleges);
 
   //tab state
   const [value, setValue] = useState(0);
@@ -116,45 +114,24 @@ export default function CollegeFilters(params?: any) {
   const handleUnselectFilter = (filter?: string, name?: string) => {
     if (filter === "stream") {
       setStreamFilter("");
-      setSelectedFilter(prevData => ({
-        ...prevData,
-        stream: "",
-      }));
+      SelectedFilter.stream = "";
     } else if (filter === "state") {
       setStateFilter("");
-      setSelectedFilter(prevData => ({
-        ...prevData,
-        state: "",
-      }));
-    } else if (filter === "city") {
-      setCityFilter("");
-      setSelectedFilter(prevData => ({
-        ...prevData,
-        city: "",
-      }));
-    } else if (filter === "courses") {
-      setCoursesFilter("");
-      setSelectedFilter(prevData => ({
-        ...prevData,
-        courses: "",
-      }));
-    } else if (filter === "collegeType") {
-      setcollegeTypeFilter("");
-      setSelectedFilter(prevData => ({
-        ...prevData,
-        collegeType: "",
-      }));
+      SelectedFilter.state = "";
     }
-  
-    // Reset filtered data
-    params.setFilteredData(null);
+    else if (filter === "courses") {
+      setCoursesFilter("");
+      SelectedFilter.courses = "";
+    }
+    else if (filter === "collegeType") {
+      setcollegeTypeFilter("");
+      SelectedFilter.collegeType = "";
+    }
   };
-  
-  
-  
 
   const resetFilters = () => {
     const updatedFilter = {};
+    // console.log("selected ", SelectedFilter);
     params.handleMobileFilter();
   };
 
@@ -189,13 +166,12 @@ export default function CollegeFilters(params?: any) {
     };
   }, [params.isMobile]);
 
-  
-
   return (
     <>
       <div className="bg-white hidden md:block p-2 m-2 md:m-0 rounded-lg">
         <h3 className="uppercase text-sm px-2 py-3">
-          Found colleges
+          Found <b>{Object.keys(SelectedFilter).length > 0 ? filteredCollege?.colleges?.meta?.pagination?.total : null}</b>
+          colleges
         </h3>
         {SelectedFilter.stream || SelectedFilter.state || SelectedFilter.courses || SelectedFilter.collegeType ? (
           <>
@@ -261,7 +237,7 @@ export default function CollegeFilters(params?: any) {
         <Filter
           name="CollegeType"
           filters={collegeTypesData?.collegeTypes?.data} 
-          handleFilter={handlecollegeTypeFilter}
+          handleFilter={handleCoursesFilter}
           checked={CoursesFilter}
         />
       </div>
