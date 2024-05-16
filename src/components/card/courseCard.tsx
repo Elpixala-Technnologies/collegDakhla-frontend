@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaMedal, FaHeart } from "react-icons/fa";
 
-export default function CourseCard({ featuredCourse }: any) {
+export default function CourseCard({ featuredCourse, onApplyNow }: any) {
 
 	const logoURL = featuredCourse?.attributes?.logo?.data?.attributes?.url
 		? getStrapiMedia(featuredCourse?.attributes?.logo?.data?.attributes?.url)
@@ -77,11 +77,9 @@ export default function CourseCard({ featuredCourse }: any) {
 						</div>
 					</div>
 				</div>
-				<Link href="">
-					<div className="w-full p-2 bg-primary rounded-b-lg text-center text-white text-sm">
+					<div onClick={onApplyNow} className="w-full p-2 bg-primary rounded-b-lg text-center text-white text-sm">
 						Application Process & Course Info
 					</div>
-				</Link>
 			</div>
 		</div>
 	);

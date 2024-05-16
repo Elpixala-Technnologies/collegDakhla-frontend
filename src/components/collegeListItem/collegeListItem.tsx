@@ -368,8 +368,6 @@ export default function CollegeListItem(allColleges: any) {
 
   const FromStep: any = CollegeApplicatonListData?.form_stape;
 
-  console.log(FromStep, "FromStep==============");
-
   return (
     <>
       {allColleges?.colleges?.length > 0 ? (

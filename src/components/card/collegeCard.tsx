@@ -8,7 +8,7 @@ import { BiBadgeCheck } from "react-icons/bi";
 import { BsFlag } from "react-icons/bs";
 import StarRating from "../starRating/starRating";
 
-export default function CollegeCard({ featuredCollege }: any) {
+export default function CollegeCard({ featuredCollege, onApplyNow }: any) {
 	let college = featuredCollege?.attributes;
 	const logoURL = college?.collegeLogo?.data?.attributes?.url
 		? getStrapiMedia(college?.collegeLogo?.data?.attributes?.url)
@@ -96,11 +96,9 @@ export default function CollegeCard({ featuredCollege }: any) {
 						<div>{college?.college_type?.data?.attributes?.type}</div>
 					</p>
 				</div>
-				<Link href="">
-					<div className="w-full p-2 bg-primary rounded-b-lg text-center text-white text-sm">
-						Apply Now
-					</div>
-				</Link>
+				<button className="w-full p-2 bg-primary rounded-b-lg text-center text-white text-sm" onClick={onApplyNow}>
+					Apply Now
+				</button>
 			</div>
 		</div>
 	);

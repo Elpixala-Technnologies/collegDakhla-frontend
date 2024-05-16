@@ -9,6 +9,8 @@ import Carousel from "@/components/carousel/carousel";
 import CourseCard from "@/components/card/courseCard";
 import CourseFilters from "@/components/filters/courseFilters/courseFilters";
 import SortButton from "@/components/sortButton/SortButton";
+import userFrom from "@/hooks/userFrom";
+import ApplyNowModal from "@/components/consultingModule/ApplyNowModal/ApplyNowModal";
 
 export default function CourseList() {
   const [Search, setSearch] = useState<string>("");
@@ -94,6 +96,21 @@ export default function CourseList() {
     }
   }, [searchValue, coursesData, displayCount]);
 
+  const { CollegeApplicatonListData } = userFrom();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [slectedId, setSelectedId] = useState<any>(null)
+  const handleOpenModal = (id: any) => {
+    setSelectedId(id);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  const FromStep: any = CollegeApplicatonListData?.form_stape;
+
+ 
+
   return (
     <>
       <div className="max-w-screen-xl mx-auto">
@@ -164,7 +181,7 @@ export default function CourseList() {
               showPagination={false}
               slides={featuredCourses?.courses?.data?.map(
                 (course: any, index: number) => {
-                  return <CourseCard key={index} featuredCourse={course} />;
+                  return <CourseCard onApplyNow={() => handleOpenModal(course?.id)} key={index} featuredCourse={course} />;
                 }
               )}
             />
@@ -223,6 +240,16 @@ export default function CourseList() {
           </div>
         </section>
       </div>
+
+      {isModalOpen && (
+        <ApplyNowModal
+
+          id={slectedId}
+          FromStep={FromStep}
+          isSectionCheck={"Course"}
+          onClose={handleCloseModal}
+        />
+      )}
     </>
   );
 }

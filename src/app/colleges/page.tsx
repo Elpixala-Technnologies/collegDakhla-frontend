@@ -23,9 +23,12 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import SortButton from "@/components/sortButton/SortButton";
+import userFrom from "@/hooks/userFrom";
+import ApplyNowModal from "@/components/consultingModule/ApplyNowModal/ApplyNowModal";
 // import { FaCircleChevronRight } from "react-icons/fa6";
 
 export default function CollegeList() {
+  const { CollegeApplicatonListData } = userFrom();
   const [Search, setSearch] = useState("");
   const [MobileFilter, setMobileFilter] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
@@ -126,6 +129,24 @@ export default function CollegeList() {
     }
   }, [searchValue, initialData, displayCount]);
 
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // const handleOpenModal = () => {
+  //   setIsModalOpen(true);
+  // };
+  const [slectedId, setSelectedId] = useState<any>(null)
+
+
+  const handleOpenModal = (collegeId: any) => {
+    setSelectedId(collegeId);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  const FromStep: any = CollegeApplicatonListData?.form_stape;
 
  
 
@@ -255,7 +276,7 @@ export default function CollegeList() {
               showPagination={false}
               slides={topCollegesData?.colleges?.data?.map(
                 (college: any, index: number) => {
-                  return <CollegeCard key={index} featuredCollege={college} />;
+                  return <CollegeCard key={index} onApplyNow={() => handleOpenModal(college?.id)} featuredCollege={college} />;
                 }
               )}
             />
@@ -316,6 +337,15 @@ export default function CollegeList() {
           </div>
         </section>
       </div>
+
+      {isModalOpen && (
+        <ApplyNowModal
+          id={slectedId}
+          FromStep={FromStep}
+          isSectionCheck={"College"}
+          onClose={handleCloseModal}
+        />
+      )}
     </>
   );
 }

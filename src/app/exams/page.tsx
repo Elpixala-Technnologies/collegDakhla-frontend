@@ -18,6 +18,8 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import SortButton from "@/components/sortButton/SortButton";
+import userFrom from "@/hooks/userFrom";
+import ApplyNowModal from "@/components/consultingModule/ApplyNowModal/ApplyNowModal";
 
 export default function ExamList() {
   const [Search, setSearch] = useState("");
@@ -105,6 +107,23 @@ export default function ExamList() {
       setFilteredData(filtered);
     }
   }, [searchValue, examsData, displayCount]);
+
+  const { CollegeApplicatonListData } = userFrom();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [slectedId, setSelectedId] = useState<any>(null)
+  const handleOpenModal = (id: any) => {
+    setSelectedId(id);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  const FromStep: any = CollegeApplicatonListData?.form_stape;
+
+ 
+
+
 
   return (
     <>
@@ -221,7 +240,7 @@ export default function ExamList() {
               showPagination={false}
               slides={featuredExams?.exams?.data?.map(
                 (exam: any, index: number) => {
-                  return <ExamCard key={index} featuredExams={exam} />;
+                  return <ExamCard onApplyNow={() => handleOpenModal(exam?.id)} key={index} featuredExams={exam} />;
                 }
               )}
             />
@@ -282,6 +301,15 @@ export default function ExamList() {
           </div>
         </section>
       </div>
+
+      {isModalOpen && (
+        <ApplyNowModal
+          id={slectedId}
+          FromStep={FromStep}
+          isSectionCheck={"Exam"}
+          onClose={handleCloseModal}
+        />
+      )}
     </>
   );
 }

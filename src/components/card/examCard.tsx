@@ -5,7 +5,7 @@ import Image from "next/image";
 import { FaHeart, FaMedal } from "react-icons/fa6";
 import { formatDate } from "@/utils/formatDate";
 
-export default function ExamCard({ featuredExams }: any) {
+export default function ExamCard({ featuredExams ,onApplyNow}: any) {
 
 	const logoURL = featuredExams?.attributes?.logo?.data?.attributes?.url
 		? getStrapiMedia(featuredExams?.attributes?.logo?.data?.attributes?.url)
@@ -74,11 +74,10 @@ export default function ExamCard({ featuredExams }: any) {
 						</div>
 					</div>
 				</div>
-				<Link href="">
-					<div className="w-full p-2 bg-primary rounded-b-lg text-center text-white text-sm">
+					<div onClick={onApplyNow} className="w-full p-2 bg-primary rounded-b-lg text-center text-white text-sm">
 						Application Process & Exam Info
 					</div>
-				</Link>
+
 			</div>
 		</div>
 	);
