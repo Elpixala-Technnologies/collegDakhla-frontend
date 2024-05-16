@@ -131,7 +131,7 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 					},
 				});
 
-				router.push("/");
+				// router.push("/");
 				closeLoginPopup();
 			} catch (error) {
 				setError("Something went wrong. Please try again.");

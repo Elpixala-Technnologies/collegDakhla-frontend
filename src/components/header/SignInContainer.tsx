@@ -70,7 +70,7 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 				})
 			);
 
-			router.push("/");
+			// router.push("/");
 			closeLoginPopup();
 		}
 		else {
