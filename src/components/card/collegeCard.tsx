@@ -19,6 +19,7 @@ export default function CollegeCard({ featuredCollege }: any) {
 		
 	return (
 		<div className="flex flex-col items-stretch min-w-56 bg-white rounded-lg drop-shadow-sm hover:drop-shadow-lg">
+			
 			<div className="relative rounded-t-lg">
 				<img
 					src={bannerURL!}
@@ -98,7 +99,7 @@ export default function CollegeCard({ featuredCollege }: any) {
 					</p>
 				</div>
 				<Link href="">
-					<div className="w-full p-2 bg-primary rounded-b-lg text-center text-white text-sm">
+					<div className="w-full p-2 bg-gradient-to-l from-gray-300 via-gray-500 to-gray-900 rounded-b-lg text-center text-white text-sm">
 						Apply Now
 					</div>
 				</Link>

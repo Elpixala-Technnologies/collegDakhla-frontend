@@ -81,7 +81,10 @@ export default function CollegeListItem(allColleges: any) {
               : GetDefaultImage("banner");
 
             return (
+
+              
               <div key={index}>
+                
                 <div className="mb-4 pt-4 flex flex-wrap md:flex-row gap-4 shadow-lg bg-white rounded-lg drop-shadow hover:drop-shadow-xl">
                   <div className="flex flex-row">
                     <div className="relative rounded-lg">
@@ -277,7 +280,7 @@ export default function CollegeListItem(allColleges: any) {
                     </div>
                   </div>
                   {/* <Separator /> */}
-                  <div className="w-full flex items-center justify-evenly p-4 border-t border-[#0F4988]">
+                  <div className="w-full flex items-center justify-evenly p-4 border-t border-gray-300">
                     <div className="xl:flex flex-wrap items-stretch  px-2 text-primary w-3/4 hidden">
                       <div className="pr-2 mr-2 border-r border-[#565959]">
                         <p className="text-base font-light">Info</p>
