@@ -58,6 +58,7 @@ export default function ExamListItem({ exams }: any) {
                             name="half-rating"
                             defaultValue={2.5}
                             precision={0.5}
+                            readOnly
                           />
                           <div className="flex flex-row gap-2">
                             <CiLocationOn className="text-2xl text-gray-400" />
@@ -152,11 +153,11 @@ export default function ExamListItem({ exams }: any) {
                             </div>
                           </div>
                         </div>
-                        <div className="w-3/4 pt-2">
+                        {/* <div className="w-3/4 pt-2">
                           <span className="text-gray-600 text-sm line-clamp-2">
                           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                           </span>
-                        </div>
+                        </div> */}
                         </div>
                       </div>
                     </div>
