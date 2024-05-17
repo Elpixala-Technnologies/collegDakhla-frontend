@@ -112,15 +112,13 @@ export default function CollegeList() {
       setFilteredData(resetArray);
     }
   };
-
+  
   useEffect(() => {
     if (searchValue.trim() === "") {
       setFilteredData(initialData?.colleges?.data.slice(0, displayCount));
     } else {
       const filtered = initialData?.colleges?.data.filter((college: any) =>
-        college.attributes.collegeName
-          .toLowerCase()
-          .includes(searchValue.toLowerCase())
+        college.attributes.collegeName.toLowerCase().includes(searchValue.toLowerCase())
       );
       setFilteredData(filtered);
     }
@@ -293,7 +291,8 @@ export default function CollegeList() {
                   </div>
                 </div>
               </div>
-              <div className="flex sm:flex-col flex-row overflow-x-scroll">
+              {/* CollegeListItem */}
+              <div className="flex flex-col p-2">
                 <CollegeListItem colleges={filteredData} />
 
                 {filteredData?.length >= 10 &&

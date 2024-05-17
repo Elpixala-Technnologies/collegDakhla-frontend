@@ -104,7 +104,7 @@ export default function ExamList() {
       );
       setFilteredData(filtered);
     }
-  }, [searchValue, examsData, displayCount]);
+  }, [searchValue, AllExamData, displayCount]);
 
   return (
     <>
