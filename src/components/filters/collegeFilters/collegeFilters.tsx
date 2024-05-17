@@ -166,16 +166,16 @@ export default function CollegeFilters(params?: any) {
     params?.setFilteredData(filteredCollege?.colleges?.data);
   }, [filteredCollege, filterLoader]);
 
-  useEffect(() => {
-  if (!filterLoader && filteredCollege) {
-    // Reset all filter states to empty strings
-    setStreamFilter("");
-    setStateFilter("");
-    setCityFilter("");
-    setCoursesFilter("");
-    setcollegeTypeFilter("");
-  }
-}, [filterLoader, filteredCollege]);
+//   useEffect(() => {
+//   if (!filterLoader && filteredCollege) {
+//     // Reset all filter states to empty strings
+//     setStreamFilter("");
+//     setStateFilter("");
+//     setCityFilter("");
+//     setCoursesFilter("");
+//     setcollegeTypeFilter("");
+//   }
+// }, [filterLoader, filteredCollege]);
 
 
   useEffect(() => {

@@ -24,6 +24,7 @@ import {
 import Link from "next/link";
 import SortButton from "@/components/sortButton/SortButton";
 // import { FaCircleChevronRight } from "react-icons/fa6";
+import Loading from "react-loading-components";
 
 export default function CollegeList() {
   const [Search, setSearch] = useState("");
@@ -32,7 +33,7 @@ export default function CollegeList() {
   const [Stream, setStream] = useState<string>("default");
   const [sortOption, setSortOption] = useState<any>([]);
   // const [TopStream, setTopStream] = useState<string>("")
-  const [Limit, setLimit] = useState<number>(10);
+  const [Limit, setLimit] = useState<number>(10); // set initial limit for top collages
   const [displayCount, setDisplayCount] = useState(10); // Initial display count
   const [searchValue, setSearchValue] = useState("");
 
@@ -71,7 +72,7 @@ export default function CollegeList() {
     variables: { Limit },
   });
 
-  // sorting 
+  // sorting
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -83,7 +84,6 @@ export default function CollegeList() {
     setIsOpen(false);
   };
 
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -93,7 +93,7 @@ export default function CollegeList() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-  // End 
+  // End
 
   const {
     loading: streamLoader,
@@ -125,7 +125,9 @@ export default function CollegeList() {
     if (option === "a-z") {
       const sortedData: any = [...initialData?.colleges?.data].sort(
         (a: any, b: any) => {
-          return a?.attributes?.collegeName.localeCompare(b?.attributes?.collegeName);
+          return a?.attributes?.collegeName.localeCompare(
+            b?.attributes?.collegeName
+          );
         }
       );
       setFilteredData(sortedData.slice(0, displayCount));
@@ -137,19 +139,21 @@ export default function CollegeList() {
       setFilteredData(resetArray);
     }
   };
-  
+
   useEffect(() => {
-    if (searchValue.trim() === "") {
-      setFilteredData(initialData?.colleges?.data.slice(0, displayCount));
-    } else {
-      const filtered = initialData?.colleges?.data.filter((college: any) =>
-        college.attributes.collegeName.toLowerCase().includes(searchValue.toLowerCase())
-      );
-      setFilteredData(filtered);
+    if (initialData && initialData?.colleges?.data) {
+      if (searchValue.trim() === "") {
+        setFilteredData(initialData?.colleges?.data.slice(0, displayCount));
+      } else if (searchValue.trim() !== "") {
+        const filtered = initialData?.colleges?.data.filter((college: any) =>
+          college.attributes.collegeName
+            .toLowerCase()
+            .includes(searchValue.toLowerCase())
+        );
+        setFilteredData(filtered);
+      }
     }
   }, [searchValue, initialData, displayCount]);
-
-  
 
   return (
     <>
@@ -202,8 +206,9 @@ export default function CollegeList() {
               India
             </h1>
             <p
-              className={`${showFullContent ? "text-justify" : " text-center"
-                } text-base mb-3`}
+              className={`${
+                showFullContent ? "text-justify" : " text-center"
+              } text-base mb-3`}
             >
               The list of top engineering colleges in India 2024 includes IT
               Madras, IIT Bombay, IIT Kanpur, IIT Roorkee, IIT Kharagpur, etc.
@@ -266,6 +271,7 @@ export default function CollegeList() {
             </div>
           </div>
         </section>
+        {/* Featured Colleges  */}
         <section className="topCollege">
           <div className="m-4 bg-white py-8 my-4 px-4 rounded-xl">
             <h2 className="text-xl font-bold mb-3"></h2>
@@ -282,8 +288,10 @@ export default function CollegeList() {
             />
           </div>
         </section>
+        {/* Colleges list  */}
         <section className="collegeList">
           <div className="flex flex-col md:flex-row gap-3 px-4">
+            {/* aside Filter  */}
             <div className="flex-none w-64 h-full drop-shadow-md hover:drop-shadow-xl">
               <CollegeFilters
                 allColleges={initialData}
@@ -293,8 +301,9 @@ export default function CollegeList() {
                 setStream={setStream}
               />
             </div>
+            {/* College List Section  */}
             <div className="flex-1 w-full">
-              
+              {/* SearchBar and sort  */}
               <div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col px-2">
                 <div className="bg-white h-12 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
                   <RiSearchLine />
@@ -320,7 +329,18 @@ export default function CollegeList() {
               </div>
               {/* CollegeListItem */}
               <div className="flex flex-col p-2">
-                <CollegeListItem colleges={filteredData} />
+                {initialData?.colleges?.data ? (
+                  <CollegeListItem colleges={filteredData} />
+                ) : (
+                  <div className="w-full h-full p-20 item-center flex justify-center">
+                    <Loading
+                      type="tail_spin"
+                      width={100}
+                      height={100}
+                      fill="#bdbdbd"
+                    />
+                  </div>
+                )}
 
                 {filteredData?.length >= 10 &&
                   filteredData?.length < initialData?.colleges?.data.length && (
