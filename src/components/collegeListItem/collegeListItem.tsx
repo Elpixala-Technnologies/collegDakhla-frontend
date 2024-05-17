@@ -143,7 +143,7 @@ export default function CollegeListItem(allColleges: any) {
                               height={20}
                               alt={"approvedBy"}
                             />
-                            {college?.attributes?.city?.data?.attributes?.name},
+                            {college?.attributes?.city?.data?.attributes?.name}{college?.attributes?.city?.data?.attributes?.name &&", "}
                             {college?.attributes?.state?.data?.attributes?.name}{" "}
                           </p>
                         </div>

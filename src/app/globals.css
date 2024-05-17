@@ -89,3 +89,11 @@ body::-webkit-scrollbar-track {
 *::-webkit-scrollbar-thumb:hover {
   background: #555; /* Color of the scrollbar on hover */
 }
+
+
+.resourcesScroll {
+	height: 35rem;
+	scrollbar-width: thin;
+	border-radius: 3px;
+	background: #fff;
+}
