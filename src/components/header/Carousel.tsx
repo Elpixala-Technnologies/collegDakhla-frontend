@@ -34,7 +34,7 @@ const Carousel = ({
   return (
     <>
       {/* Carousel  */}
-      <div className="w-full h-max relative overflow-hidden bg-gradient-to-r from-red-300 to-orange-300 rounded-lg">
+      <div className="w-full h-max relative overflow-hidden bg-gradient-to-r from-gray-300 to-gray-200 rounded-lg">
         <div
           className="w-full h-max flex transition-transform ease-out duration-500"
           style={{ transform: `translateX(-${curr * 100}%)` }}

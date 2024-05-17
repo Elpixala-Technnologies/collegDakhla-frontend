@@ -18,6 +18,7 @@ import { restUrl } from "@/utils/network";
 import useSignup from "@/query/hooks/useSignup";
 import useUserMetaData from "@/query/hooks/useUserMetaData";
 import { setAuthState } from "@/store/authSlice";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 interface ExamFormData {
   examLevel: string;
@@ -544,11 +545,11 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
               </div>
 
               {/* Right Panel */}
-              <div className="w-4/5 md:w-1/2 bg-gradient-to-tl from-[#EF5F43] via-[#EF5F43] to-[#ff9355] relative">
+              <div className="w-4/5 md:w-1/2 bg-white text-black relative">
                 {/* Close Button */}
                 <button
                   onClick={onClose}
-                  className="cursor-pointer absolute -top-3 -right-3 h-8 w-8 text-white bg-black bg-opacity-70 border rounded-full flex items-center justify-center"
+                  className="cursor-pointer absolute -top-3 -right-3 h-8 w-8  bg-white bg-opacity-90 border rounded-full flex items-center justify-center"
                 >
                   X
                 </button>
@@ -556,20 +557,15 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                 {/* Back Button */}
                 <button className="p-4">
                   {currentStep >= 1 && (
-                    <Image
-                      className="cursor-pointer text-white"
-                      src={Arrow}
-                      alt="Back"
-                      onClick={handleBack}
-                    />
+                    <IoMdArrowRoundBack className="text-2xl" onClick={handleBack} />
                   )}
                 </button>
 
                 {/* Right panel content */}
-                <div className="flex flex-col justify-center mx-4 md:mx-6 p-6 h-[60vh] overflow-y-scroll hide-scrollbar">
+                <div className="flex flex-col justify-center mx-4 md:mx-6 p-6 h-[60vh]">
                   {/* Right panel content */}
                   <div className="space-y-2">
-                    <h1 className="text-white mt-[3rem] mb-8 font-semibold text-base text-left font-sans  md:text-xl">
+                    <h1 className=" mb-8 font-semibold text-base text-left font-sans  md:text-xl">
                       {step.step_label}
                     </h1>
 
@@ -591,7 +587,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                               <div className="flex w-1/6 text-xs">
                                 <input
                                   name="countrycode"
-                                  className="w-full p-2.5 mb-5 rounded-lg border border-[#050138]"
+                                  className="w-full p-2.5 mb-5 rounded-lg border border-gray-300"
                                   placeholder="+91"
                                 />
                               </div>
@@ -601,7 +597,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                   id="numbe"
                                   name="number"
                                   
-                                  className="w-full p-2.5 mb-5 rounded-lg border border-[#050138]"
+                                  className="w-full p-2.5 mb-5 rounded-lg border border-gray-300"
                                   placeholder="Enter 10 digit mobile number"
                                   value={phoneNumber}
                                   maxLength={10}
@@ -616,7 +612,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                               id="email"
                               name="email"
                               onChange={(e) => setEmailValue(e.target.value)}
-                              className="w-full rounded-sm border border-[#050138] py-2 px-2"
+                              className="w-full rounded-lg border border-gray-300 py-2 px-2"
                               placeholder="Email"
                               required
                             />
@@ -631,7 +627,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                 onChange={(e) =>
                                   setSelectedCourseLevel(e.target.value)
                                 }
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                               >
                                 <option selected className="text-black">
                                   Please select preferred level
@@ -667,7 +663,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                 onChange={(e) =>
                                   setUnderGraduactionData(e.target.value)
                                 }
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                               >
                                 <option value="">
                                   Which class are you in?
@@ -689,7 +685,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                 onChange={(e) =>
                                   setSelectedStream(e.target.value)
                                 }
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
                               >
                                 <option selected className="text-black">
                                   Please Select Preferred Stream
@@ -724,8 +720,8 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                     checked={isSameAsAbove}
                                     onChange={handleCheckboxChange}
                                   />
-                                  <div className="relative w-12 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                                  <span className="ms-3 text-sm font-medium text-white">
+                                  <div className="relative w-12 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-1 peer-focus:ring-gray-300  rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all   peer-checked:bg-orange-600"></div>
+                                  <span className="ms-3 text-sm font-medium">
                                     Whatsapp number is the same as provided
                                     above
                                   </span>
@@ -741,7 +737,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                               <div className="flex w-1/6 text-xs">
                                 <input
                                   name="countrycode"
-                                  className="w-full p-2.5 mb-5 rounded-lg border border-[#050138]"
+                                  className="w-full p-2.5 mb-5 rounded-lg border border-gray-300"
                                   placeholder="+91"
                                 />
                               </div>
@@ -750,7 +746,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                   type="number"
                                   id="whatsappNumer"
                                   name="whatsappNumer"
-                                  className="w-full p-2.5 mb-5 rounded-lg border border-[#050138]"
+                                  className="w-full p-2.5 mb-5 rounded-lg border border-gray-300"
                                   placeholder="Enter 10 digit mobile number"
                                   value={whatsappNumer}
                                   onChange={(e) =>
@@ -774,7 +770,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                 />
                               </div>
                             </div>
-                            <div className="flex gap-3 font-[13px] text-white">
+                            <div className="flex gap-3 font-[13px]">
                               Didn’t receive the OTP? Request again in{" "}
                               {formattedTime}
                             </div>
@@ -790,7 +786,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                               onChange={(e) =>
                                 setSelectedGender(e.target.value)
                               }
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                             >
                               <option value="" className="text-black">
                                 Gender
@@ -1440,13 +1436,13 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                         {field?.filed_type === "additional_education" && (
                           <div className="mt-[2rem]">
                             <div className="flex flex-col justify-between gap-2 -mt-5">
-                              <div className="flex flex-row mt-4 text-white items-center gap-2">
+                              <div className="flex flex-row mt-4  items-center gap-2">
                                 <Image
                                   src={QuestionMark}
                                   alt="image"
                                   width={20}
                                   height={20}
-                                  className="text-white"
+                                  className=""
                                 />
                                 <span className="text-6">
                                   Have you appeared or scheduled for any
@@ -1454,7 +1450,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                 </span>
                               </div>
 
-                              <div className="sm:gap-4 gap-2 text-white flex items-center">
+                              <div className="sm:gap-4 gap-2  flex items-center">
                                 <label className="flex cursor-pointer text-4 items-center gap-1">
                                   <input
                                     type="radio"
@@ -1660,7 +1656,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                   <div className="flex md:flex-row flex-col gap-4 items-center justify-start w-full">
                                     <div className="flex flex-col gap-1.5 flex-1 w-full">
                                       <div className="flex flex-row justify-between mt-5">
-                                        <h1 className="text-white">
+                                        <h1 className="">
                                           Select College{" "}
                                           <span className="text-red-500">
                                             *
@@ -1705,18 +1701,20 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                           </option>
                                           {AllCollegesData &&
                                             AllCollegesData.map(
-                                              (college: any) => (
-                                                <option
+                                              (college: any) =>{
+                                                return (
+                                                  <option
                                                   key={college?.id}
                                                   value={college?.id}
-                                                  className="w-40"
+                                                  className="w-40 text-black"
                                                 >
                                                   {
                                                     college?.attributes
-                                                      ?.college_name
+                                                      ?.collegeName
                                                   }
                                                 </option>
-                                              )
+                                                )
+                                              }
                                             )}
                                         </select>
                                       </div>
@@ -1732,7 +1730,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                   className="flex flex-row items-center border border-white rounded-full p-1 cursor-pointer"
                                   onClick={handleAddMorePrefaredCollege}
                                 >
-                                  <PiPlus className="text-white text-sm" />
+                                  <PiPlus className=" text-sm" />
                                 </div>
                               </div>
                             )}
@@ -1748,14 +1746,14 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                       {currentStep !== totalSteps - 1 ? (
                         <button
                           type="submit"
-                          className="w-full bg-[#FFFFFF] text-black py-2 rounded-md transition duration-300"
+                          className="w-full bg-gray-200 text-black py-2 rounded-md transition duration-300 hover:text-primary hover:underline"
                         >
                           Next
                         </button>
                       ) : (
                         <button
                           type="submit"
-                          className="w-full bg-[#FFFFFF] text-black py-2 rounded-md transition duration-300"
+                          className="w-full bg-gray-200 text-black py-2 rounded-md transition duration-300 hover:text-primary hover:underline"
                         >
                           Submit
                         </button>

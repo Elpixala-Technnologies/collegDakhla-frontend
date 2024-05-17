@@ -60,7 +60,7 @@ export default function Button({
       ) : (
         <>
           <div
-            className={`button flex cursor-pointer ${width} items-center ${paddingX} ${paddingY}   ${fontSize} ${fontWeight} ${bgColor} ${fontColor} ${
+            className={`button flex cursor-pointer hover:shadow-md hover:underline shadow-black ${width} items-center ${paddingX} ${paddingY}   ${fontSize} ${fontWeight} ${bgColor} ${fontColor} ${
               rounded ? "rounded-full" : "rounded-md"
             }`}
             onClick={onClick}

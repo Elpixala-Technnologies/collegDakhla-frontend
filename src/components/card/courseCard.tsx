@@ -52,7 +52,7 @@ export default function CourseCard({ featuredCourse }: any) {
             </span>
           </div>
 
-          <div className="p-2 pt-2 flex-1 flex flex-col gap-1 pr-2">
+          <div className="p-2 pt-2 flex-1 flex flex-col gap-1 pr-2 border-t-2 border-gray-300">
             <Link href={`/courses/${featuredCourse?.id}`}>
               <h4 className="text-primary font-semibold truncate max-w-60">
                 {featuredCourse?.attributes?.name}
@@ -101,7 +101,7 @@ export default function CourseCard({ featuredCourse }: any) {
           </div>
         </div>
         <Link href="">
-          <div className="w-full p-2 bg-primary rounded-b-lg text-center text-white text-sm">
+          <div className="w-full p-2 bg-gradient-to-l from-gray-300 via-gray-500 to-gray-900  rounded-b-lg text-center text-white text-sm">
             Application Process & Course Info
           </div>
         </Link>

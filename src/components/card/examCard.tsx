@@ -35,7 +35,7 @@ export default function ExamCard({ featuredExams }: any) {
 					<Image
 						src={logoURL!}
 						alt=""
-						className="shadow-md rounded-sm w-12 h-12"
+						className="shadow-md rounded-sm"
 						width={60}
 						height={60}
 						
@@ -52,12 +52,12 @@ export default function ExamCard({ featuredExams }: any) {
 					}
 						
 					</div>
-					<div className="p-2 pt-4 flex-1 flex flex-col gap-2">
+					<div className="p-2 pt-4 flex-1 flex flex-col gap-2   border-t-2 border-gray-300">
 						<div>
 							<Link href={`/exams/${featuredExams?.id}`}>
 								<h4 className="text-primary font-semibold truncate max-w-60">{featuredExams?.attributes?.name}</h4>
 							</Link>
-							<div className="flex flex-col text-sm tracking-tighter gap-2 ">
+							<div className="flex flex-col text-sm tracking-tighter gap-2">
 								<div className="flex justify-between">
 									<div className="text-gray-500 font-light">Participating Colleges</div>
 									<div className="font-medium text-sm tracking-wide">54</div>
@@ -81,7 +81,7 @@ export default function ExamCard({ featuredExams }: any) {
 					</div>
 				</div>
 				<Link href="">
-					<div className="w-full p-2 bg-primary rounded-b-lg text-center text-white text-sm">
+					<div className="w-full p-2 bg-gradient-to-l from-gray-300 via-gray-500 to-gray-900 rounded-b-lg text-center text-white text-sm">
 						Application Process & Exam Info
 					</div>
 				</Link>

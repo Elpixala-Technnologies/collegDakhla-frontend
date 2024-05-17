@@ -90,9 +90,9 @@ export default function News() {
               )}
             </div>
 
-            <div className="flex flex-col w-2/3">
+            <div className="flex flex-col w-2/3 h-[50vh]">
               {newsData?.news?.data && (
-                <div className="flex flex-col gap-4 h-9/12 w-full overflow-y-scroll m-2">
+                <div className="flex flex-col gap-4 h-full w-full overflow-y-scroll m-2">
                   {newsData.news.data.slice(1).map((news: any, idx: any) => {
                     const {
                       title,

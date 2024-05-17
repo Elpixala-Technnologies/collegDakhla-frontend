@@ -79,7 +79,7 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 	};
 
 	return (
-		<div className="[flex:5] relative flex flex-col justify-center bg-gradient-to-r from-red-400 to-orange-500 text-black p-8 rounded-r rounded-b">
+		<div className="[flex:5] relative flex flex-col justify-center  text-black p-8 rounded-r rounded-b">
 			<button
 				className="absolute top-[0.05rem] right-[0.05rem] w-max text-sm  text-white   hover:underline p-3"
 				onClick={closeLoginPopup}
@@ -101,10 +101,10 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 				</span>
 			</div>
 
-			<div className="flex flex-col gap-4 px-6 pb-6">
+			<div className="flex flex-col gap-4 px-6 pb-6 items-center">
 				<div className="relative h-11 w-full min-w-[200px]">
 					<input
-						className="bg-white w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-primary focus:border-t-transparent focus:outline-0 "
+						className="bg-white w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all  border rounded-md peer border-blue-gray-200  text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-primary focus:border-t-transparent focus:outline-0 "
 						placeholder=""
 						name="Mobile No."
 						value={phoneNumber}
@@ -121,7 +121,7 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 				</div>
 				{!isOtp ? (
 					<button
-						className="block w-full select-none rounded-lg bg-primary py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md  transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85]"
+						className="block w-1/3 select-none rounded-lg bg-primary py-3 px-3 text-center align-middle font-sans text-xs font-semibold uppercase text-white shadow-md  transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85]"
 						type="submit"
 						onClick={sendLoginOtp}
 					>
@@ -156,7 +156,7 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 					Don't have an account?
 					<span
 						onClick={() => setIsLogin(!isLogIn)}
-						className="block ml-1 font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900 text-blue-500 cursor-pointer"
+						className="block ml-1 font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900 text-blue-500 hover:text-primary hover:underline cursor-pointer"
 					>
 						Register
 					</span>

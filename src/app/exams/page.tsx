@@ -19,6 +19,7 @@ import {
 import Link from "next/link";
 import SortButton from "@/components/sortButton/SortButton";
 import useExmas from "@/hooks/useExmas";
+import Spinner from "@/components/Loader/loader";
 
 export default function ExamList() {
   const [Search, setSearch] = useState("");
@@ -45,7 +46,7 @@ export default function ExamList() {
     },
   });
   const { AllExamData } = useExmas();
-  // sorting 
+  // sorting
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -66,7 +67,7 @@ export default function ExamList() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-  // End 
+  // End
 
   // get featured exams
   const {
@@ -103,11 +104,9 @@ export default function ExamList() {
 
   const handleFilterOptionClick = (option: any) => {
     if (option === "a-z") {
-      const sortedData: any = [...AllExamData].sort(
-        (a: any, b: any) => {
-          return a?.attributes?.name.localeCompare(b?.attributes?.name);
-        }
-      );
+      const sortedData: any = [...AllExamData].sort((a: any, b: any) => {
+        return a?.attributes?.name.localeCompare(b?.attributes?.name);
+      });
       setFilteredData(sortedData.slice(0, displayCount));
     } else if (option === "reset") {
       const resetArray: any = [...AllExamData].slice(0, displayCount);
@@ -176,8 +175,9 @@ export default function ExamList() {
               All Exams 2023-2024, Dates, Application Forms & Alerts
             </h1>
             <p
-              className={`${showFullContent ? "text-justify" : " text-center"
-                } text-base mb-3`}
+              className={`${
+                showFullContent ? "text-justify" : " text-center"
+              } text-base mb-3`}
             >
               In the upcoming academic year of 2024-2025, numerous exams are
               scheduled across various educational levels and disciplines. These
@@ -271,8 +271,10 @@ export default function ExamList() {
                 </div>
                 <div className="flex gap-4">
                   {/* sort button  */}
-                  <SortButton handleFilterOptionClick={handleFilterOptionClick} />
-                  
+                  <SortButton
+                    handleFilterOptionClick={handleFilterOptionClick}
+                  />
+
                   <div className="max-md:block hidden">
                     <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
                       <span onClick={handleMobileFilter}>Filter</span>
@@ -282,20 +284,28 @@ export default function ExamList() {
                 </div>
               </div>
               <div className="flex sm:flex-col flex-row overflow-x-scroll">
-                <ExamListItem exams={filteredData} />
+                {
+                  AllExamData ? (
+                    <ExamListItem exams={filteredData} />
+                  ): (
+                    <div className="w-full h-full p-20 item-center flex justify-center">
+                    <Spinner />
+                  </div>
+                  )
+                }
 
                 {filteredData?.length >= 5 &&
-        filteredData?.length < AllExamData?.length && (
-          <button
-            className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow m-6"
-            onClick={handleLoadMore}
-          >
-            <div className="absolute inset-0 w-3 bg-amber-400 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
-            <span className="relative text-black group-hover:text-white">
-              Load More
-            </span>
-          </button>
-        )}
+                  filteredData?.length < AllExamData?.length && (
+                    <button
+                      className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow m-6"
+                      onClick={handleLoadMore}
+                    >
+                      <div className="absolute inset-0 w-3 bg-amber-400 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
+                      <span className="relative text-black group-hover:text-white">
+                        Load More
+                      </span>
+                    </button>
+                  )}
               </div>
             </div>
           </div>
