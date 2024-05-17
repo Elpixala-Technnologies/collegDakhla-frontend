@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import Filter from "./filter";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { getStreams, getStates, getCollegesFilter,getCourses, collegeTypes  } from "@/query/schema";
+import { getStreams, getStates, getCollegesFilter,getCourses, collegeTypes, getColleges  } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -20,7 +21,6 @@ export default function CollegeFilters(params?: any) {
     courses: "", 
     collegeType:"",
   });
-  // console.log(params?.allColleges?.colleges?.data, "pankaj");
 
   const [StreamFilter, setStreamFilter] = useState<string>("");
   const [StateFilter, setStateFilter] = useState<string>("");
@@ -66,6 +66,8 @@ export default function CollegeFilters(params?: any) {
       collegeTypeFilter
     },
   });
+
+  const { loading, error, data: initialData } = useQuery(getColleges);
 
   //tab state
   const [value, setValue] = useState(0);
@@ -114,24 +116,42 @@ export default function CollegeFilters(params?: any) {
   const handleUnselectFilter = (filter?: string, name?: string) => {
     if (filter === "stream") {
       setStreamFilter("");
-      SelectedFilter.stream = "";
+      setSelectedFilter(prevData => ({
+        ...prevData,
+        stream: "",
+      }));
     } else if (filter === "state") {
       setStateFilter("");
-      SelectedFilter.state = "";
-    }
-    else if (filter === "courses") {
+      setSelectedFilter(prevData => ({
+        ...prevData,
+        state: "",
+      }));
+    } else if (filter === "city") {
+      setCityFilter("");
+      setSelectedFilter(prevData => ({
+        ...prevData,
+        city: "",
+      }));
+    } else if (filter === "courses") {
       setCoursesFilter("");
-      SelectedFilter.courses = "";
-    }
-    else if (filter === "collegeType") {
+      setSelectedFilter(prevData => ({
+        ...prevData,
+        courses: "",
+      }));
+    } else if (filter === "collegeType") {
       setcollegeTypeFilter("");
-      SelectedFilter.collegeType = "";
+      setSelectedFilter(prevData => ({
+        ...prevData,
+        collegeType: "",
+      }));
     }
   };
+  
+  
+  
 
   const resetFilters = () => {
     const updatedFilter = {};
-    // console.log("selected ", SelectedFilter);
     params.handleMobileFilter();
   };
 
@@ -141,14 +161,22 @@ export default function CollegeFilters(params?: any) {
   };
 
   // render data when filter values are changed
+  
   useEffect(() => {
     params?.setFilteredData(filteredCollege?.colleges?.data);
   }, [filteredCollege, filterLoader]);
 
-  // check for SelectedFilter
   useEffect(() => {
-    const hasData = Object.values(SelectedFilter).some((value) => !!value);
-  }, [SelectedFilter]);
+  if (!filterLoader && filteredCollege) {
+    // Reset all filter states to empty strings
+    setStreamFilter("");
+    setStateFilter("");
+    setCityFilter("");
+    setCoursesFilter("");
+    setcollegeTypeFilter("");
+  }
+}, [filterLoader, filteredCollege]);
+
 
   useEffect(() => {
     if (params.isMobile) {
@@ -166,12 +194,13 @@ export default function CollegeFilters(params?: any) {
     };
   }, [params.isMobile]);
 
+  
+
   return (
     <>
       <div className="bg-white hidden md:block p-2 m-2 md:m-0 rounded-lg">
         <h3 className="uppercase text-sm px-2 py-3">
-          Found <b>{Object.keys(SelectedFilter).length > 0 ? filteredCollege?.colleges?.meta?.pagination?.total : null}</b>
-          colleges
+          Found colleges
         </h3>
         {SelectedFilter.stream || SelectedFilter.state || SelectedFilter.courses || SelectedFilter.collegeType ? (
           <>
@@ -203,16 +232,13 @@ export default function CollegeFilters(params?: any) {
           <></>
         )}
 
-        {params.page != "stream" ? (
           <Filter
             name="Stream"
             filters={streamsData?.streams?.data}
             handleFilter={handleStreamFilter}
             checked={StreamFilter}
           />
-        ) : (
-          ""
-        )}
+    
         <Filter
           name="State"
           filters={statesData?.states?.data}
@@ -237,7 +263,7 @@ export default function CollegeFilters(params?: any) {
         <Filter
           name="CollegeType"
           filters={collegeTypesData?.collegeTypes?.data} 
-          handleFilter={handleCoursesFilter}
+          handleFilter={handlecollegeTypeFilter}
           checked={CoursesFilter}
         />
       </div>

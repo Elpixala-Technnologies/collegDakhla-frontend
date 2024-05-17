@@ -5,7 +5,7 @@ export default function Filter(props: any) {
   const [open, setOpen] = useState(true);
   const [Search, setSearch] = useState("");
   const handleOpen = () => setOpen(!open);
-// console.log( props, "Pankaj")
+  
   return (
     <>
       <div className=" p-2">

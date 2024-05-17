@@ -95,7 +95,7 @@ const Card = () => {
           <span>Status:</span>
           <Image src="/assets/done.png" width={20} height={20} alt="profile" />
           <span>Payment Done</span>
-          <div className="ml-5 mt-2 w-[70%] relative">
+          {/* <div className="ml-5 mt-2 w-[70%] relative">
             {/* <Slider
               aria-label="Payment status"
               value={2}
@@ -108,10 +108,10 @@ const Card = () => {
               sx={styles}
               color="primary"
             /> */}
-            <p className="absolute top-1 right-0 text-black bg-white border rounded-full px-3 py-1 z-30">
+            {/* <p className="absolute top-1 right-0 text-black bg-white border rounded-full px-3 py-1 z-30">
               &gt;
             </p>
-          </div>
+          </div> */}
         </div>
         <div className="flex flex-row items-center gap-2 px-4">
           <span>Offer Letter:</span>
