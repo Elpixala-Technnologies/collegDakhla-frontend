@@ -24,7 +24,7 @@ import {
 import Link from "next/link";
 import SortButton from "@/components/sortButton/SortButton";
 // import { FaCircleChevronRight } from "react-icons/fa6";
-import Loading from "react-loading-components";
+// import Loading from "react-loading-components";
 
 export default function CollegeList() {
   const [Search, setSearch] = useState("");
@@ -333,12 +333,13 @@ export default function CollegeList() {
                   <CollegeListItem colleges={filteredData} />
                 ) : (
                   <div className="w-full h-full p-20 item-center flex justify-center">
-                    <Loading
+                    {/* <Loading
                       type="tail_spin"
                       width={100}
                       height={100}
                       fill="#bdbdbd"
-                    />
+                    /> */}
+                    Loading...
                   </div>
                 )}
 

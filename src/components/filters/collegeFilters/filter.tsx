@@ -31,7 +31,7 @@ export default function Filter(props: any) {
                         <div
                           key={filter.id}
                           className="flex gap-1 items-center my-2 cursor-pointer"
-                        >                      
+                        >
                           <input
                             type="radio"
                             id={filter.id}
@@ -44,9 +44,12 @@ export default function Filter(props: any) {
                               props.handleFilter(filter.attributes.streamName)
                             }
                           />
-                          <span className="text-base font-medium text-secondary-text hover:text-primary">
+                          <label
+                            className="text-base font-medium text-secondary-text hover:text-primary cursor-pointer"
+                            htmlFor={filter.id}
+                          >
                             {filter.attributes.streamName}
-                          </span>
+                          </label>
                         </div>
                       );
                     })}
