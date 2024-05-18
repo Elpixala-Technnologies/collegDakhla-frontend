@@ -16,6 +16,8 @@ import { useRouter } from "next/navigation";
 import NavbarSlider from "@/components/carousel/navbar-carousal";
 import { BiHeart } from "react-icons/bi";
 import { BsQuestionCircle } from "react-icons/bs";
+import userFrom from "@/hooks/userFrom";
+import ApplyNowModal from "@/components/consultingModule/ApplyNowModal/ApplyNowModal";
 
 type Props = {
   params: {
@@ -80,6 +82,21 @@ export default function CollegeDetail({ params }: Props) {
     document.body.style.overflow = "auto";
   });
 
+  const { CollegeApplicatonListData } = userFrom();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+    document.body.classList.add("overflow-hidden");
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    document.body.classList.remove("overflow-hidden");
+  };
+
+  const FromStep: any = CollegeApplicatonListData?.form_stape;
+
   return (
     <>
       {/* section for banner of the individual college page */}
@@ -121,7 +138,7 @@ export default function CollegeDetail({ params }: Props) {
                 <div className="flex items-baseline gap-4 flex-wrap">
                   <Tag
                     text={collegeType ? collegeType : "Autonomous"}
-                    href={"/"}
+                   
                   />
                   <Tag
                     text={
@@ -130,9 +147,9 @@ export default function CollegeDetail({ params }: Props) {
                         ? college?.establishmentYear
                         : "2000")
                     }
-                    href={"/"}
+                  
                   />
-                  <Tag text={approvedBy ? approvedBy : "UGC"} href={""} />
+                  <Tag text={approvedBy ? approvedBy : "UGC"}/>
                 </div>
 
                 <div>
@@ -151,7 +168,7 @@ export default function CollegeDetail({ params }: Props) {
                         <span>Ask</span>
                       </div>
                       <Button
-                        href={"/"}
+                        onClick={handleOpenModal}
                         text="Apply Now"
                         filled
                         fontSize="text-sm"
@@ -208,6 +225,15 @@ export default function CollegeDetail({ params }: Props) {
           </div>
           <CollegeTab data={TabData} />
         </div>
+
+      {isModalOpen && (
+        <ApplyNowModal
+          id={11}
+          FromStep={FromStep}
+          isSectionCheck={"College"}
+          onClose={handleCloseModal}
+        />
+      )}
       </section>
     </>
   );

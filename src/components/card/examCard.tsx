@@ -55,7 +55,7 @@ export default function ExamCard({ featuredExams }: any) {
         <div className="p-2 pt-2 flex-1 h-60 shadow flex flex-col gap-2">
           <div className=" flex justify-end">
 		  {mode && (
-        <span className="bg-primary-light text-sm px-2 py-1 rounded-full">
+        <span className="bg-amber-200 text-sm px-2 py-1 rounded-full">
           {mode}
 		  </span>
         

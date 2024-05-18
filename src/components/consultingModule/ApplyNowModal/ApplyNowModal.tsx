@@ -518,7 +518,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
           <div className="fixed inset-0  overflow-x-auto flex items-center justify-center z-[999] bg-gray-500 bg-opacity-30">
             <div className="flex justify-center w-full lg:w-[900px] mt-10">
               {/* Left Panel */}
-              <div className="relative w-2/5 bg-white hidden md:block">
+              <div className="relative w-2/5 bg-white hidden md:block border-r border-gray-300">
                 <div className="flex flex-col items-center">
                   <div className="flex">
                     <OtpImg imagePath={step.step_banner.data.attributes.url} />

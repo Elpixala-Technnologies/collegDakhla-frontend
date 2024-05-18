@@ -43,6 +43,12 @@ export default function Home() {
   const [filterCollegeData, setFilterCollegeData] = useState<any[]>([]);
   const [filterCourseData, setFilterCourseData] = useState<any[]>([]);
   const [replay, setReplay] = useState(true);
+  const [selectedGrade, setSelectedGrade] = useState<string | null>(null);
+  const [selectedDegree, setSelectedDegree] = useState<string | null>(null);
+
+  const degrees = ["Bachelor's", "Master's", "MBA"];
+
+  const grades = ["Grade 9", "Grade 10", "Grade 11", "Grade 12"];
   //get all states
   const {
     loading: statesLoader,
@@ -319,7 +325,8 @@ export default function Home() {
                   <Link
                     key={index}
                     href={{
-                      pathname: `/streams/${stream.attributes.streamName.toLowerCase()}`,
+                      // pathname: `/streams/${stream.attributes.streamName.toLowerCase()}`,
+                      pathname: `/courses`,
                     }}
                   >
                     <p className="border rounded-full py-1 px-3 bg-white text-nowrap text-sm font-normal">
@@ -346,13 +353,13 @@ export default function Home() {
                       : GetDefaultImage("logo");
                     return (
                       <div key={course?.id}>
-                        <Link href={`/courses/${course?.id}`}>
+                      
                           <div className="border border-gray-300 rounded-md bg-white flex flex-col gap-2 min-w-80 shadow-md">
-                            <div className="flex flex-col py-4 gap-2 items-center justify-center">
+                            <div className="flex flex-col pt-4 gap-2 items-center justify-center">
                               <Image
                                 src={logoUrl!}
                                 alt={college?.collegeName}
-                                className="object-center w-20 object-contain h-20 rounded-full "
+                                className="object-center w-28 object-contain h-24 rounded-full "
                                 height={500}
                                 width={500}
                               />
@@ -360,12 +367,14 @@ export default function Home() {
                                 {course?.attributes?.name}
                               </div>
                             </div>
+                            <Link href={`/courses/${course?.id}`}>
                             <div className="border-t border-b border-extra-light-text flex justify-between items-center py-4 px-2">
                               <span className="text-gray-800 font-semibold text-lg">
                                 Course Overview
                               </span>{" "}
                               <FaAngleRight />
                             </div>
+                            </Link>
                             <div className="flex justify-evenly gap-5 pb-6 px-2">
                               <div className="flex flex-col items-center gap-1">
                                 <div className="text-black">Duration</div>
@@ -393,7 +402,7 @@ export default function Home() {
                               </div>
                             </div>
                           </div>
-                        </Link>
+                        
                       </div>
                     );
                   }
@@ -713,30 +722,19 @@ export default function Home() {
                   <div className="flex flex-col gap-3">
                     <p>What Degree do you plan to pursue? *</p>
                     <div className="flex gap-4 flex-wrap">
-                      <Button
-                        outline
-                        fontColor="text-white"
-                        outlineColor="border-primary-text-light"
-                        paddingX="px-4"
-                        paddingY="py-2"
-                        text={"Bacholer's"}
-                      />
-                      <Button
-                        outline
-                        fontColor="text-white"
-                        outlineColor="border-primary-text-light"
-                        paddingX="px-4"
-                        paddingY="py-2"
-                        text={"Master's"}
-                      />
-                      <Button
-                        outline
-                        fontColor="text-white"
-                        outlineColor="border-primary-text-light"
-                        paddingX="px-4"
-                        paddingY="py-2"
-                        text={"MBA"}
-                      />
+                      {degrees.map((degree) => (
+                        <button
+                          key={degree}
+                          onClick={() => setSelectedDegree(degree)}
+                          className={`border px-4 py-2 ${
+                            selectedDegree === degree
+                              ? "bg-gray-300 text-black"
+                              : "bg-primary text-white"
+                          } border-primary-text-light outline-none rounded-lg`}
+                        >
+                          {degree}
+                        </button>
+                      ))}
                     </div>
                   </div>
                   <div className="flex flex-col gap-3">
@@ -756,38 +754,19 @@ export default function Home() {
                   <div className="flex flex-col gap-3">
                     <p>What is your highest level of education? *</p>
                     <div className="flex gap-4 flex-wrap">
-                      <Button
-                        outline
-                        fontColor="text-white"
-                        outlineColor="border-primary-text-light"
-                        paddingX="px-4"
-                        paddingY="py-2"
-                        text={"Grade 9"}
-                      />
-                      <Button
-                        outline
-                        fontColor="text-white"
-                        outlineColor="border-primary-text-light"
-                        paddingX="px-4"
-                        paddingY="py-2"
-                        text={"Grade 10"}
-                      />
-                      <Button
-                        outline
-                        fontColor="text-white"
-                        outlineColor="border-primary-text-light"
-                        paddingX="px-4"
-                        paddingY="py-2"
-                        text={"Grade 11"}
-                      />
-                      <Button
-                        outline
-                        fontColor="text-white"
-                        outlineColor="border-primary-text-light"
-                        paddingX="px-4"
-                        paddingY="py-2"
-                        text={"Grade 12"}
-                      />
+                      {grades.map((grade) => (
+                        <button
+                          key={grade}
+                          onClick={() => setSelectedGrade(grade)}
+                          className={`border px-4 py-2 ${
+                            selectedGrade === grade
+                              ? "bg-gray-300 text-black"
+                              : "bg-primary text-white"
+                          } border-primary-text-light outline-none rounded-lg`}
+                        >
+                          {grade}
+                        </button>
+                      ))}
                     </div>
                   </div>
                   <div>
@@ -853,55 +832,52 @@ export default function Home() {
             <div className="flex flex-wrap gap-4 my-2 px-0 overflow-x-auto py-2 md:py-0">
               {newsData?.news?.data && (
                 <div className="flex gap-2 justify-start w-full">
-                  {newsData.news.data
-                    .slice(0, 3)
-                    .map((news: any, idx: any) => {
-                      const {
-                        title,
-                        excerpt,
-                        publishedAt,
-                        author,
-                        attributes: { featuredImage },
-                        id,
-                      } = news;
-                      const featuredImageUrl = featuredImage?.data[0]
-                        ? getStrapiMedia(featuredImage.data[0].attributes.url)
-                        : GetDefaultImage("banner");
-                      return (
-                        <div
-                          key={idx}
-                          className="flex flex-col gap-2 max-w-80 min-w-72 p-3  border border-gray-200 rounded-xl justify-between"
+                  {newsData.news.data.slice(0, 3).map((news: any, idx: any) => {
+                    const {
+                      title,
+                      excerpt,
+                      publishedAt,
+                      attributes: { featuredImage },
+                      id,
+                    } = news;
+                    const featuredImageUrl = featuredImage?.data[0]
+                      ? getStrapiMedia(featuredImage.data[0].attributes.url)
+                      : GetDefaultImage("banner");
+                    return (
+                      <div
+                        key={idx}
+                        className="flex flex-col gap-2 max-w-80 min-w-72 p-3  border border-gray-200 rounded-xl justify-between"
+                      >
+                        {news.attributes.featuredImage && (
+                          <Image
+                            src={featuredImageUrl!}
+                            alt=""
+                            width={500}
+                            height={500}
+                            className="w-full sm:min-w-28 min-w-20 sm:h-36 h-20 object-cover object-center rounded-lg"
+                          />
+                        )}
+                        <p className="text-gray-400 mt-1">
+                          Published at{" "}
+                          <span className="text-gray-800">
+                            {getDate(news.attributes.publishedAt)}
+                          </span>
+                        </p>
+                        <p className="sm:text-xl text-base font-normal text-primary-text line-clamp-1">
+                          {news.attributes.title}
+                        </p>
+                        <p className="sm:text-sm text-xs line-clamp-3">
+                          {news.attributes.excerpt}
+                        </p>
+                        <Link
+                          href={`/news/${news.id}`}
+                          className="hover:text-primary text-blue-600 text-lg hover:underline  pt-5"
                         >
-                          {news.attributes.featuredImage && (
-                            <Image
-                              src={featuredImageUrl!}
-                              alt=""
-                              width={500}
-                              height={500}
-                              className="w-full sm:min-w-28 min-w-20 sm:h-36 h-20 object-cover object-center rounded-lg"
-                            />
-                          )}
-                          <p className="text-gray-400 mt-1">
-                            Published at{" "}
-                            <span className="text-gray-800">
-                              {getDate(news.attributes.publishedAt)}
-                            </span>
-                          </p>
-                          <p className="sm:text-xl text-base font-normal text-primary-text line-clamp-1">
-                            {news.attributes.title}
-                          </p>
-                          <p className="sm:text-sm text-xs line-clamp-3">
-                            {news.attributes.excerpt}
-                          </p>
-                          <Link
-                            href={`/news/${news.id}`}
-                            className="hover:text-primary text-blue-600 text-lg hover:underline  pt-5"
-                          >
-                            Read more
-                          </Link>
-                        </div>
-                      );
-                    })}
+                          Read more
+                        </Link>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>

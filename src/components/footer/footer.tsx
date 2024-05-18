@@ -145,28 +145,28 @@ const footerContent = {
   section1: {
     title: "Quick Links",
     list: [
-      { label: "MBBS", link: "/mbbs" },
-      { label: "B.Tech", link: "/btech" },
-      { label: "BCA", link: "/bca" },
-      { label: "Enquiry", link: "/enquiry" },
+      { label: "MBBS", link: "/colleges" },
+      { label: "B.Tech", link: "/colleges" },
+      { label: "BCA", link: "/colleges" },
+      { label: "Enquiry", link: "/" },
     ],
   },
   section2: {
     title: "Helpful Links",
     list: [
-      { label: "Terms of Service", link: "/terms" },
-      { label: "Privacy Policy", link: "/privacy" },
-      { label: "Cookie Policy", link: "/cookie" },
-      { label: "Contact Us", link: "/contact" },
+      { label: "Terms of Service", link: "/more" },
+      { label: "Privacy Policy", link: "/more" },
+      { label: "Cookie Policy", link: "/more" },
+      { label: "Contact Us", link: "/" },
     ],
   },
   section3: {
     title: "Page",
     list: [
-      { label: "About Us", link: "/about" },
-      { label: "Careers", link: "/careers" },
+      { label: "About Us", link: "/more" },
+      { label: "Careers", link: "/more" },
       { label: "News & Article", link: "/news" },
-      { label: "Legal Notice", link: "/legal" },
+      { label: "Legal Notice", link: "/news" },
     ],
   },
   socialLinks: [
@@ -178,14 +178,14 @@ const footerContent = {
     { label: <FaTwitter />, link: "https://twitter.com/collegedakhla" },
     {
       label: <FaLinkedin />,
-      link: "https://www.linkedin.com/company/collegedakhla/",
+      link: "https://www.linkedin.com/in/college-dakhla-500871241/",
     },
   ],
   bottomLinks: [
-    { label: "Terms of Service", link: "/terms" },
-    { label: "Privacy Policy", link: "/privacy" },
-    { label: "Cookie Policy", link: "/cookie" },
-    { label: "Contact Us", link: "/contact" },
+    { label: "Terms of Service", link: "/more" },
+    { label: "Privacy Policy", link: "/more" },
+    { label: "Cookie Policy", link: "/more" },
+    { label: "Contact Us", link: "/" },
   ],
   copyright: "Copyright © 2024 College Dakhla, All rights reserved.",
 };

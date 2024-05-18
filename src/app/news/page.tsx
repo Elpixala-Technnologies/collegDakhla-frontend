@@ -35,7 +35,6 @@ export default function News() {
                       title,
                       excerpt,
                       publishedAt,
-                      author,
                       attributes: { featuredImage },
                       id,
                     } = news;
@@ -98,7 +97,6 @@ export default function News() {
                       title,
                       excerpt,
                       publishedAt,
-                      author,
                       attributes: { featuredImage },
                       id,
                     } = news;

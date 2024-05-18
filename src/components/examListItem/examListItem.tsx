@@ -29,6 +29,16 @@ export default function ExamListItem({ exams }: any) {
     document.body.classList.remove("overflow-hidden");
   };
   const FromStep: any = CollegeApplicatonListData?.form_stape;
+
+  const handleDownload = () => {
+    const pdfPath = "@src/Assets/new_document.pdf";
+    const link = document.createElement("a");
+    link.href = pdfPath;
+    link.download = "brochure.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   return (
     <>
       {exams?.length > 0 && (

@@ -62,6 +62,16 @@ export default function CollegeListItem(allColleges: any) {
 
   const FromStep: any = CollegeApplicatonListData?.form_stape;
 
+  const handleDownload = () => {
+    const pdfPath = "@src/Assets/new_document.pdf";
+    const link = document.createElement("a");
+    link.href = pdfPath;
+    link.download = "brochure.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <>
       {allColleges?.colleges?.length > 0 ? (
@@ -313,6 +323,7 @@ export default function CollegeListItem(allColleges: any) {
                           bgColor="bg-primary"
                         />
                         <Button
+                        onClick={handleDownload}
                           text="Download Brochure"
                           fontSize="text-sm"
                           outline

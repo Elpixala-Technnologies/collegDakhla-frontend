@@ -35,7 +35,6 @@ export default function NewsCard() {
                                         title,
                                         excerpt,
                                         publishedAt,
-                                        author,
                                         attributes: { featuredImage },
                                         id,
                                     } = news;

@@ -1,4 +1,4 @@
-import Author from "@/components/author/author";
+
 import Button from "@/components/button/button";
 import Image from "next/image";
 import YoutubeVideo from "@/components/youtubeVideo/youtubeVideo";
@@ -12,9 +12,7 @@ export default function CollegeTab(props: any) {
 			<div className="container h-full my-10">
 				<div className="main-wrapper flex gap-4">
 					<div className="left-wrapper md:basis-3/4 w-full md:w-9/12 flex flex-col gap-5">
-						<div className="author-section bg-gray-50 rounded-xl p-5">
-							<Author />
-						</div>
+						
 						{/* <div className="page-data-wrapper">
               {props?.data?.map((item: any, index: number) => {
                 return (
