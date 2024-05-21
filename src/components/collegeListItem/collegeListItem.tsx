@@ -135,7 +135,7 @@ export default function CollegeListItem(allColleges: any) {
                       {/* line 1  */}
                       <div className="flex flex-row gap-8 p-1">
                         {/* rating  */}
-                        <p className="text-[#0F4988] flex gap-1 items-center text-sm lg:text-sm">
+                        {/* <p className="text-[#0F4988] flex gap-1 items-center text-sm lg:text-sm">
                           <Image
                             src={Reviews}
                             width={35}
@@ -146,7 +146,7 @@ export default function CollegeListItem(allColleges: any) {
                             ? college?.attributes?.rating
                             : 4.5}{" "}
                           /10{" "}
-                        </p>
+                        </p> */}
                         {/* location  */}
                         <div className="  border-extra-light-text">
                           <p className="text-[#0F4988] flex gap-1 items-center text-sm">

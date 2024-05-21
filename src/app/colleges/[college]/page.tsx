@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { FaFileDownload, FaRegHeart } from "react-icons/fa";
+import { FaFileDownload, FaRegClock, FaRegHeart, FaRegThumbsUp } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import CollegeTab from "./@collegeTab/collegeTab";
 import Tag from "@/components/tag/tags";
@@ -18,6 +18,8 @@ import { BiHeart } from "react-icons/bi";
 import { BsQuestionCircle } from "react-icons/bs";
 import userFrom from "@/hooks/userFrom";
 import ApplyNowModal from "@/components/consultingModule/ApplyNowModal/ApplyNowModal";
+import { FaBuildingColumns } from "react-icons/fa6";
+import Spinner from "@/components/Loader/loader";
 
 type Props = {
   params: {
@@ -28,6 +30,7 @@ type Props = {
 export default function CollegeDetail({ params }: Props) {
   const [currentTab, setCurrentTab] = useState<string>("");
   const [TabData, setTabData] = useState([]);
+  const [selectedTab, setSelectedTab] = useState(null);
   let collegeId = params.college;
 
   // get college data
@@ -51,19 +54,20 @@ export default function CollegeDetail({ params }: Props) {
 
   const tabData = college?.pageData;
 
-  const handleTab = (value: string) => {
+  const handleTab = (value: string ,tabName: any) => {
     setCurrentTab(value);
     const filteredData = tabData?.filter(
       (item: any) => item?.navbar?.data?.attributes?.name === value
     );
     setTabData(filteredData);
+    setSelectedTab(tabName);
   };
 
   useEffect(() => {
     if (loading) {
     }
     if (!loading && currentTab === "") {
-      handleTab("Info");
+      handleTab("Info","Info");
       setCurrentTab("Info");
     }
   }, [loading]);
@@ -97,16 +101,42 @@ export default function CollegeDetail({ params }: Props) {
 
   const FromStep: any = CollegeApplicatonListData?.form_stape;
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+
+    const dateOptions: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+
+    const timeOptions: Intl.DateTimeFormatOptions = {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    };
+
+    const formattedDate = date.toLocaleDateString(undefined, dateOptions);
+    const formattedTime = date.toLocaleTimeString(undefined, timeOptions);
+
+    return `${formattedDate} at ${formattedTime}`;
+  };
+
+  console.log(college, "college");
+
   return (
+    
     <>
       {/* section for banner of the individual college page */}
-      <section className="heroSection">
+      {college ? (
+        <>
+<section className="heroSection">
         <div className="relative">
           <Image
             src={bannerUrl!}
             alt={college?.collegeName}
-            width={100}
-            height={100}
+            width={1200}
+            height={1200}
             className="w-full h-80  object-fill"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
@@ -135,21 +165,23 @@ export default function CollegeDetail({ params }: Props) {
                 <p>
                   Ranked by : {college?.rankedBy?.data[0]?.attributes?.name}
                 </p>
-                <div className="flex items-baseline gap-4 flex-wrap">
-                  <Tag
-                    text={collegeType ? collegeType : "Autonomous"}
-                   
-                  />
-                  <Tag
-                    text={
-                      "ESTD " +
+                <div className="flex items-center gap-4 flex-wrap">
+                  <span className="flex items-center gap-1">
+                    <FaBuildingColumns />
+                    {collegeType ? collegeType : "Autonomous"}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <FaRegClock />
+
+                    {"ESTD " +
                       (college?.establishmentYear
                         ? college?.establishmentYear
-                        : "2000")
-                    }
-                  
-                  />
-                  <Tag text={approvedBy ? approvedBy : "UGC"}/>
+                        : "")}
+                  </span>
+                  <span className="flex items-center gap-1">
+                  <FaRegThumbsUp />
+                    {college?.approvedBy?.data[0]?.attributes?.name ? college?.approvedBy?.data[0]?.attributes?.name : ""}
+                  </span>
                 </div>
 
                 <div>
@@ -201,7 +233,7 @@ export default function CollegeDetail({ params }: Props) {
           <div className="infoOption flex items-center max-w-screen-xl mr-2">
             <div className="sticky-nav-wrapper w-full flex items-center justify-center">
               <div className=" bg-white flex border-b border-b-primary-light w-full rounded-lg">
-                <div className="sm:max-w-screen-xl lg:mx-auto px-1 py-1 md:px-4 w-full justify-center ">
+                <div className="sm:max-w-screen-xl lg:mx-auto px-1 py-1 md:px-4 w-full justify-center shadow-md shadow-gray-600 rounded-lg mt-5">
                   <NavbarSlider
                     buttonBorderColor="border-primary-text"
                     buttonTextColor="text-primary-text"
@@ -212,10 +244,10 @@ export default function CollegeDetail({ params }: Props) {
                     slides={navbar?.map((tab: any, index: number) => (
                       <div
                         key={tab?.attributes?.name}
-                        onClick={() => handleTab(tab?.attributes?.name)}
-                        className="text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm flex justify-center items-center w-max h-full text-center"
+                        onClick={() => handleTab(tab?.attributes?.name, tab?.attributes?.name)}
+                        className={`text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm flex justify-center items-center w-max h-full text-center cursor-pointer font-semibold text-lg ${selectedTab === tab?.attributes?.name ? 'text-primary' : ''}`}
                       >
-                      {tab?.attributes?.name}
+                        {tab?.attributes?.name}
                       </div>
                     ))}
                   />
@@ -223,18 +255,38 @@ export default function CollegeDetail({ params }: Props) {
               </div>
             </div>
           </div>
+          <p className="text-lg mt-5 flex items-center gap-2">
+            <FaRegClock className="text-2xl"/>
+            <span>Updated at </span>
+            {formatDate(college?.updatedAt!)}
+          </p>
           <CollegeTab data={TabData} />
         </div>
 
-      {isModalOpen && (
-        <ApplyNowModal
-          id={11}
-          FromStep={FromStep}
-          isSectionCheck={"College"}
-          onClose={handleCloseModal}
-        />
-      )}
+        {isModalOpen && (
+          <ApplyNowModal
+            id={11}
+            FromStep={FromStep}
+            isSectionCheck={"College"}
+            onClose={handleCloseModal}
+          />
+        )}
       </section>
+        
+        </>
+        
+      ):(
+        <div className="w-full item-center flex justify-center h-[50vh] mt-48">
+                    {/* <Loading
+                      type="tail_spin"
+                      width={100}
+                      height={100}
+                      fill="#bdbdbd"
+                    /> */}
+                    <Spinner />
+                  </div>
+      )}
+      
     </>
   );
 }

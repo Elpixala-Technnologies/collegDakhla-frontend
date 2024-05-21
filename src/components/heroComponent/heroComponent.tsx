@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useQuery } from "@apollo/client";
 import { getStreams } from "@/query/schema";
 
-const variations = [" 2500+ Colleges ", " 200+ Exams ", " 11000+ Vacancies "];
+const variations = [" 1000+ Colleges ", " 80+ Exams ", " 100+ Courses "];
 export default function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const carouselRef = useRef(null);
