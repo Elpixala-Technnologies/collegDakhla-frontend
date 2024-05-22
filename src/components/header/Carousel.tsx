@@ -23,7 +23,7 @@ const Carousel = ({
     const newIndex = curr === sliderContent.steps.length - 1 ? 0 : curr + 1;
     setCurr(newIndex);
     // onSlideChange(newIndex);
-  }, [curr, sliderContent.steps.length, setCurr]);
+  }, [curr, sliderContent?.steps?.length, setCurr]);
 
   useEffect(() => {
     if (!autoSlide) return;
@@ -39,7 +39,7 @@ const Carousel = ({
           className="w-full h-max flex transition-transform ease-out duration-500"
           style={{ transform: `translateX(-${curr * 100}%)` }}
         >
-          {sliderContent.steps.map((slide: any, index: number) => (
+          {sliderContent?.steps?.map((slide: any, index: number) => (
             <div key={index} className="slide min-w-full p-3 text-black">
               <h2 className="text-lg mb-2 font-semibold">{slide.title}</h2>
               <p className="text-sm">{slide.content}</p>
@@ -50,7 +50,7 @@ const Carousel = ({
       {/* Pagination  */}
       <div className="absolute z-10 top-[105%] left-0">
         <div className="flex items-center justify-center gap-2">
-          {sliderContent.steps.map((_: any, i: number) => (
+          {sliderContent?.steps?.map((_: any, i: number) => (
             <div
               onClick={() => {
                 setCurr(i);

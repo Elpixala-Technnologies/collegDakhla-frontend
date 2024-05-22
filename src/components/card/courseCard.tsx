@@ -100,11 +100,11 @@ export default function CourseCard({ featuredCourse }: any) {
             </div>
           </div>
         </div>
-        <Link href="">
+        <div >
           <div className="w-full p-2 bg-gradient-to-l from-gray-300 via-gray-500 to-gray-900  rounded-b-lg text-center text-white text-sm">
             Application Process & Course Info
           </div>
-        </Link>
+        </div>
       </div>
     </div>
   );
