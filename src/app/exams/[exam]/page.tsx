@@ -117,25 +117,25 @@ export default function ExamDetail({ params }: Props) {
             </div>
 
             <div className="flex flex-col md:flex-row flex-1">
-              <div className="flex-1 flex flex-col gap-2 relative">
-                <div className="flex gap-2 items-center">
+              <div className="flex-1 flex flex-col relative">
+                <div className="flex items-center">
                   <h1 className="text-3xl font-bold">
                     {exam?.name!}
                   </h1>
                 </div>
-                <p className="text-lg flex items-center">
+                <p className="text-lg flex items-center gap-2">
                   <span>ExamLevel:</span>{""}
                   <span>
                     {exam?.examLevel?.data[0]?.attributes?.name}{" "}
                   </span>
                 </p>
-                <p className="text-lg flex items-center">
+                <p className="text-lg flex items-center gap-2">
                   <span>Exam Mode: </span>{""}
                   <span>
                     {exam?.examMode?.data?.attributes?.mode} {" "}
                   </span>
                 </p>
-                <p className="text-lg flex items-center">
+                <p className="text-lg flex items-center gap-2">
                   <span>User Review</span>{" "}
                   <span><Rating name="half-rating" defaultValue={2.5} precision={0.5} readOnly /></span>
                   {exam?.rating ? exam?.rating : "8.6"}/10 (324 Reviews)
