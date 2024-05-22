@@ -29,9 +29,19 @@ export default function ExamListItem({ exams }: any) {
     document.body.classList.remove("overflow-hidden");
   };
   const FromStep: any = CollegeApplicatonListData?.form_stape;
+
+  const handleDownload = () => {
+    const pdfPath = "@src/Assets/new_document.pdf";
+    const link = document.createElement("a");
+    link.href = pdfPath;
+    link.download = "brochure.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   return (
     <>
-      {exams?.length > 0 ? (
+      {exams?.length > 0 && (
         <>
           {exams?.map((exam: any, index: number) => {
             const logoURL = exam?.attributes?.logo?.data?.attributes?.url
@@ -58,6 +68,7 @@ export default function ExamListItem({ exams }: any) {
                             name="half-rating"
                             defaultValue={2.5}
                             precision={0.5}
+                            readOnly
                           />
                           <div className="flex flex-row gap-2">
                             <CiLocationOn className="text-2xl text-gray-400" />
@@ -259,12 +270,6 @@ export default function ExamListItem({ exams }: any) {
             );
           })}
         </>
-      ) : (
-        <div className=" p-4 shadow-lg bg-white">
-          <p className="text-2xl text-center text-gray-500">
-            No data available
-          </p>
-        </div>
       )}
       {isModalOpen && (
         <ApplyNowModal

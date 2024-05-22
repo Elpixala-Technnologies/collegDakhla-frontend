@@ -9,6 +9,7 @@ import Carousel from "@/components/carousel/carousel";
 import CourseCard from "@/components/card/courseCard";
 import CourseFilters from "@/components/filters/courseFilters/courseFilters";
 import SortButton from "@/components/sortButton/SortButton";
+import Spinner from "@/components/Loader/loader";
 
 export default function CourseList() {
   const [Search, setSearch] = useState<string>("");
@@ -232,7 +233,14 @@ export default function CourseList() {
                   </div>
                 </div>
               </div>
-              <CourseListItem courses={filteredData} />
+              {coursesData?.courses?.data ?(
+                <CourseListItem courses={filteredData} />
+              ):(
+                <div className="w-full h-full p-20 item-center flex justify-center">
+                    <Spinner />
+                  </div>
+              )}
+              
               {filteredData?.length >= 5 &&
                 filteredData?.length < coursesData?.courses?.data.length && (
                   <button

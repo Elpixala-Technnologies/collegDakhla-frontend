@@ -23,6 +23,7 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import SortButton from "@/components/sortButton/SortButton";
+import Spinner from "@/components/Loader/loader";
 // import { FaCircleChevronRight } from "react-icons/fa6";
 // import Loading from "react-loading-components";
 
@@ -339,7 +340,7 @@ export default function CollegeList() {
                       height={100}
                       fill="#bdbdbd"
                     /> */}
-                    Loading...
+                    <Spinner />
                   </div>
                 )}
 

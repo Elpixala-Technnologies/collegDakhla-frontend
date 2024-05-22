@@ -62,6 +62,16 @@ export default function CollegeListItem(allColleges: any) {
 
   const FromStep: any = CollegeApplicatonListData?.form_stape;
 
+  const handleDownload = () => {
+    const pdfPath = "@src/Assets/new_document.pdf";
+    const link = document.createElement("a");
+    link.href = pdfPath;
+    link.download = "brochure.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <>
       {allColleges?.colleges?.length > 0 ? (
@@ -81,7 +91,10 @@ export default function CollegeListItem(allColleges: any) {
               : GetDefaultImage("banner");
 
             return (
+
+              
               <div key={index}>
+                
                 <div className="mb-4 pt-4 flex flex-wrap md:flex-row gap-4 shadow-lg bg-white rounded-lg drop-shadow hover:drop-shadow-xl">
                   <div className="flex flex-row">
                     <div className="relative rounded-lg">
@@ -122,7 +135,7 @@ export default function CollegeListItem(allColleges: any) {
                       {/* line 1  */}
                       <div className="flex flex-row gap-8 p-1">
                         {/* rating  */}
-                        <p className="text-[#0F4988] flex gap-1 items-center text-sm lg:text-sm">
+                        {/* <p className="text-[#0F4988] flex gap-1 items-center text-sm lg:text-sm">
                           <Image
                             src={Reviews}
                             width={35}
@@ -133,7 +146,7 @@ export default function CollegeListItem(allColleges: any) {
                             ? college?.attributes?.rating
                             : 4.5}{" "}
                           /10{" "}
-                        </p>
+                        </p> */}
                         {/* location  */}
                         <div className="  border-extra-light-text">
                           <p className="text-[#0F4988] flex gap-1 items-center text-sm">
@@ -277,7 +290,7 @@ export default function CollegeListItem(allColleges: any) {
                     </div>
                   </div>
                   {/* <Separator /> */}
-                  <div className="w-full flex items-center justify-evenly p-4 border-t border-[#0F4988]">
+                  <div className="w-full flex items-center justify-evenly p-4 border-t border-gray-300">
                     <div className="xl:flex flex-wrap items-stretch  px-2 text-primary w-3/4 hidden">
                       <div className="pr-2 mr-2 border-r border-[#565959]">
                         <p className="text-base font-light">Info</p>
@@ -310,6 +323,7 @@ export default function CollegeListItem(allColleges: any) {
                           bgColor="bg-primary"
                         />
                         <Button
+                        onClick={handleDownload}
                           text="Download Brochure"
                           fontSize="text-sm"
                           outline

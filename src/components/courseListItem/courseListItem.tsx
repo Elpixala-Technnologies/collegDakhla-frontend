@@ -35,7 +35,7 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
   const FromStep: any = CollegeApplicatonListData?.form_stape;
   return (
     <>
-      {courses?.length > 0 ? (
+      {courses?.length > 0 && (
         <>
           {courses?.map((course: any, index: number) => {
             const logoURL = course?.attributes?.logo?.data?.attributes?.url
@@ -224,12 +224,6 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
             );
           })}
         </>
-      ) : (
-        <div className=" p-4 shadow-lg bg-white">
-          <p className="text-2xl text-center text-gray-500">
-            No data available
-          </p>
-        </div>
       )}
 
       {isModalOpen && (

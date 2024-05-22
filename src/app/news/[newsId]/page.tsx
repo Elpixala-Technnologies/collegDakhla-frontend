@@ -197,7 +197,6 @@ export default function NewsPage({ params }: Props) {
                         title,
                         excerpt,
                         publishedAt,
-                        author,
                         attributes: { featuredImage },
                         id,
                       } = relatedNews;

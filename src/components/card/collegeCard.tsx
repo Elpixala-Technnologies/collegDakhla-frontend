@@ -19,6 +19,7 @@ export default function CollegeCard({ featuredCollege }: any) {
 		
 	return (
 		<div className="flex flex-col items-stretch min-w-56 bg-white rounded-lg drop-shadow-sm hover:drop-shadow-lg">
+			
 			<div className="relative rounded-t-lg">
 				<img
 					src={bannerURL!}
@@ -50,11 +51,11 @@ export default function CollegeCard({ featuredCollege }: any) {
 					<div className=" flex justify-end">
 						<StarRating rating={3.6} />
 					</div>
-					<Link href={`/college/${featuredCollege?.id}`}>
+					
 						<h4 className="text-primary font-semibold truncate max-w-60">
 							{college.collegeName}
 						</h4>
-					</Link>
+					
 					<p className="text-xs text-secondary-text">
 						{college.city?.data?.attributes?.name},
 						{college.state?.data?.attributes?.name}
@@ -68,7 +69,7 @@ export default function CollegeCard({ featuredCollege }: any) {
 						</div>
 						<div className="flex gap-2">
 							<Tag
-								href={""}
+								
 								text={"UGC"}
 								bgcolor="bg-blue-100"
 								color="text-gray-800"
@@ -77,7 +78,7 @@ export default function CollegeCard({ featuredCollege }: any) {
 								fontSize="text-xs"
 							/>
 							<Tag
-								href={""}
+								
 								text={"AICTC"}
 								bgcolor="bg-yellow-400"
 								color="text-gray-800"
@@ -97,8 +98,8 @@ export default function CollegeCard({ featuredCollege }: any) {
 						<div>{college?.college_type?.data?.attributes?.type}</div>
 					</p>
 				</div>
-				<Link href="">
-					<div className="w-full p-2 bg-primary rounded-b-lg text-center text-white text-sm">
+				<Link href={`/colleges/${featuredCollege?.id}`}>
+					<div className="w-full p-2 bg-gradient-to-l from-gray-300 via-gray-500 to-gray-900 rounded-b-lg text-center text-white text-sm">
 						Apply Now
 					</div>
 				</Link>
