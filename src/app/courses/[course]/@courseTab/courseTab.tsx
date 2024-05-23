@@ -7,23 +7,11 @@ import { useQuery } from "@apollo/client";
 import CollegeCard from "@/components/card/collegeCard";
 import CourseCard from "@/components/card/courseCard";
 import ExamCard from "@/components/card/examCard";
+import RecommendedCollegeCard from "@/components/card/recommendedCollegeCard";
+import RecommendedExamCard from "@/components/card/RecommendedExamCard";
 
 
 export default function CourseTab(props: any) {
-	const [Limit, setLimit] = useState<number>(3);
-	const {
-		loading: topCollegesLoader,
-		error: topCollegesError,
-		data: topCollegesData,
-	} = useQuery(topColleges, {
-		variables: { Limit },
-	});
-
-	// const {
-	// 	loading: featuredLoader,
-	// 	error: featuredError,
-	// 	data: featuredExams,
-	//   } = useQuery(getFeaturedExams);
 
 	const accordionRefs = useRef<(HTMLDivElement | null)[]>([]);
 	const handleScrollToAccordion = (index: number) => {
@@ -39,27 +27,6 @@ export default function CourseTab(props: any) {
 			});
 		}
 	};
-
-	const [isLoading, setIsLoading] = useState(true);
-	useEffect(() => {
-		if (topCollegesData?.colleges?.data) {
-			setIsLoading(false);
-		}
-	}, [topCollegesData]);
-
-	const getTopColleges = () => {
-		return topCollegesData?.colleges?.data?.slice(0, 3);
-	};
-
-	// useEffect(() => {
-    //     if (featuredExams?.exams?.data) {
-    //         setIsLoading(false);
-    //     }
-    // }, [featuredExams]);
-
-    // const getTopExam = () => {
-    //     return featuredExams?.exams?.data?.slice(0, 3);
-    // };
 
 	const images = props?.data?.flatMap((item: { pageGallery: { data: any; }; }) => item.pageGallery?.data || []);
 
@@ -94,51 +61,8 @@ export default function CourseTab(props: any) {
 								);
 							})}
 
-							<Accordion
-								title="Recommended Colleges"
-								opened
-								titlePrimary
-							>
-								<section className="topCourses">
-									<div className="m-4 bg-white py-4 px-4">
-										{isLoading ? (
-											<div className="flex justify-center items-center h-full">
-												<p>Loading...</p>
-											</div>
-										) : (
-											<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-												{getTopColleges().map((college: any, index: number) => (
-													<CollegeCard key={index} featuredCollege={college} />
-												))}
-											</div>
-										)}
-									</div>
-								</section>
-
-							</Accordion>
-
-							{/* <Accordion
-								title="Recommended Exam"
-								opened
-								titlePrimary
-							>
-								<section className="topCourses">
-									<div className="m-4 bg-white py-4 px-4">
-										{isLoading ? (
-											<div className="flex justify-center items-center h-full">
-												<p>Loading...</p>
-											</div>
-										) : (
-											<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-												{getTopExam().map((exam: any, index: number) => (
-													<ExamCard key={index} featuredExams={exam} />
-												))}
-											</div>
-										)}
-									</div>
-								</section>
-
-							</Accordion> */}
+							<RecommendedCollegeCard />
+							<RecommendedExamCard />
 
 						</div>
 					</div>

@@ -5,15 +5,11 @@ import Accordion from "@/components/accordian/accordian";
 import { useQuery } from "@apollo/client";
 import CollegeCard from "@/components/card/collegeCard";
 import { getFeaturedCourses, searchCourses } from "@/query/schema";
-import CourseCard from "@/components/card/courseCard";
+import RecommendedCollegeCard from "@/components/card/recommendedCollegeCard";
+import RecommendedCourseCard from "@/components/card/recommendedCourseCard";
 
 
 export default function ExamTab(props: any) {
-	const {
-		loading: featuredLoader,
-		error: featuredError,
-		data: featuredCourses,
-	  } = useQuery(getFeaturedCourses);
 
 	const accordionRefs = useRef<(HTMLDivElement | null)[]>([]);
 	const handleScrollToAccordion = (index: number) => {
@@ -29,17 +25,6 @@ export default function ExamTab(props: any) {
 			});
 		}
 	};
-
-	const [isLoading, setIsLoading] = useState(true);
-	useEffect(() => {
-        if (featuredCourses?.courses?.data) {
-            setIsLoading(false);
-        }
-    }, [featuredCourses]);
-
-    const getTopCourses = () => {
-        return featuredCourses?.courses?.data?.slice(0, 3);
-    };
 
 	const images = props?.data?.flatMap((item: { pageGallery: { data: any; }; }) => item.pageGallery?.data || []);
 
@@ -74,28 +59,8 @@ export default function ExamTab(props: any) {
 								);
 							})}
 
-							<Accordion
-								title="Recommended Courses"
-								opened
-								titlePrimary
-							>
-								<section className="topCourses">
-									<div className="m-4 bg-white py-4 px-4">
-										{isLoading ? (
-											<div className="flex justify-center items-center h-full">
-												<p>Loading...</p>
-											</div>
-										) : (
-											<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-												{getTopCourses().map((course: any, index: number) => (
-													<CourseCard key={index} featuredCourse={course} />
-												))}
-											</div>
-										)}
-									</div>
-								</section>
-
-							</Accordion>
+							<RecommendedCollegeCard />
+							<RecommendedCourseCard/>
 
 						</div>
 					</div>
