@@ -17,6 +17,12 @@ import RecommendedCourseCard from "@/components/card/recommendedCourseCard";
 
 export default function CollegeTab(props: any) {
 
+    const {
+        loading: featuredLoader,
+        error: featuredError,
+        data: featuredCourses,
+      } = useQuery(getFeaturedCourses);
+
     const accordionRefs = useRef<(HTMLDivElement | null)[]>([]);
     const handleScrollToAccordion = (index: number) => {
         const element = accordionRefs.current[index];
@@ -66,7 +72,7 @@ export default function CollegeTab(props: any) {
                             })}
 
                             <RecommendedCourseCard />
-                            <RecommendedExamCard />
+                            {/* <RecommendedExamCard /> */}
 
                         </div>
                     </div>
@@ -98,7 +104,7 @@ export default function CollegeTab(props: any) {
                                         return (
                                             <li
                                                 key={index}
-                                                className="hover:text-blue-600 cursor-pointer"
+                                                className="hover:text-blue-600 pt-2 cursor-pointer"
                                                 onClick={() => handleScrollToAccordion(index)}
                                             >
                                                 {item?.heading}

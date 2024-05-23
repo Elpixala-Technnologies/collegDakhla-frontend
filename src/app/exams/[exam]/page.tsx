@@ -214,7 +214,7 @@ export default function ExamDetail({ params }: Props) {
           <div className="infoOption flex items-center max-w-screen-xl mr-2">
             <div className="sticky-nav-wrapper w-full flex items-center justify-center">
               <div className=" bg-white flex border-b border-b-primary-light w-full rounded-lg">
-                <div className="sm:max-w-screen-xl lg:mx-auto px-1 py-1 md:px-4 w-full justify-center shadow-md shadow-gray-600 rounded-lg mt-5">
+                <div className="sm:max-w-screen-xl lg:mx-auto px-1 py-1 w-full justify-center shadow-md shadow-gray-600 rounded-lg mt-5">
                   <NavbarSlider
                     buttonBorderColor="border-primary-text"
                     buttonTextColor="text-primary-text"

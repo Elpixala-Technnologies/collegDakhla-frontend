@@ -175,15 +175,14 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 						</h3>
 						<ul className="list-disc">
 							<li>
-								<strong>Proven Success : </strong> 90% admission success rate to
-								top-choice colleges.
+								<strong>Expert Faculty : </strong> Learn from industry leaders and experienced educators who are
+								dedicated to your success.
 							</li>
 							<li>
-								<strong>Cost Effective : </strong> 80% cost effective.{" "}
+								<strong>Flexible Learning Options : </strong> Choose from online, in-person, and hybrid classes to fit your schedule and learning style.{" "}
 							</li>
 							<li>
-								<strong>Access to Top Choice : </strong> 70% access to top
-								choice.{" "}
+								<strong>Proven Success : </strong> Join a community of successful alumni who have gone on to excel in their fields.{" "}
 							</li>
 						</ul>
 					</div>

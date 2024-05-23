@@ -4,6 +4,7 @@ import Accordion from "@/components/accordian/accordian";
 import { topColleges } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import CollegeCard from "@/components/card/collegeCard";
+import Carousel from "@/components/carousel/carousel";
 
 
 export default function RecommendedCollegeCard() {
@@ -35,7 +36,22 @@ export default function RecommendedCollegeCard() {
                     opened
                     titlePrimary
                 >
-                    <section className="topCourses">
+                    <section className="topCollege">
+                        <div className="m-4 bg-white py-4 px-4">
+                            <h2 className="text-xl font-bold mb-3"></h2>
+                            <Carousel
+                                slidesDesktop={4}
+                                slidesTablet={3}
+                                showPagination={false}
+                                slides={topCollegesData?.colleges?.data?.map(
+                                    (college: any, index: number) => {
+                                        return <CollegeCard key={index} featuredCollege={college} />;
+                                    }
+                                )}
+                            />
+                        </div>
+                    </section>
+                    {/* <section className="topCourses">
                         <div className="m-4 bg-white py-4 px-4">
                             {isLoading ? (
                                 <div className="flex justify-center items-center h-full">
@@ -49,7 +65,7 @@ export default function RecommendedCollegeCard() {
                                 </div>
                             )}
                         </div>
-                    </section>
+                    </section> */}
 
                 </Accordion>
             </div>

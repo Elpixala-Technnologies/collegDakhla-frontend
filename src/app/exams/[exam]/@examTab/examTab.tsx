@@ -60,7 +60,7 @@ export default function ExamTab(props: any) {
 							})}
 
 							<RecommendedCollegeCard />
-							<RecommendedCourseCard/>
+							{/* <RecommendedCourseCard/> */}
 
 						</div>
 					</div>
@@ -92,7 +92,7 @@ export default function ExamTab(props: any) {
 										return (
 											<li
 												key={index}
-												className="hover:text-blue-600 cursor-pointer"
+												className="hover:text-blue-600 pt-2 cursor-pointer"
 												onClick={() => handleScrollToAccordion(index)}
 											>
 												{item?.heading}

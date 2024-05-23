@@ -4,15 +4,15 @@ import Accordion from "@/components/accordian/accordian";
 import { getFeaturedCourses, searchCourses } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import CourseCard from "@/components/card/courseCard";
-
+import Carousel from "@/components/carousel/carousel";
 
 export default function RecommendedCourseCard() {
 
     const {
-		loading: featuredLoader,
-		error: featuredError,
-		data: featuredCourses,
-	} = useQuery(getFeaturedCourses);
+        loading: featuredLoader,
+        error: featuredError,
+        data: featuredCourses,
+    } = useQuery(getFeaturedCourses);
 
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
@@ -35,6 +35,21 @@ export default function RecommendedCourseCard() {
                 >
                     <section className="topCourses">
                         <div className="m-4 bg-white py-4 px-4">
+                            <Carousel
+                                slidesDesktop={4}
+                                slidesTablet={3}
+                                showPagination={false}
+                                slides={featuredCourses?.courses?.data?.map(
+                                    (course: any, index: number) => {
+                                        return <CourseCard key={index} featuredCourse={course} />;
+                                    }
+                                )}
+                            />
+                        </div>
+                    </section>
+
+                    {/* <section className="topCourses">
+                        <div className="m-4 bg-white py-4 px-4">
                             {isLoading ? (
                                 <div className="flex justify-center items-center h-full">
                                     <p>Loading...</p>
@@ -47,7 +62,7 @@ export default function RecommendedCourseCard() {
                                 </div>
                             )}
                         </div>
-                    </section>
+                    </section> */}
 
                 </Accordion>
             </div>
