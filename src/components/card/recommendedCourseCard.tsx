@@ -4,7 +4,7 @@ import Accordion from "@/components/accordian/accordian";
 import { getFeaturedCourses, searchCourses } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import CourseCard from "@/components/card/courseCard";
-import Carousel from "@/components/carousel/carousel";
+import CarouselComponent from "@/components/carousel/carousel";
 
 export default function RecommendedCourseCard() {
 
@@ -28,7 +28,23 @@ export default function RecommendedCourseCard() {
     return (
         <>
             <div>
-                <Accordion
+                <div className="max-w-screen-lg overflow-hidden">
+                    <div className="pt-4 pb-6 px-6  bg-[#f0f2f4] rounded w-full">
+                        <CarouselComponent
+                            slidesDesktop={3}
+                            slidesTablet={2}
+                            titleColor="text-primary"
+                            showPagination={false}
+                            title="Recommended Courses"
+                            slides={featuredCourses?.courses?.data?.map((course: any, index: number) => {
+                                return (
+                                    <CourseCard key={index} featuredCourse={course} />
+                                )
+                            })}
+                        />
+                    </div>
+                </div>
+                {/* <Accordion
                     title="Recommended Courses"
                     opened
                     titlePrimary
@@ -47,8 +63,8 @@ export default function RecommendedCourseCard() {
                             />
                         </div>
                     </section>
-
-                    {/* <section className="topCourses">
+                </Accordion> */}
+                {/* <section className="topCourses">
                         <div className="m-4 bg-white py-4 px-4">
                             {isLoading ? (
                                 <div className="flex justify-center items-center h-full">
@@ -63,8 +79,6 @@ export default function RecommendedCourseCard() {
                             )}
                         </div>
                     </section> */}
-
-                </Accordion>
             </div>
 
         </>

@@ -4,12 +4,14 @@ import Accordion from "@/components/accordian/accordian";
 import { topColleges } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import CollegeCard from "@/components/card/collegeCard";
-import Carousel from "@/components/carousel/carousel";
+import CarouselComponent from "@/components/carousel/carousel";
+// import CarouselComponent from "@components/carousel/CarouselComponent";
+
 
 
 export default function RecommendedCollegeCard() {
 
-    const [Limit, setLimit] = useState<number>(3);
+    const [Limit, setLimit] = useState<number>(10);
     const {
         loading: topCollegesLoader,
         error: topCollegesError,
@@ -31,7 +33,23 @@ export default function RecommendedCollegeCard() {
     return (
         <>
             <div>
-                <Accordion
+            <div className="max-w-screen-lg overflow-hidden">
+				<div className="pt-4 pb-6 px-6 bg-[#f0f2f4] rounded w-full">
+					<CarouselComponent
+						slidesDesktop={3}
+						slidesTablet={2}
+						titleColor="text-primary"
+						showPagination={false}
+						title="Recommended Colleges"
+						slides={topCollegesData?.colleges?.data?.map((college: any, index: number) => {
+							return (
+								<CollegeCard featuredCollege={college} key={index} />
+							)
+						})}
+					/>
+				</div>
+			</div>
+                {/* <Accordion
                     title="Recommended Colleges"
                     opened
                     titlePrimary
@@ -51,6 +69,8 @@ export default function RecommendedCollegeCard() {
                             />
                         </div>
                     </section>
+
+                </Accordion> */}
                     {/* <section className="topCourses">
                         <div className="m-4 bg-white py-4 px-4">
                             {isLoading ? (
@@ -66,8 +86,6 @@ export default function RecommendedCollegeCard() {
                             )}
                         </div>
                     </section> */}
-
-                </Accordion>
             </div>
 
         </>
