@@ -33,7 +33,6 @@ export const GET_USER_FORM = gql`
   }
 `;
 
- 
 export const UPDATE_USER_FORM = gql`
   mutation UpdateUsersMetaData(
     $id: ID!
@@ -44,10 +43,10 @@ export const UPDATE_USER_FORM = gql`
     $courseInterested: ID
     $publishedAt: DateTime
     $appliedColleges: [ComponentCommonAppliedCollegesInput]
-    $appliedCourses:[ComponentCommonAppliedCoursesInput]
+    $appliedCourses: [ComponentCommonAppliedCoursesInput]
     $appliedExams: [ComponentCommonAppliedExamsInput]
-    $educationDetailsPrimary:ComponentCommonEducationDetails10Input
-    $educationDetailsSecondary:ComponentCommonEducationDetails12Input
+    $educationDetailsPrimary: ComponentCommonEducationDetails10Input
+    $educationDetailsSecondary: ComponentCommonEducationDetails12Input
     $graduationDetails: ComponentCommonGraduationDetailsInput
     $doctorateDetails: ComponentCommonDoctorateDetailsInput
     $professionalExperience: [ComponentCommonProfessionalExperienceInput]
@@ -59,18 +58,18 @@ export const UPDATE_USER_FORM = gql`
       data: {
         name: $name
         email: $email
-        number:$number
+        number: $number
         gender: $gender
         courseInterested: $courseInterested
         appliedColleges: $appliedColleges
-        appliedCourses:$appliedCourses
-        appliedExams:$appliedExams
+        appliedCourses: $appliedCourses
+        appliedExams: $appliedExams
         educationDetailsPrimary: $educationDetailsPrimary
         educationDetailsSecondary: $educationDetailsSecondary
-        graduationDetails:$graduationDetails
+        graduationDetails: $graduationDetails
         doctorateDetails: $doctorateDetails
         professionalExperience: $professionalExperience
-        preferredInstitutions:$preferredInstitutions
+        preferredInstitutions: $preferredInstitutions
         entranceExam: $entranceExam
         publishedAt: $publishedAt
       }
@@ -79,6 +78,113 @@ export const UPDATE_USER_FORM = gql`
         attributes {
           name
           email
+        }
+      }
+    }
+  }
+`;
+
+// Define your queries and mutations =====
+
+export const SaveCollege = gql`
+  mutation UpdateUserMetaData(
+    $id: ID!
+    $saveColleges: [ComponentCommonSaveCollegesInput]
+  ) {
+    updateUserMetaData(id: $id, data: { saveColleges: $saveColleges }) {
+      data {
+        attributes {
+          name
+          email
+        }
+      }
+    }
+  }
+`;
+
+export const SaveExam = gql`
+  mutation UpdateUserMetaData(
+    $id: ID!
+    $saveExams: [ComponentCommonSaveExamsInput]
+  ) {
+    updateUserMetaData(id: $id, data: { saveExams: $saveExams }) {
+      data {
+        attributes {
+          name
+          email
+        }
+      }
+    }
+  }
+`;
+
+export const SaveCourse = gql`
+  mutation UpdateUserMetaData(
+    $id: ID!
+    $saveCourses: [ComponentCommonSaveCoursesInput]
+  ) {
+    updateUserMetaData(id: $id, data: { saveCourses: $saveCourses }) {
+      data {
+        attributes {
+          name
+          email
+        }
+      }
+    }
+  }
+`;
+
+export const GET_USER_METADATA_COLLEGE = gql`
+  query GetUserMetadata($id: ID!) {
+    usersMetaData(filters: { id: { eq: $id } }) {
+      data {
+        id
+        attributes {
+          saveColleges {
+            college {
+              data {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_USER_METADATA_EXAM = gql`
+  query GetUserMetadata($id: ID!) {
+    usersMetaData(filters: { id: { eq: $id } }) {
+      data {
+        id
+        attributes {
+          saveExams {
+            exam {
+              data {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_USER_METADATA_COURSE = gql`
+  query GetUserMetadata($id: ID!) {
+    usersMetaData(filters: { id: { eq: $id } }) {
+      data {
+        id
+        attributes {
+          saveCourses {
+            course {
+              data {
+                id
+              }
+            }
+          }
         }
       }
     }
