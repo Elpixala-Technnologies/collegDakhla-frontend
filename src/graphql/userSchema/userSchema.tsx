@@ -33,49 +33,46 @@ export const GET_USER_FORM = gql`
   }
 `;
 
-export const UPDATE_USER_FORM_METADATA = gql`
+ 
+export const UPDATE_USER_FORM = gql`
   mutation UpdateUsersMetaData(
     $id: ID!
     $name: String
-    $gender: String
     $email: String
-    $appliedColleges: [ComponentUsermetaAppliedCollegesComponentInput]
-    $appliedCourses: [ComponentUsermetaAppliedCoursesComponentInput]
-    $appliedExams : [ComponentUsermetaAppliedExamsComponentInput]
-    $appliedScholarships: [ComponentUsermetaAppliedScholarshipsInput]
-    $careersInterested: [ComponentUsermetaCareersInterestedInput]
-    $countriesInterested: ComponentUsermetaCountriesInterestedInput
-    $otherServiceInterest: [ComponentUsermetaOtherServiceInterestInput]
-    $preferredInstitutions: [ComponentUsermetaPreferredInstitutionsInput]
+    $number: String
+    $gender: String
     $courseInterested: ID
-    $entranceExam: [ComponentUsermetaEntranceExamInput]
-    $primaryDetails: ComponentCommon10thClassInfoComponentInput
-    $educationDetailsSecondary: ComponentCommon12ThClassInfoComponentInput
-    $doctorateDetails: ComponentCommonGraduationInfoComponentInput
-    $graduationDetails: ComponentCommonGraduationInfoComponentInput
-    $professionalExperience:[ComponentUsermetaProfessionalExperienceComponentInput]
+    $publishedAt: DateTime
+    $appliedColleges: [ComponentCommonAppliedCollegesInput]
+    $appliedCourses:[ComponentCommonAppliedCoursesInput]
+    $appliedExams: [ComponentCommonAppliedExamsInput]
+    $educationDetailsPrimary:ComponentCommonEducationDetails10Input
+    $educationDetailsSecondary:ComponentCommonEducationDetails12Input
+    $graduationDetails: ComponentCommonGraduationDetailsInput
+    $doctorateDetails: ComponentCommonDoctorateDetailsInput
+    $professionalExperience: [ComponentCommonProfessionalExperienceInput]
+    $preferredInstitutions: [ComponentCommonPreferredInstitutionsInput]
+    $entranceExam: [ComponentCommonEntranceExamInput]
   ) {
-    updateUsersMetaData(
+    updateUserMetaData(
       id: $id
       data: {
         name: $name
-        gender:$gender
         email: $email
-        applied_colleges: $appliedColleges
-        applied_courses: $appliedCourses
-        applied_exams: $appliedExams
-        applied_scholarships: $appliedScholarships
-        careers_interested:$careersInterested
-        countries_interested: $countriesInterested
-        other_service_interest: $otherServiceInterest
-        preferred_institutions:$preferredInstitutions
+        number:$number
+        gender: $gender
         courseInterested: $courseInterested
-        entrance_exam: $entranceExam
-        educationDetailsPrimary: $primaryDetails
+        appliedColleges: $appliedColleges
+        appliedCourses:$appliedCourses
+        appliedExams:$appliedExams
+        educationDetailsPrimary: $educationDetailsPrimary
         educationDetailsSecondary: $educationDetailsSecondary
+        graduationDetails:$graduationDetails
         doctorateDetails: $doctorateDetails
-        graduationDetails: $graduationDetails
-        professionalExperience: $professionalExperience 
+        professionalExperience: $professionalExperience
+        preferredInstitutions:$preferredInstitutions
+        entranceExam: $entranceExam
+        publishedAt: $publishedAt
       }
     ) {
       data {

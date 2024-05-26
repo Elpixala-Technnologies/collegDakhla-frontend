@@ -49,9 +49,11 @@ export default function CollegeListItem(allColleges: any) {
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedId , setSelectedId] =useState<any>('');
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (id:any) => {
     setIsModalOpen(true);
+    setSelectedId(id)
     document.body.classList.add("overflow-hidden");
   };
 
@@ -107,47 +109,12 @@ export default function CollegeListItem(allColleges: any) {
                           className="w-full sm:w-36 object-fill rounded-lg max-w-44"
                         />
                       </div>
-
-                      {/* <div className="absolute inset-0 text-white  mx-auto my-2 w-10/12">
-                      <div className="flex justify-between">
-                        <div className="flex gap-3 items-start">
-                          <div className="flex gap-2 items-center text-sm">
-                            <FaImage /> 7
-                          </div>
-
-                          <div className="flex gap-2 items-center text-sm">
-                            <FaVideo /> 7
-                          </div>
-                        </div>
-                        <div>
-                          <div className="text-xs">Our Rating</div>
-                          <div className="text-end">
-                            {college?.attributes?.rating
-                              ? college?.attributes?.rating
-                              : 8.6}
-                            /10
-                          </div>
-                        </div>
-                      </div>
-                    </div> */}
+ 
                     </div>
                     <div className="flex flex-col gap-1">
                       {/* line 1  */}
                       <div className="flex flex-row gap-8 p-1">
-                        {/* rating  */}
-                        {/* <p className="text-[#0F4988] flex gap-1 items-center text-sm lg:text-sm">
-                          <Image
-                            src={Reviews}
-                            width={35}
-                            height={35}
-                            alt={"approvedBy"}
-                          />
-                          {college?.attributes?.rating
-                            ? college?.attributes?.rating
-                            : 4.5}{" "}
-                          /10{" "}
-                        </p> */}
-                        {/* location  */}
+                        
                         <div className="  border-extra-light-text">
                           <p className="text-[#0F4988] flex gap-1 items-center text-sm">
                             <Image
@@ -281,12 +248,7 @@ export default function CollegeListItem(allColleges: any) {
                           fontColor="text-primary-text"
                         />
                       </div>
-                      {/* <div>
-                          Lorem ipsum dolor, sit amet consectetur adipisicing
-                          elit , perferendis aspernatur! Lorem ipsum dolor, sit
-                          amet consectetur adipisicing elit , perferendis
-                          aspernatur!
-                        </div> */}
+                      
                     </div>
                   </div>
                   {/* <Separator /> */}
@@ -314,7 +276,7 @@ export default function CollegeListItem(allColleges: any) {
                       <div className="flex flex-row gap-4 text-primary college-btn">
                         <Button
                           // href={`/college/${college.id}`}
-                          onClick={handleOpenModal}
+                          onClick={()=>handleOpenModal(college?.id)}
                           text="Apply Now"
                           filled
                           fontSize="text-sm"
@@ -359,7 +321,7 @@ export default function CollegeListItem(allColleges: any) {
 
       {isModalOpen && (
         <ApplyNowModal
-          id={11}
+          id={selectedId}
           FromStep={FromStep}
           isSectionCheck={"College"}
           onClose={handleCloseModal}

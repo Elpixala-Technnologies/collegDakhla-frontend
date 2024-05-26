@@ -22,8 +22,12 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { CollegeApplicatonListData } = userFrom();
 
-  const handleOpenModal = () => {
+  const [selectedId , setSelectedId]= useState(null);
+
+
+  const handleOpenModal = (id:any) => {
     setIsModalOpen(true);
+    setSelectedId(id)
     document.body.classList.add("overflow-hidden");
   };
 
@@ -175,7 +179,7 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                       <div className="flex gap-2">
                         <Button
                           // href={`/`}
-                          onClick={handleOpenModal}
+                          onClick={()=>handleOpenModal(course?.attributes?.id)}
                           text="Apply Now"
                           filled
                           fontSize="text-sm"
@@ -228,9 +232,9 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
 
       {isModalOpen && (
         <ApplyNowModal
-          id={11}
+          id={selectedId}
           FromStep={FromStep}
-          isSectionCheck={"College"}
+          isSectionCheck={"Course"}
           onClose={handleCloseModal}
         />
       )}

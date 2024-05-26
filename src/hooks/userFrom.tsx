@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { GET_USER_FORM, UPDATE_USER_FORM_METADATA } from "@/graphql/userSchema/userSchema";
+import { GET_USER_FORM, UPDATE_USER_FORM } from "@/graphql/userSchema/userSchema";
 import { useMutation, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
  
@@ -31,7 +31,7 @@ const userFrom = () => {
     }
   }, [CollegeApplication]); 
 
-	const [userFromMetaUpdate, { loading: userFromMetaUpdateLoading, error: userFromMetaUpdateError, data: userFromMetaUpdateData }] = useMutation<any>(UPDATE_USER_FORM_METADATA)
+	const [userFromMetaUpdate, { loading: userFromMetaUpdateLoading, error: userFromMetaUpdateError, data: userFromMetaUpdateData }] = useMutation<any>(UPDATE_USER_FORM)
 
 
   return {

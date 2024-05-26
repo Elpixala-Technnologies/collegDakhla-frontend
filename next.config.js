@@ -2,12 +2,12 @@ module.exports = {
 	images: {
 		remotePatterns: [
 	
-			// {
-			// 	protocol: "https",
-			// 	hostname: "college-dakhla-backend-qtpvh.ondigitalocean.app",
-			// 	port: "",
-			// 	pathname: "/uploads/**",
-			// },
+			{
+				protocol: "https",
+				hostname: "elpixala-bucket-dev.blr1.digitaloceanspaces.com",
+				port: "",
+				pathname: "/**",
+			},
 			{
 				protocol: "https",
 				hostname: "xfcxufxzntfzaggkften.supabase.co",
