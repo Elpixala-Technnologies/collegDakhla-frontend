@@ -3,12 +3,12 @@ import Modal from "@mui/joy/Modal";
 import ModalClose from "@mui/joy/ModalClose";
 import { Box, Button, Textarea, Typography } from "@mui/joy";
 import Rating from "@mui/material/Rating";
-import useColleges from "@/src/Hooks/useColleges";
-import { useAppSelector } from "@/src/store";
 import Swal from "sweetalert2";
+import { useAppSelector } from "@/store";
+import useColleges from "@/hooks/useColleges";
 
 const ReviewModal = ({ isOpen, onClose, id, ReviewData }: any) => {
-  const { writeReviews, GetReviewById } = useColleges();
+  const { writeReviews } = useColleges();
   const [RatingCollegeInfrastructure, setRatingCollegeInfrastructure] =
     useState<number | null>(0);
   const [RatingAcademicsFaculty, setRatingAcademicsFaculty] = useState<
@@ -47,31 +47,33 @@ const ReviewModal = ({ isOpen, onClose, id, ReviewData }: any) => {
     return averageRating;
   };
 
-  const existingReviews = existingReviewsData && existingReviewsData?.map((review: any) => ({
-    user_details: {
-      name: review.user_details.name,
-      email: review.user_details.email,
-    },
-    infrastructure_hostel_facilities_detail:
-      review.infrastructure_hostel_facilities_detail,
-    infrastructure_hostel_facilities_rating:
-      review.infrastructure_hostel_facilities_rating,
-    academics_faculty_details: review.academics_faculty_details,
-    academics_faculty_rating: review.academics_faculty_rating,
-    placements_internships_details: review.placements_internships_details,
-    placements_internships_rating: review.placements_internships_rating,
-    crowd_campus_life_details: review.crowd_campus_life_details,
-    crowd_campus_life_rating: review.crowd_campus_life_rating,
-    fees_scholarships_details: review.fees_scholarships_details,
-    fees_scholarships_rating: review.fees_scholarships_rating,
-    overallrating: review.overallrating,
-  }));
- 
+  const existingReviews =
+    existingReviewsData &&
+    existingReviewsData?.map((review: any) => ({
+      userDetails: {
+        name: review.user_details.name,
+        email: review.user_details.email,
+      },
+      infrastructure_hostel_facilities_detail:
+        review.infrastructure_hostel_facilities_detail,
+      infrastructure_hostel_facilities_rating:
+        review.infrastructure_hostel_facilities_rating,
+      academics_faculty_details: review.academics_faculty_details,
+      academics_faculty_rating: review.academics_faculty_rating,
+      placements_internships_details: review.placements_internships_details,
+      placements_internships_rating: review.placements_internships_rating,
+      crowd_campus_life_details: review.crowd_campus_life_details,
+      crowd_campus_life_rating: review.crowd_campus_life_rating,
+      fees_scholarships_details: review.fees_scholarships_details,
+      fees_scholarships_rating: review.fees_scholarships_rating,
+      overallrating: review.overallrating,
+    }));
+
   const handleSubmit = async () => {
     try {
       const newReview = [
         {
-          user_details: {
+          userDetails: {
             name: userName,
             email: email,
           },
@@ -100,6 +102,13 @@ const ReviewModal = ({ isOpen, onClose, id, ReviewData }: any) => {
       });
 
       if (response.data) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Successfully Saved",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         console.log(response, "response");
         onClose();
       }
@@ -141,6 +150,7 @@ const ReviewModal = ({ isOpen, onClose, id, ReviewData }: any) => {
                   minRows={4}
                   placeholder="Write About College Infrastructure & Hostel Facilities..."
                   value={CollegeInfrastructure}
+                  required
                   onChange={(e) => setCollegeInfrastructure(e.target.value)}
                   sx={{ width: "100%" }}
                 />
@@ -165,6 +175,7 @@ const ReviewModal = ({ isOpen, onClose, id, ReviewData }: any) => {
                   minRows={4}
                   placeholder="Write About Academics & Faculty..."
                   value={AcademicsFaculty}
+                  required
                   onChange={(e) => setAcademicsFaculty(e.target.value)}
                   sx={{ width: "100%" }}
                 />
@@ -187,6 +198,7 @@ const ReviewModal = ({ isOpen, onClose, id, ReviewData }: any) => {
               <div>
                 <Textarea
                   minRows={4}
+                  required
                   placeholder="Write About Placements & Internships..."
                   value={PlacementsInternships}
                   onChange={(e) => setPlacementsInternships(e.target.value)}
@@ -211,6 +223,7 @@ const ReviewModal = ({ isOpen, onClose, id, ReviewData }: any) => {
               <div>
                 <Textarea
                   minRows={4}
+                  required
                   placeholder="Write About Crowd & Campus Life..."
                   value={CrowdCampus}
                   onChange={(e) => setCrowdCampus(e.target.value)}
@@ -235,6 +248,7 @@ const ReviewModal = ({ isOpen, onClose, id, ReviewData }: any) => {
               <div>
                 <Textarea
                   minRows={4}
+                  required
                   placeholder="Write About Fees & Scholarships..."
                   value={FeesScholarships}
                   onChange={(e) => setFeesScholarships(e.target.value)}

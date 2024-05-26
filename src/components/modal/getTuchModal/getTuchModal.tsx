@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/joy/Modal";
 import ModalClose from "@mui/joy/ModalClose";
-import {
-  FormControl,
-  FormLabel,
-  Select,
-  Option,
-} from "@mui/joy";
-import useGetTuch from "@/src/Hooks/useGetTuch";
-import useCommonApi from "@/src/Hooks/useCommonApi";
-import { useAppSelector } from "@/src/store";
+import { FormControl, FormLabel, Select, Option } from "@mui/joy";
+
 import Swal from "sweetalert2";
+import { useQuery } from "@apollo/client";
+import { getStreams } from "@/query/schema";
+import useGetTuch from "@/hooks/useGetTuch";
+import { useAppSelector } from "@/store";
 
 const GetTuchModal = ({ isOpen, onClose, heading = "Get in touch" }: any) => {
   const { createGetTuch } = useGetTuch();
-  const { AllStreamData } = useCommonApi();
   const [name, setName] = useState<any>(null);
   const [email, setEmail] = useState<any>(null);
   const [phone, setPhone] = useState<any>(null);
   const [streams, setStreams] = useState<any>(null);
   const { number } = useAppSelector((store: any) => store.auth);
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
+
+  const {
+    loading: streamLoader,
+    error: streamsError,
+    data: streamsData,
+  } = useQuery(getStreams);
 
   useEffect(() => {
     setIsFormValid(
@@ -225,11 +227,14 @@ const GetTuchModal = ({ isOpen, onClose, heading = "Get in touch" }: any) => {
                         value={streams}
                         onChange={(e, newValue) => setStreams(newValue)}
                       >
-                        {AllStreamData?.map((stream: any, index: any) => (
-                          <Option key={index} value={stream?.id}>
-                            {stream?.attributes?.stream_name}
-                          </Option>
-                        ))}
+                        {streamsData &&
+                          streamsData?.streams?.data?.map(
+                            (stream: any, index: any) => (
+                              <Option key={index} value={stream?.id}>
+                                {stream?.attributes?.streamName}
+                              </Option>
+                            )
+                          )}
                       </Select>
                     </FormControl>
 

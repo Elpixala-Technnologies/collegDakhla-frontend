@@ -19,6 +19,15 @@ import {
   getFeaturedCourses,
   getFeaturedExams,
 } from "@/query/schema";
+import {
+  Box,
+  Typography,
+  Input,
+  FormControl,
+  FormLabel,
+  Select,
+  Option,
+} from "@mui/joy";
 import { GetDefaultImage, getStrapiMedia } from "../utils/api-helper";
 import { useEffect, useState } from "react";
 import Button from "@/components/button/button";
@@ -35,7 +44,9 @@ import ExamCard from "@/components/card/examCard";
 import Faq from "@/components/Faq-HomePage/faq";
 import { Snowman, Study, Vector } from "@/Asset";
 import { slideInFromLeft, slideInFromRight } from "@/components/Motion/motion";
-import WavyText from "@/components/Motion/Wave";
+import { useAppSelector } from "@/store";
+import useGetTuch from "@/hooks/useGetTuch";
+import Swal from "sweetalert2";
 
 export default function Home() {
   const [Stream, setStream] = useState<string>("");
@@ -45,6 +56,10 @@ export default function Home() {
   const [replay, setReplay] = useState(true);
   const [selectedGrade, setSelectedGrade] = useState<string | null>(null);
   const [selectedDegree, setSelectedDegree] = useState<string | null>(null);
+
+  const { number, interestedCourse } = useAppSelector(
+    (store: any) => store.auth
+  );
 
   const degrees = ["Bachelor's", "Master's", "MBA"];
 
@@ -149,6 +164,48 @@ export default function Home() {
     // Add more testimonials as needed
   ];
   const duplicatedTestimonialData = [...testimonialData, ...testimonialData];
+
+  // ======== get tuch
+  const { createGetTuch, CheckGetTuch } = useGetTuch();
+
+  const [name, setName] = useState<any>(null);
+  const [emailValue, setEmailValue] = useState<any>(null);
+  const [phone, setPhone] = useState<any>(null);
+  const [StreamsSelected, setStreamsSelected] = useState<any>(null);
+  const [isGetTuch, setIsGetTuch] = useState<any>(false);
+
+  const handleSubmit = async () => {
+    try {
+      const currentDate = new Date();
+      const publishedAt = currentDate.toISOString();
+
+      const response = await createGetTuch({
+        variables: {
+          name,
+          email: emailValue,
+          phone,
+          streams: StreamsSelected,
+          userPhone: number,
+          publishedAt,
+        },
+      });
+
+      if (response?.data) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Successfully Saved",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setIsGetTuch(true);
+        console.log(response, "response");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const { getTuchData } = CheckGetTuch(number);
 
   return (
     <>
@@ -353,140 +410,60 @@ export default function Home() {
                       : GetDefaultImage("logo");
                     return (
                       <div key={course?.id}>
-                      
-                          <div className="border border-gray-300 rounded-md bg-white flex flex-col gap-2 min-w-80 shadow-md">
-                            <div className="flex flex-col pt-4 gap-2 items-center justify-center">
-                              <Image
-                                src={logoUrl!}
-                                alt={college?.collegeName}
-                                className="object-center w-28 object-contain h-24 rounded-full "
-                                height={500}
-                                width={500}
-                              />
-                              <div className=" px-4 py-1 w-max text-primary text-base font-semibold">
-                                {course?.attributes?.name}
-                              </div>
+                        <div className="border border-gray-300 rounded-md bg-white flex flex-col gap-2 min-w-80 shadow-md">
+                          <div className="flex flex-col pt-4 gap-2 items-center justify-center">
+                            <Image
+                              src={logoUrl!}
+                              alt={college?.collegeName}
+                              className="object-center w-28 object-contain h-24 rounded-full "
+                              height={500}
+                              width={500}
+                            />
+                            <div className=" px-4 py-1 w-max text-primary text-base font-semibold">
+                              {course?.attributes?.name}
                             </div>
-                            <Link href={`/courses/${course?.id}`}>
+                          </div>
+                          <Link href={`/courses/${course?.id}`}>
                             <div className="border-t border-b border-extra-light-text flex justify-between items-center py-4 px-2">
                               <span className="text-gray-800 font-semibold text-lg">
                                 Course Overview
                               </span>{" "}
                               <FaAngleRight />
                             </div>
-                            </Link>
-                            <div className="flex justify-evenly gap-5 pb-6 px-2">
-                              <div className="flex flex-col items-center gap-1">
-                                <div className="text-black">Duration</div>
-                                <div className="border-4 border-orange-300 rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
-                                  <b className="text-gray-500 font-light text-xs">
-                                    {course?.attributes?.duration} Years
-                                  </b>
-                                </div>
+                          </Link>
+                          <div className="flex justify-evenly gap-5 pb-6 px-2">
+                            <div className="flex flex-col items-center gap-1">
+                              <div className="text-black">Duration</div>
+                              <div className="border-4 border-orange-300 rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
+                                <b className="text-gray-500 font-light text-xs">
+                                  {course?.attributes?.duration} Years
+                                </b>
                               </div>
-                              <div className="flex flex-col items-center gap-1">
-                                <div className="text-black">Total Avg. Fee</div>
-                                <div className="border-4 border-gray-400 rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
-                                  <b className="text-gray-500 font-light text-xs">
-                                    {formatFees(course?.attributes?.fees)}
-                                  </b>
-                                </div>
+                            </div>
+                            <div className="flex flex-col items-center gap-1">
+                              <div className="text-black">Total Avg. Fee</div>
+                              <div className="border-4 border-gray-400 rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
+                                <b className="text-gray-500 font-light text-xs">
+                                  {formatFees(course?.attributes?.fees)}
+                                </b>
                               </div>
-                              <div className="flex flex-col items-center gap-1">
-                                <div className="text-black">Colleges</div>
-                                <div className="border-4 border-orange-400 rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
-                                  <b className="text-gray-500 font-light text-xs">
-                                    {course?.attributes?.colleges?.data?.length}
-                                  </b>
-                                </div>
+                            </div>
+                            <div className="flex flex-col items-center gap-1">
+                              <div className="text-black">Colleges</div>
+                              <div className="border-4 border-orange-400 rounded-full p-4 flex items-center justify-center text-center w-14 h-14">
+                                <b className="text-gray-500 font-light text-xs">
+                                  {course?.attributes?.colleges?.data?.length}
+                                </b>
                               </div>
                             </div>
                           </div>
-                        
+                        </div>
                       </div>
                     );
                   }
                 )}
               />
             </div>
-            {/* crousel 2 */}
-            {/* <div>
-              <CarouselSideBtn
-                showPagination={false}
-                slidesDesktop={5}
-                slidesTablet={4}
-                slidesMobile={3}
-                bgColor="bg-amber-200"
-                slides={coursesData?.courses?.data?.map(
-                  (course: any, index: number, college: any) => {
-                    const logoUrl = college?.collegeLogo?.data?.attributes?.url
-                      ? getStrapiMedia(
-                          college?.collegeLogo?.data?.attributes?.url
-                        )
-                      : GetDefaultImage("logo");
-                    return (
-                      <div key={course?.id}>
-                        <Link href={`/courses/${course?.id}`}>
-                          <div className="border border-extra-light-text rounded-md bg-white flex flex-col gap-2 min-w-48 p-4 shadow-md">
-                            <div className="flex flex-col gap-2 items-start justify-between">
-                              <Image
-                                src={logoUrl!}
-                                alt={college?.collegeName}
-                                className="object-center w-full object-contain h-20"
-                                height={500}
-                                width={500}
-                              />
-                              <div className="bg-slate-200 px-4 py-1 w-max text-sm text-secondary-text">
-                                {
-                                  course?.attributes?.courseType?.data
-                                    ?.attributes?.type
-                                }
-                              </div>
-                            </div>
-                            <div className="font-semibold text-base line-clamp-1 text-primary">
-                              {course?.attributes?.name}
-                            </div>
-                            <div className="flex flex-col gap-1">
-                              <div className="flex justify-between w-52">
-                                <div className="text-black">Duration</div>
-                                <div>
-                                  <b className="text-gray-500 font-light">
-                                    {course?.attributes?.duration} Years
-                                  </b>
-                                </div>
-                              </div>
-                              <div className="flex justify-between w-52">
-                                <div className="text-black">Total Avg. Fee</div>
-                                <div>
-                                  <b className="text-gray-500 font-light">
-                                    {formatFees(course?.attributes?.fees)}
-                                  </b>
-                                </div>
-                              </div>
-                              <div className="flex justify-between w-52 ">
-                                <div className="text-black">Colleges</div>
-                                <div>
-                                  <b className="text-gray-500 font-light">
-                                    {course?.attributes?.colleges?.data?.length}
-                                  </b>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="border-t border-extra-light-text flex justify-between items-center py-1">
-                              <span className="text-gray-800 font-semibold">
-                                Course Overview
-                              </span>{" "}
-                              <FaAngleRight />
-                            </div>
-                          </div>
-                        </Link>
-                      </div>
-                    );
-                  }
-                )}
-              />
-            </div> */}
           </div>
         </section>
         <section className="max-w-screen-xl mx-auto px-4 py-14">
@@ -503,65 +480,10 @@ export default function Home() {
                   style={{ maxHeight: "300px", width: "100%" }}
                 />
               </div>
-              {/* <div className="flex justify-start ">
-                <Image
-                  src="/tempImage.jpeg"
-                  alt="logo"
-                  height={1280}
-                  width={1920}
-                  className=" object-contain p-4 m-2"
-                  style={{ maxHeight: "300px", width: "100%" }}
-                />
-              </div>
-              <div className="flex justify-start ">
-                <Image
-                  src="/tempImage.jpeg"
-                  alt="logo"
-                  height={1280}
-                  width={1920}
-                  className=" object-contain p-4 m-2"
-                  style={{ maxHeight: "300px", width: "100%" }}
-                />
-              </div> */}
             </div>
           </div>
         </section>
 
-        {/* <section className="Banner-2 mt-4 pt-8 mx-4">
-          <div className="max-w-screen-xl  mx-auto py-10">
-            <div className="h-36 flex flex-row items-center justify-end w-full bg-amber-200 rounded-3xl relative">
-              <div className=" flex gap-8 px-4 items-baseline">
-                <span className="text-2xl">
-                  Want to know more{" "}
-                  <b className="text-primary font-semibold text-3xl">
-                    ABOUT US{" "}
-                  </b>
-                </span>
-
-                <motion.button
-                  type="button"
-                  className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
-				   focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium 
-				   rounded-lg text-sm px-6 py-4 text-center me-2 mb-2"
-           initial="hidden"
-           whileInView="visible"
-           viewport={{ once: true }}
-           variants={slideInFromRight(0.5)}>
-                  <Link href="/">
-                    <span className="text-2xl">About-Us</span>
-                  </Link>
-                </motion.button>
-              </div>
-              <Image
-                src={Study}
-                alt="hero"
-                width={400} // Adjust the width as needed
-                height={300} // Adjust the height as needed
-                className="absolute sm:-left-40 md:-left-4 left-0 top-1/2 transform -translate-y-1/2 sm:w-[400px] w-[100px] sm:h-[200px] h-[200px] "
-              />
-            </div>
-          </div>
-        </section> */}
         <section className="testimonials-section px-2 py-8 lg:py-12 text-black flex items-center justify-center mx-auto w-full bg-[#F2F6F7]">
           <div className="Container w-full">
             <div className="testimonials-content flex flex-col w-full rounded-lg">
@@ -888,28 +810,57 @@ export default function Home() {
             <div className="text-3xl font-semibold w-80 text-center">
               Get in Touch with our Expert Counsellors
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-              <input
-                className="rounded-md border-[0.5px] border-primary-extra-light-text w-full bg-white p-2 shadow"
-                placeholder="Name"
-              />
-              <input
-                className="rounded-md border-[0.5px] border-primary-extra-light-text w-full bg-white p-2 shadow"
-                placeholder="Email"
-              />
-              <input
-                className="rounded-md border-[0.5px] border-primary-extra-light-text w-full bg-white p-2 shadow"
-                placeholder="Phone"
-              />
-              <input
-                className="rounded-md border-[0.5px] border-primary-extra-light-text w-full bg-white p-2 shadow"
-                placeholder="Your Stream"
-              />
+
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-4 w-full justify-center items-center">
+              <FormControl className="w-full" sx={{ mb: 2 }}>
+                <FormLabel>Name</FormLabel>
+                <Input value={name} onChange={(e) => setName(e.target.value)} />
+              </FormControl>
+              <FormControl className="w-full" sx={{ mb: 2 }}>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  value={emailValue}
+                  onChange={(e) => setEmailValue(e.target.value)}
+                />
+              </FormControl>
+              <FormControl className="w-full" sx={{ mb: 2 }}>
+                <FormLabel>Phone</FormLabel>
+                <Input
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </FormControl>
+
+              <FormControl className="w-full" sx={{ mb: 2 }}>
+                <FormLabel>Streams</FormLabel>
+                <Select
+                  value={StreamsSelected}
+                  onChange={(e, newValue) => setStreamsSelected(newValue)}
+                >
+                  {streamsData &&
+                    streamsData?.streams?.data?.map(
+                      (stream: any, index: any) => {
+                        console.log(stream, "stream");
+                        return (
+                          <Option key={index} value={stream?.id}>
+                            {stream?.attributes?.streamName}
+                          </Option>
+                        );
+                      }
+                    )}
+                </Select>
+              </FormControl>
             </div>
             <div className="flex flex-col items-center gap-4">
               <div>
-                <button className="bg-primary text-white p-[10px] w-52 rounded-md">
-                  Get in Touch
+                <button
+                  onClick={handleSubmit}
+                  disabled={getTuchData?.length > 0 || isGetTuch}
+                  className="bg-primary text-white p-[10px] w-52 rounded-md"
+                >
+                  {getTuchData?.length > 0 || isGetTuch
+                    ? "Your Detail Already Submited"
+                    : "Get in Touch"}
                 </button>
               </div>
               <div>

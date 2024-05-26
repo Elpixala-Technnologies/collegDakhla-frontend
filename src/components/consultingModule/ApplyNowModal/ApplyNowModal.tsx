@@ -421,10 +421,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
       return;
     }
   }
-
-
-console.log( userMetaId, "userMetaId")
-
+ 
   const handleSubmit = async () => {
     if (isLogin === false) {
       if (currentStep === 0) {
