@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Loginvector,  QuestionMark, Trash } from "@/Asset/index";
+import { Loginvector, QuestionMark, Trash } from "@/Asset/index";
 import Image from "next/image";
 import OtpHeading from "@/components/consultingModule/heading/heading";
 import OtpImg from "@/components/consultingModule/img/img";
@@ -38,14 +38,13 @@ interface DesiredCollegesInformation {
 
 const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
   // ============
-  const { userID, interestedCourse} = useAppSelector(
+  const { userID, interestedCourse } = useAppSelector(
     (store: any) => store.auth
   );
- 
+
   const { UserCheck, CheckOTP, GetUserDataMetaId } = useSignup();
 
   const userMetaId: ID = GetUserDataMetaId(userID);
- 
 
   const [isOtp, setIsOtp] = useState(false);
   const { userMetaCreate } = useUserMetaData();
@@ -238,87 +237,83 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
   // ===========
   const [selectedCourseId, selectedCourseName] = selectedCourseLevel.split("|");
 
-	async function sendSignupOtp() {
+  async function sendSignupOtp() {
+    const currentDate = new Date();
+    const publishedAt = currentDate.toISOString();
 
-		const currentDate = new Date();
-		const publishedAt = currentDate.toISOString();
-
-		if (await checkUser === false) {
-			try {
-				let data = JSON.stringify({
-					data: {
-						name: name,
-						email: EmailValue,
-						number: phoneNumber,
-						stream: selectedStream,
-						courseLevel: selectedCourseId
-					},
-				});
-
-				let config = {
-					method: "post",
-					maxBodyLength: Infinity,
-					url: `${restUrl}/api/users-data`,
-					headers: {
-						"Content-Type": "application/json",
-					},
-					data: data,
-				};
-
-				axios
-					.request(config)
-					.then((response: any) => {
-						setUserId(response?.data?.data?.id);
-						setIsOtp(true);
-					})
-					.catch((error: any) => {
-						console.log(error);
-					});
-			} catch (error) {
-				console.error("Error adding user:", error);
-			}
-		} else {
-			console.log("User already exists")
-		}
-	};
-
-	async function handleSubmitSignup() {
-
-		const currentDate = new Date();
-		const publishedAt = currentDate.toISOString();
-
-		if (otpchecker != false) {
-			try {
-				dispatch(
-					setAuthState({
-						authState: true,
-						userID: otpchecker?.loggedInUser?.id,
-						userName: otpchecker?.loggedInUser?.attributes?.name,
-						email: otpchecker?.loggedInUser?.attributes?.email,
-						number: otpchecker?.loggedInUser?.attributes?.number,
-					})
-				);
-
-				await userMetaCreate({
-					variables: {
+    if ((await checkUser) === false) {
+      try {
+        let data = JSON.stringify({
+          data: {
             name: name,
-						email: EmailValue,
-						number: phoneNumber,
-						userDataId: userId,
-						publishedAt,
-					},
-				});
+            email: EmailValue,
+            number: phoneNumber,
+            stream: selectedStream,
+            courseLevel: selectedCourseId,
+          },
+        });
 
-				console.log("user signed up");
+        let config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: `${restUrl}/api/users-data`,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: data,
+        };
 
-			} catch (error) {
-				console.error("Error publishing user:", error);
-			}
-		} else {
-			console.log("Wrong OTP")
-		}
-	};
+        axios
+          .request(config)
+          .then((response: any) => {
+            setUserId(response?.data?.data?.id);
+            setIsOtp(true);
+          })
+          .catch((error: any) => {
+            console.log(error);
+          });
+      } catch (error) {
+        console.error("Error adding user:", error);
+      }
+    } else {
+      console.log("User already exists");
+    }
+  }
 
+  async function handleSubmitSignup() {
+    const currentDate = new Date();
+    const publishedAt = currentDate.toISOString();
+
+    if (otpchecker != false) {
+      try {
+        dispatch(
+          setAuthState({
+            authState: true,
+            userID: otpchecker?.loggedInUser?.id,
+            userName: otpchecker?.loggedInUser?.attributes?.name,
+            email: otpchecker?.loggedInUser?.attributes?.email,
+            number: otpchecker?.loggedInUser?.attributes?.number,
+          })
+        );
+
+        await userMetaCreate({
+          variables: {
+            name: name,
+            email: EmailValue,
+            number: phoneNumber,
+            userDataId: userId,
+            publishedAt,
+          },
+        });
+
+        console.log("user signed up");
+      } catch (error) {
+        console.error("Error publishing user:", error);
+      }
+    } else {
+      console.log("Wrong OTP");
+    }
+  }
 
   const [gradDetails, setGradDetails] = useState<any>({
     institutionName: "",
@@ -401,7 +396,6 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
     },
   ];
 
-
   const selectedAppliedCourse = [
     {
       id: 1,
@@ -412,7 +406,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
     },
   ];
 
-  if(isLogin){
+  if (isLogin) {
     if (currentStep === 0) {
       setCurrentStep(2);
       return;
@@ -421,7 +415,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
       return;
     }
   }
- 
+
   const handleSubmit = async () => {
     if (isLogin === false) {
       if (currentStep === 0) {
@@ -491,7 +485,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
 
   const renderStep = () => {
     const step = FromStep && FromStep[currentStep];
- 
+
     if (!step) {
       return null;
     }
@@ -541,7 +535,10 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                 {/* Back Button */}
                 <button className="p-4">
                   {currentStep >= 1 && (
-                    <IoMdArrowRoundBack className="text-2xl" onClick={handleBack} />
+                    <IoMdArrowRoundBack
+                      className="text-2xl"
+                      onClick={handleBack}
+                    />
                   )}
                 </button>
 
@@ -580,7 +577,6 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                   type="number"
                                   id="numbe"
                                   name="number"
-                                  
                                   className="w-full p-2.5 mb-5 rounded-lg border border-gray-300"
                                   placeholder="Enter 10 digit mobile number"
                                   value={phoneNumber}
@@ -619,8 +615,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                 {AllCourseLevelData?.map(
                                   (courseLevel: any, index: any) => {
                                     const courseLevelName =
-                                      courseLevel?.attributes
-                                        ?.levelName ?? "";
+                                      courseLevel?.attributes?.levelName ?? "";
                                     const value = `${courseLevel?.id}|${courseLevelName}`;
                                     return (
                                       <option
@@ -1160,10 +1155,10 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                             Select Year
                                           </option>
                                           {Array.from(
-                                            { length: 10 },
+                                            { length: 30 },
                                             (_, i) => {
                                               const year =
-                                                new Date().getFullYear() + i;
+                                                new Date().getFullYear() - i;
                                               return (
                                                 <option key={i} value={year}>
                                                   {year}
@@ -1520,14 +1515,14 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                         <option value="">Select Exam</option>
                                         {ExamListData?.map(
                                           (exam: any, optionIndex: any) => {
-                                            return(
+                                            return (
                                               <option
-                                              key={optionIndex}
-                                              value={exam.attributes.name}
-                                            >
-                                              {exam.attributes.name}
-                                            </option>
-                                            )
+                                                key={optionIndex}
+                                                value={exam.attributes.name}
+                                              >
+                                                {exam.attributes.name}
+                                              </option>
+                                            );
                                           }
                                         )}
                                       </select>
@@ -1599,14 +1594,16 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                       >
                                         <option value="">Select Exam</option>
                                         {ExamListData?.map(
-                                          (exam: any, optionIndex: any) => (
-                                            <option
-                                              key={optionIndex}
-                                              value={exam.attributes.name}
-                                            >
-                                              {exam.attributes.name}
-                                            </option>
-                                          )
+                                          (exam: any, optionIndex: any) => {
+                                            return (
+                                              <option
+                                                key={optionIndex}
+                                                value={exam.attributes.name}
+                                              >
+                                                {exam.attributes.name}
+                                              </option>
+                                            );
+                                          }
                                         )}
                                       </select>
                                     </div>
@@ -1615,7 +1612,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                 {bookedExamData?.length < 5 && (
                                   <div className="w-full flex items-center justify-center my-2">
                                     <div
-                                      className="flex flex-row items-center border border-white rounded-full p-3 cursor-pointer"
+                                      className="flex flex-row items-center border  rounded-full p-3 cursor-pointer"
                                       onClick={handleBookedExamAddForm}
                                     >
                                       <PiPlus className=" text-sm" />
@@ -1687,19 +1684,19 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                           </option>
                                           {AllCollegesData &&
                                             AllCollegesData.map(
-                                              (college: any) =>{
+                                              (college: any) => {
                                                 return (
                                                   <option
-                                                  key={college?.id}
-                                                  value={college?.id}
-                                                  className="w-40 text-black"
-                                                >
-                                                  {
-                                                    college?.attributes
-                                                      ?.collegeName
-                                                  }
-                                                </option>
-                                                )
+                                                    key={college?.id}
+                                                    value={college?.id}
+                                                    className="w-40 text-black"
+                                                  >
+                                                    {
+                                                      college?.attributes
+                                                        ?.collegeName
+                                                    }
+                                                  </option>
+                                                );
                                               }
                                             )}
                                         </select>
