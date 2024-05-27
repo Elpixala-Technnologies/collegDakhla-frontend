@@ -14,6 +14,7 @@ export default function ExamTab({ tabData }: any) {
 						
 						{/* <div className="page-data-wrapper">
 						{/* <div className="page-data-wrapper">
+						{/* <div className="page-data-wrapper">
 							{tabData?.map((item: any, index: number) => {
 								return (
 									<div
