@@ -20,17 +20,11 @@ import { StoryBanner1, StoryBanner2, StoryBanner3 } from "../../Asset/index";
 import WavyText from "@/components/Motion/Wave";
 
 const MorePage = () => {
-<<<<<<< HEAD
-  const [isHovered, setIsHovered] = useState(true);
-  const spanRef = useRef<any>(null);
-  const [spanWidth, setSpanWidth] = useState(39);
-  const [replay, setReplay] = useState(true);
-=======
+
 	const [isHovered, setIsHovered] = useState(true);
 	const spanRef = useRef<any>(null);
 	const [spanWidth, setSpanWidth] = useState<number>(39);
 	const [replay, setReplay] = useState(true);
->>>>>>> 1671dcd (Develop (#28))
 
 	useEffect(() => {
 		if (spanRef.current) {
