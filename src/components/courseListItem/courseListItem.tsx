@@ -15,6 +15,10 @@ import { FaBabyCarriage } from "react-icons/fa";
 import { useState } from "react";
 import ApplyNowModal from "../consultingModule/ApplyNowModal/ApplyNowModal";
 import userFrom from "@/hooks/userFrom";
+import useSignup from "@/query/hooks/useSignup";
+import { ID } from "@/types/global";
+import { useAppSelector } from "@/store";
+import useUserMetaData from "@/query/hooks/useUserMetaData";
 
 
 export default function CourseListItem({ courses, featuredCourses }: any) {
@@ -22,8 +26,12 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { CollegeApplicatonListData } = userFrom();
 
-  const handleOpenModal = () => {
+  const [selectedId , setSelectedId]= useState(null);
+
+
+  const handleOpenModal = (id:any) => {
     setIsModalOpen(true);
+    setSelectedId(id)
     document.body.classList.add("overflow-hidden");
   };
 
@@ -33,6 +41,20 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
   };
 
   const FromStep: any = CollegeApplicatonListData?.form_stape;
+
+  const { GetUserMetaData } = useUserMetaData();
+
+  const { userID } = useAppSelector((store: any) => store.auth);
+  let isLogin = useAppSelector((state) => state.auth.authState);
+
+  const { GetUserDataMetaId } = useSignup();
+
+  const userMetaId: ID = GetUserDataMetaId(userID);
+
+  const userData = GetUserMetaData(userMetaId);
+
+  const AppliedData: any = userData?.userAllMetaData?.appliedCourses;
+
   return (
     <>
       {courses?.length > 0 && (
@@ -41,6 +63,10 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
             const logoURL = course?.attributes?.logo?.data?.attributes?.url
               ? getStrapiMedia(course?.attributes?.logo?.data?.attributes?.url)
               : GetDefaultImage("logo");
+
+              const isApplied =Array.isArray(AppliedData) &&  AppliedData?.some(
+                (applied: any) => applied?.courses?.data?.id === course?.id
+              );
 
             return (
               <div className="py-4" key={index}>
@@ -173,10 +199,10 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                         </span>
                       </div>
                       <div className="flex gap-2">
+                        <button disabled={isApplied}>
                         <Button
-                          // href={`/`}
-                          onClick={handleOpenModal}
-                          text="Apply Now"
+                          onClick={()=>handleOpenModal(course?.attributes?.id)}
+                          text={isApplied ? "Applied" : "Apply Now"}
                           filled
                           fontSize="text-sm"
                           width="w-40"
@@ -184,6 +210,7 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                           bgColor="bg-primary"
                           paddingY="py-3"
                         />
+                        </button>
                         <Button
                           href={`/`}
                           text="Download Brochure"
@@ -228,9 +255,9 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
 
       {isModalOpen && (
         <ApplyNowModal
-          id={11}
+          id={selectedId}
           FromStep={FromStep}
-          isSectionCheck={"College"}
+          isSectionCheck={"Course"}
           onClose={handleCloseModal}
         />
       )}

@@ -1,5 +1,5 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { Loginvector, Arrow, QuestionMark, Trash } from "@/Asset/index";
+import { useEffect, useState } from "react";
+import { Loginvector,  QuestionMark, Trash } from "@/Asset/index";
 import Image from "next/image";
 import OtpHeading from "@/components/consultingModule/heading/heading";
 import OtpImg from "@/components/consultingModule/img/img";
@@ -38,17 +38,20 @@ interface DesiredCollegesInformation {
 
 const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
   // ============
-  const { userID, authState, email, number } = useAppSelector(
+  const { userID, interestedCourse} = useAppSelector(
     (store: any) => store.auth
   );
+ 
+  const { UserCheck, CheckOTP, GetUserDataMetaId } = useSignup();
+
+  const userMetaId: ID = GetUserDataMetaId(userID);
+ 
 
   const [isOtp, setIsOtp] = useState(false);
-  const { UserCheck, CheckOTP } = useSignup();
   const { userMetaCreate } = useUserMetaData();
   const dispatch = useAppDispatch();
 
   const { userFromMetaUpdate } = userFrom();
-  const [otp, setOtp] = useState<string>("");
   const [userOtp, setUserOtp] = useState<any>("");
   const [userId, setUserId] = useState<ID>();
   const otpLength = 6;
@@ -235,86 +238,87 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
   // ===========
   const [selectedCourseId, selectedCourseName] = selectedCourseLevel.split("|");
 
-  const sendSignupOtp = async (e: any) => {
-    e.preventDefault();
+	async function sendSignupOtp() {
 
-    const currentDate = new Date();
-    const publishedAt = currentDate.toISOString();
+		const currentDate = new Date();
+		const publishedAt = currentDate.toISOString();
 
-    if (checkUser === false) {
-      try {
-        let data = JSON.stringify({
-          data: {
+		if (await checkUser === false) {
+			try {
+				let data = JSON.stringify({
+					data: {
+						name: name,
+						email: EmailValue,
+						number: phoneNumber,
+						stream: selectedStream,
+						courseLevel: selectedCourseId
+					},
+				});
+
+				let config = {
+					method: "post",
+					maxBodyLength: Infinity,
+					url: `${restUrl}/api/users-data`,
+					headers: {
+						"Content-Type": "application/json",
+					},
+					data: data,
+				};
+
+				axios
+					.request(config)
+					.then((response: any) => {
+						setUserId(response?.data?.data?.id);
+						setIsOtp(true);
+					})
+					.catch((error: any) => {
+						console.log(error);
+					});
+			} catch (error) {
+				console.error("Error adding user:", error);
+			}
+		} else {
+			console.log("User already exists")
+		}
+	};
+
+	async function handleSubmitSignup() {
+
+		const currentDate = new Date();
+		const publishedAt = currentDate.toISOString();
+
+		if (otpchecker != false) {
+			try {
+				dispatch(
+					setAuthState({
+						authState: true,
+						userID: otpchecker?.loggedInUser?.id,
+						userName: otpchecker?.loggedInUser?.attributes?.name,
+						email: otpchecker?.loggedInUser?.attributes?.email,
+						number: otpchecker?.loggedInUser?.attributes?.number,
+					})
+				);
+
+				await userMetaCreate({
+					variables: {
             name: name,
-            email: EmailValue,
-            number: phoneNumber,
-            stream: selectedStream,
-            courseLevel: selectedCourseLevel,
-            publishedAt: publishedAt,
-          },
-        });
+						email: EmailValue,
+						number: phoneNumber,
+						userDataId: userId,
+						publishedAt,
+					},
+				});
 
-        let config = {
-          method: "post",
-          maxBodyLength: Infinity,
-          url: `${restUrl}/api/users-data`,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: data,
-        };
+				console.log("user signed up");
 
-        axios
-          .request(config)
-          .then((response: any) => {
-            setUserId(response?.data?.data?.id);
-            setIsOtp(true);
-          })
-          .catch((error: any) => {
-            console.log(error);
-          });
-      } catch (error) {
-        console.error("Error adding user:", error);
-      }
-    } else {
-      console.log("user already exists");
-    }
-  };
+			} catch (error) {
+				console.error("Error publishing user:", error);
+			}
+		} else {
+			console.log("Wrong OTP")
+		}
+	};
 
-  const handleSubmitSignup = async (e: any) => {
-    e.preventDefault();
-    const currentDate = new Date();
-    const publishedAt = currentDate.toISOString();
-
-    if (otpchecker != false) {
-      try {
-        dispatch(
-          setAuthState({
-            authState: true,
-            userID: otpchecker?.loggedInUser?.id,
-            userName: otpchecker?.loggedInUser?.attributes?.name,
-            email: otpchecker?.loggedInUser?.attributes?.email,
-            number: otpchecker?.loggedInUser?.attributes?.number,
-          })
-        );
-
-        await userMetaCreate({
-          variables: {
-            name: name,
-            email: EmailValue,
-            number: phoneNumber,
-            userDataId: userId,
-            publishedAt,
-          },
-        });
-        console.log("user signed up");
-      } catch (error) {
-        console.error("Error publishing user:", error);
-      }
-    } else {
-      console.log("wrong otp");
-    }
-  };
 
   const [gradDetails, setGradDetails] = useState<any>({
     institutionName: "",
@@ -382,7 +386,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
       id: 1,
       attributes: {
         college: id,
-        current_step: "3",
+        current_step: "1",
       },
     },
   ];
@@ -391,54 +395,43 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
     {
       id: 1,
       attributes: {
-        exams: id,
-        current_step: "3",
+        exam: id,
+        current_step: "1",
       },
     },
   ];
 
-  const selectedAppliedScholarships = [
-    {
-      id: 1,
-      attributes: {
-        scholarships: id,
-        current_step: "3",
-      },
-    },
-  ];
-
-  const selectedAppliedCareers = [
-    {
-      id: 1,
-      attributes: {
-        careers: id,
-        current_step: "3",
-      },
-    },
-  ];
 
   const selectedAppliedCourse = [
     {
       id: 1,
       attributes: {
         courses: id,
-        current_step: "3",
+        current_step: "1",
       },
     },
   ];
 
-
-
+  if(isLogin){
+    if (currentStep === 0) {
+      setCurrentStep(2);
+      return;
+    } else if (currentStep === 1) {
+      setCurrentStep(2);
+      return;
+    }
+  }
+ 
   const handleSubmit = async () => {
-    // if (isLogin === false) {
-    //   if (currentStep === 0) {
-    //     sendSignupOtp();
-    //   } else if (currentStep === 1) {
-    //     handelSubmitSignup();
-    //   }
-    // }
+    if (isLogin === false) {
+      if (currentStep === 0) {
+        sendSignupOtp();
+      } else if (currentStep === 1) {
+        handleSubmitSignup();
+      }
+    }
 
-    if (currentStep < FromStep.length - 1) {
+    if (currentStep < FromStep?.length - 1) {
       if (selectedOption !== "no") {
         setCurrentStep(currentStep + 1);
       } else {
@@ -448,7 +441,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
       try {
         const response = await userFromMetaUpdate({
           variables: {
-            id: 2,
+            id: userMetaId,
             ...(isSectionCheck === "College" && {
               appliedColleges: selectedAppliedCollege?.map(
                 (item) => item.attributes
@@ -462,21 +455,12 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
             ...(isSectionCheck === "Exam" && {
               appliedExams: selectedAppliedExam?.map((item) => item.attributes),
             }),
-            ...(isSectionCheck === "Careear" && {
-              careersInterested: selectedAppliedCareers?.map(
-                (item) => item.attributes
-              ),
-            }),
-            ...(isSectionCheck === "Scholarships" && {
-              appliedScholarships: selectedAppliedScholarships?.map(
-                (item) => item.attributes
-              ),
-            }),
-            primaryDetails: primaryDetails,
-            secondaryDetails: secondaryDetails,
+            educationDetailsPrimary: primaryDetails,
+            educationDetailsSecondary: secondaryDetails,
             graduationDetails: gradDetails,
             doctorateDetails: doctorateDetails,
-            preferredInstitutions: appliedColleges?.data.map(
+            // courseInterested:selectedCourseId,
+            preferredInstitutions: appliedColleges?.data?.map(
               (item) => item.attributes
             ),
           },
@@ -515,8 +499,8 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
     return (
       <>
         {modalOpen === "basic" && (
-          <div className="fixed inset-0  overflow-x-auto flex items-center justify-center z-[999] bg-gray-500 bg-opacity-30">
-            <div className="flex justify-center w-full lg:w-[900px] mt-10">
+          <div className="fixed inset-0  overflow-x-auto flex items-center justify-center z-[999] bg-gray-500 bg-opacity-30 ">
+            <div className="flex justify-center w-full lg:w-[900px] mt-10 max-h-fit">
               {/* Left Panel */}
               <div className="relative w-2/5 bg-white hidden md:block border-r border-gray-300">
                 <div className="flex flex-col items-center">
@@ -562,7 +546,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                 </button>
 
                 {/* Right panel content */}
-                <div className="flex flex-col justify-center mx-4 md:mx-6 p-6 h-[60vh]">
+                <div className="flex flex-col justify-center mx-4 my-6 md:my-10 md:mx-6 p-6 h-[60vh] overflow-y-scroll hide-scrollbar">
                   {/* Right panel content */}
                   <div className="space-y-2">
                     <h1 className=" mb-8 font-semibold text-base text-left font-sans  md:text-xl">
@@ -814,7 +798,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                   <div className="mt-4">
                                     <select
                                       name="board"
-                                      value={primaryDetails.board}
+                                      value={primaryDetails?.board}
                                       onChange={handlePrimaryChange}
                                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     >
@@ -1496,8 +1480,8 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                           <>
                             {selectedOption === "yes" && (
                               <>
-                                {prefaredExamList.map(
-                                  (formData: ExamFormData, index: number) => (
+                                {prefaredExamList?.map(
+                                  (formData: any, index: number) => (
                                     <div
                                       key={index}
                                       className="grid py-6 px-2 relative md:grid-cols-1 grid-cols-1 gap-5 my-2"
@@ -1519,7 +1503,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                           </button>
                                         </div>
                                       )}
-                                      <label className="text-white font-semibold">
+                                      <label className=" font-semibold">
                                         Select Exam
                                       </label>
                                       <select
@@ -1535,14 +1519,16 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                       >
                                         <option value="">Select Exam</option>
                                         {ExamListData?.map(
-                                          (exam: any, optionIndex: any) => (
-                                            <option
+                                          (exam: any, optionIndex: any) => {
+                                            return(
+                                              <option
                                               key={optionIndex}
-                                              value={exam.attributes.exam_name}
+                                              value={exam.attributes.name}
                                             >
-                                              {exam.attributes.exam_name}
+                                              {exam.attributes.name}
                                             </option>
-                                          )
+                                            )
+                                          }
                                         )}
                                       </select>
                                       <input
@@ -1561,13 +1547,13 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                     </div>
                                   )
                                 )}
-                                {prefaredExamList.length < 5 && (
+                                {prefaredExamList?.length < 5 && (
                                   <div className="w-full flex items-center justify-center my-4">
                                     <div
                                       className="flex flex-row items-center border border-white rounded-full p-3 cursor-pointer"
                                       onClick={handlePrefaredExamAddForm}
                                     >
-                                      <PiPlus className="text-white text-sm" />
+                                      <PiPlus className="text-sm" />
                                     </div>
                                   </div>
                                 )}
@@ -1597,7 +1583,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                           </button>
                                         </div>
                                       )}
-                                      <label className="text-white font-semibold">
+                                      <label className=" font-semibold">
                                         Select Exam
                                       </label>
                                       <select
@@ -1616,9 +1602,9 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                           (exam: any, optionIndex: any) => (
                                             <option
                                               key={optionIndex}
-                                              value={exam.attributes.exam_name}
+                                              value={exam.attributes.name}
                                             >
-                                              {exam.attributes.exam_name}
+                                              {exam.attributes.name}
                                             </option>
                                           )
                                         )}
@@ -1632,7 +1618,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                       className="flex flex-row items-center border border-white rounded-full p-3 cursor-pointer"
                                       onClick={handleBookedExamAddForm}
                                     >
-                                      <PiPlus className="text-white text-sm" />
+                                      <PiPlus className=" text-sm" />
                                     </div>
                                   </div>
                                 )}

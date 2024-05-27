@@ -1,8 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { GET_USER_FORM, UPDATE_USER_FORM_METADATA } from "@/graphql/userSchema/userSchema";
+import {
+  GET_USER_FORM,
+  SaveCollege,
+  SaveCourse,
+  SaveExam,
+  UPDATE_USER_FORM,
+} from "@/graphql/userSchema/userSchema";
 import { useMutation, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
- 
+
 const userFrom = () => {
   const {
     loading: collegeApplicationLoading,
@@ -29,15 +35,47 @@ const userFrom = () => {
     if (CollegeApplication.length > 0) {
       setCollegeApplicatonListData(CollegeApplication[0]?.attributes || []);
     }
-  }, [CollegeApplication]); 
+  }, [CollegeApplication]);
 
-	const [userFromMetaUpdate, { loading: userFromMetaUpdateLoading, error: userFromMetaUpdateError, data: userFromMetaUpdateData }] = useMutation<any>(UPDATE_USER_FORM_METADATA)
+  const [
+    userFromMetaUpdate,
+    {
+      loading: userFromMetaUpdateLoading,
+      error: userFromMetaUpdateError,
+      data: userFromMetaUpdateData,
+    },
+  ] = useMutation<any>(UPDATE_USER_FORM);
+
+  // ==============
+
+  const [
+    saveCollege,
+    {
+      loading: saveCollegeLoading,
+      error: saveCollegeError,
+      data: saveCollegeData,
+    },
+  ] = useMutation<any>(SaveCollege);
+
+  const [
+    saveExam,
+    { loading: saveExamLoading, error: saveExamError, data: saveExamData },
+  ] = useMutation<any>(SaveExam);
+
+  const [
+    saveCourse,
+    { loading: saveCourseLoading, error: saveCourserror, data: saveCourseData },
+  ] = useMutation<any>(SaveCourse);
 
 
   return {
     CollegeApplicatonListData,
     CollegeApplicaton,
-    userFromMetaUpdate
+    userFromMetaUpdate,
+
+    saveCollege,
+    saveExam,
+    saveCourse,
   };
 };
 

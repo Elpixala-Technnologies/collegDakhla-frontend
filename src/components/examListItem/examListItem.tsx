@@ -13,14 +13,21 @@ import { RiFlagLine } from "react-icons/ri";
 import { useState } from "react";
 import userFrom from "@/hooks/userFrom";
 import ApplyNowModal from "../consultingModule/ApplyNowModal/ApplyNowModal";
+import useUserMetaData from "@/query/hooks/useUserMetaData";
+import { useAppSelector } from "@/store";
+import useSignup from "@/query/hooks/useSignup";
+import { ID } from "@/types/global";
 
 export default function ExamListItem({ exams }: any) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { CollegeApplicatonListData } = userFrom();
 
-  const handleOpenModal = () => {
+  const [selectedId , setSelectedId]= useState(null);
+
+  const handleOpenModal = (id:any) => {
     setIsModalOpen(true);
+    setSelectedId(id)
     document.body.classList.add("overflow-hidden");
   };
 
@@ -29,6 +36,20 @@ export default function ExamListItem({ exams }: any) {
     document.body.classList.remove("overflow-hidden");
   };
   const FromStep: any = CollegeApplicatonListData?.form_stape;
+
+  const { GetUserMetaData } = useUserMetaData();
+
+  const { userID } = useAppSelector((store: any) => store.auth);
+  let isLogin = useAppSelector((state) => state.auth.authState);
+
+  const { GetUserDataMetaId } = useSignup();
+
+  const userMetaId: ID = GetUserDataMetaId(userID);
+
+  const userData = GetUserMetaData(userMetaId);
+
+  const AppliedData: any = userData?.userAllMetaData?.appliedExams;
+
 
   const handleDownload = () => {
     const pdfPath = "@src/Assets/new_document.pdf";
@@ -47,6 +68,11 @@ export default function ExamListItem({ exams }: any) {
             const logoURL = exam?.attributes?.logo?.data?.attributes?.url
               ? getStrapiMedia(exam?.attributes?.logo?.data?.attributes?.url)
               : GetDefaultImage("logo");
+
+              const isApplied =  Array.isArray(AppliedData) && AppliedData?.some(
+                (applied: any) => applied?.exams?.data?.id === exam?.id
+              );
+
 
             return (
               <div className="py-4 " key={index}>
@@ -187,10 +213,11 @@ export default function ExamListItem({ exams }: any) {
                         </span>
                       </div>
                       <div className="flex gap-2">
+                        <button disabled={isApplied}>
                         <Button
                           // href={`/`}
-                          onClick={handleOpenModal}
-                          text="Apply Now"
+                          onClick={()=>handleOpenModal(exam?.attributes?.id)}
+                          text={isApplied ? "Applied" : "Apply Now"}
                           filled
                           fontSize="text-sm"
                           width="w-40"
@@ -198,6 +225,7 @@ export default function ExamListItem({ exams }: any) {
                           bgColor="bg-primary"
                           paddingY="py-3"
                         />
+                        </button>
                         <Button
                           href={`/`}
                           text="Download Brochure"
@@ -273,9 +301,9 @@ export default function ExamListItem({ exams }: any) {
       )}
       {isModalOpen && (
         <ApplyNowModal
-          id={11}
+          id={selectedId}
           FromStep={FromStep}
-          isSectionCheck={"College"}
+          isSectionCheck={"Exam"}
           onClose={handleCloseModal}
         />
       )}

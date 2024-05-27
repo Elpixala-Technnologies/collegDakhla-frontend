@@ -33,55 +33,158 @@ export const GET_USER_FORM = gql`
   }
 `;
 
-export const UPDATE_USER_FORM_METADATA = gql`
+export const UPDATE_USER_FORM = gql`
   mutation UpdateUsersMetaData(
     $id: ID!
     $name: String
-    $gender: String
     $email: String
-    $appliedColleges: [ComponentUsermetaAppliedCollegesComponentInput]
-    $appliedCourses: [ComponentUsermetaAppliedCoursesComponentInput]
-    $appliedExams : [ComponentUsermetaAppliedExamsComponentInput]
-    $appliedScholarships: [ComponentUsermetaAppliedScholarshipsInput]
-    $careersInterested: [ComponentUsermetaCareersInterestedInput]
-    $countriesInterested: ComponentUsermetaCountriesInterestedInput
-    $otherServiceInterest: [ComponentUsermetaOtherServiceInterestInput]
-    $preferredInstitutions: [ComponentUsermetaPreferredInstitutionsInput]
+    $number: String
+    $gender: String
     $courseInterested: ID
-    $entranceExam: [ComponentUsermetaEntranceExamInput]
-    $primaryDetails: ComponentCommon10thClassInfoComponentInput
-    $educationDetailsSecondary: ComponentCommon12ThClassInfoComponentInput
-    $doctorateDetails: ComponentCommonGraduationInfoComponentInput
-    $graduationDetails: ComponentCommonGraduationInfoComponentInput
-    $professionalExperience:[ComponentUsermetaProfessionalExperienceComponentInput]
+    $publishedAt: DateTime
+    $appliedColleges: [ComponentCommonAppliedCollegesInput]
+    $appliedCourses: [ComponentCommonAppliedCoursesInput]
+    $appliedExams: [ComponentCommonAppliedExamsInput]
+    $educationDetailsPrimary: ComponentCommonEducationDetails10Input
+    $educationDetailsSecondary: ComponentCommonEducationDetails12Input
+    $graduationDetails: ComponentCommonGraduationDetailsInput
+    $doctorateDetails: ComponentCommonDoctorateDetailsInput
+    $professionalExperience: [ComponentCommonProfessionalExperienceInput]
+    $preferredInstitutions: [ComponentCommonPreferredInstitutionsInput]
+    $entranceExam: [ComponentCommonEntranceExamInput]
   ) {
-    updateUsersMetaData(
+    updateUserMetaData(
       id: $id
       data: {
         name: $name
-        gender:$gender
         email: $email
-        applied_colleges: $appliedColleges
-        applied_courses: $appliedCourses
-        applied_exams: $appliedExams
-        applied_scholarships: $appliedScholarships
-        careers_interested:$careersInterested
-        countries_interested: $countriesInterested
-        other_service_interest: $otherServiceInterest
-        preferred_institutions:$preferredInstitutions
+        number: $number
+        gender: $gender
         courseInterested: $courseInterested
-        entrance_exam: $entranceExam
-        educationDetailsPrimary: $primaryDetails
+        appliedColleges: $appliedColleges
+        appliedCourses: $appliedCourses
+        appliedExams: $appliedExams
+        educationDetailsPrimary: $educationDetailsPrimary
         educationDetailsSecondary: $educationDetailsSecondary
-        doctorateDetails: $doctorateDetails
         graduationDetails: $graduationDetails
-        professionalExperience: $professionalExperience 
+        doctorateDetails: $doctorateDetails
+        professionalExperience: $professionalExperience
+        preferredInstitutions: $preferredInstitutions
+        entranceExam: $entranceExam
+        publishedAt: $publishedAt
       }
     ) {
       data {
         attributes {
           name
           email
+        }
+      }
+    }
+  }
+`;
+
+// Define your queries and mutations =====
+
+export const SaveCollege = gql`
+  mutation UpdateUserMetaData(
+    $id: ID!
+    $saveColleges: [ComponentCommonSaveCollegesInput]
+  ) {
+    updateUserMetaData(id: $id, data: { saveColleges: $saveColleges }) {
+      data {
+        attributes {
+          name
+          email
+        }
+      }
+    }
+  }
+`;
+
+export const SaveExam = gql`
+  mutation UpdateUserMetaData(
+    $id: ID!
+    $saveExams: [ComponentCommonSaveExamsInput]
+  ) {
+    updateUserMetaData(id: $id, data: { saveExams: $saveExams }) {
+      data {
+        attributes {
+          name
+          email
+        }
+      }
+    }
+  }
+`;
+
+export const SaveCourse = gql`
+  mutation UpdateUserMetaData(
+    $id: ID!
+    $saveCourses: [ComponentCommonSaveCoursesInput]
+  ) {
+    updateUserMetaData(id: $id, data: { saveCourses: $saveCourses }) {
+      data {
+        attributes {
+          name
+          email
+        }
+      }
+    }
+  }
+`;
+
+export const GET_USER_METADATA_COLLEGE = gql`
+  query GetUserMetadata($id: ID!) {
+    usersMetaData(filters: { id: { eq: $id } }) {
+      data {
+        id
+        attributes {
+          saveColleges {
+            college {
+              data {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_USER_METADATA_EXAM = gql`
+  query GetUserMetadata($id: ID!) {
+    usersMetaData(filters: { id: { eq: $id } }) {
+      data {
+        id
+        attributes {
+          saveExams {
+            exam {
+              data {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_USER_METADATA_COURSE = gql`
+  query GetUserMetadata($id: ID!) {
+    usersMetaData(filters: { id: { eq: $id } }) {
+      data {
+        id
+        attributes {
+          saveCourses {
+            course {
+              data {
+                id
+              }
+            }
+          }
         }
       }
     }

@@ -24,6 +24,12 @@ import {
 import Link from "next/link";
 import SortButton from "@/components/sortButton/SortButton";
 import Spinner from "@/components/Loader/loader";
+import { ID } from "@/types/global";
+import { useAppSelector } from "@/store";
+import useSignup from "@/query/hooks/useSignup";
+import useUserMetaData from "@/query/hooks/useUserMetaData";
+import ApplyNowModal from "@/components/consultingModule/ApplyNowModal/ApplyNowModal";
+import userFrom from "@/hooks/userFrom";
 // import { FaCircleChevronRight } from "react-icons/fa6";
 // import Loading from "react-loading-components";
 
@@ -40,7 +46,7 @@ export default function CollegeList() {
 
   const [showFullContent, setShowFullContent] = useState(false);
   const [showReadMore, setShowReadMore] = useState(true);
-
+  const { CollegeApplicatonListData } = userFrom();
   const handleReadMoreClick = () => {
     setShowFullContent(true);
     setShowReadMore(false);
@@ -85,15 +91,30 @@ export default function CollegeList() {
     setIsOpen(false);
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOpenModal = () => {
+  const FromStep: any = CollegeApplicatonListData?.form_stape;
+
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // const handleOpenModal = () => {
+  //   setIsModalOpen(true);
+  // };
+
+  // const handleCloseModal = () => {
+  //   setIsModalOpen(false);
+  // };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedId,setSelectedId]= useState(null);
+
+  const handleOpenModal = (collegeId: any) => {
+    setSelectedId(collegeId);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
   // End
 
   const {
@@ -155,6 +176,19 @@ export default function CollegeList() {
       }
     }
   }, [searchValue, initialData, displayCount]);
+
+  const { GetUserMetaData } = useUserMetaData();
+  const { userID } = useAppSelector((store: any) => store.auth);
+
+  const { GetUserDataMetaId } = useSignup();
+
+  const userMetaId: ID = GetUserDataMetaId(userID);
+
+  const userData = GetUserMetaData(userMetaId);
+
+  const AppliedCollege = userData?.userAllMetaData?.appliedColleges;
+
+ 
 
   return (
     <>
@@ -283,7 +317,7 @@ export default function CollegeList() {
               showPagination={false}
               slides={topCollegesData?.colleges?.data?.map(
                 (college: any, index: number) => {
-                  return <CollegeCard key={index} featuredCollege={college} />;
+                  return <CollegeCard key={index} AppliedCollege={AppliedCollege} featuredCollege={college}  onApplyNow={() => handleOpenModal(college?.id)} />;
                 }
               )}
             />
@@ -331,7 +365,10 @@ export default function CollegeList() {
               {/* CollegeListItem */}
               <div className="flex flex-col p-2">
                 {initialData?.colleges?.data ? (
-                  <CollegeListItem colleges={filteredData} />
+                  <CollegeListItem
+                    collegeData={filteredData}
+                    AppliedCollege={AppliedCollege}
+                  />
                 ) : (
                   <div className="w-full h-full p-20 item-center flex justify-center">
                     {/* <Loading
@@ -361,6 +398,15 @@ export default function CollegeList() {
           </div>
         </section>
       </div>
+
+      {isModalOpen && (
+        <ApplyNowModal
+          id={selectedId}
+          FromStep={FromStep}
+          isSectionCheck={"College"}
+          onClose={handleCloseModal}
+        />
+      )}
     </>
   );
 }
