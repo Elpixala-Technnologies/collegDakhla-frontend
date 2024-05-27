@@ -23,7 +23,7 @@ import ApplyNowModal from "../consultingModule/ApplyNowModal/ApplyNowModal";
 import { useState } from "react";
 import userFrom from "@/hooks/userFrom";
 
-export default function CollegeListItem(allColleges: any) {
+export default function CollegeListItem({collegeData, AppliedCollege}:any) {
   const { CollegeApplicatonListData } = userFrom();
 
   // query to get all states
@@ -34,8 +34,8 @@ export default function CollegeListItem(allColleges: any) {
   } = useQuery(getStates);
 
   const collegeFee = parseInt(
-    allColleges?.colleges?.attributes?.fees
-      ? allColleges?.colleges?.attributes?.fees
+    collegeData?.attributes?.fees
+      ? collegeData?.attributes?.fees
       : 200000
   ).toLocaleString("en-IN", {
     style: "currency",
@@ -44,16 +44,18 @@ export default function CollegeListItem(allColleges: any) {
     maximumFractionDigits: 0,
   });
 
+  console.log(collegeData , "allColleges")
+
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedId , setSelectedId] =useState<any>('');
+  const [selectedId, setSelectedId] = useState<any>("");
 
-  const handleOpenModal = (id:any) => {
+  const handleOpenModal = (id: any) => {
     setIsModalOpen(true);
-    setSelectedId(id)
+    setSelectedId(id);
     document.body.classList.add("overflow-hidden");
   };
 
@@ -76,9 +78,9 @@ export default function CollegeListItem(allColleges: any) {
 
   return (
     <>
-      {allColleges?.colleges?.length > 0 ? (
+      {collegeData?.length > 0 ? (
         <>
-          {allColleges?.colleges.map((college: any, index: any) => {
+          {collegeData?.map((college: any, index: any) => {
             const logoURL = college?.attributes?.collegeLogo?.data?.attributes
               ?.url
               ? getStrapiMedia(
@@ -92,11 +94,12 @@ export default function CollegeListItem(allColleges: any) {
                 )
               : GetDefaultImage("banner");
 
-            return (
+              const isCollegeApplied  = Array.isArray(AppliedCollege) && AppliedCollege.some(
+                (applied) => applied?.college?.data?.id === college?.id
+              );
 
-              
+            return (
               <div key={index}>
-                
                 <div className="mb-4 pt-4 flex flex-wrap md:flex-row gap-4 shadow-lg bg-white rounded-lg drop-shadow hover:drop-shadow-xl">
                   <div className="flex flex-row">
                     <div className="relative rounded-lg">
@@ -109,12 +112,10 @@ export default function CollegeListItem(allColleges: any) {
                           className="w-full sm:w-36 object-fill rounded-lg max-w-44"
                         />
                       </div>
- 
                     </div>
                     <div className="flex flex-col gap-1">
                       {/* line 1  */}
                       <div className="flex flex-row gap-8 p-1">
-                        
                         <div className="  border-extra-light-text">
                           <p className="text-[#0F4988] flex gap-1 items-center text-sm">
                             <Image
@@ -123,7 +124,9 @@ export default function CollegeListItem(allColleges: any) {
                               height={20}
                               alt={"approvedBy"}
                             />
-                            {college?.attributes?.city?.data?.attributes?.name}{college?.attributes?.city?.data?.attributes?.name &&", "}
+                            {college?.attributes?.city?.data?.attributes?.name}
+                            {college?.attributes?.city?.data?.attributes
+                              ?.name && ", "}
                             {college?.attributes?.state?.data?.attributes?.name}{" "}
                           </p>
                         </div>
@@ -248,7 +251,6 @@ export default function CollegeListItem(allColleges: any) {
                           fontColor="text-primary-text"
                         />
                       </div>
-                      
                     </div>
                   </div>
                   {/* <Separator /> */}
@@ -274,18 +276,20 @@ export default function CollegeListItem(allColleges: any) {
 
                     <div className="">
                       <div className="flex flex-row gap-4 text-primary college-btn">
+                        <button disabled={isCollegeApplied}>
+                          <Button
+                            // href={`/college/${college.id}`}
+                            onClick={() => handleOpenModal(college?.id)}
+                            text={isCollegeApplied ? "Applied" : "Apply Now"}
+                            filled
+                            fontSize="text-sm"
+                            width="w-40"
+                            align="text-center"
+                            bgColor="bg-primary"
+                          />
+                        </button>
                         <Button
-                          // href={`/college/${college.id}`}
-                          onClick={()=>handleOpenModal(college?.id)}
-                          text="Apply Now"
-                          filled
-                          fontSize="text-sm"
-                          width="w-40"
-                          align="text-center"
-                          bgColor="bg-primary"
-                        />
-                        <Button
-                        onClick={handleDownload}
+                          onClick={handleDownload}
                           text="Download Brochure"
                           fontSize="text-sm"
                           outline

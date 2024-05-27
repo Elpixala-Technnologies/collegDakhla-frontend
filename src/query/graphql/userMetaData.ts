@@ -86,6 +86,26 @@ export const getAllUserMetaDataByID = gql`
               }
             }
           }
+          appliedExams{
+            exams{
+              data{
+                id
+                attributes{
+                  name
+                }
+              }
+            }
+          }
+          appliedCourses{
+            courses{
+              data{
+                id
+                attributes{
+                  name
+                }
+              }
+            }
+          }
           appliedColleges {
             id
             college {

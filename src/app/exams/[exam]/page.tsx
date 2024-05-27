@@ -58,6 +58,8 @@ export default function ExamDetail({ params }: Props) {
     }
   }, [loading]);
 
+  // ======
+
   return (
     <>
       {/* section for banner of the individual exam page */}

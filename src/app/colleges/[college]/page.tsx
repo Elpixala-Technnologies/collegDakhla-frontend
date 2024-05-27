@@ -142,23 +142,29 @@ export default function CollegeDetail({ params }: Props) {
     return `${formattedDate} at ${formattedTime}`;
   };
 
-
   // ================= save college ===============
-
+  const { GetUserMetaData } = useUserMetaData();
   const [showLoginPopup, setShowLoginPopup] = useState(false);
 
-
-	const closeLoginPopup = () => {
-		setShowLoginPopup(false);
-	};
+  const closeLoginPopup = () => {
+    setShowLoginPopup(false);
+  };
 
   const { userID } = useAppSelector((store: any) => store.auth);
   let isLogin = useAppSelector((state) => state.auth.authState);
 
-
   const { GetUserDataMetaId } = useSignup();
 
   const userMetaId: ID = GetUserDataMetaId(userID);
+
+  const userData = GetUserMetaData(userMetaId);
+
+  const AppliedCollege: any = userData?.userAllMetaData?.appliedColleges;
+
+  const isCollegeApplied =Array.isArray(AppliedCollege) &&  AppliedCollege?.some(
+    (applied: { college: { data: { id: any } } }) =>
+      applied?.college?.data?.id === collegeId
+  );
 
   const {
     data: CollgeMetaUser,
@@ -232,11 +238,10 @@ export default function CollegeDetail({ params }: Props) {
     }
   };
 
-  const AlreadyApplyedCollegeFilter = saveCollegeData?.filter(item => {
+  const AlreadyApplyedCollegeFilter = saveCollegeData?.filter((item) => {
     return item.college.data.id === collegeId;
   });
- 
- 
+
   return (
     <>
       <section className="heroSection">
@@ -316,16 +321,20 @@ export default function CollegeDetail({ params }: Props) {
                       <button
                         className="flex gap-2 items-center text-[15px]"
                         onClick={() => handleSaveCollege()}
-                        disabled={isSave || AlreadyApplyedCollegeFilter?.length > 0 }
+                        disabled={
+                          isSave || AlreadyApplyedCollegeFilter?.length > 0
+                        }
                       >
                         <div className="bg-white p-[6px] rounded-full cursor-pointer">
-                          {isSave || AlreadyApplyedCollegeFilter?.length > 0  ? (
+                          {isSave || AlreadyApplyedCollegeFilter?.length > 0 ? (
                             <FaHeart size={10} color="red" />
                           ) : (
                             <FaRegHeart color="black" size={10} />
                           )}
                         </div>
-                        {isSave || AlreadyApplyedCollegeFilter?.length > 0  ? "Saved" : "Save"}
+                        {isSave || AlreadyApplyedCollegeFilter?.length > 0
+                          ? "Saved"
+                          : "Save"}
                       </button>
                       <div className="flex flex-row items-center gap-1 cursor-pointer">
                         <span className="text-xl">
@@ -333,15 +342,17 @@ export default function CollegeDetail({ params }: Props) {
                         </span>
                         <span>Ask</span>
                       </div>
-                      <Button
-                        onClick={handleOpenModal}
-                        text="Apply Now"
-                        filled
-                        fontSize="text-sm"
-                        fontWeight="font-bold"
-                        width="w-36"
-                        align="text-center"
-                      />
+                      <button disabled={isCollegeApplied}>
+                        <Button
+                          onClick={handleOpenModal}
+                          text={isCollegeApplied ? "Applied" : "Apply Now"}
+                          filled
+                          fontSize="text-sm"
+                          fontWeight="font-bold"
+                          width="w-36"
+                          align="text-center"
+                        />
+                      </button>
                       <Button
                         href={""}
                         onClick={handleDownload}
@@ -416,7 +427,9 @@ export default function CollegeDetail({ params }: Props) {
         )}
       </section>
 
-      {showLoginPopup && <SignUpSignInModule closeLoginPopup={closeLoginPopup} />}
+      {showLoginPopup && (
+        <SignUpSignInModule closeLoginPopup={closeLoginPopup} />
+      )}
     </>
   );
 }
