@@ -395,7 +395,7 @@ export default function CollegeDetail({ params }: Props) {
                             tab?.attributes?.name
                           )
                         }
-                        className={`text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm flex justify-center items-center w-max h-full text-center cursor-pointer font-semibold text-lg ${
+                        className={`text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm flex justify-center items-center w-max h-full text-center cursor-pointer font-semibold lg:text-lg ${
                           selectedTab === tab?.attributes?.name
                             ? "text-primary"
                             : ""

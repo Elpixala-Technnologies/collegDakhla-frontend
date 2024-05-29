@@ -166,7 +166,7 @@ export default function CourseDetail({ params }: Props) {
                   />
                   <Button
                     href={""}
-                    onClick={handleDownload}
+                    // onClick={handleDownload}
                     text="Brochure"
                     outline
                     fontSize="text-sm"
@@ -200,7 +200,7 @@ export default function CourseDetail({ params }: Props) {
                       <div
                         key={tab?.attributes?.name}
                         onClick={() => handleTab(tab?.attributes?.name, tab?.attributes?.name)}
-                        className={`text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm flex justify-center items-center w-max h-full text-center cursor-pointer font-semibold text-lg ${selectedTab === tab?.attributes?.name ? 'text-primary' : ''}`}
+                        className={`text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm flex justify-center items-center w-max h-full text-center cursor-pointer font-semibold lg:text-lg ${selectedTab === tab?.attributes?.name ? 'text-primary' : ''}`}
                       >
                         {tab?.attributes?.name}
                       </div>
@@ -218,12 +218,6 @@ export default function CourseDetail({ params }: Props) {
           <CourseTab data={TabData} />
         </div>
       </section>
-      {/* <section className="mainSection">
-        <div className="flex justify-center max-w-screen-xl mx-auto">
-          <CourseTab tabData={TabData} />
-        </div>
-      </section>
- 
     </>
   );
 }
