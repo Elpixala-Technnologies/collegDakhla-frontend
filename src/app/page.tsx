@@ -199,7 +199,6 @@ export default function Home() {
           timer: 1500,
         });
         setIsGetTuch(true);
-        console.log(response, "response");
       }
     } catch (error) {
       console.log(error);
@@ -811,7 +810,7 @@ export default function Home() {
               Get in Touch with our Expert Counsellors
             </div>
 
-            <div className="grid md:grid-cols-2 grid-cols-1 gap-4 w-full justify-center items-center">
+            <div className="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 w-full justify-center items-center">
               <FormControl className="w-full" sx={{ mb: 2 }}>
                 <FormLabel>Name</FormLabel>
                 <Input value={name} onChange={(e) => setName(e.target.value)} />

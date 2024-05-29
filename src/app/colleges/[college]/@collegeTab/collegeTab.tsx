@@ -1,14 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { Key, useEffect, useRef, useState } from "react";
-import Button from "@/components/button/button";
-import Image from "next/image";
-import YoutubeVideo from "@/components/youtubeVideo/youtubeVideo";
 import PageData from "@/components/pageData/pageData";
 import Accordion from "@/components/accordian/accordian";
-import Accordion from "@/components/accordian/accordian";
-import NavbarSlider from "@/components/carousel/navbar-carousal";
-import Carousel from "@/components/header/Carousel";
 import { useQuery } from "@apollo/client";
 import { getFeaturedCourses } from "@/query/schema";
 import CourseCard from "@/components/card/courseCard";
