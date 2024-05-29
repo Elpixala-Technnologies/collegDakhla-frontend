@@ -81,15 +81,7 @@ export default function ExamDetail({ params }: Props) {
     }
   }, [loading]);
 
-  const handleDownload = () => {
-    const pdfPath = "@src/Assets/new_document.pdf";
-    const link = document.createElement("a");
-    link.href = pdfPath;
-    link.download = "brochure.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  // ======
 
   return (
     <>

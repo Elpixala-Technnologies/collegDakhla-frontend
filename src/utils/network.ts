@@ -1,5 +1,4 @@
-export const STRAPI_URL = "https://collegedakhla-backend.onrender.com/graphql";
-export const restUrl = 'https://collegedakhla-backend.onrender.com';
-
-
+export const STRAPI_URL = process.env.NEXT_PUBLIC_BASE_GQL_URL ||  "http://localhost:1337/graphql";
+export const restUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:1337";
+ 
 

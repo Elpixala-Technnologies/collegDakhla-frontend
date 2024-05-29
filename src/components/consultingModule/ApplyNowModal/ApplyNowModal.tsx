@@ -1,5 +1,5 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { Loginvector, Arrow, QuestionMark, Trash } from "@/Asset/index";
+import { useEffect, useState } from "react";
+import { Loginvector, QuestionMark, Trash } from "@/Asset/index";
 import Image from "next/image";
 import OtpHeading from "@/components/consultingModule/heading/heading";
 import OtpImg from "@/components/consultingModule/img/img";
@@ -38,17 +38,19 @@ interface DesiredCollegesInformation {
 
 const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
   // ============
-  const { userID, authState, email, number } = useAppSelector(
+  const { userID, interestedCourse } = useAppSelector(
     (store: any) => store.auth
   );
 
+  const { UserCheck, CheckOTP, GetUserDataMetaId } = useSignup();
+
+  const userMetaId: ID = GetUserDataMetaId(userID);
+
   const [isOtp, setIsOtp] = useState(false);
-  const { UserCheck, CheckOTP } = useSignup();
   const { userMetaCreate } = useUserMetaData();
   const dispatch = useAppDispatch();
 
   const { userFromMetaUpdate } = userFrom();
-  const [otp, setOtp] = useState<string>("");
   const [userOtp, setUserOtp] = useState<any>("");
   const [userId, setUserId] = useState<ID>();
   const otpLength = 6;
@@ -235,13 +237,11 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
   // ===========
   const [selectedCourseId, selectedCourseName] = selectedCourseLevel.split("|");
 
-  const sendSignupOtp = async (e: any) => {
-    e.preventDefault();
-
+  async function sendSignupOtp() {
     const currentDate = new Date();
     const publishedAt = currentDate.toISOString();
 
-    if (checkUser === false) {
+    if ((await checkUser) === false) {
       try {
         let data = JSON.stringify({
           data: {
@@ -249,8 +249,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
             email: EmailValue,
             number: phoneNumber,
             stream: selectedStream,
-            courseLevel: selectedCourseLevel,
-            publishedAt: publishedAt,
+            courseLevel: selectedCourseId,
           },
         });
 
@@ -277,12 +276,11 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
         console.error("Error adding user:", error);
       }
     } else {
-      console.log("user already exists");
+      console.log("User already exists");
     }
-  };
+  }
 
-  const handleSubmitSignup = async (e: any) => {
-    e.preventDefault();
+  async function handleSubmitSignup() {
     const currentDate = new Date();
     const publishedAt = currentDate.toISOString();
 
@@ -307,14 +305,15 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
             publishedAt,
           },
         });
+
         console.log("user signed up");
       } catch (error) {
         console.error("Error publishing user:", error);
       }
     } else {
-      console.log("wrong otp");
+      console.log("Wrong OTP");
     }
-  };
+  }
 
   const [gradDetails, setGradDetails] = useState<any>({
     institutionName: "",
@@ -382,7 +381,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
       id: 1,
       attributes: {
         college: id,
-        current_step: "3",
+        current_step: "1",
       },
     },
   ];
@@ -391,28 +390,8 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
     {
       id: 1,
       attributes: {
-        exams: id,
-        current_step: "3",
-      },
-    },
-  ];
-
-  const selectedAppliedScholarships = [
-    {
-      id: 1,
-      attributes: {
-        scholarships: id,
-        current_step: "3",
-      },
-    },
-  ];
-
-  const selectedAppliedCareers = [
-    {
-      id: 1,
-      attributes: {
-        careers: id,
-        current_step: "3",
+        exam: id,
+        current_step: "1",
       },
     },
   ];
@@ -422,23 +401,31 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
       id: 1,
       attributes: {
         courses: id,
-        current_step: "3",
+        current_step: "1",
       },
     },
   ];
 
-
+  if (isLogin) {
+    if (currentStep === 0) {
+      setCurrentStep(2);
+      return;
+    } else if (currentStep === 1) {
+      setCurrentStep(2);
+      return;
+    }
+  }
 
   const handleSubmit = async () => {
-    // if (isLogin === false) {
-    //   if (currentStep === 0) {
-    //     sendSignupOtp();
-    //   } else if (currentStep === 1) {
-    //     handelSubmitSignup();
-    //   }
-    // }
+    if (isLogin === false) {
+      if (currentStep === 0) {
+        sendSignupOtp();
+      } else if (currentStep === 1) {
+        handleSubmitSignup();
+      }
+    }
 
-    if (currentStep < FromStep.length - 1) {
+    if (currentStep < FromStep?.length - 1) {
       if (selectedOption !== "no") {
         setCurrentStep(currentStep + 1);
       } else {
@@ -448,7 +435,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
       try {
         const response = await userFromMetaUpdate({
           variables: {
-            id: 2,
+            id: userMetaId,
             ...(isSectionCheck === "College" && {
               appliedColleges: selectedAppliedCollege?.map(
                 (item) => item.attributes
@@ -462,21 +449,12 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
             ...(isSectionCheck === "Exam" && {
               appliedExams: selectedAppliedExam?.map((item) => item.attributes),
             }),
-            ...(isSectionCheck === "Careear" && {
-              careersInterested: selectedAppliedCareers?.map(
-                (item) => item.attributes
-              ),
-            }),
-            ...(isSectionCheck === "Scholarships" && {
-              appliedScholarships: selectedAppliedScholarships?.map(
-                (item) => item.attributes
-              ),
-            }),
-            primaryDetails: primaryDetails,
-            secondaryDetails: secondaryDetails,
+            educationDetailsPrimary: primaryDetails,
+            educationDetailsSecondary: secondaryDetails,
             graduationDetails: gradDetails,
             doctorateDetails: doctorateDetails,
-            preferredInstitutions: appliedColleges?.data.map(
+            // courseInterested:selectedCourseId,
+            preferredInstitutions: appliedColleges?.data?.map(
               (item) => item.attributes
             ),
           },
@@ -507,7 +485,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
 
   const renderStep = () => {
     const step = FromStep && FromStep[currentStep];
- 
+
     if (!step) {
       return null;
     }
@@ -515,8 +493,8 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
     return (
       <>
         {modalOpen === "basic" && (
-          <div className="fixed inset-0  overflow-x-auto flex items-center justify-center z-[999] bg-gray-500 bg-opacity-30">
-            <div className="flex justify-center w-full lg:w-[900px] mt-10">
+          <div className="fixed inset-0  overflow-x-auto flex items-center justify-center z-[999] bg-gray-500 bg-opacity-30 ">
+            <div className="flex justify-center w-full lg:w-[900px] mt-10 max-h-fit">
               {/* Left Panel */}
               <div className="relative w-2/5 bg-white hidden md:block border-r border-gray-300">
                 <div className="flex flex-col items-center">
@@ -557,12 +535,15 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                 {/* Back Button */}
                 <button className="p-4">
                   {currentStep >= 1 && (
-                    <IoMdArrowRoundBack className="text-2xl" onClick={handleBack} />
+                    <IoMdArrowRoundBack
+                      className="text-2xl"
+                      onClick={handleBack}
+                    />
                   )}
                 </button>
 
                 {/* Right panel content */}
-                <div className="flex flex-col justify-center mx-4 md:mx-6 p-6 h-[60vh]">
+                <div className="flex flex-col justify-center mx-4 my-6 md:my-10 md:mx-6 p-6 h-[60vh] overflow-y-scroll hide-scrollbar">
                   {/* Right panel content */}
                   <div className="space-y-2">
                     <h1 className=" mb-8 font-semibold text-base text-left font-sans  md:text-xl">
@@ -596,7 +577,6 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                   type="number"
                                   id="numbe"
                                   name="number"
-                                  
                                   className="w-full p-2.5 mb-5 rounded-lg border border-gray-300"
                                   placeholder="Enter 10 digit mobile number"
                                   value={phoneNumber}
@@ -635,8 +615,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                 {AllCourseLevelData?.map(
                                   (courseLevel: any, index: any) => {
                                     const courseLevelName =
-                                      courseLevel?.attributes
-                                        ?.levelName ?? "";
+                                      courseLevel?.attributes?.levelName ?? "";
                                     const value = `${courseLevel?.id}|${courseLevelName}`;
                                     return (
                                       <option
@@ -814,7 +793,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                   <div className="mt-4">
                                     <select
                                       name="board"
-                                      value={primaryDetails.board}
+                                      value={primaryDetails?.board}
                                       onChange={handlePrimaryChange}
                                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     >
@@ -1176,10 +1155,10 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                             Select Year
                                           </option>
                                           {Array.from(
-                                            { length: 10 },
+                                            { length: 30 },
                                             (_, i) => {
                                               const year =
-                                                new Date().getFullYear() + i;
+                                                new Date().getFullYear() - i;
                                               return (
                                                 <option key={i} value={year}>
                                                   {year}
@@ -1496,8 +1475,8 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                           <>
                             {selectedOption === "yes" && (
                               <>
-                                {prefaredExamList.map(
-                                  (formData: ExamFormData, index: number) => (
+                                {prefaredExamList?.map(
+                                  (formData: any, index: number) => (
                                     <div
                                       key={index}
                                       className="grid py-6 px-2 relative md:grid-cols-1 grid-cols-1 gap-5 my-2"
@@ -1519,7 +1498,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                           </button>
                                         </div>
                                       )}
-                                      <label className="text-white font-semibold">
+                                      <label className=" font-semibold">
                                         Select Exam
                                       </label>
                                       <select
@@ -1535,14 +1514,16 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                       >
                                         <option value="">Select Exam</option>
                                         {ExamListData?.map(
-                                          (exam: any, optionIndex: any) => (
-                                            <option
-                                              key={optionIndex}
-                                              value={exam.attributes.exam_name}
-                                            >
-                                              {exam.attributes.exam_name}
-                                            </option>
-                                          )
+                                          (exam: any, optionIndex: any) => {
+                                            return (
+                                              <option
+                                                key={optionIndex}
+                                                value={exam.attributes.name}
+                                              >
+                                                {exam.attributes.name}
+                                              </option>
+                                            );
+                                          }
                                         )}
                                       </select>
                                       <input
@@ -1561,13 +1542,13 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                     </div>
                                   )
                                 )}
-                                {prefaredExamList.length < 5 && (
+                                {prefaredExamList?.length < 5 && (
                                   <div className="w-full flex items-center justify-center my-4">
                                     <div
                                       className="flex flex-row items-center border border-white rounded-full p-3 cursor-pointer"
                                       onClick={handlePrefaredExamAddForm}
                                     >
-                                      <PiPlus className="text-white text-sm" />
+                                      <PiPlus className="text-sm" />
                                     </div>
                                   </div>
                                 )}
@@ -1597,7 +1578,7 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                           </button>
                                         </div>
                                       )}
-                                      <label className="text-white font-semibold">
+                                      <label className=" font-semibold">
                                         Select Exam
                                       </label>
                                       <select
@@ -1613,14 +1594,16 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                       >
                                         <option value="">Select Exam</option>
                                         {ExamListData?.map(
-                                          (exam: any, optionIndex: any) => (
-                                            <option
-                                              key={optionIndex}
-                                              value={exam.attributes.exam_name}
-                                            >
-                                              {exam.attributes.exam_name}
-                                            </option>
-                                          )
+                                          (exam: any, optionIndex: any) => {
+                                            return (
+                                              <option
+                                                key={optionIndex}
+                                                value={exam.attributes.name}
+                                              >
+                                                {exam.attributes.name}
+                                              </option>
+                                            );
+                                          }
                                         )}
                                       </select>
                                     </div>
@@ -1629,10 +1612,10 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                 {bookedExamData?.length < 5 && (
                                   <div className="w-full flex items-center justify-center my-2">
                                     <div
-                                      className="flex flex-row items-center border border-white rounded-full p-3 cursor-pointer"
+                                      className="flex flex-row items-center border  rounded-full p-3 cursor-pointer"
                                       onClick={handleBookedExamAddForm}
                                     >
-                                      <PiPlus className="text-white text-sm" />
+                                      <PiPlus className=" text-sm" />
                                     </div>
                                   </div>
                                 )}
@@ -1701,19 +1684,19 @@ const ApplyNowModal = ({ onClose, FromStep, id, isSectionCheck }: any) => {
                                           </option>
                                           {AllCollegesData &&
                                             AllCollegesData.map(
-                                              (college: any) =>{
+                                              (college: any) => {
                                                 return (
                                                   <option
-                                                  key={college?.id}
-                                                  value={college?.id}
-                                                  className="w-40 text-black"
-                                                >
-                                                  {
-                                                    college?.attributes
-                                                      ?.collegeName
-                                                  }
-                                                </option>
-                                                )
+                                                    key={college?.id}
+                                                    value={college?.id}
+                                                    className="w-40 text-black"
+                                                  >
+                                                    {
+                                                      college?.attributes
+                                                        ?.collegeName
+                                                    }
+                                                  </option>
+                                                );
                                               }
                                             )}
                                         </select>

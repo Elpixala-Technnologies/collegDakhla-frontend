@@ -9,6 +9,7 @@ import { getCourse } from "@/query/schema";
 import Image from "next/image";
 import { GetDefaultImage, getStrapiMedia } from "../../../utils/api-helper";
 import CourseTab from "./@courseTab/courseTab";
+import { SignUpSignInModule } from "@/components/header/SignUpSignInModule";
 import { formatDate } from "@/utils/formatDate";
 import NavbarSlider from "@/components/carousel/navbar-carousal";
 import { BiHeart } from "react-icons/bi";
@@ -79,16 +80,9 @@ export default function CourseDetail({ params }: Props) {
       setCurrentTab("Info");
     }
   }, [loading]);
+  // ===================
 
-  const handleDownload = () => {
-    const pdfPath = "@src/Assets/new_document.pdf";
-    const link = document.createElement("a");
-    link.href = pdfPath;
-    link.download = "brochure.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+
 
   return (
     <>
@@ -228,7 +222,8 @@ export default function CourseDetail({ params }: Props) {
         <div className="flex justify-center max-w-screen-xl mx-auto">
           <CourseTab tabData={TabData} />
         </div>
-      </section> */}
+      </section>
+ 
     </>
   );
 }
