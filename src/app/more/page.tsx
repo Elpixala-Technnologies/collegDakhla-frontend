@@ -1,3 +1,4 @@
+/* eslint-disable react/no-deprecated */
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
@@ -19,6 +20,7 @@ import { StoryBanner1, StoryBanner2, StoryBanner3 } from "../../Asset/index";
 import WavyText from "@/components/Motion/Wave";
 
 const MorePage = () => {
+
 	const [isHovered, setIsHovered] = useState(true);
 	const spanRef = useRef<any>(null);
 	const [spanWidth, setSpanWidth] = useState<number>(39);

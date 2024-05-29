@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className="bg-gray-100 text-primary-text font-poppins">
+			<body className=" text-primary-text font-poppins">
 				<ReduxProvider>
 					<ApolloWrapper>
 						<Header />

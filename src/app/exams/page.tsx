@@ -18,6 +18,8 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import SortButton from "@/components/sortButton/SortButton";
+import useExmas from "@/hooks/useExmas";
+import Spinner from "@/components/Loader/loader";
 
 export default function ExamList() {
   const [Search, setSearch] = useState("");
@@ -29,6 +31,7 @@ export default function ExamList() {
   const [filteredData, setFilteredData] = useState([]);
   const [displayCount, setDisplayCount] = useState(5);
   const [searchValue, setSearchValue] = useState("");
+  const [sortOption, setSortOption] = useState<any>([]);
 
   // get exams on search
   const {
@@ -42,6 +45,29 @@ export default function ExamList() {
       ModeFilter,
     },
   });
+  const { AllExamData } = useExmas();
+  // sorting
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleSort = (option: React.SetStateAction<string>) => {
+    setSortOption(option ? [option] : []);
+    setIsOpen(false);
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  // End
 
   // get featured exams
   const {
@@ -76,35 +102,28 @@ export default function ExamList() {
     setDisplayCount((prevCount) => prevCount + 10);
   };
 
-  // console.log(examsData?.exams?.data, "filteredData");
-
   const handleFilterOptionClick = (option: any) => {
     if (option === "a-z") {
-      const sortedData: any = [...examsData?.exams?.data].sort(
-        (a: any, b: any) => {
-          return a?.attributes?.name.localeCompare(b?.attributes?.name);
-        }
-      );
+      const sortedData: any = [...AllExamData].sort((a: any, b: any) => {
+        return a?.attributes?.name.localeCompare(b?.attributes?.name);
+      });
       setFilteredData(sortedData.slice(0, displayCount));
     } else if (option === "reset") {
-      const resetArray: any = [...examsData?.exams?.data].slice(
-        0,
-        displayCount
-      );
+      const resetArray: any = [...AllExamData].slice(0, displayCount);
       setFilteredData(resetArray);
     }
   };
 
   useEffect(() => {
     if (searchValue.trim() === "") {
-      setFilteredData(examsData?.exams?.data.slice(0, displayCount));
+      setFilteredData(AllExamData?.slice(0, displayCount));
     } else {
-      const filtered = examsData?.exams?.data.filter((exam: any) =>
+      const filtered = AllExamData?.filter((exam: any) =>
         exam.attributes.name.toLowerCase().includes(searchValue.toLowerCase())
       );
       setFilteredData(filtered);
     }
-  }, [searchValue, examsData, displayCount]);
+  }, [searchValue, AllExamData, displayCount]);
 
   return (
     <>
@@ -252,8 +271,10 @@ export default function ExamList() {
                 </div>
                 <div className="flex gap-4">
                   {/* sort button  */}
-                  <SortButton handleFilterOptionClick={handleFilterOptionClick} />
-                  
+                  <SortButton
+                    handleFilterOptionClick={handleFilterOptionClick}
+                  />
+
                   <div className="max-md:block hidden">
                     <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
                       <span onClick={handleMobileFilter}>Filter</span>
@@ -263,10 +284,18 @@ export default function ExamList() {
                 </div>
               </div>
               <div className="flex sm:flex-col flex-row overflow-x-scroll">
-                <ExamListItem exams={filteredData} />
+                {
+                  AllExamData ? (
+                    <ExamListItem exams={filteredData} />
+                  ): (
+                    <div className="w-full h-full p-20 item-center flex justify-center">
+                    <Spinner />
+                  </div>
+                  )
+                }
 
                 {filteredData?.length >= 5 &&
-                  filteredData?.length < examsData?.exams?.data.length && (
+                  filteredData?.length < AllExamData?.length && (
                     <button
                       className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow m-6"
                       onClick={handleLoadMore}

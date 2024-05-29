@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -9,6 +10,7 @@ import { getCourse } from "@/query/schema";
 import Image from "next/image";
 import { GetDefaultImage, getStrapiMedia } from "../../../utils/api-helper";
 import CourseTab from "./@courseTab/courseTab";
+import { SignUpSignInModule } from "@/components/header/SignUpSignInModule";
 
 type Props = {
   params: {
@@ -58,6 +60,9 @@ export default function CourseDetail({ params }: Props) {
       setCurrentTab("Info");
     }
   }, [loading]);
+  // ===================
+
+
 
   return (
     <>
@@ -162,6 +167,7 @@ export default function CourseDetail({ params }: Props) {
           <CourseTab tabData={TabData} />
         </div>
       </section>
+ 
     </>
   );
 }

@@ -16,7 +16,7 @@ const menuItems = [
   { name: "Your Profile", icon: Profile },
   { name: "Your Applications", icon: EditIcon },
   { name: "Your Reviews", icon: ReviewIcon },
-  { name: "Support", icon: SupportIcon },
+  // { name: "Support", icon: SupportIcon },
   { name: "Account Settings", icon: SettingIcon },
   { name: "Logout", icon: LogoutIcon },
 ];

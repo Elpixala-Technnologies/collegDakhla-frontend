@@ -161,10 +161,12 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 			{/* Sign-up Module  */}
 			<div className="z-10 md:w-[60%] w-full bg-white flex rounded shadow-lg">
 				{/* Left Side  */}
-				<div className="[flex:5] text-black px-5 py-10 hidden md:block">
+				<div className="[flex:5] text-black px-5 py-10 hidden md:block border-r border-gray-300">
 					<Image
 						src={SignUp}
 						alt="SignUp"
+						width={500}
+						height={500}
 						className="w-full h-[250px] object-cover rounded-l"
 					/>
 					<div className="p-5">
@@ -199,7 +201,7 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 					/>
 				) : (
 					// Sign Up Container
-					<div className="[flex:5] relative flex flex-col justify-center bg-gradient-to-r from-red-400 to-orange-500 text-black p-8 rounded-r rounded-b">
+					<div className="[flex:5] relative flex flex-col justify-center text-black p-8 rounded-r rounded-b">
 						<button
 							className="absolute top-[0.05rem] right-[0.05rem] w-max text-sm  text-white   hover:underline p-3"
 							onClick={closeLoginPopup}
@@ -328,7 +330,7 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 												className="sr-only peer"
 												{...register("isWhatsappNo", {})}
 											/>
-											<div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-300 dark:peer-focus:ring-orange-800 rounded-full peer dark:bg-orange-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-orange-600"></div>
+											<div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-300 dark:peer-focus:ring-white rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-orange-400"></div>
 										</label>
 										<span className="ml-3 text-sm font-medium text-gray-900">
 											Whatsapp number is the same as provided above
@@ -337,7 +339,7 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 								</>
 							)}
 							<button
-								className="px-3 py-2 my-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 hover:font-bold w-full"
+								className="px-3 py-2 my-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 hover:shadow-md shadow-black hover:underline w-full"
 								type="submit"
 								onClick={!isOtp ? sendSignupOtp : handleSubmitSignup}
 							>
@@ -349,7 +351,7 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 							Already have an account?
 							<span
 								onClick={() => setIsLogin((pre) => !pre)}
-								className="block ml-1 font-sans text-sm antialiased font-bold leading-normal  text-blue-600 hover:underline cursor-pointer"
+								className="block ml-1 font-sans text-sm antialiased font-bold leading-normal  text-blue-600 hover:text-primary hover:underline cursor-pointer"
 							>
 								LogIn
 							</span>
@@ -372,7 +374,7 @@ const Input = React.forwardRef(function Input(
 		<div className="relative h-11 w-full min-w-[200px] mt-1 mb-5">
 			<input
 				type={type}
-				className={`bg-white w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-primary focus:border-t-transparent focus:outline-0 ${className}`}
+				className={`bg-white w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-primary focus:border-t-transparent focus:outline-0 ${className}`}
 				ref={ref}
 				{...props}
 				id={id}

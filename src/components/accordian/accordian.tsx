@@ -67,7 +67,7 @@ const Accordion: React.FC<AccordionProps> = ({
   opened = false,
   showBorder = true,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [Open, setOpen] = useState(false);
   useEffect(() => {
     setOpen(opened);
@@ -92,7 +92,7 @@ const Accordion: React.FC<AccordionProps> = ({
         <p
           className={`flex-1 ${
             titlePrimary
-              ? "text-primary text-[25px] font-semibold"
+              ? "text-black text-[25px] font-semibold"
               : "text-secondary text-base"
           }`}
         >

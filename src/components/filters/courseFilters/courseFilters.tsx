@@ -95,7 +95,7 @@ export default function CourseFilters({ DurationFilter,
 
 	return (
 		<>
-			<div className="bg-white hidden md:block">
+			<div className="bg-white hidden md:block p-2 rounded-md">
 				<h3 className="uppercase text-sm px-2 py-3">
 					Found <b>{totalCourses}</b>{" "}
 					colleges
@@ -103,7 +103,7 @@ export default function CourseFilters({ DurationFilter,
 				{SelectedFilter.duration || SelectedFilter.specialization ? (
 					<>
 						<div
-							className="bg-gray-200 px-2 py-2 flex items-center justify-between"
+							className="bg-gray-50 px-2 py-2 flex items-center justify-between"
 							onClick={handleOpen}
 						>
 							<span>Selected Filters</span>{" "}

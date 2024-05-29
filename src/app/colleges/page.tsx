@@ -23,21 +23,30 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import SortButton from "@/components/sortButton/SortButton";
+import Spinner from "@/components/Loader/loader";
+import { ID } from "@/types/global";
+import { useAppSelector } from "@/store";
+import useSignup from "@/query/hooks/useSignup";
+import useUserMetaData from "@/query/hooks/useUserMetaData";
+import ApplyNowModal from "@/components/consultingModule/ApplyNowModal/ApplyNowModal";
+import userFrom from "@/hooks/userFrom";
 // import { FaCircleChevronRight } from "react-icons/fa6";
+// import Loading from "react-loading-components";
 
 export default function CollegeList() {
   const [Search, setSearch] = useState("");
   const [MobileFilter, setMobileFilter] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [Stream, setStream] = useState<string>("default");
+  const [sortOption, setSortOption] = useState<any>([]);
   // const [TopStream, setTopStream] = useState<string>("")
-  const [Limit, setLimit] = useState<number>(10);
+  const [Limit, setLimit] = useState<number>(10); // set initial limit for top collages
   const [displayCount, setDisplayCount] = useState(10); // Initial display count
   const [searchValue, setSearchValue] = useState("");
 
   const [showFullContent, setShowFullContent] = useState(false);
   const [showReadMore, setShowReadMore] = useState(true);
-
+  const { CollegeApplicatonListData } = userFrom();
   const handleReadMoreClick = () => {
     setShowFullContent(true);
     setShowReadMore(false);
@@ -70,6 +79,44 @@ export default function CollegeList() {
     variables: { Limit },
   });
 
+  // sorting
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleSort = (option: React.SetStateAction<string>) => {
+    setSortOption(option ? [option] : []);
+    setIsOpen(false);
+  };
+
+
+  const FromStep: any = CollegeApplicatonListData?.form_stape;
+
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // const handleOpenModal = () => {
+  //   setIsModalOpen(true);
+  // };
+
+  // const handleCloseModal = () => {
+  //   setIsModalOpen(false);
+  // };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedId,setSelectedId]= useState(null);
+
+  const handleOpenModal = (collegeId: any) => {
+    setSelectedId(collegeId);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // End
+
   const {
     loading: streamLoader,
     error: streamError,
@@ -100,7 +147,9 @@ export default function CollegeList() {
     if (option === "a-z") {
       const sortedData: any = [...initialData?.colleges?.data].sort(
         (a: any, b: any) => {
-          return a?.attributes?.collegeName.localeCompare(b?.attributes?.collegeName);
+          return a?.attributes?.collegeName.localeCompare(
+            b?.attributes?.collegeName
+          );
         }
       );
       setFilteredData(sortedData.slice(0, displayCount));
@@ -114,17 +163,32 @@ export default function CollegeList() {
   };
 
   useEffect(() => {
-    if (searchValue.trim() === "") {
-      setFilteredData(initialData?.colleges?.data.slice(0, displayCount));
-    } else {
-      const filtered = initialData?.colleges?.data.filter((college: any) =>
-        college.attributes.collegeName
-          .toLowerCase()
-          .includes(searchValue.toLowerCase())
-      );
-      setFilteredData(filtered);
+    if (initialData && initialData?.colleges?.data) {
+      if (searchValue.trim() === "") {
+        setFilteredData(initialData?.colleges?.data.slice(0, displayCount));
+      } else if (searchValue.trim() !== "") {
+        const filtered = initialData?.colleges?.data.filter((college: any) =>
+          college.attributes.collegeName
+            .toLowerCase()
+            .includes(searchValue.toLowerCase())
+        );
+        setFilteredData(filtered);
+      }
     }
   }, [searchValue, initialData, displayCount]);
+
+  const { GetUserMetaData } = useUserMetaData();
+  const { userID } = useAppSelector((store: any) => store.auth);
+
+  const { GetUserDataMetaId } = useSignup();
+
+  const userMetaId: ID = GetUserDataMetaId(userID);
+
+  const userData = GetUserMetaData(userMetaId);
+
+  const AppliedCollege = userData?.userAllMetaData?.appliedColleges;
+
+ 
 
   return (
     <>
@@ -242,6 +306,7 @@ export default function CollegeList() {
             </div>
           </div>
         </section>
+        {/* Featured Colleges  */}
         <section className="topCollege">
           <div className="m-4 bg-white py-8 my-4 px-4 rounded-xl">
             <h2 className="text-xl font-bold mb-3"></h2>
@@ -252,14 +317,16 @@ export default function CollegeList() {
               showPagination={false}
               slides={topCollegesData?.colleges?.data?.map(
                 (college: any, index: number) => {
-                  return <CollegeCard key={index} featuredCollege={college} />;
+                  return <CollegeCard key={index} AppliedCollege={AppliedCollege} featuredCollege={college}  onApplyNow={() => handleOpenModal(college?.id)} />;
                 }
               )}
             />
           </div>
         </section>
+        {/* Colleges list  */}
         <section className="collegeList">
-          <div className="flex flex-col md:flex-row gap-4 px-4">
+          <div className="flex flex-col md:flex-row gap-3 px-4">
+            {/* aside Filter  */}
             <div className="flex-none w-64 h-full drop-shadow-md hover:drop-shadow-xl">
               <CollegeFilters
                 allColleges={initialData}
@@ -269,8 +336,10 @@ export default function CollegeList() {
                 setStream={setStream}
               />
             </div>
+            {/* College List Section  */}
             <div className="flex-1 w-full">
-              <div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col">
+              {/* SearchBar and sort  */}
+              <div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col px-2">
                 <div className="bg-white h-12 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
                   <RiSearchLine />
                   <input
@@ -293,8 +362,24 @@ export default function CollegeList() {
                   </div>
                 </div>
               </div>
-              <div className="flex sm:flex-col flex-row overflow-x-scroll">
-                <CollegeListItem colleges={filteredData} />
+              {/* CollegeListItem */}
+              <div className="flex flex-col p-2">
+                {initialData?.colleges?.data ? (
+                  <CollegeListItem
+                    collegeData={filteredData}
+                    AppliedCollege={AppliedCollege}
+                  />
+                ) : (
+                  <div className="w-full h-full p-20 item-center flex justify-center">
+                    {/* <Loading
+                      type="tail_spin"
+                      width={100}
+                      height={100}
+                      fill="#bdbdbd"
+                    /> */}
+                    <Spinner />
+                  </div>
+                )}
 
                 {filteredData?.length >= 10 &&
                   filteredData?.length < initialData?.colleges?.data.length && (
@@ -313,6 +398,15 @@ export default function CollegeList() {
           </div>
         </section>
       </div>
+
+      {isModalOpen && (
+        <ApplyNowModal
+          id={selectedId}
+          FromStep={FromStep}
+          isSectionCheck={"College"}
+          onClose={handleCloseModal}
+        />
+      )}
     </>
   );
 }

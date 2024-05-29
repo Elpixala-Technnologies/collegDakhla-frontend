@@ -17,6 +17,158 @@ import { clearAuthState } from "@/store/authSlice";
 import { MdOutlinePerson } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
+
+const NavOption = () => {
+	// get all streams
+	const {
+		loading,
+		error: streamsError,
+		data: streamsData,
+	} = useQuery(getStreams);
+
+	return (
+		<>
+			<div className="flex flex-col gap-2 w-full text-primary-text p-4 sm:p-0 sm:w-6/12 sm:min-w-96">
+				{streamsData?.streams?.data?.map((stream: any, index: any) => {
+					return (
+						<div key={index}>
+							<Link
+								href={{
+									pathname: `/colleges/${stream.attributes.streamName.toLowerCase()}`,
+								}}
+								className="hover:text-primary"
+							>
+								Top {stream.attributes.streamName} College
+							</Link>
+						</div>
+					);
+				})}
+			</div>
+		</>
+	);
+};
+
+const LoginQASection = () => {
+	const isUserloggedIn = useAppSelector((state) => state.auth.authState);
+	const dispatch = useAppDispatch();
+	const [showLoginPopup, setShowLoginPopup] = useState(false);
+	const router = useRouter();
+	const [isMounted, setIsMounted] = useState(false);
+
+	useEffect(() => {
+		setIsMounted(true);
+	}, []);
+
+	const openLoginPopup = () => {
+		setShowLoginPopup(true);
+	};
+
+	const closeLoginPopup = () => {
+		setShowLoginPopup(false);
+	};
+
+	const handleLogout = () => {
+		router.push("/");
+		dispatch(clearAuthState());
+	};
+
+	if (!isMounted) {
+		return null;
+	}
+
+	return (
+		<>
+			<div className="flex items-center gap-4 max-sm:hidden">
+				{isUserloggedIn ? (
+					<div className="relative group">
+						<FaRegCircleUser className="text-2xl hover:text-primary cursor-pointer group" />
+						<div className="absolute z-10 top-6 right-0 hidden group-hover:block bg-white border text-zinc-600 text-sm border-gray-200 rounded-md py-1 w-max">
+							<Link
+								href={"/profile"}
+								className="flex item-center gap-x-2 px-3 py-1 hover:bg-gray-100 cursor-pointer"
+							>
+								<MdOutlinePerson className="mt-0.5" /> Profile
+							</Link>
+							<div
+								className="flex item-center gap-x-2 px-3 py-1 hover:bg-gray-100 cursor-pointer"
+								onClick={handleLogout}
+							>
+								<IoLogOutOutline className="mt-0.5" /> Logout
+							</div>
+						</div>
+					</div>
+				) : (
+					<div
+						onClick={openLoginPopup}
+						className="overflow-hidden rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-[10px] cursor-pointer active:border-orange-600 active:shadow-none shadow-lg bg-gradient-to-tr from-orange-500 to-orange-500 border-orange-700 text-white"
+					>
+						<span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-24 opacity-10"></span>
+						<span className="relative whitespace-nowrap">Login / SignUp</span>
+					</div>
+				)}
+
+				<Link href={"/"}>
+					<FaRegQuestionCircle className="text-2xl hover:text-primary" />
+				</Link>
+			</div>
+			{showLoginPopup && <SignUpSignInModule closeLoginPopup={closeLoginPopup} />}
+		</>
+	);
+};
+
+
+const MobileOption = () => {
+	return (
+		<div>
+			<Accordion title="College" showBorder={false}>
+				<CollegeOption />
+			</Accordion>
+			<Accordion title="Exam" showBorder={false}>
+				<ExamOption />
+			</Accordion>
+			{/* <Accordion title="Courses"> </Accordion>
+      <Accordion title="Career"> </Accordion>
+      <Accordion title="News"> </Accordion>
+      <Accordion title="More"> </Accordion> */}
+			<div className="flex flex-col gap-4 my-4 px-2">
+				<Link href={"/career"}>Careers</Link>
+				<Link href={"/courses"}>Courses</Link>
+				<Link href={"/news"}>News</Link>
+				<Link href={"/more"}>More</Link>
+			</div>
+		</div>
+	);
+};
+
+const CollegeOption = () => {
+	return (
+		<div>
+			<div>
+				<Link href={"/colleges"}>All Colleges</Link>
+			</div>
+			<div>Top College from Delhi</div>
+			<div>Top College from Varansi</div>
+			<div>Top College from Pune</div>
+			<div>Top College from Jaipur</div>
+			<div>Top College from Chennai</div>
+			<div>Top College from Haryana</div>
+		</div>
+	);
+};
+
+const ExamOption = () => {
+	return (
+		<div>
+			<div>Top International Exam</div>
+			<div>Top National Entrance Exam</div>
+			<div>Top College from Pune</div>
+			<div>Top College from Jaipur</div>
+			<div>Top College from Chennai</div>
+			<div>Top College from Haryana</div>
+		</div>
+	);
+};
+
 export default function Header() {
 	const [Path, setPath] = useState("");
 	const currentPath = usePathname();
@@ -133,147 +285,3 @@ export default function Header() {
 		</nav>
 	);
 }
-
-const NavOption = () => {
-	// get all streams
-	const {
-		loading,
-		error: streamsError,
-		data: streamsData,
-	} = useQuery(getStreams);
-
-	return (
-		<>
-			<div className="flex flex-col gap-2 w-full text-primary-text p-4 sm:p-0 sm:w-6/12 sm:min-w-96">
-				{streamsData?.streams?.data?.map((stream: any, index: any) => {
-					return (
-						<div key={index}>
-							<Link
-								href={{
-									pathname: `/colleges/${stream.attributes.streamName.toLowerCase()}`,
-								}}
-								className="hover:text-primary"
-							>
-								Top {stream.attributes.streamName} College
-							</Link>
-						</div>
-					);
-				})}
-			</div>
-		</>
-	);
-};
-
-const LoginQASection = () => {
-	const isUserloggedIn = useAppSelector((state) => state.auth.authState);
-	const dispatch = useAppDispatch();
-	const [showLoginPopup, setShowLoginPopup] = useState(false);
-	const router = useRouter();
-
-	const openLoginPopup = () => {
-		setShowLoginPopup(true);
-	};
-
-	const closeLoginPopup = () => {
-		setShowLoginPopup(false);
-	};
-
-	const handleLogout = () => {
-		router.push("/");
-		dispatch(clearAuthState());
-	};
-
-	return (
-		<>
-			<div className="flex items-center gap-4 max-sm:hidden">
-				{isUserloggedIn ? (
-					<div className="relative group">
-						<FaRegCircleUser className="text-2xl hover:text-primary cursor-pointer group" />
-						<div className="absolute z-10 top-6 right-0 hidden group-hover:block bg-white border text-zinc-600 text-sm border-gray-200 rounded-md py-1 w-max">
-							<Link
-								href={"/profile"}
-								className="flex item-center gap-x-2 px-3 py-1 hover:bg-gray-100 cursor-pointer"
-							>
-								<MdOutlinePerson className="mt-0.5" /> Profile
-							</Link>
-							<div
-								className="flex item-center gap-x-2 px-3 py-1 hover:bg-gray-100 cursor-pointer"
-								onClick={handleLogout}
-							>
-								<IoLogOutOutline className="mt-0.5" /> Logout
-							</div>
-						</div>
-					</div>
-				) : (
-					<div
-						onClick={openLoginPopup}
-						className="overflow-hidden rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-[10px] cursor-pointer active:border-orange-600 active:shadow-none shadow-lg bg-gradient-to-tr from-orange-500 to-orange-500 border-orange-700 text-white"
-					>
-						<span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-24 opacity-10"></span>
-						<span className="relative whitespace-nowrap">Login/ SignUp</span>
-					</div>
-				)}
-
-				<Link href={"/"}>
-					<FaRegQuestionCircle className="text-2xl hover:text-primary" />
-				</Link>
-			</div>
-
-			{/* Pop-up Module */}
-			{showLoginPopup && <SignUpSignInModule closeLoginPopup={closeLoginPopup} />}
-			{/* {showLoginPopup && <SignInModule closeLoginPopup={closeLoginPopup} />} */}
-		</>
-	);
-};
-
-const MobileOption = () => {
-	return (
-		<div>
-			<Accordion title="College" showBorder={false}>
-				<CollegeOption />
-			</Accordion>
-			<Accordion title="Exam" showBorder={false}>
-				<ExamOption />
-			</Accordion>
-			{/* <Accordion title="Courses"> </Accordion>
-      <Accordion title="Career"> </Accordion>
-      <Accordion title="News"> </Accordion>
-      <Accordion title="More"> </Accordion> */}
-			<div className="flex flex-col gap-4 my-4 px-2">
-				<Link href={"/career"}>Careers</Link>
-				<Link href={"/courses"}>Courses</Link>
-				<Link href={"/news"}>News</Link>
-				<Link href={"/more"}>More</Link>
-			</div>
-		</div>
-	);
-};
-
-const CollegeOption = () => {
-	return (
-		<div>
-			<div>
-				<Link href={"/colleges"}>All Colleges</Link>
-			</div>
-			<div>Top College from Delhi</div>
-			<div>Top College from Varansi</div>
-			<div>Top College from Pune</div>
-			<div>Top College from Jaipur</div>
-			<div>Top College from Chennai</div>
-			<div>Top College from Haryana</div>
-		</div>
-	);
-};
-
-const ExamOption = () => {
-	return (
-		<div>
-			<div>Top International Exam</div>
-			<div>Top National Entrance Exam</div>
-			<div>Top College from Pune</div>
-			<div>Top College from Jaipur</div>
-			<div>Top College from Chennai</div>
-			<div>Top College from Haryana</div>
-		</div>
-	);
-};

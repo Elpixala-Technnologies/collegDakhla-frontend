@@ -9,6 +9,7 @@ import Carousel from "@/components/carousel/carousel";
 import CourseCard from "@/components/card/courseCard";
 import CourseFilters from "@/components/filters/courseFilters/courseFilters";
 import SortButton from "@/components/sortButton/SortButton";
+import Spinner from "@/components/Loader/loader";
 
 export default function CourseList() {
   const [Search, setSearch] = useState<string>("");
@@ -20,6 +21,7 @@ export default function CourseList() {
   const [filteredData, setFilteredData] = useState([]);
   const [displayCount, setDisplayCount] = useState(5);
   const [searchValue, setSearchValue] = useState("");
+  const [sortOption, setSortOption] = useState<any>([]);
 
   //query to get and search all courses
   const {
@@ -33,6 +35,30 @@ export default function CourseList() {
       SpecializationFilter,
     },
   });
+
+   // sorting 
+   const [isOpen, setIsOpen] = useState(false);
+
+   const toggleDropdown = () => {
+     setIsOpen(!isOpen);
+   };
+ 
+   const handleSort = (option: React.SetStateAction<string>) => {
+     setSortOption(option ? [option] : []);
+     setIsOpen(false);
+   };
+ 
+ 
+   const [isModalOpen, setIsModalOpen] = useState(false);
+ 
+   const handleOpenModal = () => {
+     setIsModalOpen(true);
+   };
+ 
+   const handleCloseModal = () => {
+     setIsModalOpen(false);
+   };
+   // End 
 
   //query to get featured courses
   const {
@@ -93,6 +119,7 @@ export default function CourseList() {
       setFilteredData(filtered);
     }
   }, [searchValue, coursesData, displayCount]);
+  console.log(coursesData,)
 
   return (
     <>
@@ -206,7 +233,14 @@ export default function CourseList() {
                   </div>
                 </div>
               </div>
-              <CourseListItem courses={filteredData} />
+              {coursesData?.courses?.data ?(
+                <CourseListItem courses={filteredData} />
+              ):(
+                <div className="w-full h-full p-20 item-center flex justify-center">
+                    <Spinner />
+                  </div>
+              )}
+              
               {filteredData?.length >= 5 &&
                 filteredData?.length < coursesData?.courses?.data.length && (
                   <button

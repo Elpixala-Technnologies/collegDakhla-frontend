@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // components/Carousel.js
 import { ReactNode, useEffect, useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
@@ -30,12 +31,12 @@ const Carousel = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [slidesToShow, setSlidesToShow] = useState(1);
   const nextSlide = () => {
-    setActiveIndex((prevIndex) => (prevIndex + 1) % slides.length);
+    setActiveIndex((prevIndex) => (prevIndex + 1) % slides?.length);
   };
 
   const prevSlide = () => {
     setActiveIndex((prevIndex) =>
-      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
+      prevIndex === 0 ? slides?.length - 1 : prevIndex - 1
     );
   };
 
@@ -74,13 +75,13 @@ const Carousel = ({
         {showButton ? (
           <div className="flex gap-4 items-center">
             <button
-              className="border border-primary p-2 cursor-pointer rounded-md text-primary"
+              className="border border-black p-2 cursor-pointer rounded-md text-black"
               onClick={prevSlide}
             >
               <FaAngleLeft />
             </button>
             <button
-              className="border border-primary p-2 cursor-pointer rounded-md text-primary"
+              className="border border-black p-2 cursor-pointer rounded-md text-black"
               onClick={nextSlide}
             >
               <FaAngleRight />
@@ -95,13 +96,13 @@ const Carousel = ({
         <div
           className={`flex ${slideGap} transition-transform duration-300 ease-in-out p-2`}
           style={{
-            transform: `translateX(-${activeIndex * (100 / slidesToShow)}%)`,
+            transform: `translateX(-${activeIndex * (50 / slidesToShow)}%)`,
           }}
         >
           {slides?.map((slide, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-full h-full"
+              className="flex-shrink-0 w-full h-full hover:shadow-lg"
               style={{ flex: `0 0 ${100 / slidesToShow}%` }}
             >
               {slide}
