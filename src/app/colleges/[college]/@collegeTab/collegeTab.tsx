@@ -6,6 +6,7 @@ import Image from "next/image";
 import YoutubeVideo from "@/components/youtubeVideo/youtubeVideo";
 import PageData from "@/components/pageData/pageData";
 import Accordion from "@/components/accordian/accordian";
+import Accordion from "@/components/accordian/accordian";
 import NavbarSlider from "@/components/carousel/navbar-carousal";
 import Carousel from "@/components/header/Carousel";
 import { useQuery } from "@apollo/client";
