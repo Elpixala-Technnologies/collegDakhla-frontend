@@ -23,7 +23,7 @@ import ApplyNowModal from "../consultingModule/ApplyNowModal/ApplyNowModal";
 import { useState } from "react";
 import userFrom from "@/hooks/userFrom";
 
-export default function CollegeListItem({collegeData, AppliedCollege}:any) {
+export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
   const { CollegeApplicatonListData } = userFrom();
 
   // query to get all states
@@ -34,9 +34,7 @@ export default function CollegeListItem({collegeData, AppliedCollege}:any) {
   } = useQuery(getStates);
 
   const collegeFee = parseInt(
-    collegeData?.attributes?.fees
-      ? collegeData?.attributes?.fees
-      : 200000
+    collegeData?.attributes?.fees ? collegeData?.attributes?.fees : 200000
   ).toLocaleString("en-IN", {
     style: "currency",
     currency: "INR",
@@ -44,7 +42,7 @@ export default function CollegeListItem({collegeData, AppliedCollege}:any) {
     maximumFractionDigits: 0,
   });
 
-  console.log(collegeData , "allColleges")
+  console.log(collegeData, "allColleges");
 
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -94,7 +92,9 @@ export default function CollegeListItem({collegeData, AppliedCollege}:any) {
                 )
               : GetDefaultImage("banner");
 
-              const isCollegeApplied  = Array.isArray(AppliedCollege) && AppliedCollege.some(
+            const isCollegeApplied =
+              Array.isArray(AppliedCollege) &&
+              AppliedCollege.some(
                 (applied) => applied?.college?.data?.id === college?.id
               );
 
@@ -176,11 +176,31 @@ export default function CollegeListItem({collegeData, AppliedCollege}:any) {
                               height={25}
                               alt={"approvedBy"}
                             />
-                            {collegeFee}
+                            {/* {college?.attributes?.collegeName} */}
+                            {college?.attributes?.collegeCourses?.length > 0 &&
+                              college?.attributes?.collegeCourses[0]
+                                ?.courseFee && (
+                                <p className="text-[#B12704] font-semibold text-lg">
+                                  ₹{" "}
+                                  {
+                                    college?.attributes?.collegeCourses[0]
+                                      ?.courseFee
+                                  }
+                                </p>
+                              )}
                           </div>
-                          <p className="text-xs text-secondary-text ml-7">
-                            BE/B.Tech First year fees
-                          </p>
+                          {college?.attributes?.collegeCourses?.length > 0 &&
+                            college?.attributes?.collegeCourses[0]
+                              ?.courseName && (
+                              <p className="text-sm text-secondary-text font-light tracking-tight">
+                                {
+                                  college?.attributes?.collegeCourses[0]
+                                    ?.courseName?.data?.attributes?.name
+                                }{" "}
+                                First year fees
+                              </p>
+                            )}
+                           
                         </div>
                         <div className="pr-6 mr-6  border-extra-light-text">
                           <p className="text-primary flex gap-1 items-center font-semibold text-lg">
