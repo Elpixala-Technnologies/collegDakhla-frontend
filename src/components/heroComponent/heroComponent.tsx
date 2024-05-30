@@ -185,7 +185,7 @@ export default function HeroSection() {
         </div>
         {isModalOpen && (
           <div className="fixed top-0 mt-5 left-0 w-full h-fit bg-black bg-opacity-50 flex z-50">
-            <div className="bg-white p-8 rounded-md w-full">
+            <div className="bg-white p-8 rounded-md w-full sm:mx-0 mx-2">
               <PopDown
                 inputValue={inputValue}
                 onChange={handleInputChange}

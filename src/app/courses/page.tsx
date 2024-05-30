@@ -125,14 +125,14 @@ export default function CourseList() {
     <>
       <div className="max-w-screen-xl mx-auto">
         <section className="heroSection">
-          <div className="m-4 px-8 pt-8 bg-white flex flex-col rounded-xl">
+          <div className="m-4 px-8 sm:pt-8 pt-2 bg-white flex flex-col rounded-xl">
             <h1 className="text-xl font-bold mb-3 text-center text-primary">
               All Exams 2023-2024, Dates, Application Forms & Alerts
             </h1>
             <p
               className={`${
-                showFullContent ? "text-justify" : " text-center"
-              } text-base mb-3`}
+                showFullContent ? "text-justify" : "text-center"
+              } text-base mb-3 lg:line-clamp-none ${showFullContent ? "" : "line-clamp-2"} `}
             >
               At <span className="text-primary">College Dakhla</span>, we're
               dedicated to helping students discover and pursue the best courses
@@ -226,7 +226,7 @@ export default function CourseList() {
                     handleFilterOptionClick={handleFilterOptionClick}
                   />
                   <div className="max-md:block hidden">
-                    <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
+                    <div className="flex border-2 items-center p-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
                       <span onClick={handleMobileFilter}>Filter</span>
                       <MdOutlineSort />
                     </div>

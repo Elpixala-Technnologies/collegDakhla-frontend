@@ -51,7 +51,7 @@ export default function ExamFilters({
     error: streamsError,
     data: streamsData,
   } = useQuery(getStreams);
-  
+
 
   const handleStreamFilter = (name: string) => {
     setStreamFilter(name);
@@ -107,15 +107,15 @@ export default function ExamFilters({
 
   useEffect(() => {
     if (isMobile) {
-      document.body.style.overflowY = "hidden"; 
+      document.body.style.overflowY = "hidden";
       document.body.style.height = "100%";
     } else {
       document.body.style.overflowY = "auto";
       document.body.style.height = "auto";
     }
     return () => {
-      document.body.style.overflowY = "auto"; 
-      document.body.style.height = "auto"; 
+      document.body.style.overflowY = "auto";
+      document.body.style.height = "auto";
     };
   }, [isMobile]);
 
@@ -126,8 +126,8 @@ export default function ExamFilters({
           Found <b>{""}</b> colleges
         </h3>
         {SelectedFilter.level ||
-        SelectedFilter.mode ||
-        SelectedFilter.stream ? (
+          SelectedFilter.mode ||
+          SelectedFilter.stream ? (
           <>
             <div
               className="bg-gray-200 px-2 py-2 flex items-center justify-between"
@@ -178,15 +178,15 @@ export default function ExamFilters({
         />
       </div>
       {isMobile ? (
-        <div className="absolute top-0 right-0 left-0 h-full w-full bg-black/[0.5] z-50 overscroll-none">
-          <div className="opacity-100 z-50 block fixed right-0 bottom-0 left-0 w-screen h-4/6 bg-white text-black rounded-xl">
-            <div className="flex justify-between px-5 py-5 w-full border-b-2 border-gray-300">
+        <div className="absolute top-0 left-0 h-full w-full bg-black z-50">
+          <div className=" z-50 block w-screen h-4/6 bg-white text-black rounded-xl">
+            <div className="flex justify-between px-5 py-5 w-full border-b-2 border-gray-300 bg-gray-300">
               <h5 className="text-base font-bold">All Filter</h5>
               <span onClick={handleMobileFilter}>
                 <FaAngleDown />
               </span>
             </div>
-            <div className="filter-body">
+            <div className="filter-body bg-white">
               <div className="flex flex-wrap flex-row filters-wrapper">
                 <div className="filters-section bg-white min-height px-0">
                   <Box
@@ -208,9 +208,36 @@ export default function ExamFilters({
                         borderColor: "divider",
                       }}
                     >
-                      <Tab label="Duration" {...a11yProps(0)} />
-                      <Tab label="Specialization" {...a11yProps(1)} />
+                      <Tab label="Stream" {...a11yProps(0)} />
+                      <Tab label="Level" {...a11yProps(1)} />
+                      <Tab label="Mode" {...a11yProps(2)} />
                     </Tabs>
+                    <TabPanel value={value} index={0}>
+                      {streamsData?.streams?.data?.map((stream: any) => {
+                        return (
+                          <div
+                            key={stream.id}
+                            className="flex gap-1 items-center my-2 cursor-pointer"
+                          >
+                            <input
+                              type="radio"
+                              id={stream.id}
+                              name={stream.attributes.streamName}
+                              checked={
+                                StreamFilter === stream.attributes.streamName
+                              }
+                              className=""
+                              onChange={() =>
+                                handleStreamFilter(stream.attributes.streamName)
+                              }
+                            />
+                            <span className="text-xxs font-semibold text-secondary-text hover:text-primary">
+                              {stream.attributes.streamName}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </TabPanel>
                     <TabPanel value={value} index={0}>
                       {examLevelData?.examLevels?.data.map(
                         (level: any, index: number) => {
@@ -267,9 +294,9 @@ export default function ExamFilters({
                 </div>
               </div>
             </div>
-            <div className="filter-buttons flex justify-center w-full gap-14 px-5 bg-white fixed bottom-0 left-0 right-0 z-10">
+            <div className="filter-buttons flex justify-center w-full bg-white p-2">
               <div
-                className="w-1/2 border border-gray-300"
+                className="w-1/2 border border-gray-600 mx-2 rounded-lg"
                 onClick={resetFilters}
               >
                 <Button

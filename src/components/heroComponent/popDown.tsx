@@ -46,13 +46,13 @@ const PopDown = ({ inputValue, onChange , onRecentSearch }: any) => {
   }, []);
 
   return (
-    <div className="flex-1 w-full ">
+    <div className="flex-1 w-full">
       <div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col">
         <div className="bg-white h-10 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text outline-none cursor-pointer">
           <RiSearchLine />
           <input
             ref={inputRef}
-            className="w-full focus:outline-none outline-none"
+            className="w-full focus:outline-none outline-none h-10"
             type="text"
             placeholder="Search colleges..."
             onChange={handleSearch}
@@ -81,7 +81,7 @@ const PopDown = ({ inputValue, onChange , onRecentSearch }: any) => {
               <li> Top Universities</li>
               <li>IIT-Madras</li>
               <li> Ashoka University</li>
-              <li> IILM</li>
+              <li className="sm:flex hidden"> IILM</li>
             </ul>
           </div>
         ) : (

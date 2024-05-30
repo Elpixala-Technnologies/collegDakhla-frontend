@@ -235,15 +235,15 @@ export default function CollegeList() {
           </ul>
         </section>
         <section className="heroSection">
-          <div className="m-4 px-8 pt-8 bg-white flex flex-col rounded-xl">
+          <div className="m-4 px-8 sm:pt-8 pt-2 bg-white flex flex-col rounded-xl">
             <h1 className="text-xl font-bold mb-3 text-center text-primary">
               Showing Top {filteredCollege?.colleges?.data?.length} Colleges in
               India
             </h1>
             <p
               className={`${
-                showFullContent ? "text-justify" : " text-center"
-              } text-base mb-3`}
+                showFullContent ? "text-justify" : "text-center"
+              } text-base mb-3 lg:line-clamp-none ${showFullContent ? "" : "line-clamp-2"} `}
             >
               The list of top engineering colleges in India 2024 includes IT
               Madras, IIT Bombay, IIT Kanpur, IIT Roorkee, IIT Kharagpur, etc.
@@ -308,7 +308,7 @@ export default function CollegeList() {
         </section>
         {/* Featured Colleges  */}
         <section className="topCollege">
-          <div className="m-4 bg-white py-8 my-4 px-4 rounded-xl">
+          <div className="m-4 bg-white sm:py-8 py-2 my-4 px-4 rounded-xl">
             <h2 className="text-xl font-bold mb-3"></h2>
             <Carousel
               slidesDesktop={4}
@@ -325,9 +325,9 @@ export default function CollegeList() {
         </section>
         {/* Colleges list  */}
         <section className="collegeList">
-          <div className="flex flex-col md:flex-row gap-3 px-4">
+          <div className="flex flex-col md:flex-row gap-3 sm:px-4 px-0">
             {/* aside Filter  */}
-            <div className="flex-none w-64 h-full drop-shadow-md hover:drop-shadow-xl">
+            <div className="flex-none w-64 h-full drop-shadow-md hover:drop-shadow-xl z-10">
               <CollegeFilters
                 allColleges={initialData}
                 setFilteredData={setFilteredData}
@@ -343,7 +343,7 @@ export default function CollegeList() {
                 <div className="bg-white h-12 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
                   <RiSearchLine />
                   <input
-                    className="w-full focus:outline-none"
+                    className="w-full focus:outline-none sm:h-10 h-10"
                     type="text"
                     placeholder="Search colleges..."
                     onChange={handleSearch}
@@ -355,7 +355,7 @@ export default function CollegeList() {
                     handleFilterOptionClick={handleFilterOptionClick}
                   />
                   <div className="max-md:block hidden">
-                    <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
+                    <div className="flex border-2 items-center border-extra-light-text p-2 rounded-md cursor-pointer">
                       <span onClick={handleMobileFilter}>Filter</span>
                       <MdOutlineSort />
                     </div>
@@ -410,3 +410,10 @@ export default function CollegeList() {
     </>
   );
 }
+
+
+
+
+
+
+

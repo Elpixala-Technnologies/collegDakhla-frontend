@@ -235,7 +235,7 @@ export default function CourseFilters({ DurationFilter,
 								</div>
 							</div>
 						</div>
-						<div className="filter-buttons flex justify-center w-full gap-14 px-5 bg-white fixed bottom-0 left-0 right-0 z-10">
+						<div className="filter-buttons flex justify-center w-full gap-14 px-5 bg-white fixed bottom-0 left-0 right-0 z-10 mb-2">
 							<div
 								className="w-1/2 border border-gray-300"
 								onClick={resetFilters}

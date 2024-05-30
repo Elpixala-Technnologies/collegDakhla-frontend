@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Filter from "./filter";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { getStreams, getStates, getCollegesFilter,getCourses, collegeTypes, getColleges  } from "@/query/schema";
+import { getStreams, getStates, getCollegesFilter, getCourses, collegeTypes, getColleges } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -17,16 +17,16 @@ export default function CollegeFilters(params?: any) {
   const [SelectedFilter, setSelectedFilter] = useState({
     stream: "",
     state: "",
-    city: "", 
-    courses: "", 
-    collegeType:"",
+    city: "",
+    courses: "",
+    collegeType: "",
   });
 
   const [StreamFilter, setStreamFilter] = useState<string>("");
   const [StateFilter, setStateFilter] = useState<string>("");
-  const [CityFilter, setCityFilter] = useState<string>(""); 
-  const [CoursesFilter, setCoursesFilter] = useState<string>(""); 
-  const [collegeTypeFilter, setcollegeTypeFilter] = useState<string>(""); 
+  const [CityFilter, setCityFilter] = useState<string>("");
+  const [CoursesFilter, setCoursesFilter] = useState<string>("");
+  const [collegeTypeFilter, setcollegeTypeFilter] = useState<string>("");
   const {
     loading: streamLoader,
     error: streamsError,
@@ -146,9 +146,9 @@ export default function CollegeFilters(params?: any) {
       }));
     }
   };
-  
-  
-  
+
+
+
 
   const resetFilters = () => {
     const updatedFilter = {};
@@ -161,30 +161,30 @@ export default function CollegeFilters(params?: any) {
   };
 
   // render data when filter values are changed
-  
+
   useEffect(() => {
     params?.setFilteredData(filteredCollege?.colleges?.data);
   }, [filteredCollege, filterLoader]);
 
-//   useEffect(() => {
-//   if (!filterLoader && filteredCollege) {
-//     // Reset all filter states to empty strings
-//     setStreamFilter("");
-//     setStateFilter("");
-//     setCityFilter("");
-//     setCoursesFilter("");
-//     setcollegeTypeFilter("");
-//   }
-// }, [filterLoader, filteredCollege]);
+  //   useEffect(() => {
+  //   if (!filterLoader && filteredCollege) {
+  //     // Reset all filter states to empty strings
+  //     setStreamFilter("");
+  //     setStateFilter("");
+  //     setCityFilter("");
+  //     setCoursesFilter("");
+  //     setcollegeTypeFilter("");
+  //   }
+  // }, [filterLoader, filteredCollege]);
 
 
   useEffect(() => {
     if (params.isMobile) {
-      document.body.style.overflowY = "hidden"; 
-      document.body.style.height = "100%"; 
+      document.body.style.overflowY = "hidden";
+      document.body.style.height = "100%";
     } else {
-      document.body.style.overflowY = "auto"; 
-      document.body.style.height = "auto"; 
+      document.body.style.overflowY = "auto";
+      document.body.style.height = "auto";
     }
 
     // Clean up function to reset styles when component unmounts
@@ -194,7 +194,7 @@ export default function CollegeFilters(params?: any) {
     };
   }, [params.isMobile]);
 
-  
+
 
   return (
     <>
@@ -232,13 +232,13 @@ export default function CollegeFilters(params?: any) {
           <></>
         )}
 
-          <Filter
-            name="Stream"
-            filters={streamsData?.streams?.data}
-            handleFilter={handleStreamFilter}
-            checked={StreamFilter}
-          />
-    
+        <Filter
+          name="Stream"
+          filters={streamsData?.streams?.data}
+          handleFilter={handleStreamFilter}
+          checked={StreamFilter}
+        />
+
         <Filter
           name="State"
           filters={statesData?.states?.data}
@@ -255,28 +255,28 @@ export default function CollegeFilters(params?: any) {
         {/* New tab for courses */}
         <Filter
           name="Courses"
-          filters={coursesData?.courses?.data} 
+          filters={coursesData?.courses?.data}
           handleFilter={handleCoursesFilter}
           checked={CoursesFilter}
         />
 
         <Filter
           name="CollegeType"
-          filters={collegeTypesData?.collegeTypes?.data} 
+          filters={collegeTypesData?.collegeTypes?.data}
           handleFilter={handlecollegeTypeFilter}
           checked={CoursesFilter}
         />
       </div>
       {params.isMobile ? (
-        <div className="absolute top-0 right-0 left-0 h-full w-full bg-black/[0.5] z-50 overscroll-none">
-          <div className="opacity-100 z-50 block fixed right-0 bottom-0 left-0 w-screen h-4/6 bg-white text-black rounded-xl">
-            <div className="flex justify-between px-5 py-5 w-full border-b-2 border-gray-300">
+        <div className="absolute top-0 left-0 h-full w-full bg-black overscroll-none z-50">
+          <div className=" z-50 block w-screen h-4/6 bg-white text-black rounded-xl">
+            <div className="flex justify-between px-5 py-5 w-screen border-b-2 border-gray-300 bg-gray-300">
               <h5 className="text-base font-bold">All Filter</h5>
               <span onClick={params.handleMobileFilter}>
                 <FaAngleDown />
               </span>
             </div>
-            <div className="filter-body">
+            <div className="filter-body bg-white flex flex-col justify-between p-4 h-[45vh]">
               <div className="flex flex-wrap flex-row filters-wrapper">
                 <div className="filters-section bg-white min-height px-0">
                   <Box
@@ -300,6 +300,8 @@ export default function CollegeFilters(params?: any) {
                     >
                       <Tab label="Streams" {...a11yProps(0)} />
                       <Tab label="States" {...a11yProps(1)} />
+                      <Tab label="Cources" {...a11yProps(2)} />
+                      <Tab label="CollegeType" {...a11yProps(3)} />
                     </Tabs>
                     <TabPanel value={value} index={0}>
                       {streamsData?.streams?.data?.map((stream: any) => {
@@ -328,7 +330,7 @@ export default function CollegeFilters(params?: any) {
                       })}
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                      {statesData.data?.map((state: any) => {
+                      {statesData?.data?.map((state: any) => {
                         return (
                           <div
                             key={state.id}
@@ -351,13 +353,64 @@ export default function CollegeFilters(params?: any) {
                         );
                       })}
                     </TabPanel>
+                    <TabPanel value={value} index={0}>
+                      {coursesData?.courses?.data?.map((courses: any) => {
+                        return (
+                          <div
+                            key={courses.id}
+                            className="flex gap-1 items-center my-2 cursor-pointer"
+                          >
+                            <input
+                              type="radio"
+                              id={courses.id}
+                              name={courses.attributes.streamName}
+                              checked={
+                                StreamFilter === courses.attributes.streamName
+                              }
+                              className=""
+                              onChange={() =>
+                                handleCoursesFilter(coursesData.attributes.streamName)
+                              }
+                            />
+                            <span className="text-xxs font-semibold text-secondary-text hover:text-primary">
+                              {courses.attributes.streamName}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </TabPanel>
+                    <TabPanel value={value} index={0}>
+                      {collegeTypesData?.collegeTypes?.data?.map((collegeTypes: any) => {
+                        return (
+                          <div
+                            key={collegeTypes.id}
+                            className="flex gap-1 items-center my-2 cursor-pointer"
+                          >
+                            <input
+                              type="radio"
+                              id={collegeTypes.id}
+                              name={collegeTypes.attributes.streamName}
+                              checked={
+                                StreamFilter === collegeTypes.attributes.streamName
+                              }
+                              className=""
+                              onChange={() =>
+                                handlecollegeTypeFilter(collegeTypes.attributes.streamName)
+                              }
+                            />
+                            <span className="text-xxs font-semibold text-secondary-text hover:text-primary">
+                              {collegeTypes.attributes.streamName}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </TabPanel>
                   </Box>
                 </div>
               </div>
-            </div>
-            <div className="filter-buttons flex justify-center w-full gap-14 px-5 bg-white fixed bottom-0 left-0 right-0 z-10">
+              <div className="filter-buttons flex justify-center w-full bg-white p-2">
               <div
-                className="w-1/2 border border-gray-300"
+                className="w-1/2 border border-gray-600 rounded-lg mx-2"
                 onClick={resetFilters}
               >
                 <Button
@@ -386,6 +439,8 @@ export default function CollegeFilters(params?: any) {
                 />
               </div>
             </div>
+            </div>
+            
           </div>
         </div>
       ) : (

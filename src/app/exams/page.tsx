@@ -170,14 +170,14 @@ export default function ExamList() {
           </ul>
         </section>
         <section className="heroSection">
-          <div className="m-4 px-8 pt-8 bg-white flex flex-col rounded-xl">
+          <div className="m-4 px-8 sm:pt-8 pt-2 bg-white flex flex-col rounded-xl">
             <h1 className="text-xl font-bold mb-3 text-center text-primary">
               All Exams 2023-2024, Dates, Application Forms & Alerts
             </h1>
             <p
-              className={`${
-                showFullContent ? "text-justify" : " text-center"
-              } text-base mb-3`}
+               className={`${
+                showFullContent ? "text-justify" : "text-center"
+              } text-base mb-3 lg:line-clamp-none ${showFullContent ? "" : "line-clamp-2"} `}
             >
               In the upcoming academic year of 2024-2025, numerous exams are
               scheduled across various educational levels and disciplines. These
@@ -232,7 +232,7 @@ export default function ExamList() {
           </div>
         </section>
         <section className="topExams">
-          <div className="m-4 bg-white py-6 px-4 rounded-xl">
+          <div className="m-4 bg-white sm:py-6 py-2 px-4 rounded-xl">
             <Carousel
               slidesDesktop={4}
               slidesTablet={3}
@@ -247,8 +247,8 @@ export default function ExamList() {
           </div>
         </section>
         <section className="collegeList">
-          <div className="flex flex-col md:flex-row gap-4 px-4">
-            <div className="flex-none w-64 h-full drop-shadow-md hover:drop-shadow-xl">
+          <div className="flex flex-col md:flex-row gap-4 sm:px-4 px-0 ">
+            <div className="flex-none w-64 h-full drop-shadow-md hover:drop-shadow-xl z-10">
               <ExamFilters
                 LevelFilter={LevelFilter}
                 setLevelFilter={setLevelFilter}
@@ -264,7 +264,7 @@ export default function ExamList() {
                 <div className="bg-white h-12 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
                   <RiSearchLine />
                   <input
-                    className="w-full flex-1 text-sm px-2 py-1 outline-none"
+                    className="w-full flex-1 text-sm px-2 py-1 outline-none h-10"
                     placeholder={`Search Exam Name`}
                     onChange={handleSearch}
                   />
@@ -276,7 +276,7 @@ export default function ExamList() {
                   />
 
                   <div className="max-md:block hidden">
-                    <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
+                    <div className="flex border-2 items-center p-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
                       <span onClick={handleMobileFilter}>Filter</span>
                       <MdOutlineSort />
                     </div>

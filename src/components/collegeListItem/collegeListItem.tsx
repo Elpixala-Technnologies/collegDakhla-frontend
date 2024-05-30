@@ -75,6 +75,7 @@ export default function CollegeListItem({collegeData, AppliedCollege}:any) {
     link.click();
     document.body.removeChild(link);
   };
+  console.log(collegeData , "allColleges")
 
   return (
     <>
@@ -167,9 +168,9 @@ export default function CollegeListItem({collegeData, AppliedCollege}:any) {
                         </h2>
                       </Link>
                       {/* line 3  */}
-                      <div className="flex items-stretch">
+                      <div className="flex items-center w-full">
                         <div className="pr-6 mr-6">
-                          <div className="text-primary flex gap-1 items-center font-semibold text-sm lg:text-lg">
+                          <div className="text-primary flex gap-1 items-center font-semibold text-md lg:text-lg">
                             <Image
                               src={RupeeBaves}
                               width={25}
@@ -183,7 +184,7 @@ export default function CollegeListItem({collegeData, AppliedCollege}:any) {
                           </p>
                         </div>
                         <div className="pr-6 mr-6  border-extra-light-text">
-                          <p className="text-primary flex gap-1 items-center font-semibold text-lg">
+                          <p className="text-primary flex gap-1 items-start font-semibold sm:text-lg text-md leading-tight">
                             <Image
                               src={Exams}
                               width={25}
@@ -215,7 +216,7 @@ export default function CollegeListItem({collegeData, AppliedCollege}:any) {
                         </div>
                       </div>
                       {/* line 4  */}
-                      <div className="flex gap-x-6 flex-wrap mt-2">
+                      <div className="sm:flex hidden gap-x-6 flex-wrap mt-2 ">
                         <Button
                           href={`/college/${college.id}`}
                           text="Admission 2024"
@@ -254,8 +255,8 @@ export default function CollegeListItem({collegeData, AppliedCollege}:any) {
                     </div>
                   </div>
                   {/* <Separator /> */}
-                  <div className="w-full flex items-center justify-evenly p-4 border-t border-gray-300">
-                    <div className="xl:flex flex-wrap items-stretch  px-2 text-primary w-3/4 hidden">
+                  <div className="w-full flex items-center justify-between p-4 border-t border-gray-300">
+                    <div className="lg:flex flex-wrap items-stretch  px-2 text-primary w-3/4 hidden">
                       <div className="pr-2 mr-2 border-r border-[#565959]">
                         <p className="text-base font-light">Info</p>
                       </div>
@@ -269,7 +270,7 @@ export default function CollegeListItem({collegeData, AppliedCollege}:any) {
                       <div className="pr-2 mr-2 border-r border-[#565959]">
                         <p className="text-base font-light">Review</p>
                       </div>
-                      <div className="pr-2 mr-2">
+                      <div className="pr-2 mr-2 xl:flex hidden">
                         <p className="text-base font-light">Placement</p>
                       </div>
                     </div>

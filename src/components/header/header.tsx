@@ -117,28 +117,7 @@ const LoginQASection = () => {
 };
 
 
-const MobileOption = () => {
-	return (
-		<div>
-			<Accordion title="College" showBorder={false}>
-				<CollegeOption />
-			</Accordion>
-			<Accordion title="Exam" showBorder={false}>
-				<ExamOption />
-			</Accordion>
-			{/* <Accordion title="Courses"> </Accordion>
-      <Accordion title="Career"> </Accordion>
-      <Accordion title="News"> </Accordion>
-      <Accordion title="More"> </Accordion> */}
-			<div className="flex flex-col gap-4 my-4 px-2">
-				<Link href={"/career"}>Careers</Link>
-				<Link href={"/courses"}>Courses</Link>
-				<Link href={"/news"}>News</Link>
-				<Link href={"/more"}>More</Link>
-			</div>
-		</div>
-	);
-};
+
 
 const CollegeOption = () => {
 	return (
@@ -169,119 +148,153 @@ const ExamOption = () => {
 	);
 };
 
+const MobileOption = ({ handleClick }:any) => {
+    const [selectedOption, setSelectedOption] = useState(null);
+
+    const handleOptionClick = (option:any) => {
+        setSelectedOption(option);
+        handleClick(option);
+    };
+
+    return (
+        <div className="flex flex-col gap-4 my-4 px-2">
+            {[
+                { href: "/colleges", label: "Colleges" },
+                { href: "/exams", label: "Exams" },
+                { href: "/courses", label: "Courses" },
+                { href: "/news", label: "News" },
+                { href: "/more", label: "More" },
+            ].map((option, index) => (
+                <Link key={index} href={option.href}>
+                    <div
+                        className={`block cursor-pointer ${selectedOption === option.label ? "bg-gray-300 p-2 rounded-lg" : ""}`}
+                        onClick={() => handleOptionClick(option.label)}
+                    >
+                        {option.label}
+                    </div>
+                </Link>
+            ))}
+        </div>
+    );
+};
+
 export default function Header() {
-	const [Path, setPath] = useState("");
-	const currentPath = usePathname();
-	const [ShowSearch, setShowSearch] = useState(false);
-	const [ShowOptions, setShowOptions] = useState(false);
-	const [Options, setOptions] = useState<ReactNode>(CollegeOption);
-	const [CurrentOpenOption, setCurrentOpenOption] = useState("");
-	const [activeTab, setActiveTab] = useState(null);
+    const [Path, setPath] = useState("");
+    const currentPath = usePathname();
+    const [ShowSearch, setShowSearch] = useState(false);
+    const [ShowOptions, setShowOptions] = useState(false);
+    const [Options, setOptions] = useState<ReactNode>(null);
+    const [CurrentOpenOption, setCurrentOpenOption] = useState("");
+    const [activeTab, setActiveTab] = useState(null);
+    const [selectedOption, setSelectedOption] = useState(null);
 
-	const handleMouseEnter = (index: any) => {
-		setActiveTab(index);
-	};
+    const handleMouseEnter = (index: any) => {
+        setActiveTab(index);
+    };
 
-	const handleMouseLeave = () => {
-		setActiveTab(null);
-	};
+    const handleMouseLeave = () => {
+        setActiveTab(null);
+    };
 
-	const handleSearch = () => {
-		setShowSearch(!ShowSearch);
-	};
+    const handleSearch = () => {
+        setShowSearch(!ShowSearch);
+    };
 
-	const handleShowOptions = (option: string) => {
-		if (CurrentOpenOption === option) {
-			setShowOptions(false);
-			setCurrentOpenOption("");
-			return false;
-		}
-		setShowOptions(true);
-		setCurrentOpenOption(option);
-		switch (option) {
-			case "college":
-				setOptions(CollegeOption);
-				break;
-			case "exam":
-				setOptions(ExamOption);
-				break;
-			case "hamburger":
-				setOptions(MobileOption);
-		}
-	};
+    const handleShowOptions = (option: string) => {
+        if (CurrentOpenOption === option) {
+            setShowOptions(false);
+            setCurrentOpenOption("");
+            setSelectedOption(null);
+            return;
+        }
+        setShowOptions(true);
+        setCurrentOpenOption(option);
+        setSelectedOption(null);
+    };
 
-	useEffect(() => {
-		setPath(currentPath.split("/")[1]);
-	}, [currentPath]);
+    const handleMobileOptionClick = (option: any) => {
+        setSelectedOption(option);
+        setTimeout(() => {
+            setShowOptions(false);
+            setCurrentOpenOption("");
+        }, 300); // Delay to allow the click animation to play
+    };
 
-	useEffect(() => {
-		if (ShowOptions) {
-			setTimeout(() => {
-				setShowOptions(false);
-				setCurrentOpenOption("");
-			}, 8000);
-		}
-	}, [ShowOptions]);
-	useEffect(() => { }, []);
+    useEffect(() => {
+        setPath(currentPath.split("/")[1]);
+    }, [currentPath]);
 
-	return (
-		<nav className=" relative z-50  bg-gradient-to-b from-[#000]  to-[#1a1a1a]">
-			<div className="relative h-24 flex gap-4 items-center mx-auto px-4 max-w-screen-xl justify-between">
-				<div className="logo flex-none w-24">
-					<Link href="/">
-						<Image src="/logo.png" alt="" width={100} height={100} />
-					</Link>
-				</div>
-				<div className="flex gap-8 flex-1 items-center"></div>
-				<div className="flex gap-8 items-center text-white">
-					<div className="hidden sm:block">
-						<div className="flex gap-2 md:gap-8">
-							{[
-								{ href: "/colleges", label: "College" },
-								{ href: "/exams", label: "Exams" },
-								{ href: "/courses", label: "Courses" },
-								{ href: "/news", label: "News" },
-								{ href: "/more", label: "More" },
-							].map((tab, index) => (
-								<div
-									key={index}
-									className="flex flex-col gap-1 items-center"
-									onMouseEnter={() => handleMouseEnter(index)}
-									onMouseLeave={handleMouseLeave}
-								>
-									<Link href={tab.href}>{tab.label}</Link>
-									<div
-										className={`bg-amber-500 h-[2px] w-0 ${activeTab === index ? "w-full" : ""
-											} transition-all duration-500`}
-									></div>
-								</div>
-							))}
-						</div>
-					</div>
-					<LoginQASection />
-				</div>
-				<div className="hidden max-sm:block text-white">
-					<div className="flex gap-4 ">
-						<div className="" onClick={handleSearch}>
-							<RiSearchLine />
-						</div>
-						<div>
-							<GiHamburgerMenu onClick={() => handleShowOptions("hamburger")} />
-						</div>
-					</div>
-				</div>
-				{ShowOptions ? (
-					<>
-						{/* <NavOption></NavOption>
-          <LoginQASection /> */}
-						<div className="absolute top-24 -left-1 md:left-0 w-full h-max bg-white mx-auto p-4 rounded-md shadow-lg z-50">
-							{Options}
-						</div>
-					</>
-				) : (
-					<></>
-				)}
-			</div>
-		</nav>
-	);
+    useEffect(() => {
+        if (ShowOptions) {
+            setTimeout(() => {
+                setShowOptions(false);
+                setCurrentOpenOption("");
+            }, 8000);
+        }
+    }, [ShowOptions]);
+
+    useEffect(() => {
+        if (CurrentOpenOption === "college") {
+            setOptions(<CollegeOption />);
+        } else if (CurrentOpenOption === "exam") {
+            setOptions(<ExamOption />);
+        } else if (CurrentOpenOption === "hamburger") {
+            setOptions(<MobileOption handleClick={handleMobileOptionClick} />);
+        }
+    }, [CurrentOpenOption]);
+
+    return (
+        <nav className="relative z-50 bg-gradient-to-b from-[#000] to-[#1a1a1a]">
+            <div className="relative h-24 flex gap-4 items-center mx-auto px-4 max-w-screen-xl justify-between">
+                <div className="logo flex-none w-24">
+                    <Link href="/">
+                        <Image src="/logo.png" alt="" width={100} height={100} />
+                    </Link>
+                </div>
+                <div className="flex gap-8 flex-1 items-center"></div>
+                <div className="flex gap-8 items-center text-white">
+                    <div className="hidden sm:block">
+                        <div className="flex gap-2 md:gap-8">
+                            {[
+                                { href: "/colleges", label: "College" },
+                                { href: "/exams", label: "Exams" },
+                                { href: "/courses", label: "Courses" },
+                                { href: "/news", label: "News" },
+                                { href: "/more", label: "More" },
+                            ].map((tab, index) => (
+                                <div
+                                    key={index}
+                                    className="flex flex-col gap-1 items-center"
+                                    onMouseEnter={() => handleMouseEnter(index)}
+                                    onMouseLeave={handleMouseLeave}
+                                >
+                                    <Link href={tab.href}>{tab.label}</Link>
+                                    <div
+                                        className={`bg-amber-500 h-[2px] w-0 ${activeTab === index ? "w-full" : ""
+                                            } transition-all duration-500`}
+                                    ></div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <LoginQASection />
+                </div>
+                <div className="hidden max-sm:block text-white">
+                    <div className="flex gap-4">
+                        <div onClick={handleSearch}>
+                            <RiSearchLine />
+                        </div>
+                        <div>
+                            <GiHamburgerMenu onClick={() => handleShowOptions("hamburger")} />
+                        </div>
+                    </div>
+                </div>
+                {ShowOptions && (
+                    <div className="absolute top-24 -left-1 md:left-0 w-full h-max bg-white mx-auto p-4 rounded-md shadow-lg z-50">
+                        {Options}
+                    </div>
+                )}
+            </div>
+        </nav>
+    );
 }

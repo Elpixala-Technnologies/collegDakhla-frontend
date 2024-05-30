@@ -79,11 +79,18 @@ const MorePage = () => {
 
 	return (
 		<>
-			<div className="min-h-[130px]"></div>
+			<div className="min-h-[130px] sm:flex hidden"></div>
 
 			<div className="flex flex-col md:flex-row gap-6 md:gap-1 justify-between max-w-screen-xl mx-auto items-center px-8 md:px-4">
 				<div className="w-full md:w-1/2 flex flex-col gap-6">
-					<div>
+					<p className="sm:hidden flex items-end text-3xl mt-4">
+						<span className="text-primary">C</span>
+						<span>ollege</span>
+						<span className="pl-5">D</span>
+						<span className="text-primary">akhala</span>
+					</p>
+					<div className="sm:flex hidden ">
+
 						<a
 							href="/"
 							className="wrapper"
