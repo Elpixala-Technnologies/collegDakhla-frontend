@@ -69,7 +69,7 @@ const Information = ({ props }: { props: InformationProps }) => {
 				gender: genders,
 			}));
 		}
-	}, [genders]);
+	}, [genders, userInformation.gender]);
 
 	useEffect(() => {
 		if (citee && !userInformation.city) {
@@ -78,7 +78,7 @@ const Information = ({ props }: { props: InformationProps }) => {
 				city: citee,
 			}));
 		}
-	}, [citee]);
+	}, [citee, userInformation.city]);
 
 	useEffect(() => {
 		if (courseIntrested && !userInformation.interestedCourse) {
@@ -87,7 +87,7 @@ const Information = ({ props }: { props: InformationProps }) => {
 				interestedCourse: courseId,
 			}));
 		}
-	}, [courseIntrested, courseId]);
+	}, [courseIntrested, courseId, userInformation.interestedCourse]);
 
 	useEffect(() => {
 		const handleResize = () => {
