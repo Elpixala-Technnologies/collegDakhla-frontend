@@ -30,13 +30,9 @@ export function getStrapiMedia(url: string | null) {
 export function GetDefaultImage(type: string) {
 
 	if (type == "logo") {
-		// console.log("default logo is ", GetDefaultMedia("logo.jpeg"))
-		//let url = GetDefaultMedia("logo.jpeg")
 		return "https://images.shiksha.com/mediadata/images/1605086820phpSFQlAR_s.jpg"
 	}
 	else if (type == "banner") {
-		// console.log("default banner is ", GetDefaultMedia("banner.webp"))
-		// let url = GetDefaultMedia("banner.webp")
 		return "https://images.collegedunia.com/public/college_data/images/appImage/1509430807cover.jpg?h=300&w=250&mode=stretch"
 	}
 }

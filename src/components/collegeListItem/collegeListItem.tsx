@@ -44,8 +44,6 @@ export default function CollegeListItem({collegeData, AppliedCollege}:any) {
     maximumFractionDigits: 0,
   });
 
-  console.log(collegeData , "allColleges")
-
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
