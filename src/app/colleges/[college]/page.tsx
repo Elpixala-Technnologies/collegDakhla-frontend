@@ -218,8 +218,6 @@ export default function CollegeDetail({ params }: Props) {
           },
         });
 
-        console.log("Save response:", response);
-
         if (response?.data) {
           Swal.fire({
             position: "center",

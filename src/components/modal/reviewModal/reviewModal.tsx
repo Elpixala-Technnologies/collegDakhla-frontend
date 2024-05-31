@@ -109,7 +109,6 @@ const ReviewModal = ({ isOpen, onClose, id, ReviewData }: any) => {
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log(response, "response");
         onClose();
       }
     } catch (error) {
