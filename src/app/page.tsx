@@ -168,10 +168,10 @@ export default function Home() {
   // ======== get tuch
   const { createGetTuch, CheckGetTuch } = useGetTuch();
 
-  const [name, setName] = useState<any>(null);
-  const [emailValue, setEmailValue] = useState<any>(null);
-  const [phone, setPhone] = useState<any>(null);
-  const [StreamsSelected, setStreamsSelected] = useState<any>(null);
+  const [name, setName] = useState<string>("");
+  const [emailValue, setEmailValue] = useState<string>("");
+  const [phone, setPhone] = useState<any>("");
+  const [StreamsSelected, setStreamsSelected] = useState<any>("");
   const [isGetTuch, setIsGetTuch] = useState<any>(false);
 
   const handleSubmit = async () => {
