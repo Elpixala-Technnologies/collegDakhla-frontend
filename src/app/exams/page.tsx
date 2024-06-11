@@ -247,8 +247,9 @@ export default function ExamList() {
           </div>
         </section>
         <section className="collegeList">
-          <div className="flex flex-col md:flex-row gap-4 px-4">
-            <div className="flex-none w-64 h-full drop-shadow-md hover:drop-shadow-xl">
+        <div className="flex flex-col md:flex-row gap-3 px-4 my-5">
+            {/* aside Filter  */}
+            <div className="flex-none w-64 border border-zinc-300 rounded-md h-full hover:drop-shadow-md">
               <ExamFilters
                 LevelFilter={LevelFilter}
                 setLevelFilter={setLevelFilter}
@@ -259,9 +260,9 @@ export default function ExamList() {
                 totalExams={examsData?.exams?.meta?.pagination?.total}
               />
             </div>
-            <div className="flex-1 w-full overflow-hidden">
+            <div className="flex-1 w-full">
               <div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col">
-                <div className="bg-white h-12 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
+                <div className="bg-white h-12 flex border-2 border-zinc-300 rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
                   <RiSearchLine />
                   <input
                     className="w-full flex-1 text-sm px-2 py-1 outline-none"
@@ -283,7 +284,7 @@ export default function ExamList() {
                   </div>
                 </div>
               </div>
-              <div className="flex sm:flex-col flex-row overflow-x-scroll">
+              <div className="flex flex-col p-2">
                 {
                   AllExamData ? (
                     <ExamListItem exams={filteredData} />

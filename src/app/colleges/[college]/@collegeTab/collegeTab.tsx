@@ -48,7 +48,7 @@ export default function CollegeTab(props: any) {
 
   return (
     <>
-      <div className="container h-full my-10">
+      <div className="container h-full my-5">
         <div className="main-wrapper flex gap-4">
           <div className="left-wrapper md:basis-3/4 w-full md:w-9/12 flex flex-col gap-5">
             <div className="bg-primary-extra-light flex flex-col gap-4">
@@ -63,7 +63,7 @@ export default function CollegeTab(props: any) {
                         key={index}
                       >
                         <div
-                          className="content rounded-xl px-5 pt-5 mb-5"
+                          className="content rounded-xl"
                           key={index}
                           ref={(el) => (accordionRefs.current[index] = el)} // Assign ref
                         >
@@ -94,12 +94,14 @@ export default function CollegeTab(props: any) {
             </div>
           </div>
 
-          <div className="right-wrapper basis-1/4 rounded-lg min-w-72 hidden md:block">
-            <div className="md:flex md:flex-col md:gap-2 h-full">
+          <div className="right-wrapper basis-1/4 rounded-md min-w-72 hidden md:block">
+            <div className="md:flex md:flex-col md:gap-4 h-full">
               {images.length > 0 && (
-                <div className="college-videos bg-gray-50 p-3 rounded-3xl">
+                <div className="college-videos border border-zinc-300 p-3 rounded-md">
                   <div className="gallery-container">
-                    <h2>Gallery Items</h2>
+                    <h2 className="text-base font-bold rounded-lg p-2">
+                      Gallery Items
+                    </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
                       {images.map(
                         (imgItem: {
@@ -110,7 +112,7 @@ export default function CollegeTab(props: any) {
                             <img
                               src={imgItem?.attributes?.url}
                               alt={`Gallery Image ${imgItem.id}`}
-                              className="w-full h-full"
+                              className="w-full h-full object-contain"
                             />
                           </div>
                         )
@@ -119,8 +121,8 @@ export default function CollegeTab(props: any) {
                   </div>
                 </div>
               )}
-              <div className="college-videos bg-gray-50 p-3 rounded-3xl sticky top-2 h-fit">
-                <h2 className="text-base font-bold bg-blue-200 rounded-lg p-2">
+              <div className="college-videos border border-zinc-300 p-3 rounded-md sticky top-2 h-fit">
+                <h2 className="text-base font-bold rounded-lg p-2">
                   Related Content
                 </h2>
                 <ul className="flex flex-col gap-2 list-disc pl-5">
@@ -128,7 +130,7 @@ export default function CollegeTab(props: any) {
                     return (
                       <li
                         key={index}
-                        className="hover:text-blue-600 cursor-pointer"
+                        className="hover:underline hover:text-primary cursor-pointer"
                         onClick={() => handleScrollToAccordion(index)}
                       >
                         {item?.heading}

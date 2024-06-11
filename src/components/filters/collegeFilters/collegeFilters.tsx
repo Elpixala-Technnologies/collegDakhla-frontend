@@ -32,7 +32,6 @@ export default function CollegeFilters(params?: any) {
     error: streamsError,
     data: streamsData,
   } = useQuery(getStreams);
-
   const {
     loading: statesLoader,
     error: statesError,
@@ -198,7 +197,7 @@ export default function CollegeFilters(params?: any) {
 
   return (
     <>
-      <div className="bg-white hidden md:block p-2 m-2 md:m-0 rounded-lg">
+      <div className="bg-white hidden md:block p-2 m-2 md:m-0 rounded-lg border border-zinc-300 hover:drop-shadow-lg">
         <h3 className="uppercase text-sm px-2 py-3">
           Found colleges
         </h3>

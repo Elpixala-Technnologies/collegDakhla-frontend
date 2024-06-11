@@ -249,7 +249,7 @@ export default function CollegeDetail({ params }: Props) {
             alt={college?.collegeName}
             width={1200}
             height={1200}
-            className="w-full h-80  object-fill"
+            className="w-full h-80 object-center object-cover"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
           <div className="absolute my-6 max-w-screen-xl pt-6 px-4 inset-0 text-white flex gap-4 mx-auto">
@@ -259,7 +259,7 @@ export default function CollegeDetail({ params }: Props) {
                 width={100}
                 height={100}
                 alt={college?.collegeName}
-                className="rounded-sm h-28 object-center objext-contain"
+                className="rounded-sm h-28 object-center object-contain"
               />
             </div>
             <div className="flex flex-col md:flex-row gap-4 flex-1">
@@ -375,11 +375,11 @@ export default function CollegeDetail({ params }: Props) {
         <div className="flex justify-center max-w-screen-xl mx-auto flex-col">
           <div className="infoOption flex items-center max-w-screen-xl mr-2">
             <div className="sticky-nav-wrapper w-full flex items-center justify-center">
-              <div className=" bg-white flex border-b border-b-primary-light w-full rounded-lg">
-                <div className="sm:max-w-screen-xl lg:mx-auto px-1 py-1 md:px-4 w-full justify-center shadow-md shadow-gray-600 rounded-lg mt-5">
+              <div className="bg-white flex border-b border-b-primary-light w-full rounded-lg">
+                <div className="sm:max-w-screen-xl lg:mx-auto p-2 w-full justify-center border border-zinc-200 rounded-lg mt-5">
                   <NavbarSlider
-                    buttonBorderColor="border-primary-text"
-                    buttonTextColor="text-primary-text"
+                    buttonBorderColor="hover:border-primary/50"
+                    buttonTextColor="text-primary hover:text-white"
                     showPagination={false}
                     slidesDesktop={5}
                     slidesTablet={5}
@@ -407,8 +407,8 @@ export default function CollegeDetail({ params }: Props) {
               </div>
             </div>
           </div>
-          <p className="text-lg mt-5 flex items-center gap-2">
-            <FaRegClock className="text-2xl" />
+          <p className="mt-5 flex items-center gap-2">
+            <FaRegClock className="text-xl" />
             <span>Updated at </span>
             {formatDate(college?.updatedAt!)}
           </p>

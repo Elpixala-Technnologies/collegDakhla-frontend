@@ -65,7 +65,7 @@ export default function ExamTab({ tabData }: any) {
 								width="w-full"
 								align="text-center"
 							/> */}
-							<div className="college-videos bg-gray-50 p-3">
+							<div className="college-videos border border-zinc-300 rounded-md p-3">
 								<h4 className="text-base font-bold font-poppins border-b-2 pb-2">
 									Videos
 								</h4>
