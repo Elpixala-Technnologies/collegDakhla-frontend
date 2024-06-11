@@ -325,9 +325,9 @@ export default function CollegeList() {
         </section>
         {/* Colleges list  */}
         <section className="collegeList">
-          <div className="flex flex-col md:flex-row gap-3 px-4">
+          <div className="flex flex-col md:flex-row gap-3 px-4 my-5">
             {/* aside Filter  */}
-            <div className="flex-none w-64 h-full drop-shadow-md hover:drop-shadow-xl">
+            <div className="flex-none w-64 h-full hover:drop-shadow-xl">
               <CollegeFilters
                 allColleges={initialData}
                 setFilteredData={setFilteredData}
@@ -340,7 +340,7 @@ export default function CollegeList() {
             <div className="flex-1 w-full">
               {/* SearchBar and sort  */}
               <div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col px-2">
-                <div className="bg-white h-12 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
+                <div className="bg-white h-12 flex border border-zinc-300 rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
                   <RiSearchLine />
                   <input
                     className="w-full focus:outline-none"
@@ -354,8 +354,8 @@ export default function CollegeList() {
                   <SortButton
                     handleFilterOptionClick={handleFilterOptionClick}
                   />
-                  <div className="max-md:block hidden">
-                    <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
+                  <div className="max-md:block hidden h-12">
+                    <div className="flex border-2 items-center px-2 border-zinc-300 gap-2 rounded-md cursor-pointer">
                       <span onClick={handleMobileFilter}>Filter</span>
                       <MdOutlineSort />
                     </div>

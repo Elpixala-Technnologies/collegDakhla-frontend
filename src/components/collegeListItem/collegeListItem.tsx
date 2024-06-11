@@ -20,10 +20,10 @@ import {
   RupeeBaves,
 } from "@/Asset";
 import ApplyNowModal from "../consultingModule/ApplyNowModal/ApplyNowModal";
-import { useState } from "react";
+import React, { useState } from "react";
 import userFrom from "@/hooks/userFrom";
 
-export default function CollegeListItem({collegeData, AppliedCollege}:any) {
+export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
   const { CollegeApplicatonListData } = userFrom();
 
   // query to get all states
@@ -34,9 +34,7 @@ export default function CollegeListItem({collegeData, AppliedCollege}:any) {
   } = useQuery(getStates);
 
   const collegeFee = parseInt(
-    collegeData?.attributes?.fees
-      ? collegeData?.attributes?.fees
-      : 200000
+    collegeData?.attributes?.fees ? collegeData?.attributes?.fees : 200000
   ).toLocaleString("en-IN", {
     style: "currency",
     currency: "INR",
@@ -92,28 +90,30 @@ export default function CollegeListItem({collegeData, AppliedCollege}:any) {
                 )
               : GetDefaultImage("banner");
 
-              const isCollegeApplied  = Array.isArray(AppliedCollege) && AppliedCollege.some(
+            const isCollegeApplied =
+              Array.isArray(AppliedCollege) &&
+              AppliedCollege.some(
                 (applied) => applied?.college?.data?.id === college?.id
               );
 
             return (
               <div key={index}>
-                <div className="mb-4 pt-4 flex flex-wrap md:flex-row gap-4 shadow-lg bg-white rounded-lg drop-shadow hover:drop-shadow-xl">
-                  <div className="flex flex-row">
+                <div className="mb-5 flex flex-wrap md:flex-row border border-zinc-300 bg-white rounded-lg  hover:drop-shadow-lg">
+                  <div className="flex gap-5 p-4">
+                    {/* image  */}
                     <div className="relative rounded-lg">
-                      <div className="p-2">
-                        <Image
-                          width={700}
-                          height={700}
-                          src={logoURL!}
-                          alt={college?.collegeName}
-                          className="w-full sm:w-36 object-fill rounded-lg max-w-44"
-                        />
-                      </div>
+                      <Image
+                        width={700}
+                        height={700}
+                        src={logoURL!}
+                        alt={college?.collegeName}
+                        className="h-36 w-36 object-contain rounded-md"
+                      />
                     </div>
+                    {/* Right Side  */}
                     <div className="flex flex-col gap-1">
                       {/* line 1  */}
-                      <div className="flex flex-row gap-8 p-1">
+                      <div className="flex flex-row gap-8">
                         <div className="  border-extra-light-text">
                           <p className="text-[#0F4988] flex gap-1 items-center text-sm">
                             <Image
@@ -252,52 +252,47 @@ export default function CollegeListItem({collegeData, AppliedCollege}:any) {
                     </div>
                   </div>
                   {/* <Separator /> */}
-                  <div className="w-full flex items-center justify-evenly p-4 border-t border-gray-300">
-                    <div className="xl:flex flex-wrap items-stretch  px-2 text-primary w-3/4 hidden">
-                      <div className="pr-2 mr-2 border-r border-[#565959]">
-                        <p className="text-base font-light">Info</p>
-                      </div>
-                      <div className="pr-2 mr-2 border-r border-[#565959]">
-                        <p className="text-base font-light">Courses</p>
-                      </div>
-                      <div className="pr-2 mr-2 border-r border-[#565959]">
-                        <p className="text-base font-light">Scholarship</p>
-                      </div>
-
-                      <div className="pr-2 mr-2 border-r border-[#565959]">
-                        <p className="text-base font-light">Review</p>
-                      </div>
-                      <div className="pr-2 mr-2">
-                        <p className="text-base font-light">Placement</p>
-                      </div>
-                    </div>
-
-                    <div className="">
-                      <div className="flex flex-row gap-4 text-primary college-btn">
-                        <button disabled={isCollegeApplied}>
-                          <Button
-                            // href={`/college/${college.id}`}
-                            onClick={() => handleOpenModal(college?.id)}
-                            text={isCollegeApplied ? "Applied" : "Apply Now"}
-                            filled
-                            fontSize="text-sm"
-                            width="w-40"
-                            align="text-center"
-                            bgColor="bg-primary"
-                          />
-                        </button>
+                  <div className="w-full flex items-center justify-between px-4 pr-2 py-2 border-t text-semibold border-zinc-300">
+                    <ul className="flex flex-wrap gap-3 text-primary w-3/4 capitalize">
+                      {[
+                        "Info",
+                        "Courses",
+                        "Scholarship",
+                        "Review",
+                        "Placement",
+                      ].map((item, index) => (
+                        <React.Fragment key={index}>
+                          <li className="cursor-pointer hover:underline">{item}</li>
+                          {index !== 4 && <li>|</li>}
+                        </React.Fragment>
+                      ))}
+                    </ul>
+                    <div className="flex flex-row gap-4 text-primary college-btn">
+                      <button disabled={isCollegeApplied}>
                         <Button
-                          onClick={handleDownload}
-                          text="Download Brochure"
-                          fontSize="text-sm"
+                          // href={`/college/${college.id}`}
+                          onClick={() => handleOpenModal(college?.id)}
+                          text={isCollegeApplied ? "Applied" : "Apply Now"}
                           outline
-                          width="w-40"
                           outlineColor="border-primary"
-                          fontColor="text-primary"
+                          fontSize="text-sm"
+                          width="w-40"
                           align="text-center"
-                          bgColor="bg-white"
+                          bgColor="bg-primary hover:bg-white"
+                          fontColor="text-white hover:text-primary"
                         />
-                      </div>
+                      </button>
+                      <Button
+                        onClick={handleDownload}
+                        text="Download Brochure"
+                        fontSize="text-sm"
+                        outline
+                        width="w-40"
+                        outlineColor="border-primary"
+                        fontColor="text-primary hover:text-white"
+                        align="text-center"
+                        bgColor="bg-white hover:bg-primary"
+                      />
                     </div>
                   </div>
                 </div>

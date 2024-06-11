@@ -75,13 +75,13 @@ const Carousel = ({
         {showButton ? (
           <div className="flex gap-4 items-center">
             <button
-              className="border border-black p-2 cursor-pointer rounded-md text-black"
+              className="border border-zinc-300 p-2 cursor-pointer rounded-md text-black"
               onClick={prevSlide}
             >
               <FaAngleLeft />
             </button>
             <button
-              className="border border-black p-2 cursor-pointer rounded-md text-black"
+              className="border border-zinc-300 p-2 cursor-pointer rounded-md text-black"
               onClick={nextSlide}
             >
               <FaAngleRight />
