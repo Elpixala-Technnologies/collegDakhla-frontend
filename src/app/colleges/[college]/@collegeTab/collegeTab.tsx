@@ -46,6 +46,26 @@ export default function CollegeTab(props: any) {
     (item: { pageGallery: { data: any } }) => item.pageGallery?.data || []
   );
 
+  const [activeSection, setActiveSection] = useState("gallery"); // Default to 'gallery' section
+
+  const handleSectionChange = (section: string) => {
+    setActiveSection(section);
+  };
+
+  // POP IMAGE IN MODAL
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageClick = (imgItem: any) => {
+    setSelectedImage(imgItem);
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    setSelectedImage(null);
+  };
+
   return (
     <>
       <div className="container h-full my-5">
@@ -95,39 +115,77 @@ export default function CollegeTab(props: any) {
           </div>
 
           <div className="right-wrapper basis-1/4 rounded-md min-w-72 hidden md:block">
-            <div className="md:flex md:flex-col md:gap-4 h-full">
-              {images.length > 0 && (
-                <div className="college-videos border border-zinc-300 p-3 rounded-md">
+            <div className="md:flex md:flex-col md:gap-4 h-max border border-zinc-300 rounded-md">
+              {/* navbar  */}
+              <div className="navbar border-b border-zinc-300">
+                <button
+                  onClick={() => handleSectionChange("gallery")}
+                  className={`p-2 ${
+                    activeSection === "gallery" ? "font-bold" : ""
+                  }`}
+                >
+                  Gallery Items
+                </button>
+                <button
+                  onClick={() => handleSectionChange("related")}
+                  className={`p-2 ${
+                    activeSection === "related" ? "font-bold" : ""
+                  }`}
+                >
+                  Related Content
+                </button>
+              </div>
+              {/* Gallery  */}
+              {activeSection === "gallery" && images?.length > 0 && (
+                <div className="college-videos">
                   <div className="gallery-container">
-                    <h2 className="text-base font-bold rounded-lg p-2">
-                      Gallery Items
-                    </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
-                      {images.map(
-                        (imgItem: {
-                          id: Key | null | undefined;
-                          attributes: { url: string | undefined };
-                        }) => (
-                          <div key={imgItem.id} className="gallery-item">
-                            <img
-                              src={imgItem?.attributes?.url}
-                              alt={`Gallery Image ${imgItem.id}`}
-                              className="w-full h-full object-contain"
-                            />
-                          </div>
-                        )
-                      )}
+                      {images?.map((imgItem: any) => (
+                        <div
+                          key={imgItem?.id}
+                          className="gallery-item hover:p-2  hover:border border-primary"
+                        >
+                          <img
+                            src={imgItem?.attributes?.url}
+                            alt={`Gallery Image ${imgItem?.id}`}
+                            className="w-full h-full object-contain cursor-pointer"
+                            onClick={() => handleImageClick(imgItem?.attributes?.url)}
+                          />
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
               )}
-              <div className="college-videos border border-zinc-300 p-3 rounded-md sticky top-2 h-fit">
-                <h2 className="text-base font-bold rounded-lg p-2">
-                  Related Content
-                </h2>
-                <ul className="flex flex-col gap-2 list-disc pl-5">
-                  {props?.data?.map((item: any, index: number) => {
-                    return (
+              {/* IMAGE POP MODULE  */}
+              {isPopupOpen && selectedImage && (
+                <div
+                  className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+                  onClick={handleClosePopup}
+                >
+                  <div
+                    className="relative bg-white p-4 rounded shadow-lg"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button
+                      className="absolute top-2 right-2 text-black text-2xl"
+                      onClick={handleClosePopup}
+                    > 
+                      &times;
+                    </button>
+                    <img
+                      src={selectedImage}
+                      alt={`Gallery Image`}
+                      className="w-full h-auto object-contain"
+                    />
+                  </div>
+                </div>
+              )}
+              {/* Related Content */}
+              {activeSection === "related" && (
+                <div className="college-videos  p-3 sticky top-2 h-fit">
+                  <ul className="flex flex-col gap-2 list-disc pl-5">
+                    {props?.data?.map((item: any, index: any) => (
                       <li
                         key={index}
                         className="hover:underline hover:text-primary cursor-pointer"
@@ -135,10 +193,10 @@ export default function CollegeTab(props: any) {
                       >
                         {item?.heading}
                       </li>
-                    );
-                  })}
-                </ul>
-              </div>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </div>

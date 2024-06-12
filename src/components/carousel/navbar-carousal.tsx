@@ -258,7 +258,7 @@ const NavbarSlider = ({
 
         <div className="w-full overflow-hidden ">
           <div
-            className="flex gap-x-20 items-center transition-transform duration-300 ease-in-out h-full"
+            className="flex gap-x-10 items-center transition-transform duration-300 ease-in-out h-full"
             style={{
               transform: `translateX(-${(100 / totalSlides) * activeIndex}%)`,
             }}
