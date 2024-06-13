@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import Filter from "../examFilters/filter";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import {
-  getExamLevels,
-  getExamModes,
-  getStreams,
-} from "@/query/schema";
+import { getExamLevels, getExamModes, getStreams } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -19,8 +15,6 @@ export default function ExamFilters({
   setLevelFilter,
   ModeFilter,
   setModeFilter,
-  isMobile,
-  handleMobileFilter,
   totalExams,
 }: any) {
   const [open, setOpen] = useState(true);
@@ -33,13 +27,11 @@ export default function ExamFilters({
     mode: "",
   });
 
-
   const {
     loading: examLevelLoader,
     error: examLevelError,
     data: examLevelData,
   } = useQuery(getExamLevels);
-
 
   const {
     loading: examModeLoader,
@@ -51,7 +43,6 @@ export default function ExamFilters({
     error: streamsError,
     data: streamsData,
   } = useQuery(getStreams);
-  
 
   const handleStreamFilter = (name: string) => {
     setStreamFilter(name);
@@ -92,10 +83,6 @@ export default function ExamFilters({
     }
   };
 
-  const resetFilters = () => {
-    const updatedFilter = {};
-    handleMobileFilter();
-  };
 
   const tabHandleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -105,25 +92,10 @@ export default function ExamFilters({
     const hasData = Object.values(SelectedFilter).some((value) => !!value);
   }, [SelectedFilter]);
 
-  useEffect(() => {
-    if (isMobile) {
-      document.body.style.overflowY = "hidden"; 
-      document.body.style.height = "100%";
-    } else {
-      document.body.style.overflowY = "auto";
-      document.body.style.height = "auto";
-    }
-    return () => {
-      document.body.style.overflowY = "auto"; 
-      document.body.style.height = "auto"; 
-    };
-  }, [isMobile]);
-
   return (
-    <>
-      <div className="bg-white hidden md:block rounded-lg">
+      <div className="bg-white max-md:mt-24  rounded-lg">
         <h3 className="uppercase text-sm px-2 py-3">
-          Found <b>{""}</b> colleges 
+          Found <b>{""}</b> colleges
         </h3>
         {SelectedFilter.level ||
         SelectedFilter.mode ||
@@ -177,133 +149,6 @@ export default function ExamFilters({
           checked={ModeFilter}
         />
       </div>
-      {isMobile ? (
-        <div className="absolute top-0 right-0 left-0 h-full w-full bg-black/[0.5] z-50 overscroll-none">
-          <div className="opacity-100 z-50 block fixed right-0 bottom-0 left-0 w-screen h-4/6 bg-white text-black rounded-xl">
-            <div className="flex justify-between px-5 py-5 w-full border-b-2 border-gray-300">
-              <h5 className="text-base font-bold">All Filter</h5>
-              <span onClick={handleMobileFilter}>
-                <FaAngleDown />
-              </span>
-            </div>
-            <div className="filter-body">
-              <div className="flex flex-wrap flex-row filters-wrapper">
-                <div className="filters-section bg-white min-height px-0">
-                  <Box
-                    sx={{
-                      flexGrow: 1,
-                      bgcolor: "background.paper",
-                      display: "flex",
-                      height: 224,
-                    }}
-                  >
-                    <Tabs
-                      orientation="vertical"
-                      variant="scrollable"
-                      value={value}
-                      onChange={tabHandleChange}
-                      aria-label="Vertical tabs example"
-                      sx={{
-                        borderRight: 1,
-                        borderColor: "divider",
-                      }}
-                    >
-                      <Tab label="Duration" {...a11yProps(0)} />
-                      <Tab label="Specialization" {...a11yProps(1)} />
-                    </Tabs>
-                    <TabPanel value={value} index={0}>
-                      {examLevelData?.examLevels?.data.map(
-                        (level: any, index: number) => {
-                          return (
-                            <div
-                              key={index}
-                              className="flex gap-1 items-center my-2 cursor-pointer"
-                            >
-                              <input
-                                type="radio"
-                                id={level?.attributes?.name}
-                                name={level?.attributes?.name}
-                                checked={
-                                  LevelFilter === level?.attributes?.name
-                                }
-                                className=""
-                                onChange={() =>
-                                  handleLevelFilter(level?.attributes?.name)
-                                }
-                              />
-                              <span className="text-xxs font-semibold text-secondary-text hover:text-primary">
-                                {level?.attributes?.name}
-                              </span>
-                            </div>
-                          );
-                        }
-                      )}
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                      {examModeData?.examModes?.data?.map((mode: any) => {
-                        return (
-                          <div
-                            key={mode.id}
-                            className="flex gap-1 items-center my-2 cursor-pointer text-base"
-                          >
-                            <input
-                              type="radio"
-                              name={mode?.attributes?.name}
-                              id={mode?.id}
-                              className=""
-                              checked={ModeFilter === mode?.attributes?.name}
-                              onChange={() =>
-                                handleModeFilter(mode?.attributes?.name)
-                              }
-                            />
-                            <span className="text-xxs font-semibold text-secondary-text hover:text-primary">
-                              {mode?.attributes?.name}
-                            </span>
-                          </div>
-                        );
-                      })}
-                    </TabPanel>
-                  </Box>
-                </div>
-              </div>
-            </div>
-            <div className="filter-buttons flex justify-center w-full gap-14 px-5 bg-white fixed bottom-0 left-0 right-0 z-10">
-              <div
-                className="w-1/2 border border-gray-300"
-                onClick={resetFilters}
-              >
-                <Button
-                  href={""}
-                  text="Cancel"
-                  filled
-                  fontSize="text-sm"
-                  fontWeight="font-bold"
-                  width="w-full"
-                  align="text-center"
-                  bgColor="bg-white"
-                  fontColor="text-primary"
-                />
-              </div>
-              <div className="w-1/2" onClick={handleMobileFilter}>
-                <Button
-                  href={""}
-                  text="Apply Filters"
-                  filled
-                  fontSize="text-sm"
-                  fontWeight="font-bold"
-                  width="w-full"
-                  align="text-center"
-                  bgColor="bg-primary"
-                  fontColor="text-white"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
-    </>
   );
 
   interface TabPanelProps {

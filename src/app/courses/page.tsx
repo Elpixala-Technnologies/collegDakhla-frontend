@@ -10,6 +10,7 @@ import CourseCard from "@/components/card/courseCard";
 import CourseFilters from "@/components/filters/courseFilters/courseFilters";
 import SortButton from "@/components/sortButton/SortButton";
 import Spinner from "@/components/Loader/loader";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 export default function CourseList() {
   const [Search, setSearch] = useState<string>("");
@@ -36,29 +37,28 @@ export default function CourseList() {
     },
   });
 
-   // sorting 
-   const [isOpen, setIsOpen] = useState(false);
+  // sorting
+  const [isOpen, setIsOpen] = useState(false);
 
-   const toggleDropdown = () => {
-     setIsOpen(!isOpen);
-   };
- 
-   const handleSort = (option: React.SetStateAction<string>) => {
-     setSortOption(option ? [option] : []);
-     setIsOpen(false);
-   };
- 
- 
-   const [isModalOpen, setIsModalOpen] = useState(false);
- 
-   const handleOpenModal = () => {
-     setIsModalOpen(true);
-   };
- 
-   const handleCloseModal = () => {
-     setIsModalOpen(false);
-   };
-   // End 
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleSort = (option: React.SetStateAction<string>) => {
+    setSortOption(option ? [option] : []);
+    setIsOpen(false);
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  // End
 
   //query to get featured courses
   const {
@@ -119,7 +119,7 @@ export default function CourseList() {
       setFilteredData(filtered);
     }
   }, [searchValue, coursesData, displayCount]);
-  console.log(coursesData,)
+  console.log(coursesData);
 
   return (
     <>
@@ -198,21 +198,33 @@ export default function CourseList() {
           </div>
         </section>
         <section className="collegeList">
-          <div className="flex flex-col md:flex-row gap-4 px-4">
-            <div className="flex-none w-56">
+          <div className="flex  md:flex-row gap-3 px-4 my-5">
+            {/* aside Filter  */}
+            <aside
+              className={`min-w-[300px] border border-zinc-300 rounded-md px-3 [flex:2] max-md:bg-black max-md:bg-opacity-80 ${
+                MobileFilter
+                  ? "fixed left-0 top-0 z-40 h-screen w-full overflow-y-scroll pr-[20%]"
+                  : "max-md:hidden"
+              }`}
+            >
+              <button
+                className="fixed right-5 top-24 text-3xl text-white md:hidden"
+                onClick={() => setMobileFilter(false)}
+              >
+                <IoIosCloseCircleOutline />
+              </button>
               <CourseFilters
                 DurationFilter={DurationFilter}
                 setDurationFilter={setDurationFilter}
                 SpecializationFilter={SpecializationFilter}
                 setSpecializationFilter={setSpecializationFilter}
-                isMobile={MobileFilter}
-                handleMobileFilter={handleMobileFilter}
                 totalCourses={coursesData?.courses?.meta?.pagination?.total}
               />
-            </div>
-            <div className="flex-1 w-full overflow-hidden">
+            </aside>
+            {/* main Exam Search and List Section  */}
+            <main className="flex w-full flex-col p-5 pt-0  md:min-w-[550px] md:[flex:8]">
               <div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col">
-                <div className="bg-white h-10 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
+                <div className="bg-white h-12 flex border border-zinc-300 rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
                   <RiSearchLine />
                   <input
                     className="w-full flex-1 text-sm px-2 py-1 outline-none"
@@ -225,22 +237,23 @@ export default function CourseList() {
                   <SortButton
                     handleFilterOptionClick={handleFilterOptionClick}
                   />
+                   {/* Filter Button  */}
                   <div className="max-md:block hidden">
                     <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
-                      <span onClick={handleMobileFilter}>Filter</span>
+                    <span onClick={()=>setMobileFilter(true)}>Filter</span>
                       <MdOutlineSort />
                     </div>
                   </div>
                 </div>
               </div>
-              {coursesData?.courses?.data ?(
+              {coursesData?.courses?.data ? (
                 <CourseListItem courses={filteredData} />
-              ):(
+              ) : (
                 <div className="w-full h-full p-20 item-center flex justify-center">
-                    <Spinner />
-                  </div>
+                  <Spinner />
+                </div>
               )}
-              
+
               {filteredData?.length >= 5 &&
                 filteredData?.length < coursesData?.courses?.data.length && (
                   <button
@@ -253,7 +266,7 @@ export default function CourseList() {
                     </span>
                   </button>
                 )}
-            </div>
+            </main>
           </div>
         </section>
       </div>

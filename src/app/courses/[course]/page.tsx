@@ -53,7 +53,7 @@ export default function CourseDetail({ params }: Props) {
 
   useEffect(() => {
     if (loading) {
-      console.log("loading ", loading);
+      // console.log("loading ", loading);
     }
     if (!loading && currentTab === "") {
       handleTab("Info");
@@ -72,19 +72,19 @@ export default function CourseDetail({ params }: Props) {
           <Image
             src={bannerUrl!}
             alt={course?.name}
-            width={100}
-            height={100}
-            className="w-full h-36 object-cover"
+            width={1200}
+            height={1200}
+            className="w-full h-80 max-sm:h-[28rem] object-center object-cover"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-          <div className="absolute inset-0 text-white flex gap-4 mx-auto my-6 max-w-screen-xl px-4">
+          <div className="absolute  max-w-screen-xl p-5 md:p-10 inset-0 text-white flex max-md:flex-col md:gap-4 mx-auto">
             <div className="collegeLogo">
               <Image
                 src={logoUrl!}
                 width={100}
                 height={100}
                 alt={course?.name}
-                className="rounded-sm"
+                className="rounded-sm h-28 object-center object-contain"
               />
             </div>
             <div className="flex-1 flex flex-col gap-2">

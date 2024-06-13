@@ -8,13 +8,13 @@ import { formatDate } from "@/utils/formatDate";
 import { useEffect, useState } from "react";
 
 export default function ExamCard({ featuredExams }: any) {
+  const [mode, setMode] = useState(null);
 
-	const [mode, setMode] = useState(null);
-
-	useEffect(() =>{
-	  const examMode = featuredExams?.attributes?.examMode?.data?.attributes?.mode;
-	  setMode(examMode);
-	}, [featuredExams]);
+  useEffect(() => {
+    const examMode =
+      featuredExams?.attributes?.examMode?.data?.attributes?.mode;
+    setMode(examMode);
+  }, [featuredExams]);
   const logoURL = featuredExams?.attributes?.logo?.data?.attributes?.url
     ? getStrapiMedia(featuredExams?.attributes?.logo?.data?.attributes?.url)
     : GetDefaultImage("logo");
@@ -54,12 +54,11 @@ export default function ExamCard({ featuredExams }: any) {
         </div>
         <div className="p-2 pt-2 flex-1 h-60 shadow flex flex-col gap-2">
           <div className=" flex justify-end">
-		  {mode && (
-        <span className="bg-amber-200 text-sm px-2 py-1 rounded-full">
-          {mode}
-		  </span>
-        
-      )}
+            {mode && (
+              <span className="bg-amber-200 text-sm px-2 py-1 rounded-full">
+                {mode}
+              </span>
+            )}
           </div>
           <div className="p-2 pt-4 flex-1 flex flex-col gap-2   border-t-2 border-gray-300">
             <div>
