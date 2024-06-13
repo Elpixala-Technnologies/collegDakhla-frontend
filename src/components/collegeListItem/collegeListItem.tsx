@@ -99,21 +99,21 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
             return (
               <div key={index}>
                 <div className="mb-5 flex flex-wrap md:flex-row border border-zinc-300 bg-white rounded-lg  hover:drop-shadow-lg">
-                  <div className="flex gap-5 p-4">
+                  <div className="grid grid-cols-1 md:grid-cols-10 gap-5 p-4">
                     {/* image  */}
-                    <div className="relative rounded-lg">
+                    <div className="relative rounded-lg md:col-span-2">
                       <Image
                         width={700}
                         height={700}
                         src={logoURL!}
                         alt={college?.collegeName}
-                        className="h-36 w-36 object-contain rounded-md"
+                        className="sm:h-44 sm:w-44 w-full max-w-44 object-contain rounded-md max-md:mx-auto"
                       />
                     </div>
                     {/* Right Side  */}
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col gap-1 md:col-span-8">
                       {/* line 1  */}
-                      <div className="flex flex-row gap-8">
+                      <div className="flex max-sm:flex-col gap-4">
                         <div className="  border-extra-light-text">
                           <p className="text-[#0F4988] flex gap-1 items-center text-sm">
                             <Image
@@ -165,9 +165,9 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                         </h2>
                       </Link>
                       {/* line 3  */}
-                      <div className="flex items-stretch">
+                      <div className="flex flex-wrap items-stretch">
                         <div className="pr-6 mr-6">
-                          <div className="text-primary flex gap-1 items-center font-semibold text-sm lg:text-lg">
+                          <p className="text-primary flex gap-1 items-center font-semibold text-lg">
                             <Image
                               src={RupeeBaves}
                               width={25}
@@ -175,12 +175,12 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                               alt={"approvedBy"}
                             />
                             {collegeFee}
-                          </div>
+                          </p>
                           <p className="text-xs text-secondary-text ml-7">
                             BE/B.Tech First year fees
                           </p>
                         </div>
-                        <div className="pr-6 mr-6  border-extra-light-text">
+                        <div className="pr-6 mr-6  border-zinc-300">
                           <p className="text-primary flex gap-1 items-center font-semibold text-lg">
                             <Image
                               src={Exams}
@@ -213,7 +213,7 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                         </div>
                       </div>
                       {/* line 4  */}
-                      <div className="flex gap-x-6 flex-wrap mt-2">
+                      <div className="flex gap-2 flex-wrap mt-2">
                         <Button
                           href={`/college/${college.id}`}
                           text="Admission 2024"
@@ -252,8 +252,8 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                     </div>
                   </div>
                   {/* <Separator /> */}
-                  <div className="w-full flex items-center justify-between px-4 pr-2 py-2 border-t text-semibold border-zinc-300">
-                    <ul className="flex flex-wrap gap-3 text-primary w-3/4 capitalize">
+                  <div className="w-full flex max-sm:flex-col gap-y-2 sm:items-center justify-between px-4 pr-2 py-2 border-t text-semibold border-zinc-300">
+                    <ul className="flex flex-wrap gap-x-3 text-primary sm:w-3/4 capitalize max-sm:text-sm">
                       {[
                         "Info",
                         "Courses",
@@ -262,12 +262,14 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                         "Placement",
                       ].map((item, index) => (
                         <React.Fragment key={index}>
-                          <li className="cursor-pointer hover:underline">{item}</li>
+                          <li className="cursor-pointer hover:underline">
+                            {item}
+                          </li>
                           {index !== 4 && <li>|</li>}
                         </React.Fragment>
                       ))}
                     </ul>
-                    <div className="flex flex-row gap-4 text-primary college-btn">
+                    <div className="flex gap-2 max-sm:flex-col">
                       <button disabled={isCollegeApplied}>
                         <Button
                           // href={`/college/${college.id}`}
@@ -276,7 +278,7 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                           outline
                           outlineColor="border-primary"
                           fontSize="text-sm"
-                          width="w-40"
+                          width="w-40 max-sm:w-full"
                           align="text-center"
                           bgColor="bg-primary hover:bg-white"
                           fontColor="text-white hover:text-primary"
@@ -287,7 +289,7 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                         text="Download Brochure"
                         fontSize="text-sm"
                         outline
-                        width="w-40"
+                        width="w-40 max-sm:w-full"
                         outlineColor="border-primary"
                         fontColor="text-primary hover:text-white"
                         align="text-center"

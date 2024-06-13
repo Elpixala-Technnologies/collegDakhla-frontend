@@ -76,21 +76,21 @@ export default function ExamListItem({ exams }: any) {
             return (
               <div key={index}>
                 <div className="mb-5 flex flex-wrap md:flex-row border border-zinc-300 bg-white rounded-lg  hover:drop-shadow-lg">
-                  <div className="md:grid grid-cols-10 gap-5 p-4">
+                  <div className="grid grid-cols-1 md:grid-cols-10 gap-5 p-4">
                     {/* Image  */}
-                    <div className="relative rounded-lg col-span-2">
+                    <div className="relative rounded-lg md:col-span-2">
                       <Image
                         src={logoURL!}
                         width={700}
                         height={700}
                         alt={""}
-                        className="h-44 w-44 object-contain rounded-md"
+                        className="sm:h-44 sm:w-44 w-full max-w-44 object-contain rounded-md max-md:mx-auto"
                       />
                     </div>
                     {/* Right Side  */}
-                    <div className="flex flex-col gap-1 col-span-8">
+                    <div className="flex flex-col gap-1 md:col-span-8">
                       {/* line1  */}
-                      <div className="flex flex-row gap-4">
+                      <div className="flex max-sm:flex-col gap-4">
                         <Rating
                           name="half-rating"
                           defaultValue={2.5}
@@ -106,7 +106,10 @@ export default function ExamListItem({ exams }: any) {
                         <p className="text-[#0F4988] flex gap-1 items-center text-sm">
                           <RiFlagLine className="text-2xl text-gray-400" />
                           <span>
-                            { exam?.attributes?.examLevel?.data?.[0].attributes ?.name }
+                            {
+                              exam?.attributes?.examLevel?.data?.[0].attributes
+                                ?.name
+                            }
                           </span>
                         </p>
                         <p className="flex flex-row">
@@ -122,7 +125,7 @@ export default function ExamListItem({ exams }: any) {
                             {exam?.attributes?.name}
                           </h2>
                         </Link>
-                        <div className="flex flex-row gap-2">
+                        <div className="flex flex-wrap gap-2">
                           <div className="text-secondary-text font-light flex flex-row p-1 items-start gap-2">
                             <CiCalendarDate className="text-4xl text-primary" />
                             <div className="flex flex-col">
@@ -200,8 +203,8 @@ export default function ExamListItem({ exams }: any) {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full flex items-center justify-between px-4 pr-2 py-2 border-t text-semibold border-zinc-300">
-                    <ul className="flex flex-wrap gap-3 text-primary w-3/4 capitalize">
+                  <div className="w-full flex max-sm:flex-col gap-y-2 sm:items-center justify-between px-4 pr-2 py-2 border-t text-semibold border-zinc-300">
+                    <ul className="flex flex-wrap gap-x-3 text-primary sm:w-3/4 capitalize max-sm:text-sm">
                       {[
                         "Info",
                         "Courses",
@@ -217,7 +220,7 @@ export default function ExamListItem({ exams }: any) {
                         </React.Fragment>
                       ))}
                     </ul>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 max-sm:flex-col">
                       <button disabled={isApplied}>
                         <Button
                           // href={`/`}
@@ -226,7 +229,7 @@ export default function ExamListItem({ exams }: any) {
                           outline
                           outlineColor="border-primary"
                           fontSize="text-sm"
-                          width="w-40"
+                          width="w-40 max-sm:w-full"
                           align="text-center"
                           bgColor="bg-primary hover:bg-white"
                           fontColor="text-white hover:text-primary"
@@ -237,7 +240,7 @@ export default function ExamListItem({ exams }: any) {
                         text="Download Brochure"
                         fontSize="text-sm"
                         outline
-                        width="w-40"
+                        width="w-40 max-sm:w-full"
                         outlineColor="border-primary"
                         fontColor="text-primary hover:text-white"
                         align="text-center"
