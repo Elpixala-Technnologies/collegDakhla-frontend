@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
-import { getFeaturedCourses, searchCourses } from "@/query/schema";
+import { getFeaturedCourses, searchCourses, getCourses } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import CourseListItem from "@/components/courseListItem/courseListItem";
 import Carousel from "@/components/carousel/carousel";
@@ -13,29 +13,35 @@ import Spinner from "@/components/Loader/loader";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
 export default function CourseList() {
-  const [Search, setSearch] = useState<string>("");
+  // const [Search, setSearch] = useState<string>("");
   const [MobileFilter, setMobileFilter] = useState(false);
   const [DurationFilter, setDurationFilter] = useState<string>("");
   const [SpecializationFilter, setSpecializationFilter] = useState<string>("");
   const [showReadMore, setShowReadMore] = useState(true);
   const [showFullContent, setShowFullContent] = useState(false);
-  const [filteredData, setFilteredData] = useState([]);
-  const [displayCount, setDisplayCount] = useState(5);
+  const [filteredData, setFilteredData] = useState<any[]>([]);
+  const [displayCount, setDisplayCount] = useState(10);
   const [searchValue, setSearchValue] = useState("");
   const [sortOption, setSortOption] = useState<any>([]);
 
-  //query to get and search all courses
+  //query to get searched courses
   const {
     loading: coursesLoader,
     error: coursesError,
     data: coursesData,
   } = useQuery(searchCourses, {
     variables: {
-      Search,
-      DurationFilter,
-      SpecializationFilter,
+      searchValue,
+      // DurationFilter,
+      // SpecializationFilter,
     },
   });
+  // query to get all courses
+  const {
+    loading: allCoursesLoader,
+    error: allCoursesError,
+    data: allCoursesData,
+  } = useQuery(getCourses);
 
   // sorting
   const [isOpen, setIsOpen] = useState(false);
@@ -68,14 +74,8 @@ export default function CourseList() {
   } = useQuery(getFeaturedCourses);
 
   const handleSearch = (event: any) => {
-    setSearch(event.target.value);
-  };
-
-  const handleMobileFilter = () => {
-    setMobileFilter(!MobileFilter);
-    if (MobileFilter) {
-      document.body.style.overflow = "hidden";
-    }
+    const value = event.target.value.trim();
+    setSearchValue(value);
   };
 
   const handleReadMoreClick = () => {
@@ -94,14 +94,14 @@ export default function CourseList() {
 
   const handleFilterOptionClick = (option: any) => {
     if (option === "a-z") {
-      const sortedData: any = [...coursesData?.courses?.data].sort(
+      const sortedData: any = [...allCoursesData?.courses?.data].sort(
         (a: any, b: any) => {
           return a?.attributes?.name.localeCompare(b?.attributes?.name);
         }
       );
       setFilteredData(sortedData.slice(0, displayCount));
     } else if (option === "reset") {
-      const resetArray: any = [...coursesData?.courses?.data].slice(
+      const resetArray: any = [...allCoursesData?.courses?.data].slice(
         0,
         displayCount
       );
@@ -110,16 +110,23 @@ export default function CourseList() {
   };
 
   useEffect(() => {
-    if (searchValue.trim() === "") {
-      setFilteredData(coursesData?.courses?.data.slice(0, displayCount));
-    } else {
-      const filtered = coursesData?.courses?.data.filter((exam: any) =>
-        exam.attributes.name.toLowerCase().includes(searchValue.toLowerCase())
-      );
-      setFilteredData(filtered);
+    if (allCoursesData && allCoursesData?.courses?.data) {
+      if (searchValue.trim() === "") {
+        setFilteredData(allCoursesData?.courses?.data.slice(0, displayCount));
+      } else {
+        const filtered = allCoursesData?.courses?.data.filter((course: any) =>
+          course.attributes.name
+            .toLowerCase()
+            .includes(searchValue.toLowerCase())
+        );
+        setFilteredData(filtered?.slice(0, displayCount));
+      }
     }
-  }, [searchValue, coursesData, displayCount]);
-  console.log(coursesData);
+  }, [searchValue, allCoursesData, displayCount]);
+
+  useEffect(() => {
+    console.log(allCoursesData?.courses?.data, "pppp");
+  }, [allCoursesData?.courses?.data]);
 
   return (
     <>
@@ -227,8 +234,9 @@ export default function CourseList() {
                 <div className="bg-white h-12 flex border border-zinc-300 rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
                   <RiSearchLine />
                   <input
-                    className="w-full flex-1 text-sm px-2 py-1 outline-none"
-                    placeholder={`Search Course Name`}
+                    className="w-full flex-1 text-sm px-2 py-1 outline-none  max-md:h-12"
+                    type="text"
+                    placeholder="Search Courses..."
                     onChange={handleSearch}
                   />
                 </div>
@@ -237,16 +245,16 @@ export default function CourseList() {
                   <SortButton
                     handleFilterOptionClick={handleFilterOptionClick}
                   />
-                   {/* Filter Button  */}
+                  {/* Filter Button  */}
                   <div className="max-md:block hidden">
                     <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
-                    <span onClick={()=>setMobileFilter(true)}>Filter</span>
+                      <span onClick={() => setMobileFilter(true)}>Filter</span>
                       <MdOutlineSort />
                     </div>
                   </div>
                 </div>
               </div>
-              {coursesData?.courses?.data ? (
+              {allCoursesData?.courses?.data ? (
                 <CourseListItem courses={filteredData} />
               ) : (
                 <div className="w-full h-full p-20 item-center flex justify-center">
@@ -255,7 +263,7 @@ export default function CourseList() {
               )}
 
               {filteredData?.length >= 5 &&
-                filteredData?.length < coursesData?.courses?.data.length && (
+                filteredData?.length < allCoursesData?.courses?.data.length && (
                   <button
                     className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow m-6"
                     onClick={handleLoadMore}
