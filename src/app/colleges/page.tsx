@@ -35,7 +35,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 // import Loading from "react-loading-components";
 
 export default function CollegeList() {
-  const [Search, setSearch] = useState("");
+  // const [Search, setSearch] = useState("");
   const [MobileFilter, setMobileFilter] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [Stream, setStream] = useState<string>("default");
@@ -67,7 +67,7 @@ export default function CollegeList() {
     data: filteredCollege,
   } = useQuery(searchCollege, {
     variables: {
-      Search,
+      searchValue,
     },
   });
 
@@ -92,7 +92,6 @@ export default function CollegeList() {
     setIsOpen(false);
   };
 
-
   const FromStep: any = CollegeApplicatonListData?.form_stape;
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -105,7 +104,7 @@ export default function CollegeList() {
   //   setIsModalOpen(false);
   // };
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedId,setSelectedId]= useState(null);
+  const [selectedId, setSelectedId] = useState(null);
 
   const handleOpenModal = (collegeId: any) => {
     setSelectedId(collegeId);
@@ -189,7 +188,7 @@ export default function CollegeList() {
 
   const AppliedCollege = userData?.userAllMetaData?.appliedColleges;
 
- 
+  //  console.log(initialData?.colleges?.data, "ppppp");
 
   return (
     <>
@@ -318,7 +317,14 @@ export default function CollegeList() {
               showPagination={false}
               slides={topCollegesData?.colleges?.data?.map(
                 (college: any, index: number) => {
-                  return <CollegeCard key={index} AppliedCollege={AppliedCollege} featuredCollege={college}  onApplyNow={() => handleOpenModal(college?.id)} />;
+                  return (
+                    <CollegeCard
+                      key={index}
+                      AppliedCollege={AppliedCollege}
+                      featuredCollege={college}
+                      onApplyNow={() => handleOpenModal(college?.id)}
+                    />
+                  );
                 }
               )}
             />
