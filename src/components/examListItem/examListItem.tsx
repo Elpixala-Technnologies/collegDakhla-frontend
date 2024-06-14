@@ -10,7 +10,7 @@ import { BsCalendarDate } from "react-icons/bs";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { Rating } from "@mui/material";
 import { RiFlagLine } from "react-icons/ri";
-import { useState } from "react";
+import React, { useState } from "react";
 import userFrom from "@/hooks/userFrom";
 import ApplyNowModal from "../consultingModule/ApplyNowModal/ApplyNowModal";
 import useUserMetaData from "@/query/hooks/useUserMetaData";
@@ -19,15 +19,14 @@ import useSignup from "@/query/hooks/useSignup";
 import { ID } from "@/types/global";
 
 export default function ExamListItem({ exams }: any) {
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { CollegeApplicatonListData } = userFrom();
 
-  const [selectedId , setSelectedId]= useState(null);
+  const [selectedId, setSelectedId] = useState(null);
 
-  const handleOpenModal = (id:any) => {
+  const handleOpenModal = (id: any) => {
     setIsModalOpen(true);
-    setSelectedId(id)
+    setSelectedId(id);
     document.body.classList.add("overflow-hidden");
   };
 
@@ -50,7 +49,6 @@ export default function ExamListItem({ exams }: any) {
 
   const AppliedData: any = userData?.userAllMetaData?.appliedExams;
 
-
   const handleDownload = () => {
     const pdfPath = "@src/Assets/new_document.pdf";
     const link = document.createElement("a");
@@ -69,61 +67,65 @@ export default function ExamListItem({ exams }: any) {
               ? getStrapiMedia(exam?.attributes?.logo?.data?.attributes?.url)
               : GetDefaultImage("logo");
 
-              const isApplied =  Array.isArray(AppliedData) && AppliedData?.some(
+            const isApplied =
+              Array.isArray(AppliedData) &&
+              AppliedData?.some(
                 (applied: any) => applied?.exams?.data?.id === exam?.id
               );
 
-
             return (
-              <div className="py-4 " key={index}>
-                <div className=" py-4 md:py-0 flex item-center gap-4 bg-white drop-shadow-sm hover:drop-shadow-xl rounded-xl border flex-col md:flex-row ">
-                  <div className="flex flex-col gap-4 w-full">
-                    <div className=" flex flex-1 flex-row gap-4 p-2">
-                      <div className="flex items-center">
-                        <Image
-                          src={logoURL!}
-                          width={150}
-                          height={150}
-                          alt={""}
-                          className="w-64 h-40 rounded-lg"
+              <div key={index}>
+                <div className="mb-5 flex flex-wrap md:flex-row border border-zinc-300 bg-white rounded-lg  hover:drop-shadow-lg">
+                  <div className="grid grid-cols-1 md:grid-cols-10 gap-5 p-4">
+                    {/* Image  */}
+                    <div className="relative rounded-lg md:col-span-2">
+                      <Image
+                        src={logoURL!}
+                        width={700}
+                        height={700}
+                        alt={""}
+                        className="sm:h-44 sm:w-44 w-full max-w-44 object-contain rounded-md max-md:mx-auto"
+                      />
+                    </div>
+                    {/* Right Side  */}
+                    <div className="flex flex-col gap-1 md:col-span-8">
+                      {/* line1  */}
+                      <div className="flex max-sm:flex-col gap-4">
+                        <Rating
+                          name="half-rating"
+                          defaultValue={2.5}
+                          precision={0.5}
+                          readOnly
                         />
+                        <p className="text-[#0F4988] flex gap-1 items-center text-sm">
+                          <CiLocationOn className="text-2xl text-gray-400" />
+                          <span className="text-blue-800">
+                            Chennai, Tamil Nadu
+                          </span>
+                        </p>
+                        <p className="text-[#0F4988] flex gap-1 items-center text-sm">
+                          <RiFlagLine className="text-2xl text-gray-400" />
+                          <span>
+                            {
+                              exam?.attributes?.examLevel?.data?.[0].attributes
+                                ?.name
+                            }
+                          </span>
+                        </p>
+                        <p className="flex flex-row">
+                          <span className="text-secondary-text">#</span>
+                          <span className="text-primary pr-1">{exam?.id}</span>
+                          <span className="text-blue-800 font-bold">NIRF</span>
+                        </p>
                       </div>
-                      <div className="flex flex-col gap-2">
-                        <div className="flex flex-row gap-4">
-                          <Rating
-                            name="half-rating"
-                            defaultValue={2.5}
-                            precision={0.5}
-                            readOnly
-                          />
-                          <div className="flex flex-row gap-2">
-                            <CiLocationOn className="text-2xl text-gray-400" />
-                            <span className="text-blue-800">Chennai, Tamil Nadu</span>
-                          </div>
-                          <div className="flex flex-row gap-2">
-                            <RiFlagLine className="text-2xl text-gray-400" />
-                            <span>
-                              {
-                                exam?.attributes?.examLevel?.data?.[0]
-                                  .attributes?.name
-                              }
-                            </span>
-                          </div>
-                          <div className="flex flex-row">
-                            <span className="text-secondary-text">#</span>
-                            <span className="text-primary pr-1">{exam?.id}</span>
-                            <span className="text-blue-800 font-bold">NIRF</span>
-                          </div>
-                        </div>
-                        <div className="flex flex-col gap-2 mt-1">
+                      {/* line2  */}
+                      <div className="flex flex-col gap-2 mt-1">
                         <Link href={`/exams/${exam.id}`}>
-                          <div>
-                            <h2 className="text-xl font-semibold">
-                              {exam?.attributes?.name}
-                            </h2>
-                          </div>
+                          <h2 className="text-xl font-semibold">
+                            {exam?.attributes?.name}
+                          </h2>
                         </Link>
-                        <div className="flex flex-row gap-2 items-stretch">
+                        <div className="flex flex-wrap gap-2">
                           <div className="text-secondary-text font-light flex flex-row p-1 items-start gap-2">
                             <CiCalendarDate className="text-4xl text-primary" />
                             <div className="flex flex-col">
@@ -189,55 +191,61 @@ export default function ExamListItem({ exams }: any) {
                             </div>
                           </div>
                         </div>
-                        <div className="w-3/4 pt-2">
+                        <div className="pt-2">
                           <span className="text-gray-600 text-sm line-clamp-2">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip
+                            ex ea commodo consequat.
                           </span>
-                        </div>
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-row gap-2 items-center justify-between w-full border-t border-black px-2 py-4">
-                      <div className="flex gap-2">
-                        <span className="lg:text-base text-sm border-r border-gray-300 p-2 text-primary cursor-pointer">
-                          Overview
-                        </span>
-                        <span className="lg:text-base text-sm border-r border-gray-300 p-2 text-primary cursor-pointer">
-                          Eligibility
-                        </span>
-                        <span className="lg:text-base text-sm border-r  border-gray-300 p-2 text-primary cursor-pointer">
-                          Exam Pattern
-                        </span>
-                        <span className="lg:text-base text-sm  p-2 text-primary cursor-pointer lg:flex hidden">
-                          Application
-                        </span>
-                      </div>
-                      <div className="flex gap-2">
-                        <button disabled={isApplied}>
+                  </div>
+                  <div className="w-full flex max-sm:flex-col gap-y-2 sm:items-center justify-between px-4 pr-2 py-2 border-t text-semibold border-zinc-300">
+                    <ul className="flex flex-wrap gap-x-3 text-primary sm:w-3/4 capitalize max-sm:text-sm">
+                      {[
+                        "Info",
+                        "Courses",
+                        "Scholarship",
+                        "Review",
+                        "Placement",
+                      ].map((item, index) => (
+                        <React.Fragment key={index}>
+                          <li className="cursor-pointer hover:underline">
+                            {item}
+                          </li>
+                          {index !== 4 && <li>|</li>}
+                        </React.Fragment>
+                      ))}
+                    </ul>
+                    <div className="flex gap-2 max-sm:flex-col">
+                      <button disabled={isApplied}>
                         <Button
                           // href={`/`}
-                          onClick={()=>handleOpenModal(exam?.attributes?.id)}
+                          onClick={() => handleOpenModal(exam?.attributes?.id)}
                           text={isApplied ? "Applied" : "Apply Now"}
-                          filled
-                          fontSize="text-sm"
-                          width="w-40"
-                          align="text-center"
-                          bgColor="bg-primary"
-                          paddingY="py-3"
-                        />
-                        </button>
-                        <Button
-                          href={`/`}
-                          text="Download Brochure"
-                          fontSize="text-sm"
                           outline
-                          width="w-40"
+                          outlineColor="border-primary"
+                          fontSize="text-sm"
+                          width="w-40 max-sm:w-full"
                           align="text-center"
-                          bgColor="bg-white"
-                          fontColor="text-primary"
-                          paddingY="py-3"
+                          bgColor="bg-primary hover:bg-white"
+                          fontColor="text-white hover:text-primary"
                         />
-                      </div>
+                      </button>
+                      <Button
+                        href={`/`}
+                        text="Download Brochure"
+                        fontSize="text-sm"
+                        outline
+                        width="w-40 max-sm:w-full"
+                        outlineColor="border-primary"
+                        fontColor="text-primary hover:text-white"
+                        align="text-center"
+                        bgColor="bg-white hover:bg-primary"
+                      />
                     </div>
                   </div>
 

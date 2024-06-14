@@ -161,10 +161,12 @@ export default function CollegeDetail({ params }: Props) {
 
   const AppliedCollege: any = userData?.userAllMetaData?.appliedColleges;
 
-  const isCollegeApplied =Array.isArray(AppliedCollege) &&  AppliedCollege?.some(
-    (applied: { college: { data: { id: any } } }) =>
-      applied?.college?.data?.id === collegeId
-  );
+  const isCollegeApplied =
+    Array.isArray(AppliedCollege) &&
+    AppliedCollege?.some(
+      (applied: { college: { data: { id: any } } }) =>
+        applied?.college?.data?.id === collegeId
+    );
 
   const {
     data: CollgeMetaUser,
@@ -249,17 +251,17 @@ export default function CollegeDetail({ params }: Props) {
             alt={college?.collegeName}
             width={1200}
             height={1200}
-            className="w-full h-80  object-fill"
+            className="w-full h-80 max-sm:h-[28rem] object-center object-cover"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-          <div className="absolute my-6 max-w-screen-xl pt-6 px-4 inset-0 text-white flex gap-4 mx-auto">
+          <div className="absolute  max-w-screen-xl p-5 md:p-10 inset-0 text-white flex max-md:flex-col md:gap-4 mx-auto">
             <div className="collegeLogo">
               <Image
                 src={logoUrl!}
                 width={100}
                 height={100}
                 alt={college?.collegeName}
-                className="rounded-sm h-28 object-center objext-contain"
+                className="rounded-sm h-28 object-center object-contain"
               />
             </div>
             <div className="flex flex-col md:flex-row gap-4 flex-1">
@@ -269,9 +271,10 @@ export default function CollegeDetail({ params }: Props) {
                     {college?.collegeName!}
                   </h1>
                 </div>
-                <p className="text-lg flex items-center gap-4">
-                  {college?.city?.data?.attributes?.name},{" "}
-                  {college?.state?.data?.attributes?.name} |{" "}
+                <p className="text-lg flex flex-wrap items-center gap-4">
+                  {college?.city?.data?.attributes?.name &&
+                    `${college.city.data.attributes.name}, `}
+                  {college?.state?.data?.attributes?.name}
                   <span>User Review</span>{" "}
                   <span>
                     <Rating
@@ -309,60 +312,65 @@ export default function CollegeDetail({ params }: Props) {
 
                 <div>
                   <div>
-                    <div className="flex flex-row gap-3 absolute bottom-0 right-0">
+                    <div className="flex flex-wrap  gap-3 absolute bottom-0 right-0">
                       {/* <div className="flex flex-row items-center gap-1 cursor-pointer">
                         <span className="text-xl">
                           <BiHeart />
                         </span>
                         <span>Save</span>
                       </div> */}
-                      <button
-                        className="flex gap-2 items-center text-[15px]"
-                        onClick={() => handleSaveCollege()}
-                        disabled={
-                          isSave || AlreadyApplyedCollegeFilter?.length > 0
-                        }
-                      >
-                        <div className="bg-white p-[6px] rounded-full cursor-pointer">
-                          {isSave || AlreadyApplyedCollegeFilter?.length > 0 ? (
-                            <FaHeart size={10} color="red" />
-                          ) : (
-                            <FaRegHeart color="black" size={10} />
-                          )}
+                      <div className="flex gap-2">
+                        <button
+                          className="flex gap-2 items-center text-[15px]"
+                          onClick={() => handleSaveCollege()}
+                          disabled={
+                            isSave || AlreadyApplyedCollegeFilter?.length > 0
+                          }
+                        >
+                          <div className="bg-white p-[6px] rounded-full cursor-pointer">
+                            {isSave ||
+                            AlreadyApplyedCollegeFilter?.length > 0 ? (
+                              <FaHeart size={10} color="red" />
+                            ) : (
+                              <FaRegHeart color="black" size={10} />
+                            )}
+                          </div>
+                          {isSave || AlreadyApplyedCollegeFilter?.length > 0
+                            ? "Saved"
+                            : "Save"}
+                        </button>
+                        <div className="flex flex-row items-center gap-1 cursor-pointer">
+                          <span className="text-xl">
+                            <BsQuestionCircle />
+                          </span>
+                          <span>Ask</span>
                         </div>
-                        {isSave || AlreadyApplyedCollegeFilter?.length > 0
-                          ? "Saved"
-                          : "Save"}
-                      </button>
-                      <div className="flex flex-row items-center gap-1 cursor-pointer">
-                        <span className="text-xl">
-                          <BsQuestionCircle />
-                        </span>
-                        <span>Ask</span>
                       </div>
-                      <button disabled={isCollegeApplied}>
+                      <div className="flex gap-2">
+                        <button disabled={isCollegeApplied}>
+                          <Button
+                            onClick={handleOpenModal}
+                            text={isCollegeApplied ? "Applied" : "Apply Now"}
+                            filled
+                            fontSize="text-sm"
+                            fontWeight="font-bold"
+                            width="w-36"
+                            align="text-center"
+                          />
+                        </button>
                         <Button
-                          onClick={handleOpenModal}
-                          text={isCollegeApplied ? "Applied" : "Apply Now"}
-                          filled
+                          href={""}
+                          onClick={handleDownload}
+                          text="Brochure"
+                          outline
                           fontSize="text-sm"
-                          fontWeight="font-bold"
                           width="w-36"
                           align="text-center"
+                          bgColor="bg-white"
+                          fontColor="text-black"
+                          icon={<FiDownload />}
                         />
-                      </button>
-                      <Button
-                        href={""}
-                        onClick={handleDownload}
-                        text="Brochure"
-                        outline
-                        fontSize="text-sm"
-                        width="w-36"
-                        align="text-center"
-                        bgColor="bg-white"
-                        fontColor="text-black"
-                        icon={<FiDownload />}
-                      />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -372,14 +380,14 @@ export default function CollegeDetail({ params }: Props) {
         </div>
       </section>
       <section className="mainSection">
-        <div className="flex justify-center max-w-screen-xl mx-auto flex-col">
-          <div className="infoOption flex items-center max-w-screen-xl mr-2">
+        <div className="flex justify-center max-w-screen-xl mx-auto flex-col px-5">
+          <div className="infoOption flex items-center max-w-screen-xl">
             <div className="sticky-nav-wrapper w-full flex items-center justify-center">
-              <div className=" bg-white flex border-b border-b-primary-light w-full rounded-lg">
-                <div className="sm:max-w-screen-xl lg:mx-auto px-1 py-1 md:px-4 w-full justify-center shadow-md shadow-gray-600 rounded-lg mt-5">
+              <div className="bg-white flex border-b border-b-primary-light w-full rounded-lg">
+                <div className="sm:max-w-screen-xl lg:mx-auto p-2 w-full justify-center border border-zinc-200 rounded-lg mt-5">
                   <NavbarSlider
-                    buttonBorderColor="border-primary-text"
-                    buttonTextColor="text-primary-text"
+                    buttonBorderColor="hover:border-primary/50"
+                    buttonTextColor="text-primary hover:text-white"
                     showPagination={false}
                     slidesDesktop={5}
                     slidesTablet={5}
@@ -407,8 +415,8 @@ export default function CollegeDetail({ params }: Props) {
               </div>
             </div>
           </div>
-          <p className="text-lg mt-5 flex items-center gap-2">
-            <FaRegClock className="text-2xl" />
+          <p className="mt-5 flex items-center gap-2">
+            <FaRegClock className="text-xl" />
             <span>Updated at </span>
             {formatDate(college?.updatedAt!)}
           </p>

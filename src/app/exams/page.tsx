@@ -20,6 +20,7 @@ import Link from "next/link";
 import SortButton from "@/components/sortButton/SortButton";
 import useExmas from "@/hooks/useExmas";
 import Spinner from "@/components/Loader/loader";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 export default function ExamList() {
   const [Search, setSearch] = useState("");
@@ -79,13 +80,6 @@ export default function ExamList() {
   const handleSearch = (event: any) => {
     const value = event.target.value.trim();
     setSearchValue(value);
-  };
-
-  const handleMobileFilter = () => {
-    setMobileFilter(!MobileFilter);
-    if (MobileFilter) {
-      document.body.style.overflow = "hidden";
-    }
   };
 
   const handleReadMoreClick = () => {
@@ -246,25 +240,38 @@ export default function ExamList() {
             />
           </div>
         </section>
+      {/* Exams Filtering and Listing Section  */}
         <section className="collegeList">
-          <div className="flex flex-col md:flex-row gap-4 px-4">
-            <div className="flex-none w-64 h-full drop-shadow-md hover:drop-shadow-xl">
+          <div className="flex  md:flex-row gap-3 px-4 my-5">
+            {/* aside Filter  */}
+            <aside
+              className={`min-w-[300px] border border-zinc-300 rounded-md px-3 [flex:2] max-md:bg-black max-md:bg-opacity-80 ${
+                MobileFilter
+                  ? "fixed left-0 top-0 z-40 h-screen w-full overflow-y-scroll pr-[20%]"
+                  : "max-md:hidden"
+              }`}
+            >
+              <button
+                className="fixed right-5 top-24 text-3xl text-white md:hidden"
+                onClick={() => setMobileFilter(false)}
+              >
+                <IoIosCloseCircleOutline />
+              </button>
               <ExamFilters
                 LevelFilter={LevelFilter}
                 setLevelFilter={setLevelFilter}
                 ModeFilter={ModeFilter}
                 setModeFilter={setModeFilter}
-                isMobile={MobileFilter}
-                handleMobileFilter={handleMobileFilter}
                 totalExams={examsData?.exams?.meta?.pagination?.total}
               />
-            </div>
-            <div className="flex-1 w-full overflow-hidden">
+            </aside>
+            {/* main Exam Search and List Section  */}
+            <main className="flex w-full flex-col p-5 pt-0  md:min-w-[550px] md:[flex:8]">
               <div className="mb-4 flex gap-4 items-stretch relative max-md:flex-col">
-                <div className="bg-white h-12 flex border-2 border-extra-light-text rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
+                <div className="bg-white h-12 flex border border-zinc-300 rounded-md flex-1 items-center text-primary-text px-2 focus-within:border-secondary-text">
                   <RiSearchLine />
                   <input
-                    className="w-full flex-1 text-sm px-2 py-1 outline-none"
+                    className="w-full flex-1 text-sm px-2 py-1 outline-none  max-md:h-12"
                     placeholder={`Search Exam Name`}
                     onChange={handleSearch}
                   />
@@ -274,25 +281,23 @@ export default function ExamList() {
                   <SortButton
                     handleFilterOptionClick={handleFilterOptionClick}
                   />
-
+                  {/* Filter Button  */}
                   <div className="max-md:block hidden">
                     <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
-                      <span onClick={handleMobileFilter}>Filter</span>
+                      <span onClick={()=>setMobileFilter(true)}>Filter</span>
                       <MdOutlineSort />
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="flex sm:flex-col flex-row overflow-x-scroll">
-                {
-                  AllExamData ? (
-                    <ExamListItem exams={filteredData} />
-                  ): (
-                    <div className="w-full h-full p-20 item-center flex justify-center">
+              <div className="flex flex-col">
+                {AllExamData ? (
+                  <ExamListItem exams={filteredData} />
+                ) : (
+                  <div className="w-full h-full p-20 item-center flex justify-center">
                     <Spinner />
                   </div>
-                  )
-                }
+                )}
 
                 {filteredData?.length >= 5 &&
                   filteredData?.length < AllExamData?.length && (
@@ -307,7 +312,7 @@ export default function ExamList() {
                     </button>
                   )}
               </div>
-            </div>
+            </main>
           </div>
         </section>
       </div>

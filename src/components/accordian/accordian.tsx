@@ -29,25 +29,25 @@ const Accordion: React.FC<AccordionProps> = ({
   return (
     <div
       className={`${
-        showBorder ? "border border-primary-text-light rounded-md" : ""
+        showBorder ? "border border-zinc-300 rounded-md" : ""
       }`}
     >
       <div
         className={`flex justify-between items-center p-2 ${
-          isOpen ? "border-b border-b-primary-text-light" : ""
+          isOpen ? "border-b border-zinc-300" : ""
         }`}
         onClick={handleOpenAccordion}
       >
         <p
-          className={`flex-1 ${
+          className={`flex-1 pl-3 ${
             titlePrimary
-              ? "text-black text-[25px] font-semibold"
+              ? "text-zinc-800 text-lg font-semibold"
               : "text-secondary text-base"
           }`}
         >
           {title}
         </p>
-        <div className="bg-primary-light p-1 text-primary rounded-sm">
+        <div className="bg-primary-light p-1 text-primary rounded-md">
           {isOpen ? <FaAngleDown /> : <FaAngleRight />}
         </div>
       </div>

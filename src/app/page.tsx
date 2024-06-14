@@ -364,6 +364,7 @@ export default function Home() {
           </div>
         </section>
 
+        {/* explore-course-section  */}
         <section className="explore-course-section py-10 bg-[#F2F6F7]">
           <div className="px-4  max-w-screen-xl mx-auto p-2">
             <motion.h2

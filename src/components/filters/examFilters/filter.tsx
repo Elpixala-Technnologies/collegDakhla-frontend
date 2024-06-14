@@ -10,7 +10,7 @@ export default function Filter(props: any) {
     <>
       <div className=" p-2">
         <div
-          className=" px-2 py-2 flex items-center justify-between border border-gray-400 border-l-primary rounded-md"
+          className=" px-2 py-2 flex items-center justify-between border border-zinc-300  rounded-md"
           onClick={handleOpen}
         >
           <span>{props.name}</span>{" "}

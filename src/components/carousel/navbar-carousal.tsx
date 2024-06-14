@@ -242,8 +242,8 @@ const NavbarSlider = ({
           <div className="flex gap-4 items-center">
             <button
               data-testid="prev-button"
-              className={`border ${buttonBorderColor} p-2 md:p-3 cursor-pointer rounded-lg ${buttonTextColor} ${
-                isBeginning ? "opacity-50 pointer-events-none" : ""
+              className={`border ${buttonBorderColor} p-2 cursor-pointer bg-primary bg-opacity-40 hover:scale-95 rounded-lg ${buttonTextColor} ${
+                isBeginning ? "pointer-events-none" : ""
               }`}
               onClick={prevSlide}
               aria-label="Previous Slide"
@@ -258,7 +258,7 @@ const NavbarSlider = ({
 
         <div className="w-full overflow-hidden ">
           <div
-            className="flex gap-x-20 items-center transition-transform duration-300 ease-in-out h-full"
+            className="flex gap-x-10 items-center transition-transform duration-300 ease-in-out h-full"
             style={{
               transform: `translateX(-${(100 / totalSlides) * activeIndex}%)`,
             }}
@@ -275,8 +275,8 @@ const NavbarSlider = ({
           <div className="flex gap-4 items-center">
             <button
               data-testid="next-button"
-              className={`border ${buttonBorderColor} p-1 md:p-3 cursor-pointer rounded-lg ${buttonTextColor} ${
-                isEnd ? "opacity-50 pointer-events-none" : ""
+              className={`border ${buttonBorderColor} bg-primary bg-opacity-40 hover:scale-95 p-2  cursor-pointer rounded-lg ${buttonTextColor} ${
+                isEnd ? "pointer-events-none" : ""
               }`}
               onClick={nextSlide}
               aria-label="Next Slide"
