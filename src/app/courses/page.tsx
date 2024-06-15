@@ -124,9 +124,9 @@ export default function CourseList() {
     }
   }, [searchValue, allCoursesData, displayCount]);
 
-  useEffect(() => {
-    console.log(allCoursesData?.courses?.data, "pppp");
-  }, [allCoursesData?.courses?.data]);
+  // useEffect(() => {
+  //   console.log(allCoursesData?.courses?.data, "pppp");
+  // }, [allCoursesData?.courses?.data]);
 
   return (
     <>
@@ -208,7 +208,7 @@ export default function CourseList() {
           <div className="flex  md:flex-row gap-3 px-4 my-5">
             {/* aside Filter  */}
             <aside
-              className={`min-w-[300px] border border-zinc-300 rounded-md px-3 [flex:2] max-md:bg-black max-md:bg-opacity-80 ${
+              className={`min-w-[300px] h-min border border-zinc-300 rounded-md px-3 [flex:2] max-md:bg-black max-md:bg-opacity-80 ${
                 MobileFilter
                   ? "fixed left-0 top-0 z-40 h-screen w-full overflow-y-scroll pr-[20%]"
                   : "max-md:hidden"
@@ -262,7 +262,7 @@ export default function CourseList() {
                 </div>
               )}
 
-              {filteredData?.length >= 5 &&
+              {filteredData?.length >= 10 &&
                 filteredData?.length < allCoursesData?.courses?.data.length && (
                   <button
                     className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow m-6"

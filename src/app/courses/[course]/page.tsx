@@ -11,6 +11,7 @@ import Image from "next/image";
 import { GetDefaultImage, getStrapiMedia } from "../../../utils/api-helper";
 import CourseTab from "./@courseTab/courseTab";
 import { SignUpSignInModule } from "@/components/header/SignUpSignInModule";
+import NavbarSlider from "@/components/carousel/navbar-carousal";
 
 type Props = {
   params: {
@@ -20,6 +21,7 @@ type Props = {
 export default function CourseDetail({ params }: Props) {
   const [currentTab, setCurrentTab] = useState<string>("");
   const [TabData, setTabData] = useState([]);
+  const [selectedTab, setSelectedTab] = useState(null);
   let courseId = params.course;
 
   // get course data
@@ -42,13 +44,13 @@ export default function CourseDetail({ params }: Props) {
 
   const tabData = course?.pageData;
 
-  const handleTab = (value: string) => {
+  const handleTab = (value: string, tabName: any) => {
     setCurrentTab(value);
     const filteredData = tabData?.filter(
       (item: any) => item?.navbar?.data?.attributes?.name === value
     );
-
     setTabData(filteredData);
+    setSelectedTab(tabName);
   };
 
   useEffect(() => {
@@ -56,7 +58,7 @@ export default function CourseDetail({ params }: Props) {
       // console.log("loading ", loading);
     }
     if (!loading && currentTab === "") {
-      handleTab("Info");
+      handleTab("Info", "Info");
       setCurrentTab("Info");
     }
   }, [loading]);
@@ -146,24 +148,43 @@ export default function CourseDetail({ params }: Props) {
             </div>
           </div>
         </div>
-        <div className="infoOption bg-white flex">
-          <ul className="flex gap-8 items-stretch max-w-screen-xl mx-auto w-full px-4 h-10">
-            {navbar?.map((tab: any) => {
-              return (
-                <li
-                  key={tab?.attributes?.name}
-                  onClick={() => handleTab(tab?.attributes?.name)}
-                  className="hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm mt-2"
-                >
-                  {tab?.attributes?.name}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
       </section>
       <section className="mainSection">
-        <div className="flex justify-center max-w-screen-xl mx-auto">
+      <div className="flex justify-center max-w-screen-xl mx-auto flex-col px-5">
+        <div className="infoOption flex items-center max-w-screen-xl">
+            <div className="sticky-nav-wrapper w-full flex items-center justify-center">
+              <div className="bg-white flex border-b border-b-primary-light w-full rounded-lg">
+                <div className="sm:max-w-screen-xl lg:mx-auto p-2 w-full justify-center border border-zinc-200 rounded-lg mt-5">
+                  <NavbarSlider
+                    buttonBorderColor="hover:border-primary/50"
+                    buttonTextColor="text-primary hover:text-white"
+                    showPagination={false}
+                    slidesDesktop={5}
+                    slidesTablet={5}
+                    slidesMobile={3}
+                    slides={navbar?.map((tab: any, index: number) => (
+                      <div
+                        key={tab?.attributes?.name}
+                        onClick={() =>
+                          handleTab(
+                            tab?.attributes?.name,
+                            tab?.attributes?.name
+                          )
+                        }
+                        className={`text-nowrap hover:text-orange-400 hover:border-b-2 hover:border-orange-400 text-sm flex justify-center items-center w-max h-full text-center cursor-pointer font-semibold sm:text-lg ${
+                          selectedTab === tab?.attributes?.name
+                            ? "text-primary"
+                            : ""
+                        }`}
+                      >
+                        {tab?.attributes?.name}
+                      </div>
+                    ))}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
           <CourseTab tabData={TabData} />
         </div>
       </section>

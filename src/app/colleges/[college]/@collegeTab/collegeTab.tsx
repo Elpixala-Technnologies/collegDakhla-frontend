@@ -6,6 +6,7 @@ import Accordion from "@/components/accordian/accordian";
 import { useQuery } from "@apollo/client";
 import { getFeaturedCourses } from "@/query/schema";
 import CourseCard from "@/components/card/courseCard";
+import Image from "next/image";
 
 export default function CollegeTab(props: any) {
   const {
@@ -137,23 +138,24 @@ export default function CollegeTab(props: any) {
               </div>
               {/* Gallery  */}
               {activeSection === "gallery" && images?.length > 0 && (
-                <div className="college-videos">
-                  <div className="gallery-container">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
-                      {images?.map((imgItem: any) => (
-                        <div
-                          key={imgItem?.id}
-                          className="gallery-item hover:p-2  hover:border border-primary"
-                        >
-                          <img
-                            src={imgItem?.attributes?.url}
-                            alt={`Gallery Image ${imgItem?.id}`}
-                            className="w-full h-full object-contain cursor-pointer"
-                            onClick={() => handleImageClick(imgItem?.attributes?.url)}
-                          />
-                        </div>
-                      ))}
-                    </div>
+                <div className="gallery-container">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+                    {images?.map((imgItem: any) => (
+                      <div
+                        key={imgItem?.id}
+                        className="gallery-item hover:p-2  hover:border border-primary"
+                      >
+                        <Image
+                        width={700}
+                          src={imgItem?.attributes?.url}
+                          alt={`Gallery Image ${imgItem?.id}`}
+                          className="w-full h-full object-contain cursor-pointer"
+                          onClick={() =>
+                            handleImageClick(imgItem?.attributes?.url)
+                          }
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
@@ -170,11 +172,12 @@ export default function CollegeTab(props: any) {
                     <button
                       className="absolute top-2 right-2 text-black text-2xl"
                       onClick={handleClosePopup}
-                    > 
+                    >
                       &times;
                     </button>
-                    <img
+                    <Image
                       src={selectedImage}
+                      width={700}
                       alt={`Gallery Image`}
                       className="w-full h-auto object-contain"
                     />
