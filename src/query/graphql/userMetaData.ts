@@ -13,7 +13,7 @@ export const createUserMetaData = gql`
         name: $name
         email: $email
         number: $number
-        userData: $userDataId
+        user: $userDataId
         publishedAt: $publishedAt
       }
     ) {

@@ -9,8 +9,9 @@ export interface IAuthState {
 	email: string;
 	number: string;
 	gender?: string;
-    city?: string;
-    interestedCourse?: string;
+	city?: string;
+	interestedCourse?: string;
+	token: string;
 }
 
 const initialState: IAuthState = {
@@ -20,8 +21,9 @@ const initialState: IAuthState = {
 	email: "",
 	number: "",
 	gender: "",
-  	city: "",
-  	interestedCourse: "",
+	city: "",
+	interestedCourse: "",
+	token: "",
 };
 
 let clearSessionTimer: NodeJS.Timeout | null = null;
@@ -39,6 +41,7 @@ export const authSlice = createSlice({
 			state.gender = action.payload.gender;
 			state.city = action.payload.city;
 			state.interestedCourse = action.payload.interestedCourse;
+			state.token = action.payload.token;
 
 			if (clearSessionTimer) {
 				clearTimeout(clearSessionTimer);
@@ -57,6 +60,7 @@ export const authSlice = createSlice({
 			state.interestedCourse = "";
 			state.city = "";
 			state.gender = "";
+			state.token = "";
 			clearSession();
 		},
 	},

@@ -6,8 +6,6 @@ import { useState } from "react";
 import { OTPInput } from "@/components/otpInput/otp";
 import useSignup from "@/query/hooks/useSignup";
 import { ID } from "@/types/global";
-import { restUrl } from "@/utils/network";
-import axios from "axios";
 import { useAppDispatch } from "@/store";
 import { setAuthState } from "@/store/authSlice";
 import { useRouter } from "next/navigation";
@@ -17,64 +15,69 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 	const [userOtp, setUserOtp] = useState("");
 	const [message, setMessage] = useState("");
 	const [isOtp, setIsOtp] = useState(false);
-	const [userId, setUserId] = useState<ID>();
-	const { UserCheck, CheckOTP } = useSignup();
-	const checkUser = UserCheck(phoneNumber);
-	const otpchecker = CheckOTP(userId!, phoneNumber, userOtp);
+	const { GenerateOTP, CheckOTP } = useSignup();
 	const dispatch = useAppDispatch();
 	const router = useRouter();
+	const [isResend, setIsResend] = useState(false)
 
 	const sendLoginOtp = async (e: any) => {
 		e.preventDefault();
 
-		if (checkUser) {
-			setUserId(checkUser?.usersData?.data[0]?.id);
-			let data = JSON.stringify({
-				data: {},
-			});
 
-			let config = {
-				method: "put",
-				maxBodyLength: Infinity,
-				url: `${restUrl}/api/users-data/${checkUser?.usersData?.data[0]?.id}`,
-				headers: {
-					"Content-Type": "application/json",
-				},
-				data: data,
-			};
+		const sendOtp = await GenerateOTP({
+			variables: {
+				phoneNumber: phoneNumber,
+				isResend: isResend,
+			},
+		})
 
-			axios
-				.request(config)
-				.then((response: any) => {
-					setIsOtp(true);
-					console.log("otp sent");
-				})
-				.catch((error: any) => {
-					setMessage("Something went wrong. Please try again.")
-					console.log(error);
-				});
-		} else {
-			setMessage("User does not exists.")
+		console.log("sendOtp", sendOtp);
+
+
+		if (sendOtp?.data?.generateOTP?.status === 200) {
+			setIsOtp(true);
+		}
+		else {
+			setMessage(sendOtp?.data?.generateOTP?.message)
+			console.log(sendOtp.data?.generateOTP?.message);
 		}
 	};
 
-	const handleSignin = () => {
-		if (otpchecker != false && checkUser != false) {
+	const handleSignin = async () => {
+		if (userOtp.length !== 6) {
+			setMessage("Please enter a valid 6-digit OTP.");
+			return;
+		}
+
+		const otpchecker = await CheckOTP({
+			variables: {
+				phoneNumber: phoneNumber,
+				userOtp: userOtp,
+			},
+		})
+
+		const status = otpchecker?.data?.verifyOTP?.status;
+		if (status == 401 || status == 410 || status == 500) {
+			setMessage(otpchecker?.data?.verifyOTP?.message)
+			console.log("wrong otp");
+		}
+		else {
+			closeLoginPopup();
+
 			dispatch(
 				setAuthState({
 					authState: true,
-					userName: checkUser?.usersData?.data[0]?.attributes?.name,
-					email: checkUser?.usersData?.data[0]?.attributes?.email,
-					number: checkUser?.usersData?.data[0]?.attributes?.number,
-					userID: checkUser?.usersData?.data?.[0]?.id,
+					userName: otpchecker?.data?.verifyOTP?.data?.attributes?.name,
+					email: otpchecker?.data?.verifyOTP?.data?.attributes?.email,
+					number: otpchecker?.data?.verifyOTP?.data?.attributes?.phone_number,
+					userID: otpchecker?.data?.verifyOTP?.data?.id,
+					token: otpchecker?.data?.verifyOTP?.data?.attributes?.token
 				})
 			);
-
-			// router.push("/");
-			closeLoginPopup();
-		}
-		else {
-			setMessage("Wrong OTP");
+			console.log(
+				"user logged in successfully",
+				otpchecker?.data?.verifyOTP?.data?.attributes?.name
+			);
 		}
 	};
 
