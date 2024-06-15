@@ -17,6 +17,11 @@ import useUserMetaData from "@/query/hooks/useUserMetaData";
 import { useAppSelector } from "@/store";
 import useSignup from "@/query/hooks/useSignup";
 import { ID } from "@/types/global";
+import {
+  formatNumber,
+  getRandomRatingValue,
+  getRandomReviews,
+} from "@/utils/randomValues";
 
 export default function ExamListItem({ exams }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,6 +63,7 @@ export default function ExamListItem({ exams }: any) {
     link.click();
     document.body.removeChild(link);
   };
+
   return (
     <>
       {exams?.length > 0 && (
@@ -91,12 +97,15 @@ export default function ExamListItem({ exams }: any) {
                     <div className="flex flex-col gap-1 md:col-span-8">
                       {/* line1  */}
                       <div className="flex max-sm:flex-col gap-4">
-                        <Rating
-                          name="half-rating"
-                          defaultValue={2.5}
-                          precision={0.5}
-                          readOnly
-                        />
+                        <p className="text-[#0F4988] flex gap-1 items-center text-sm">
+                          <Rating
+                            name="half-rating"
+                            defaultValue={getRandomRatingValue()}
+                            precision={0.5}
+                            readOnly
+                          />
+                          <span>({formatNumber(getRandomReviews())} reviews)</span>
+                        </p>
                         <p className="text-[#0F4988] flex gap-1 items-center text-sm">
                           <CiLocationOn className="text-2xl text-gray-400" />
                           <span className="text-blue-800">
@@ -213,9 +222,11 @@ export default function ExamListItem({ exams }: any) {
                         "Placement",
                       ].map((item, index) => (
                         <React.Fragment key={index}>
-                          <li className="cursor-pointer hover:underline">
-                            {item}
-                          </li>
+                          <Link href={`/exams/${exam.id}`}>
+                            <li className="cursor-pointer hover:underline">
+                              {item}
+                            </li>
+                          </Link>
                           {index !== 4 && <li>|</li>}
                         </React.Fragment>
                       ))}

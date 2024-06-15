@@ -722,7 +722,7 @@ export const getCourseLevels = gql`query CourseLevels {
 // query to get all courses 
 export const getCourses = gql`
 query Courses {
-	courses {
+	courses(pagination: { limit: 100 }) {
 		data {
 			id
 			attributes {
