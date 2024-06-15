@@ -26,119 +26,86 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 		formState: { errors },
 	}: any = useForm();
 	const [error, setError] = useState("");
-	const [userSubmittedData, setuserSubmittedData] = useState<UserSubmittedData>(
-		{
-			name: "",
-			email: "",
-			number: "",
-			isWhatsappNo: false,
-			stream: "18",
-			courseLevel: "1",
-		}
-	);
 	const [StreamValue, setStreamValue] = useState("");
 	const [LevelValue, setLevelValue] = useState("");
 	const [NameValue, setNameValue] = useState("");
 	const [EmailValue, setEmailValue] = useState("");
 	const [PhoneValue, setPhoneValue] = useState("");
-
 	const [userOtp, setUserOtp] = useState("");
-	const [userId, setUserId] = useState<ID>();
 	const [isOtp, setIsOtp] = useState(false);
-	const { UserCheck, CheckOTP } = useSignup();
+	const { RegisterUser, CheckOTP } = useSignup();
 	const { userMetaCreate } = useUserMetaData();
 	const dispatch = useAppDispatch();
 	const { data: streamsData } = useQuery(getStreams);
 	const { data: courseLevelData } = useQuery(getCourseLevels);
-	const checkUser = UserCheck(
-		PhoneValue,
-		EmailValue
-	);
-	const otpchecker = CheckOTP(userId!, PhoneValue, userOtp);
 	const [isLogIn, setIsLogin] = useState(true);
+	const currentDate = new Date();
+	const publishedAt = currentDate.toISOString();
 
-	const sendSignupOtp = (e: any) => {
+	const sendSignupOtp = async (e: any) => {
 		e.preventDefault();
-		const currentDate = new Date();
-		const publishedAt = currentDate.toISOString();
 
-		if (checkUser === false) {
-			setError("")
-			try {
-				let data = JSON.stringify({
-					data: {
-						name: NameValue,
-						email: EmailValue,
-						number: PhoneValue,
-						stream: StreamValue,
-						courseLevel: LevelValue,
-						publishedAt
-					}
-				});
-
-				let config = {
-					method: "post",
-					maxBodyLength: Infinity,
-					url: `${restUrl}/api/users-data`,
-					headers: {
-						"Content-Type": "application/json",
-					},
-					data: data,
-				};
-
-				axios
-					.request(config)
-					.then((response: any) => {
-						setUserId(response?.data?.data?.id);
-						setIsOtp(true);
-					})
-					.catch((error: any) => {
-						console.log(error);
-					});
-			} catch (error) {
-				setError("Something went wrong. Please try again.")
-				console.error("Error adding user:", error);
+		const registerResponse = await RegisterUser({
+			variables: {
+				name: NameValue,
+				email: EmailValue,
+				phoneNumber: PhoneValue,
+				stream: StreamValue,
+				courseLevel: LevelValue,
 			}
-		} else {
-			setError("User already exists")
+		})
+
+		if (registerResponse.data.registerUser.status === 200) {
+			setIsOtp(true);
+		}
+		else {
+			setError("User laready exists.")
+			console.log(registerResponse.data.registerUser.message);
 		}
 	};
 
 	const handleSubmitSignup = async (e: any) => {
 		e.preventDefault();
-		const currentDate = new Date();
-		const publishedAt = currentDate.toISOString();
 
-		if (otpchecker != false) {
-			try {
-				dispatch(
-					setAuthState({
-						authState: true,
-						userID: otpchecker?.id,
-						userName: otpchecker?.attributes?.name,
-						email: otpchecker?.attributes?.email,
-						number: otpchecker?.attributes?.number,
-					})
-				);
+		const otpchecker = await CheckOTP({
+			variables: {
+				phoneNumber: PhoneValue,
+				userOtp: userOtp,
+			},
+		})
 
-				await userMetaCreate({
-					variables: {
-						name: NameValue,
-						email: EmailValue,
-						number: PhoneValue,
-						userDataId: userId,
-						publishedAt,
-					},
-				});
+		if (otpchecker?.data != undefined && otpchecker?.data?.verifyOTP?.data) {
 
-				// router.push("/");
-				closeLoginPopup();
-			} catch (error) {
-				setError("Something went wrong. Please try again.");
-				console.error("Error publishing user:", error);
-			}
-		} else {
-			setError("Wrong OTP")
+			dispatch(
+				setAuthState({
+					authState: true,
+					userName: otpchecker?.data?.verifyOTP?.data?.attributes?.name,
+					email: otpchecker?.data?.verifyOTP?.data?.attributes?.email,
+					number: otpchecker?.data?.verifyOTP?.data?.attributes?.phone_number,
+					userID: otpchecker?.data?.verifyOTP?.data?.id,
+					// token: otpchecker?.data?.verifyOTP?.data?.attributes?.token
+				})
+			);
+
+			await userMetaCreate({
+				variables: {
+					name: NameValue,
+					email: EmailValue,
+					number: PhoneValue,
+					userDataId: otpchecker?.data?.verifyOTP?.data?.id,
+					publishedAt,
+				},
+			});
+
+			closeLoginPopup();
+			console.log(
+				"user signed up successfully",
+				otpchecker?.data?.verifyOTP?.data?.attributes?.name
+			);
+		}
+		else {
+			setError("Wrong OTP. Please try again.")
+			console.log("wrong otp");
 		}
 	};
 

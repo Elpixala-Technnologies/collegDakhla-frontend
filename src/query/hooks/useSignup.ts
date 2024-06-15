@@ -1,52 +1,6 @@
-import { useMutation, useQuery } from "@apollo/client"
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client"
 import { ID } from "@/types/global";
-import { checkUser, checkUserOtp, getUserMetaId } from "../graphql/signup";
-
-
-const UserCheck = (number: string, email?: string) => {
-
-	const { loading, error, data, refetch } = useQuery<any>(checkUser, {
-		variables: {
-			number,
-			email: email ? email : ""
-		},
-		skip: number.length != 10
-	});
-
-	if (data?.usersData?.data.length === 1) {
-		// return { userData: data?.usersData }
-		return data
-	}
-	else if (data?.usersData?.data.length === 0) {
-		return false;
-	}
-	else if (data == undefined) {
-		return refetch();
-	}
-}
-
-const CheckOTP = (userID: ID, number: string, userOtp: string) => {
-
-	const { loading, error, data, refetch } = useQuery<any>(checkUserOtp, {
-		variables: {
-			userID,
-			userOtp,
-			number,
-		},
-		skip: userOtp.length !== 6
-	});
-
-
-	if (data?.usersData?.data?.length == 1 && data?.usersData?.data[0]?.id == userID) {
-		return data.usersData.data[0]
-	}
-	else if (data?.usersData?.data?.length == 0) {
-		return false;
-	}
-	else if (data == undefined) {
-		return refetch();
-	}
-}
+import { getUserMetaId, register, sendOTP, verifyOTP } from "../graphql/signup";
 
 const GetUserDataMetaId = (userID: ID) => {
 	const { loading, error, data } = useQuery<any>(getUserMetaId, {
@@ -59,9 +13,11 @@ const GetUserDataMetaId = (userID: ID) => {
 }
 
 const useSignup = () => {
+	const [RegisterUser, { loading: registerLoading, error: registerError, data: registerData }] = useMutation<any>(register)
+	const [GenerateOTP, { loading: sendOtpLoading, error: sendOtpError, data: sendOtpData }] = useLazyQuery<any>(sendOTP);
+	const [CheckOTP, { loading: verifyOtpLoading, error: verifyOtpError, data: verifyOtpData }] = useLazyQuery<any>(verifyOTP)
 
-
-	return { UserCheck, CheckOTP, GetUserDataMetaId };
+	return { GetUserDataMetaId, RegisterUser, GenerateOTP, CheckOTP };
 };
 
 export default useSignup;
