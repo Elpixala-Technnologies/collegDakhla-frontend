@@ -6,8 +6,6 @@ import { useState } from "react";
 import { OTPInput } from "@/components/otpInput/otp";
 import useSignup from "@/query/hooks/useSignup";
 import { ID } from "@/types/global";
-import { restUrl } from "@/utils/network";
-import axios from "axios";
 import { useAppDispatch } from "@/store";
 import { setAuthState } from "@/store/authSlice";
 import { useRouter } from "next/navigation";
@@ -17,7 +15,6 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 	const [userOtp, setUserOtp] = useState("");
 	const [message, setMessage] = useState("");
 	const [isOtp, setIsOtp] = useState(false);
-	const [userId, setUserId] = useState<ID>();
 	const { GenerateOTP, CheckOTP } = useSignup();
 	const dispatch = useAppDispatch();
 	const router = useRouter();
@@ -34,13 +31,14 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 			},
 		})
 
+		console.log("sendOtp", sendOtp);
 
 
-		if (sendOtp?.data != undefined) {
+		if (sendOtp?.data?.generateOTP?.status === 200) {
 			setIsOtp(true);
 		}
 		else {
-			setMessage("User does not exists.")
+			setMessage(sendOtp?.data?.generateOTP?.message)
 			console.log(sendOtp.data?.generateOTP?.message);
 		}
 	};
@@ -58,9 +56,13 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 			},
 		})
 
-		if (otpchecker?.data != undefined && otpchecker?.data?.verifyOTP?.data) {
+		const status = otpchecker?.data?.verifyOTP?.status;
+		if (status == 401 || status == 410 || status == 500) {
+			setMessage(otpchecker?.data?.verifyOTP?.message)
+			console.log("wrong otp");
+		}
+		else {
 			closeLoginPopup();
-			setUserId(otpchecker?.data?.verifyOTP?.data?.id);
 
 			dispatch(
 				setAuthState({
@@ -69,17 +71,13 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 					email: otpchecker?.data?.verifyOTP?.data?.attributes?.email,
 					number: otpchecker?.data?.verifyOTP?.data?.attributes?.phone_number,
 					userID: otpchecker?.data?.verifyOTP?.data?.id,
-					// token: otpchecker?.data?.verifyOTP?.data?.attributes?.token
+					token: otpchecker?.data?.verifyOTP?.data?.attributes?.token
 				})
 			);
 			console.log(
 				"user logged in successfully",
 				otpchecker?.data?.verifyOTP?.data?.attributes?.name
 			);
-		}
-		else {
-			setMessage("Wrong OTP. Please try again.")
-			console.log("wrong otp");
 		}
 	};
 

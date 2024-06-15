@@ -59,7 +59,7 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 			setIsOtp(true);
 		}
 		else {
-			setError("User laready exists.")
+			setError(registerResponse.data.registerUser.message)
 			console.log(registerResponse.data.registerUser.message);
 		}
 	};
@@ -74,7 +74,17 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 			},
 		})
 
-		if (otpchecker?.data != undefined && otpchecker?.data?.verifyOTP?.data) {
+		console.log("Check", otpchecker);
+
+
+		const status = otpchecker?.data?.verifyOTP?.status;
+
+		if (status == 401 || status == 410 || status == 500) {
+			setError(otpchecker?.data?.verifyOTP?.message)
+			console.log(otpchecker?.data?.verifyOTP?.message);
+		}
+		else {
+			console.log("inside else");
 
 			dispatch(
 				setAuthState({
@@ -83,11 +93,12 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 					email: otpchecker?.data?.verifyOTP?.data?.attributes?.email,
 					number: otpchecker?.data?.verifyOTP?.data?.attributes?.phone_number,
 					userID: otpchecker?.data?.verifyOTP?.data?.id,
-					// token: otpchecker?.data?.verifyOTP?.data?.attributes?.token
+					token: otpchecker?.data?.verifyOTP?.data?.attributes?.token
 				})
 			);
+			console.log("after dispatch");
 
-			await userMetaCreate({
+			const create = await userMetaCreate({
 				variables: {
 					name: NameValue,
 					email: EmailValue,
@@ -96,16 +107,13 @@ export function SignUpSignInModule({ closeLoginPopup }: any) {
 					publishedAt,
 				},
 			});
+			console.log("after create user", create);
 
 			closeLoginPopup();
 			console.log(
 				"user signed up successfully",
 				otpchecker?.data?.verifyOTP?.data?.attributes?.name
 			);
-		}
-		else {
-			setError("Wrong OTP. Please try again.")
-			console.log("wrong otp");
 		}
 	};
 

@@ -68,17 +68,23 @@ export const register = gql`
 export const verifyOTP = gql`
 	query VerifyOTP($phoneNumber: String!, $userOtp: String!) {
 		verifyOTP(input: {phoneNumber: $phoneNumber, otp: $userOtp}) {
-			data {
-				id
-				attributes {
-					name
-					username
-					email
-					phone_number
-					roles
-					permissions
-					token
+			... on UserProfileEntityResponse {
+				data {
+					id
+					attributes {
+						name
+						username
+						email
+						phoneNumber
+						roles
+						permissions
+						token
+					}
 				}
+			}
+			... on verifyOTPErrorEntity {
+				status
+				message
 			}
 		}
 	}
@@ -88,9 +94,8 @@ export const sendOTP = gql`
 	query GenerateOTP($phoneNumber: String, $isResend: Boolean) {
 		generateOTP(
 			input: {phoneNumber: $phoneNumber, isResend_otp: $isResend}) {
-				data {
-					response
-				}
+				status
+				message
 			}
 	}
 `;
