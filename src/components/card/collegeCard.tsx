@@ -224,7 +224,7 @@ export default function CollegeCard({ featuredCollege }: any) {
 						<div>{college?.college_type?.data?.attributes?.type}</div>
 					</div>
 				</div>
-				<Link href={`/colleges/${featuredCollege?.id}`}>
+				<Link href={`/colleges/${college?.url}`}>
 					<div className="w-full p-2 bg-gradient-to-l from-gray-300 via-gray-500 to-gray-900 rounded-b-lg text-center text-white text-sm">
 						Apply Now
 					</div>

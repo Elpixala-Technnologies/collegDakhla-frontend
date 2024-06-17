@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Loader from "../Loader/loader";
 import Accordion from "../accordian/accordian";
-import { PageData } from "../pageData/pageData";
+import PageData from "../pageData/pageData";
 import YoutubeVideo from "../youtubeVideo/youtubeVideo";
 import Image from "next/image";
 
@@ -82,8 +82,6 @@ export function PageDetails({ tabData, page, currentTab, loading }: any) {
 			</div>
 		);
 	}
-	console.log("tab data", tabData);
-
 
 	return (
 		<>

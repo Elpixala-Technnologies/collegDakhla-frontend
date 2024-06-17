@@ -5,7 +5,7 @@ import Carousel from "../carousel/carousel";
 import CourseCard from "../card/courseCard";
 import CollegeCard from "../card/collegeCard";
 
-export function PageData({ data }: any) {
+export default function PageData({ data }: any) {
 	console.log("page data", data);
 	const [showFullContent, setShowFullContent] = useState(false);
 	const [showReadMore, setShowReadMore] = useState(true);

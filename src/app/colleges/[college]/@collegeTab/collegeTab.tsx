@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { Key, useEffect, useRef, useState } from "react";
-import PageData from "@/components/pageInfo/pageData";
+import PageData from "@/components/pageData/pageData";
 import Accordion from "@/components/accordian/accordian";
 import { useQuery } from "@apollo/client";
 import { getFeaturedCourses } from "@/query/schema";
