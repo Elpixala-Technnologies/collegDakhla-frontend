@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import Loader from "../Loader/loader";
 import Accordion from "../accordian/accordian";
-import PageData from "../pageData/pageData";
+import PageData from "../tabData/tabData";
 import YoutubeVideo from "../youtubeVideo/youtubeVideo";
 import Image from "next/image";
 
-export function PageDetails({ tabData, page, currentTab, loading }: any) {
+export default function TabDetails({ tabData, page, currentTab, loading }: any) {
 	const [ShowTableOfContent, setShowTableOfContent] = useState(true);
 	const [RatingsBanner, setRatingsBanner] = useState(false);
 	const [ShowSidebar, setShowSidebar] = useState(true);

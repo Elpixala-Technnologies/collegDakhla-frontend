@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { Key, useEffect, useRef, useState } from "react";
-import PageData from "@/components/pageData/pageData";
+import TabData from "@/components/tabData/tabData";
 import Accordion from "@/components/accordian/accordian";
 import { useQuery } from "@apollo/client";
 import { getFeaturedCourses } from "@/query/schema";
@@ -88,7 +88,7 @@ export default function CollegeTab(props: any) {
 													key={index}
 													ref={(el) => (accordionRefs.current[index] = el)} // Assign ref
 												>
-													<PageData data={item} />
+													<TabData data={item} />
 												</div>
 											</Accordion>
 										)}

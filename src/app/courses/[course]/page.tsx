@@ -12,7 +12,7 @@ import { GetDefaultImage, getStrapiMedia } from "../../../utils/api-helper";
 import CourseTab from "./@courseTab/courseTab";
 import { SignUpSignInModule } from "@/components/header/SignUpSignInModule";
 import NavbarSlider from "@/components/carousel/navbar-carousal";
-import { PageDetails } from "@/components/pageDetails/pageDetails";
+import TabDetails from "@/components/tabDetails/tabDetails";
 
 type Props = {
 	params: {
@@ -184,7 +184,7 @@ export default function CourseDetail({ params }: Props) {
 						</div>
 					</div>
 					{/* <CourseTab tabData={TabData} /> */}
-					<PageDetails tabData={TabData} page={course} currentTab={currentTab}></PageDetails>
+					<TabDetails tabData={TabData} page={course} currentTab={currentTab} />
 				</div>
 			</section>
 
