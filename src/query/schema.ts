@@ -770,8 +770,8 @@ query Courses {
 
 //query to get course on id
 export const getCourse = gql`
-query CourseExam($courseId : ID!) {
-    course(id: $courseId) {
+query Course($courseUrl : String!) {
+    courses(filters: { url: { eq: $courseUrl } }){
         data {
             id
             attributes {
@@ -837,18 +837,126 @@ query CourseExam($courseId : ID!) {
                         }
                     }
                     ... on ComponentCommonFaqS {
-                        id
-                        Question
-                        Answer
-                        navbar {
-                            data {
-                                id
-                                attributes {
-                                    name
-                                }
-                            }
-                        }
+											id
+											navbar {
+												data {
+													id
+													attributes {
+														name
+													}
+												}
+											}
+											questions {
+												id
+												Question
+												Answer
+											}
                     }
+										... on ComponentRecommendedColleges {
+										id
+										navbar {
+											data {
+												id
+												attributes {
+													name
+												}
+											}
+										}
+										colleges {
+											data {
+												id
+												attributes {
+													url
+													collegeName
+
+													collegeLogo {
+														data {
+															id
+															attributes {
+																url
+															}
+														}
+													}
+													pincode
+													banner {
+														data {
+															id
+															attributes {
+																url
+															}
+														}
+													}
+													isFeaturedCollege
+													approvedBy {
+														data {
+															id
+															attributes {
+																name
+															}
+														}
+													}
+													rankedBy {
+														data {
+															id
+															attributes {
+																name
+															}
+														}
+													}
+													city {
+														data {
+															id
+															attributes {
+																name
+															}
+														}
+													}
+													state {
+														data {
+															id
+															attributes {
+																name
+															}
+														}
+													}
+													country {
+														data {
+															attributes {
+																name
+															}
+														}
+													}
+													college_type {
+														data {
+															id
+															attributes {
+																type
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									... on ComponentRecommendedCourses {
+										id
+										navbar {
+											data {
+												id
+												attributes {
+													name
+												}
+											}
+										}
+										courses {
+											data {
+												id
+												attributes {
+													name
+												}
+											}
+										}
+									}
                 }
             }
         }

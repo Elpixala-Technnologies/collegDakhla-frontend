@@ -13,81 +13,93 @@
 } */
 
 body {
-  scrollbar-width: thin;
-  scrollbar-color: #cccccc #f4f4f4;
+	scrollbar-width: thin;
+	scrollbar-color: #cccccc #f4f4f4;
 }
 
 body::-webkit-scrollbar {
-  width: 0.2rem;
+	width: 0.2rem;
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #cccccc;
-  border-radius: 10px;
+	background-color: #cccccc;
+	border-radius: 10px;
 }
 
 body::-webkit-scrollbar-track {
-  background-color: #f4f4f4;
+	background-color: #f4f4f4;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+	width: 0;
+	height: 0;
 }
 
 .hide-scrollbar::-webkit-scrollbar-thumb {
-  background-color: transparent;
+	background-color: transparent;
 }
 
 .hide-scrollbar {
-  scrollbar-width: none; /* Firefox 64+ */
+	scrollbar-width: none;
+	/* Firefox 64+ */
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none; /* Edge */
+	-ms-overflow-style: none;
+	/* Edge */
 }
 
 .college-btn {
-  float: inline-start;
+	float: inline-start;
 }
 
 /* THin scrollbar */
 
 ::-webkit-scrollbar {
-  width: 5px; /* Width of the scrollbar */
+	width: 5px;
+	/* Width of the scrollbar */
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Color of the track */
+	background: #f1f1f1;
+	/* Color of the track */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888; /* Color of the scrollbar */
+	background: #888;
+	/* Color of the scrollbar */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Color of the scrollbar on hover */
+	background: #555;
+	/* Color of the scrollbar on hover */
 }
 
 * {
-  scrollbar-width: thin; /* Width of the scrollbar */
-  scrollbar-color: #888 #f1f1f1; /* Color of the scrollbar and track */
+	scrollbar-width: thin;
+	/* Width of the scrollbar */
+	scrollbar-color: #888 #f1f1f1;
+	/* Color of the scrollbar and track */
 }
 
 *::-webkit-scrollbar {
-  width: 5px; /* Width of the scrollbar */
+	width: 5px;
+	/* Width of the scrollbar */
 }
 
 *::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Color of the track */
+	background: #f1f1f1;
+	/* Color of the track */
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #888; /* Color of the scrollbar */
+	background: #888;
+	/* Color of the scrollbar */
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Color of the scrollbar on hover */
+	background: #555;
+	/* Color of the scrollbar on hover */
 }
 
 
@@ -96,4 +108,16 @@ body::-webkit-scrollbar-track {
 	scrollbar-width: thin;
 	border-radius: 3px;
 	background: #fff;
+}
+
+.table {
+	width: 100% !important;
+}
+
+table {
+	table-layout: fixed;
+	width: 100% !important;
+	overflow-x: auto;
+	border-radius: 0px 5px 0px 0px !important;
+	border: 1px solid #020014;
 }

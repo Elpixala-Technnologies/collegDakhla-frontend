@@ -1,13 +1,15 @@
-"use client";
-import Button from "@/components/button/button";
+import { useState, useEffect } from "react";
+import Loader from "../Loader/loader";
+import Accordion from "../accordian/accordian";
+import { PageData } from "../pageData/pageData";
+import YoutubeVideo from "../youtubeVideo/youtubeVideo";
 import Image from "next/image";
-import YoutubeVideo from "@/components/youtubeVideo/youtubeVideo";
-import PageInfo from "@/components/pageInfo/pageInfo";
-import Accordion from "@/components/accordian/accordian";
-import { useState } from "react";
 
-export default function CourseTab({ tabData }: any) {
+export function PageDetails({ tabData, page, currentTab, loading }: any) {
 	const [ShowTableOfContent, setShowTableOfContent] = useState(true);
+	const [RatingsBanner, setRatingsBanner] = useState(false);
+	const [ShowSidebar, setShowSidebar] = useState(true);
+	const [scrollPosition, setScrollPosition] = useState(0);
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [selectedImage, setSelectedImage] = useState(null);
 	const [activeSection, setActiveSection] = useState("videos");
@@ -15,6 +17,17 @@ export default function CourseTab({ tabData }: any) {
 	const images = tabData?.data?.flatMap(
 		(item: { pageGallery: { data: any } }) => item.pageGallery?.data || []
 	);
+
+	const scrollToSection = (index: number, offset: number) => {
+		const section = document.getElementById(`section-${index}`);
+
+		if (section) {
+			setTimeout(() => {
+				const topPos = section.offsetTop;
+				window.scrollTo({ top: topPos - offset + 40, behavior: "smooth" });
+			}, 1);
+		}
+	};
 
 	const handleSectionChange = (section: string) => {
 		setActiveSection(section);
@@ -30,16 +43,47 @@ export default function CourseTab({ tabData }: any) {
 		setSelectedImage(null);
 	};
 
-	const scrollToSection = (index: number, offset: number) => {
-		const section = document.getElementById(`section-${index}`);
-
-		if (section) {
-			setTimeout(() => {
-				const topPos = section.offsetTop;
-				window.scrollTo({ top: topPos - offset + 40, behavior: "smooth" });
-			}, 1);
-		}
+	const handleScroll = () => {
+		setScrollPosition(window.scrollY);
 	};
+
+	useEffect(() => {
+		setRatingsBanner(false);
+		setShowTableOfContent(true);
+		setShowSidebar(true);
+
+		if (currentTab === "Ratings and Reviews") {
+			setShowTableOfContent(false);
+			setRatingsBanner(true);
+		} else if (currentTab === "News") {
+			setShowTableOfContent(false);
+			setShowSidebar(false);
+		} else if (currentTab === "Discussion Forum") {
+			setShowTableOfContent(false);
+			setShowSidebar(false);
+		} else if (currentTab === "College Compare") {
+			setShowTableOfContent(false);
+			setShowSidebar(false);
+		}
+	}, [currentTab]);
+
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll);
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
+
+	if (loading) {
+		return (
+			<div className="flex justify-center mt-4">
+				<Loader />
+			</div>
+		);
+	}
+	console.log("tab data", tabData);
+
 
 	return (
 		<>
@@ -59,16 +103,16 @@ export default function CourseTab({ tabData }: any) {
 												case "ComponentRecommendedCourses":
 													label = "Recommended Courses";
 													break;
-												case "ComponentCommonRecommendedExams":
+												case "ComponentRecommendedRecommendedExams":
 													label = "Recommended Exams";
 													break;
-												case "ComponentCommonRecommendedCareers":
+												case "ComponentRecommendedRecommendedCareers":
 													label = "Recommended Careers";
 													break;
-												case "ComponentCommonRecommendedScholarships":
+												case "ComponentRecommendedRecommendedScholarships":
 													label = "Recommended Scholarships";
 													break;
-												case "ComponentCommonRecommendedCountries":
+												case "ComponentRecommendedRecommendedCountries":
 													label = "Recommended Countries";
 													break;
 												default:
@@ -104,19 +148,9 @@ export default function CourseTab({ tabData }: any) {
 								<></>
 							)}
 							{tabData?.map((item: any, index: number) => (
-								<Accordion
-									title={item?.heading}
-									titlePrimary
-									opened
-									key={index}
-								>
-									<div
-										className="content bg-gray-50 rounded-xl px-5 pt-5 mb-5"
-										key={index}
-									>
-										<PageInfo data={item} />
-									</div>
-								</Accordion>
+								<section id={`section-${index}`} key={index} >
+									<PageData data={item} />
+								</section>
 							))}
 						</div>
 					</div>
@@ -207,6 +241,5 @@ export default function CourseTab({ tabData }: any) {
 					</div>
 				</div>
 			</div>
-		</>
-	);
+		</>)
 }
