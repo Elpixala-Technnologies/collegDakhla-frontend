@@ -19,7 +19,11 @@ import useSignup from "@/query/hooks/useSignup";
 import { ID } from "@/types/global";
 import { useAppSelector } from "@/store";
 import useUserMetaData from "@/query/hooks/useUserMetaData";
-import { formatNumber, getRandomRatingValue, getRandomReviews } from "@/utils/randomValues";
+import {
+  formatNumber,
+  getRandomRatingValue,
+  getRandomReviews,
+} from "@/utils/randomValues";
 
 export default function CourseListItem({ courses, featuredCourses }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -53,7 +57,6 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
 
   const AppliedData: any = userData?.userAllMetaData?.appliedCourses;
 
-
   return (
     <>
       {courses?.length > 0 && (
@@ -71,7 +74,7 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
 
             return (
               <div key={index}>
-                <div className="mb-5 flex flex-wrap md:flex-row border border-zinc-300 bg-white rounded-lg  hover:drop-shadow-lg">
+                <div className="mb-5 flex flex-wrap md:flex-row border border-zinc-300 bg-white rounded-lg hover:drop-shadow-lg">
                   <div className="grid grid-cols-1 md:grid-cols-10 gap-5 p-4">
                     {/* Image  */}
                     <div className="relative rounded-lg md:col-span-2">
@@ -80,21 +83,23 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                         width={700}
                         height={700}
                         alt={""}
-                        className="sm:h-44 sm:w-44 w-full max-w-44 object-contain rounded-md max-md:mx-auto"
+                        className="sm:h-44 w-full max-w-44 object-contain rounded-md max-md:mx-auto"
                       />
                     </div>
                     {/* Right Side  */}
                     <div className="flex flex-col gap-1 md:col-span-8">
                       {/* line1  */}
                       <div className="flex max-sm:flex-col gap-4">
-                      <p className="text-[#0F4988] flex gap-1 items-center text-sm">
-                        <Rating
-                          name="half-rating"
-                          defaultValue={getRandomRatingValue()}
-                          precision={0.5}
-                          readOnly
-                        />
-                        <span>({formatNumber(getRandomReviews())} reviews)</span>
+                        <p className="text-[#0F4988] flex gap-1 items-center text-sm">
+                          <Rating
+                            name="half-rating"
+                            defaultValue={getRandomRatingValue()}
+                            precision={0.5}
+                            readOnly
+                          />
+                          <span>
+                            ({formatNumber(getRandomReviews())} reviews)
+                          </span>
                         </p>
                         <p className="text-[#0F4988] flex gap-1 items-center text-sm">
                           <CiLocationOn className="text-2xl text-gray-400" />
@@ -187,7 +192,7 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                   </div>
 
                   <div className="w-full flex max-sm:flex-col gap-y-2 sm:items-center justify-between px-4 pr-2 py-2 border-t text-semibold border-zinc-300">
-                  <ul className="flex flex-wrap gap-x-3 text-primary sm:w-3/4 capitalize max-sm:text-sm">
+                    <ul className="flex flex-wrap gap-x-3 text-primary sm:w-3/4 capitalize max-sm:text-sm">
                       {[
                         "Info",
                         "Courses",
@@ -196,10 +201,10 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                         "Placement",
                       ].map((item, index) => (
                         <React.Fragment key={index}>
-                            <Link href={`/courses/${course.id}`}>
-                          <li className="cursor-pointer hover:underline">
-                            {item}
-                          </li>
+                          <Link href={`/courses/${course.id}`}>
+                            <li className="cursor-pointer hover:underline">
+                              {item}
+                            </li>
                           </Link>
                           {index !== 4 && <li>|</li>}
                         </React.Fragment>

@@ -247,7 +247,7 @@ export default function CourseList() {
                   />
                   {/* Filter Button  */}
                   <div className="max-md:block hidden">
-                    <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
+                  <div className="group flex h-12 cursor-pointer items-center gap-2 rounded-md border border-zinc-300 bg-white px-2 text-black">
                       <span onClick={() => setMobileFilter(true)}>Filter</span>
                       <MdOutlineSort />
                     </div>
