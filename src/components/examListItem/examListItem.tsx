@@ -90,7 +90,7 @@ export default function ExamListItem({ exams }: any) {
                         width={700}
                         height={700}
                         alt={""}
-                        className="sm:h-44 sm:w-44 w-full max-w-44 object-contain rounded-md max-md:mx-auto"
+                        className="sm:h-44 w-full max-w-44 object-contain rounded-md max-md:mx-auto"
                       />
                     </div>
                     {/* Right Side  */}

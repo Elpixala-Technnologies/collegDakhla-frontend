@@ -110,7 +110,7 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                         height={700}
                         src={logoURL!}
                         alt={college?.collegeName}
-                        className="sm:h-44 sm:w-44 w-full max-w-44 object-contain rounded-md max-md:mx-auto"
+                        className="sm:h-44  w-full max-w-44 object-contain rounded-md max-md:mx-auto"
                       />
                     </div>
                     {/* Right Side  */}
