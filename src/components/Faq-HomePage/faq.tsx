@@ -27,7 +27,7 @@ const Faq = () => {
   } = useQuery(allfaqs);
 
   useEffect(() => {
-    console.log("faqs: ", faqData?.faqs?.data[0]?.attributes);
+    console.log("faqs: ", faqData?.faqs?.data);
   }, [faqData]);
 
   return (
@@ -53,10 +53,11 @@ const Faq = () => {
                 key={index}
                 className="faq-box w-full md:w-[50rem] cursor-pointer flex flex-col text-black bg-transparent shadow-[0_10px_15px_0_rgba(0,0,0,0.1)]"
               >
+                {/* Question  */}
                 <div
-                  onClick={() => openQ(faq?.attributes?.id)}
+                  onClick={() => openQ(index)}
                   className={`faq-box__question ${getClassQuestion(
-                    faq?.attributes?.id
+                    index
                   )} flex justify-between items-center px-7 lg:px-11 py-4 transition-all duration-500 ease-in-out shadow-[0_3px_6px_0_rgba(0,0,0,0.1)] bg-amber-50 rounded-xl`}
                 >
                   <p className="text-sm md:text-lg font-medium">
@@ -64,9 +65,10 @@ const Faq = () => {
                   </p>
                   <IconChevronDown className="text-lg lg:text-xl" />
                 </div>
+                {/* Anwser  */}
                 <div
                   className={`faq-box__answer ${getClassAnswer(
-                    faq?.attributes?.id
+                    index
                   )} text-base font-normal font-rubik text-gray-700 px-11 transition-all duration-500`}
                 >
                   {faq?.attributes?.answer}
