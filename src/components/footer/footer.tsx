@@ -14,7 +14,7 @@ import React from "react";
 export default function Footer() {
   return (
     <>
-      <div className="bg-gray-900 md:p-8 p-4 w-full sticky">
+      <div className="bg-gray-900 md:p-8 p-4 w-full sticky max-w-screen-2xl mx-auto">
         <div className="h-90 max-w-screen-xl max-sm:justify-between mx-auto">
           <div className="footer-top flex gap-4 justify-between flex-wrap max-sm:flex-col text-white">
             <div className=" justify-center">
