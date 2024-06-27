@@ -12,13 +12,18 @@ import { RiFlagLine } from "react-icons/ri";
 import { CiLocationOn } from "react-icons/ci";
 import { Duration, RupeeBaves } from "@/Asset";
 import { FaBabyCarriage } from "react-icons/fa";
-import { useState } from "react";
+import React, { useState } from "react";
 import ApplyNowModal from "../consultingModule/ApplyNowModal/ApplyNowModal";
 import userFrom from "@/hooks/userFrom";
 import useSignup from "@/query/hooks/useSignup";
 import { ID } from "@/types/global";
 import { useAppSelector } from "@/store";
 import useUserMetaData from "@/query/hooks/useUserMetaData";
+import {
+  formatNumber,
+  getRandomRatingValue,
+  getRandomReviews,
+} from "@/utils/randomValues";
 
 export default function CourseListItem({ courses, featuredCourses }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,7 +74,7 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
 
             return (
               <div key={index}>
-                <div className="mb-5 flex flex-wrap md:flex-row border border-zinc-300 bg-white rounded-lg  hover:drop-shadow-lg">
+                <div className="mb-5 flex flex-wrap md:flex-row border border-zinc-300 bg-white rounded-lg hover:drop-shadow-lg">
                   <div className="grid grid-cols-1 md:grid-cols-10 gap-5 p-4">
                     {/* Image  */}
                     <div className="relative rounded-lg md:col-span-2">
@@ -78,19 +83,24 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                         width={700}
                         height={700}
                         alt={""}
-                        className="sm:h-44 sm:w-44 w-full max-w-44 object-contain rounded-md max-md:mx-auto"
+                        className="sm:h-44 w-full max-w-44 object-contain rounded-md max-md:mx-auto"
                       />
                     </div>
                     {/* Right Side  */}
                     <div className="flex flex-col gap-1 md:col-span-8">
                       {/* line1  */}
                       <div className="flex max-sm:flex-col gap-4">
-                        <Rating
-                          name="half-rating"
-                          defaultValue={2.5}
-                          precision={0.5}
-                          size="small"
-                        />
+                        <p className="text-[#0F4988] flex gap-1 items-center text-sm">
+                          <Rating
+                            name="half-rating"
+                            defaultValue={getRandomRatingValue()}
+                            precision={0.5}
+                            readOnly
+                          />
+                          <span>
+                            ({formatNumber(getRandomReviews())} reviews)
+                          </span>
+                        </p>
                         <p className="text-[#0F4988] flex gap-1 items-center text-sm">
                           <CiLocationOn className="text-2xl text-gray-400" />
                           <span className="text-blue-800">
@@ -181,21 +191,25 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
                     </div>
                   </div>
 
-                  <div className="flex flex-row gap-2 items-center justify-between w-full border-t border-black px-2 py-4">
-                    <div className="flex gap-2">
-                      <span className="lg:text-base text-sm border-r border-gray-300 p-2 text-primary cursor-pointer">
-                        Overview
-                      </span>
-                      <span className="lg:text-base text-sm border-r border-gray-300 p-2 text-primary cursor-pointer">
-                        Eligibility
-                      </span>
-                      <span className="lg:text-base text-sm border-r  border-gray-300 p-2 text-primary cursor-pointer">
-                        Exam Pattern
-                      </span>
-                      <span className="lg:text-base text-sm  p-2 text-primary cursor-pointer lg:flex hidden">
-                        Application
-                      </span>
-                    </div>
+                  <div className="w-full flex max-sm:flex-col gap-y-2 sm:items-center justify-between px-4 pr-2 py-2 border-t text-semibold border-zinc-300">
+                    <ul className="flex flex-wrap gap-x-3 text-primary sm:w-3/4 capitalize max-sm:text-sm">
+                      {[
+                        "Info",
+                        "Courses",
+                        "Scholarship",
+                        "Review",
+                        "Placement",
+                      ].map((item, index) => (
+                        <React.Fragment key={index}>
+                          <Link href={`/courses/${course.id}`}>
+                            <li className="cursor-pointer hover:underline">
+                              {item}
+                            </li>
+                          </Link>
+                          {index !== 4 && <li>|</li>}
+                        </React.Fragment>
+                      ))}
+                    </ul>
                     <div className="flex gap-2 max-sm:flex-col">
                       <button disabled={isApplied}>
                         <Button

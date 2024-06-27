@@ -240,12 +240,12 @@ export default function ExamList() {
             />
           </div>
         </section>
-      {/* Exams Filtering and Listing Section  */}
+        {/* Exams Filtering and Listing Section  */}
         <section className="collegeList">
           <div className="flex  md:flex-row gap-3 px-4 my-5">
             {/* aside Filter  */}
             <aside
-              className={`min-w-[300px] border border-zinc-300 rounded-md px-3 [flex:2] max-md:bg-black max-md:bg-opacity-80 ${
+              className={`min-w-[300px] h-min border border-zinc-300 rounded-md px-3 [flex:2] max-md:bg-black max-md:bg-opacity-80 ${
                 MobileFilter
                   ? "fixed left-0 top-0 z-40 h-screen w-full overflow-y-scroll pr-[20%]"
                   : "max-md:hidden"
@@ -283,8 +283,8 @@ export default function ExamList() {
                   />
                   {/* Filter Button  */}
                   <div className="max-md:block hidden">
-                    <div className="flex border-2 items-center px-2 border-extra-light-text gap-2 rounded-md cursor-pointer">
-                      <span onClick={()=>setMobileFilter(true)}>Filter</span>
+                    <div className="group flex h-12 cursor-pointer items-center gap-2 rounded-md border border-zinc-300 bg-white px-2 text-black">
+                      <span onClick={() => setMobileFilter(true)}>Filter</span>
                       <MdOutlineSort />
                     </div>
                   </div>

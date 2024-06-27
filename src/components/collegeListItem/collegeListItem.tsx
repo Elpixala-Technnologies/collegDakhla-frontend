@@ -22,6 +22,9 @@ import {
 import ApplyNowModal from "../consultingModule/ApplyNowModal/ApplyNowModal";
 import React, { useState } from "react";
 import userFrom from "@/hooks/userFrom";
+import { CiLocationOn } from "react-icons/ci";
+import { Rating } from "@mui/material";
+import { formatNumber, getRandomRatingValue, getRandomReviews } from "@/utils/randomValues";
 
 export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
   const { CollegeApplicatonListData } = userFrom();
@@ -107,27 +110,29 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                         height={700}
                         src={logoURL!}
                         alt={college?.collegeName}
-                        className="sm:h-44 sm:w-44 w-full max-w-44 object-contain rounded-md max-md:mx-auto"
+                        className="sm:h-44  w-full max-w-44 object-contain rounded-md max-md:mx-auto"
                       />
                     </div>
                     {/* Right Side  */}
                     <div className="flex flex-col gap-1 md:col-span-8">
                       {/* line 1  */}
                       <div className="flex max-sm:flex-col gap-4">
-                        <div className="  border-extra-light-text">
-                          <p className="text-[#0F4988] flex gap-1 items-center text-sm">
-                            <Image
-                              src={LocationCity}
-                              width={20}
-                              height={20}
-                              alt={"approvedBy"}
-                            />
-                            {college?.attributes?.city?.data?.attributes?.name}
-                            {college?.attributes?.city?.data?.attributes
-                              ?.name && ", "}
-                            {college?.attributes?.state?.data?.attributes?.name}{" "}
-                          </p>
-                        </div>
+                      <p className="text-[#0F4988] flex gap-1 items-center text-sm">
+                        <Rating
+                          name="half-rating"
+                          defaultValue={getRandomRatingValue()}
+                          precision={0.5}
+                          readOnly
+                        />
+                        <span>({formatNumber(getRandomReviews())} reviews)</span>
+                        </p>
+                        <p className="text-[#0F4988] flex gap-1 items-center text-sm">
+                          <CiLocationOn className="text-2xl text-gray-400" />
+                          {college?.attributes?.city?.data?.attributes?.name}
+                          {college?.attributes?.city?.data?.attributes?.name &&
+                            ", "}
+                          {college?.attributes?.state?.data?.attributes?.name}{" "}
+                        </p>
                         {/* UGC  */}
                         <p className="text-[#0F4988] flex gap-1 items-center font-semibold text-sm">
                           <Image
@@ -253,7 +258,7 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                   </div>
                   {/* <Separator /> */}
                   <div className="w-full flex max-sm:flex-col gap-y-2 sm:items-center justify-between px-4 pr-2 py-2 border-t text-semibold border-zinc-300">
-                    <ul className="flex flex-wrap gap-x-3 text-primary sm:w-3/4 capitalize max-sm:text-sm">
+                    <ul className="flex flex-wrap gap-x-3 text-primary capitalize max-sm:text-sm">
                       {[
                         "Info",
                         "Courses",
@@ -262,9 +267,11 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                         "Placement",
                       ].map((item, index) => (
                         <React.Fragment key={index}>
-                          <li className="cursor-pointer hover:underline">
-                            {item}
-                          </li>
+                          <Link href={`/colleges/${college.id}`}>
+                            <li className="cursor-pointer hover:underline">
+                              {item}
+                            </li>
+                          </Link>
                           {index !== 4 && <li>|</li>}
                         </React.Fragment>
                       ))}

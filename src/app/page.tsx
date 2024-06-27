@@ -840,7 +840,7 @@ export default function Home() {
                   {streamsData &&
                     streamsData?.streams?.data?.map(
                       (stream: any, index: any) => {
-                        console.log(stream, "stream");
+                        // console.log(stream, "stream");
                         return (
                           <Option key={index} value={stream?.id}>
                             {stream?.attributes?.streamName}

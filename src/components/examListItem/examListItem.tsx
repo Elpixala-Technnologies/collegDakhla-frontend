@@ -17,6 +17,11 @@ import useUserMetaData from "@/query/hooks/useUserMetaData";
 import { useAppSelector } from "@/store";
 import useSignup from "@/query/hooks/useSignup";
 import { ID } from "@/types/global";
+import {
+  formatNumber,
+  getRandomRatingValue,
+  getRandomReviews,
+} from "@/utils/randomValues";
 
 export default function ExamListItem({ exams }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,6 +63,7 @@ export default function ExamListItem({ exams }: any) {
     link.click();
     document.body.removeChild(link);
   };
+
   return (
     <>
       {exams?.length > 0 && (
@@ -182,9 +188,11 @@ export default function ExamListItem({ exams }: any) {
                         "Placement",
                       ].map((item, index) => (
                         <React.Fragment key={index}>
-                          <li className="cursor-pointer hover:underline">
-                            {item}
-                          </li>
+                          <Link href={`/exams/${exam.id}`}>
+                            <li className="cursor-pointer hover:underline">
+                              {item}
+                            </li>
+                          </Link>
                           {index !== 4 && <li>|</li>}
                         </React.Fragment>
                       ))}

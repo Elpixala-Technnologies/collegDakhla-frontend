@@ -53,8 +53,8 @@ export default function Button({
             }`}
             onClick={onClick}
           >
-            <div className={`flex-1 ${align}`}>{text}</div>
-            {icon ? <div className="mr-2">{icon}</div> : <></>}
+            <div className={`flex-1  text-nowrap ${align}`}>{text}</div>
+            {icon ? <div className="">{icon}</div> : <></>}
           </div>
         </>
       ) : (
