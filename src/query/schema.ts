@@ -34,107 +34,152 @@ let totalColleges = gql`
 // query to get all colleges
 export const getColleges = gql`
  query Colleges {
-    colleges(pagination: { limit: 100 }) {
-      data {
-        id
-        attributes {
-          navbars{
-            data{
-              id
-              attributes{
-                name
+  colleges(pagination: { limit: 100 }) {
+    data {
+      id
+      attributes {
+        pageData {
+            ... on ComponentCommonTabData {
+              content
+              heading
+              navbar {
+                data {
+                  id
+                  attributes {
+                    name
+                  }
+                }
+              }
+            }
+            ... on ComponentCommonGallery {
+              heading
+              navbar {
+                data {
+                  id
+                  attributes {
+                    name
+                  }
+                }
+              }
+              pageGallery {
+                data {
+                  id
+                  attributes {
+                    url
+                  }
+                }
+              }
+            }
+            ... on ComponentCommonFaqS {
+              Answer
+              Question
+              navbar {
+                data {
+                  attributes {
+                    name
+                  }
+                }
               }
             }
           }
-          city {
-            data {
-              id
-              attributes {
-                name
-              }
+        navbars {
+          data {
+            id
+            attributes {
+              name
             }
           }
-          collegeName
-          createdAt
-          establishmentYear
-          publishedAt
-          updatedAt
-          url
-          collegeLogo {
-            data {
-              id
-              attributes {
-                url
-              }
-            }
-          }
-          banner {
-            data {
-              attributes {
-                url
-              }
-            }
-          }
-          college_type {
-            data {
-              id
-              attributes {
-                type
-              }
-            }
-          }
-          rankedBy {
-            data {
-              id
-              attributes {
-                description
-                name
-              }
-            }
-          }
-          approvedBy {
-            data {
-              id
-              attributes {
-                name
-              }
-            }
-          }
-          collegeStreams {
-            data {
-              id
-              attributes {
-                streamName
-              }
-            }
-          }
-          country {
-            data {
-              id
-              attributes {
-                name
-              }
-            }
-          }
-          isTopCollege
-          state {
-            data {
-              id
-              attributes {
-                name
-              }
-            }
-          }
-          pincode
         }
+        city {
+          data {
+            id
+            attributes {
+              name
+            }
+          }
+        }
+        collegeName
+        createdAt
+        establishmentYear
+        publishedAt
+        updatedAt
+        url
+        collegeLogo {
+          data {
+            id
+            attributes {
+              url
+            }
+          }
+        }
+        banner {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        college_type {
+          data {
+            id
+            attributes {
+              type
+            }
+          }
+        }
+        rankedBy {
+          data {
+            id
+            attributes {
+              description
+              name
+            }
+          }
+        }
+        approvedBy {
+          data {
+            id
+            attributes {
+              name
+            }
+          }
+        }
+        collegeStreams {
+          data {
+            id
+            attributes {
+              streamName
+            }
+          }
+        }
+        country {
+          data {
+            id
+            attributes {
+              name
+            }
+          }
+        }
+        isTopCollege
+        state {
+          data {
+            id
+            attributes {
+              name
+            }
+          }
+        }
+        pincode
       }
-      meta {
-        pagination {
-          total
-        }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }
+}
+
 `;
 
 // query to get college data from college id
