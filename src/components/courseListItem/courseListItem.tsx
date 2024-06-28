@@ -58,7 +58,7 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
   const AppliedData: any = userData?.userAllMetaData?.appliedCourses;
 
   return (
-    <>
+    <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 gap-2">
       {courses?.length > 0 && (
         <>
           {courses?.map((course: any, index: number) => {
@@ -71,175 +71,129 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
               AppliedData?.some(
                 (applied: any) => applied?.courses?.data?.id === course?.id
               );
-
             return (
-              <div key={index}>
-                <div className="mb-5 flex flex-wrap md:flex-row border border-zinc-300 bg-white rounded-lg hover:drop-shadow-lg">
-                  <div className="grid grid-cols-1 md:grid-cols-10 gap-5 p-4">
-                    {/* Image  */}
-                    <div className="relative rounded-lg md:col-span-2">
-                      <Image
-                        src={logoURL!}
-                        width={700}
-                        height={700}
-                        alt={""}
-                        className="sm:h-44 w-full max-w-44 object-contain rounded-md max-md:mx-auto"
-                      />
-                    </div>
-                    {/* Right Side  */}
-                    <div className="flex flex-col gap-1 md:col-span-8">
-                      {/* line1  */}
-                      <div className="flex max-sm:flex-col gap-4">
-                        <p className="text-[#0F4988] flex gap-1 items-center text-sm">
-                          <Rating
-                            name="half-rating"
-                            defaultValue={getRandomRatingValue()}
-                            precision={0.5}
-                            readOnly
-                          />
-                          <span>
-                            ({formatNumber(getRandomReviews())} reviews)
-                          </span>
-                        </p>
-                        <p className="text-[#0F4988] flex gap-1 items-center text-sm">
-                          <CiLocationOn className="text-2xl text-gray-400" />
-                          <span className="text-blue-800">
-                            Chennai, Tamil Nadu
-                          </span>
-                        </p>
-                        <p className="text-[#0F4988] flex gap-1 items-center text-sm">
-                          <RiFlagLine className="text-2xl text-gray-400" />
-                          <span>
-                            {
-                              course?.attributes?.examLevel?.data?.[0]
-                                .attributes?.name
-                            }
-                          </span>
-                        </p>
-                        <div className="flex flex-row">
-                          <span className="text-secondary-text">#</span>
-                          <span className="text-primary pr-1">
-                            {course?.id}
-                          </span>
-                          <span className="text-blue-800 font-bold">NIRF</span>
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-2 mt-1">
-                        <Link href={`/courses/${course.id}`}>
-                          <div>
-                            <h2 className="text-xl font-semibold text-black">
-                              {course?.attributes?.name}
-                            </h2>
-                          </div>
-                        </Link>
-                        <div className="text-secondary-text font-light flex items-center gap-2">
+              <div
+                key={index}
+                className="col-span-1 flex flex-wrap md:flex-row border border-zinc-300 bg-white rounded-lg hover:drop-shadow-lg"
+              >
+                <div className="w-full p-4">
+                  {/* Image  */}
+                  <div className="relative rounded-lg flex justify-center w-full">
+                    <Image
+                      src={logoURL!}
+                      width={700}
+                      height={700}
+                      alt={""}
+                      className="sm:h-40 w-full object-contain rounded-md max-md:mx-auto"
+                    />
+                  </div>
+                  {/* Right Side  */}
+                  <div className="flex flex-col gap-1">
+                    <Link href={`/courses/${course.id}`}>
+                      <h2 className="text-2xl font-semibold text-black ml-1">
+                        {course?.attributes?.name}
+                      </h2>
+                    </Link>
+                    <div className="flex flex-col gap-1">
+                      <div className="text-secondary-text font-light flex flex-col gap-2">
+                        <div className="flex gap-2 text-primary font-semibold text-sm lg:text-lg">
                           <Image
                             src={RupeeBaves}
-                            width={25}
-                            height={25}
+                            width={35}
+                            height={35}
                             alt={"approvedBy"}
                           />
-                          <span className="text-primary font-semibold text-sm lg:text-lg">
-                            {formatFees(course?.attributes?.fees)}
-                          </span>{" "}
-                          - Total Fees
+                          <div>
+                            <p>{formatFees(course?.attributes?.fees)}</p>
+                            <p className="text-sm text-zinc-500">Total Fees</p>
+                          </div>
                         </div>
-                        <p className="text-secondary-text font-light flex items-center gap-2">
-                          <Image
-                            src={Duration}
-                            width={25}
-                            height={25}
-                            alt={"approvedBy"}
-                          />
-                          <span className="text-primary-text font-medium">
-                            {course?.attributes?.duration} Years
-                          </span>
-                          - Average Duration:{" "}
-                        </p>
-                        <div className="font-normal flex flex-wrap items-center gap-2 mr-5">
-                          <FaBabyCarriage className="text-xl ml-1 text-gray-700" />
-                          Offered by:{" "}
-                          {course?.attributes?.colleges?.data.map(
-                            (college: any, index: number) => {
-                              return (
-                                <div
-                                  className="text-sm hover:text-primary cursor-pointer font-medium text-secondary-text"
-                                  key={index}
-                                >
-                                  {college?.attributes?.collegeName}
-                                  {index <
-                                    course?.attributes?.colleges?.data.length -
-                                      1 && " | "}
-                                </div>
-                              );
-                            }
-                          )}
-                        </div>
-                        {/* <div className="mr-5">
-                          Lorem ipsum dolor, sit amet consectetur adipisicing
-                          elit , perferendis aspernatur! Lorem ipsum dolor, sit
-                          amet consectetur adipisicing elit , perferendis
-                          aspernatur!
-                        </div> */}
-                        {/* <p className="text-secondary-text font-light">
-                        <span className="text-[#B12704] text-2xl font-medium">
-                          {formatFees(course?.attributes?.fees)}
-                        </span>{" "}
-                        - Total Fees
-                      </p> */}
                       </div>
-                    </div>
-                  </div>
-
-                  <div className="w-full flex max-sm:flex-col gap-y-2 sm:items-center justify-between px-4 pr-2 py-2 border-t text-semibold border-zinc-300">
-                    <ul className="flex flex-wrap gap-x-3 text-primary sm:w-3/4 capitalize max-sm:text-sm">
-                      {[
-                        "Info",
-                        "Courses",
-                        "Scholarship",
-                        "Review",
-                        "Placement",
-                      ].map((item, index) => (
-                        <React.Fragment key={index}>
-                          <Link href={`/courses/${course.id}`}>
-                            <li className="cursor-pointer hover:underline">
-                              {item}
-                            </li>
-                          </Link>
-                          {index !== 4 && <li>|</li>}
-                        </React.Fragment>
-                      ))}
-                    </ul>
-                    <div className="flex gap-2 max-sm:flex-col">
-                      <button disabled={isApplied}>
-                        <Button
-                          onClick={() =>
-                            handleOpenModal(course?.attributes?.id)
-                          }
-                          text={isApplied ? "Applied" : "Apply Now"}
-                          outline
-                          outlineColor="border-primary"
-                          fontSize="text-sm"
-                          width="w-40 max-sm:w-full"
-                          align="text-center"
-                          bgColor="bg-primary hover:bg-white"
-                          fontColor="text-white hover:text-primary"
+                      <div className="text-secondary-text font-semibold flex items-center gap-2">
+                        <Image
+                          src={Duration}
+                          width={35}
+                          height={35}
+                          alt={"approvedBy"}
                         />
-                      </button>
-                      <Button
-                        href={`/`}
-                        text="Download Brochure"
-                        fontSize="text-sm"
-                        outline
-                        width="w-40 max-sm:w-full"
-                        outlineColor="border-primary"
-                        fontColor="text-primary hover:text-white"
-                        align="text-center"
-                        bgColor="bg-white hover:bg-primary"
-                      />
+                        <div>
+                          <p className="text-primary-text">
+                            {course?.attributes?.duration} Years
+                          </p>
+                          <p className="text-sm text-zinc-500">Avg. Duration</p>
+                        </div>
+                      </div>
+                      <div className="font-normal flex flex-wrap items-center gap-2">
+                        <FaBabyCarriage className="text-2xl ml-2 text-gray-700" />
+                        <div>
+                          <p className="text-secondary-text font-semibold flex items-center gap-2">
+                            {course?.attributes?.colleges?.data.map(
+                              (college: any, index: number) => {
+                                return (
+                                  <React.Fragment key={index}>
+                                    {college?.attributes?.collegeName}
+                                    {index <
+                                      course?.attributes?.colleges?.data
+                                        .length -
+                                        1 && " | "}
+                                  </React.Fragment>
+                                );
+                              }
+                            )}
+                          </p>
+                          <p className="text-sm text-zinc-500">Offered by</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <div className="w-full flex flex-col gap-y-2  p-4 py-2 border-t text-semibold border-zinc-300">
+                  <ul className="flex flex-wrap gap-x-2 text-primary capitalize text-sm">
+                    {[
+                      "Info",
+                      "Courses",
+                      "Scholarship",
+                      "Review",
+                      "Placement",
+                    ].map((item, index) => (
+                      <React.Fragment key={index}>
+                        <Link href={`/courses/${course.id}`}>
+                          <li className="cursor-pointer hover:underline">
+                            {item}
+                          </li>
+                        </Link>
+                        {index !== 4 && <li>|</li>}
+                      </React.Fragment>
+                    ))}
+                  </ul>
+                  <div className="flex gap-1 flex-col">
+                    <button disabled={isApplied}>
+                      <Button
+                        onClick={() => handleOpenModal(course?.attributes?.id)}
+                        text={isApplied ? "Applied" : "Apply Now"}
+                        outline
+                        outlineColor="border-primary"
+                        fontSize="text-sm"
+                        width="w-full"
+                        align="text-center"
+                        bgColor="bg-primary hover:bg-white"
+                        fontColor="text-white hover:text-primary"
+                      />
+                    </button>
+                    <Button
+                      href={`/`}
+                      text="Download Brochure"
+                      fontSize="text-sm"
+                      outline
+                      width="w-full"
+                      outlineColor="border-primary"
+                      fontColor="text-primary hover:text-white"
+                      align="text-center"
+                      bgColor="bg-white hover:bg-primary"
+                    />
+                  </div>
+                </div>
+
                 {/* {(index + 1) % 4 === 0 ? (
                   <>
                     <div className="my-4 bg-white py-4 px-4">
@@ -275,6 +229,6 @@ export default function CourseListItem({ courses, featuredCourses }: any) {
           onClose={handleCloseModal}
         />
       )}
-    </>
+    </div>
   );
 }

@@ -8,9 +8,7 @@ import Feature from "../feature/feature";
 import { useQuery } from "@apollo/client";
 import { getStates } from "@/query/schema";
 import { GetDefaultImage, getStrapiMedia } from "@/utils/api-helper";
-import { FaImage, FaVideo } from "react-icons/fa6";
 import Image from "next/image";
-import Separator from "../separator/separator";
 import {
   AvgPackage,
   Exams,
@@ -27,6 +25,7 @@ import { Rating } from "@mui/material";
 import { formatNumber, getRandomRatingValue, getRandomReviews } from "@/utils/randomValues";
 
 export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
+  console.log(collegeData, "cccc");
   const { CollegeApplicatonListData } = userFrom();
 
   // query to get all states
@@ -116,18 +115,19 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                     {/* Right Side  */}
                     <div className="flex flex-col gap-1 md:col-span-8">
                       {/* line 1  */}
-                      <div className="flex max-sm:flex-col gap-4">
+                      <div className="flex max-sm:flex-col gap-2">
                       <p className="text-[#0F4988] flex gap-1 items-center text-sm">
                         <Rating
                           name="half-rating"
                           defaultValue={getRandomRatingValue()}
                           precision={0.5}
+                          className="text-sm"
                           readOnly
                         />
-                        <span>({formatNumber(getRandomReviews())} reviews)</span>
+                        <span className="text-nowrap">({formatNumber(getRandomReviews())} reviews)</span>
                         </p>
-                        <p className="text-[#0F4988] flex gap-1 items-center text-sm">
-                          <CiLocationOn className="text-2xl text-gray-400" />
+                        <p className="text-[#0F4988] flex gap-1 items-center text-sm text-nowrap">
+                          <CiLocationOn className="text-xl text-gray-400" />
                           {college?.attributes?.city?.data?.attributes?.name}
                           {college?.attributes?.city?.data?.attributes?.name &&
                             ", "}
@@ -165,7 +165,7 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                       </div>
                       {/* line 2  */}
                       <Link href={`/colleges/${college.id}`}>
-                        <h2 className="text-xl text-[#202020]  font-semibold">
+                        <h2 className="text-xl text-[#202020] font-semibold">
                           {college?.attributes?.collegeName}
                         </h2>
                       </Link>
