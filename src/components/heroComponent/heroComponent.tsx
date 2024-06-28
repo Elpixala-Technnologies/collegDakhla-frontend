@@ -86,8 +86,7 @@ export default function HeroSection() {
   };
 
   return (
-    <>
-      <div className="relative w-full">
+      <div className="relative w-full mx-auto max-w-screen-2xl">
         <div className={containerClass} ref={carouselRef}>
           {images.map((image, index) => (
             <Image
@@ -210,6 +209,5 @@ export default function HeroSection() {
           </div>
         )}
       </div>
-    </>
   );
 }

@@ -365,8 +365,8 @@ export default function Home() {
         </section>
 
         {/* explore-course-section  */}
-        <section className="explore-course-section py-10 bg-[#F2F6F7]">
-          <div className="px-4  max-w-screen-xl mx-auto p-2">
+        <section className="explore-course-section py-10 w-full mx-auto max-w-screen-2xl bg-[#F2F6F7]">
+          <div className="px-4 p-2  ">
             <motion.h2
               className="text-3xl font-semibold pb-6"
               initial="hidden"
@@ -484,7 +484,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="testimonials-section px-2 py-8 lg:py-12 text-black flex items-center justify-center mx-auto w-full bg-[#F2F6F7]">
+        <section className="testimonials-section px-2 py-8 lg:py-12 text-black flex items-center justify-center mx-auto w-full bg-[#F2F6F7] max-auto max-w-screen-2xl">
           <div className="Container w-full">
             <div className="testimonials-content flex flex-col w-full rounded-lg">
               <div className="testimonials-content__title flex flex-col text-center mb-12 max-w-[700px] mx-auto">
@@ -701,8 +701,8 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="py-8 bg-[#F2F6F7]">
-          <div className=" max-w-screen-xl mx-auto px-4">
+        <section className="py-8 bg-zinc-100 max-w-screen-2xl mx-auto w-full ">
+          <div className="px-4">
             <Faq />
           </div>
         </section>
@@ -805,7 +805,7 @@ export default function Home() {
             </div>
           </motion.div>
         </section>
-        <section className="bg-[#F2F6F7]">
+        <section className="bg-zinc-100 mx-auto max-w-screen-2xl w-full">
           <div className="max-w-screen-xl m-auto py-24 px-4 flex flex-col gap-12 items-center text-primary-text">
             <div className="text-3xl font-semibold w-80 text-center">
               Get in Touch with our Expert Counsellors
@@ -840,7 +840,7 @@ export default function Home() {
                   {streamsData &&
                     streamsData?.streams?.data?.map(
                       (stream: any, index: any) => {
-                        console.log(stream, "stream");
+                        // console.log(stream, "stream");
                         return (
                           <Option key={index} value={stream?.id}>
                             {stream?.attributes?.streamName}

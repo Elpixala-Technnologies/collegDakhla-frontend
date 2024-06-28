@@ -90,53 +90,21 @@ export default function ExamListItem({ exams }: any) {
                         width={700}
                         height={700}
                         alt={""}
-                        className="sm:h-44 w-full max-w-44 object-contain rounded-md max-md:mx-auto"
+                        className="sm:h-40 sm:w-40 w-full max-w-40 object-contain rounded-md max-md:mx-auto"
                       />
                     </div>
                     {/* Right Side  */}
-                    <div className="flex flex-col gap-1 md:col-span-8">
+                    <div className="flex flex-col gap-2 md:col-span-8">
                       {/* line1  */}
-                      <div className="flex max-sm:flex-col gap-4">
-                        <p className="text-[#0F4988] flex gap-1 items-center text-sm">
-                          <Rating
-                            name="half-rating"
-                            defaultValue={getRandomRatingValue()}
-                            precision={0.5}
-                            readOnly
-                          />
-                          <span>({formatNumber(getRandomReviews())} reviews)</span>
-                        </p>
-                        <p className="text-[#0F4988] flex gap-1 items-center text-sm">
-                          <CiLocationOn className="text-2xl text-gray-400" />
-                          <span className="text-blue-800">
-                            Chennai, Tamil Nadu
-                          </span>
-                        </p>
-                        <p className="text-[#0F4988] flex gap-1 items-center text-sm">
-                          <RiFlagLine className="text-2xl text-gray-400" />
-                          <span>
-                            {
-                              exam?.attributes?.examLevel?.data?.[0].attributes
-                                ?.name
-                            }
-                          </span>
-                        </p>
-                        <p className="flex flex-row">
-                          <span className="text-secondary-text">#</span>
-                          <span className="text-primary pr-1">{exam?.id}</span>
-                          <span className="text-blue-800 font-bold">NIRF</span>
-                        </p>
-                      </div>
-                      {/* line2  */}
                       <div className="flex flex-col gap-2 mt-1">
                         <Link href={`/exams/${exam.id}`}>
-                          <h2 className="text-xl font-semibold">
+                          <h2 className="text-2xl font-semibold">
                             {exam?.attributes?.name}
                           </h2>
                         </Link>
-                        <div className="flex flex-wrap gap-2">
-                          <div className="text-secondary-text font-light flex flex-row p-1 items-start gap-2">
-                            <CiCalendarDate className="text-4xl text-primary" />
+                        <div className="flex flex-wrap gap-x-5 gap-y-2">
+                          <div className="text-secondary-text font-light flex items-center flex-row gap-2">
+                            <CiCalendarDate className="text-5xl text-primary" />
                             <div className="flex flex-col">
                               <span className="text-primary-text font-medium">
                                 Application Date
@@ -157,7 +125,7 @@ export default function ExamListItem({ exams }: any) {
                               </span>
                             </div>
                           </div>
-                          <div className="text-secondary-text font-light flex flex-row p-1 items-start gap-2">
+                          <div className="text-secondary-text font-light flex flex-row p-1 items-center gap-2">
                             <BsCalendarDate className="text-3xl text-primary" />
                             <div className="flex flex-col">
                               <span className="text-primary-text font-medium">
@@ -178,7 +146,7 @@ export default function ExamListItem({ exams }: any) {
                               </span>
                             </div>
                           </div>
-                          <div className="text-secondary-text font-light flex flex-row p-1 items-start gap-2">
+                          <div className="text-secondary-text font-light flex flex-row p-1 items-center gap-2">
                             <MdOutlineTipsAndUpdates className="text-3xl text-primary" />
                             <div className="flex flex-col">
                               <span className="text-primary-text font-medium">
@@ -200,15 +168,13 @@ export default function ExamListItem({ exams }: any) {
                             </div>
                           </div>
                         </div>
-                        <div className="pt-2">
-                          <span className="text-gray-600 text-sm line-clamp-2">
+                          <p className="text-gray-600 text-sm line-clamp-2">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit. Sed do eiusmod tempor incididunt ut labore et
                             dolore magna aliqua. Ut enim ad minim veniam, quis
                             nostrud exercitation ullamco laboris nisi ut aliquip
                             ex ea commodo consequat.
-                          </span>
-                        </div>
+                          </p>
                       </div>
                     </div>
                   </div>

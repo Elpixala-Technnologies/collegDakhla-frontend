@@ -2,20 +2,20 @@ import { useState, useEffect } from "react";
 import "../../utils/css/tableStyle.css";
 
 export default function PageData({ data }: any) {
-  const [showFullContent, setShowFullContent] = useState(false);
+  // const [showFullContent, setShowFullContent] = useState(false);
   const [showReadMore, setShowReadMore] = useState(true);
 
-  const handleReadMoreClick = () => {
-    setShowFullContent(true);
-  };
+  // const handleReadMoreClick = () => {
+  //   setShowFullContent(true);
+  // };
 
-  const handleReadLessClick = () => {
-    setShowFullContent(false);
-  };
+  // const handleReadLessClick = () => {
+  //   setShowFullContent(false);
+  // };
 
   useEffect(() => {
     const content = document.getElementById("content")!;
-    const readMore = document.getElementById("readMore")!;
+    // const readMore = document.getElementById("readMore")!;
 
     if (content?.scrollHeight > content?.clientHeight) {
       setShowReadMore(true);
@@ -30,11 +30,11 @@ export default function PageData({ data }: any) {
         dangerouslySetInnerHTML={{ __html: data?.content }}
         className="font-poppins text-base text-wrap !overflow-x-auto"
         style={{
-          maxHeight: showFullContent ? "none" : "200px",
+          // maxHeight: showFullContent ? "none" : "200px",
           overflow: "hidden",
         }}
       ></div>
-      <div className="py-2 text-primary hover:font-semibold text-sm">
+      {/* <div className="py-2 text-primary hover:font-semibold text-sm">
         {showReadMore && !showFullContent && (
           <div
             onClick={handleReadMoreClick}
@@ -48,7 +48,7 @@ export default function PageData({ data }: any) {
             Read less
           </div>
         )}
-      </div>
+      </div> */}
     </>
   );
 }

@@ -225,7 +225,7 @@ export default function Header() {
 	useEffect(() => { }, []);
 
 	return (
-		<nav className=" relative z-50  bg-gradient-to-b from-[#000]  to-[#1a1a1a]">
+		<nav className="relative z-50  bg-gradient-to-b from-[#000]  to-[#1a1a1a] mx-auto max-w-screen-2xl">
 			<div className="relative h-24 flex gap-4 items-center mx-auto px-4 max-w-screen-xl justify-between">
 				<div className="logo flex-none w-24">
 					<Link href="/">
