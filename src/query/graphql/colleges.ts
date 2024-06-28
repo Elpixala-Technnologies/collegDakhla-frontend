@@ -252,7 +252,6 @@ query COLLEGE_DETAILS  {
               }
             }
           }
-
           courseFee
           courseLebel
         }
