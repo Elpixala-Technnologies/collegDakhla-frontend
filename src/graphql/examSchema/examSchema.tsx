@@ -18,6 +18,45 @@ export const GET_ALL_EXAM = gql`
               }
             }
           }
+          navbars{
+            data{
+              id
+              attributes{
+                name
+              }
+            }
+          }
+          applicationDate{
+            startDate
+            endDate
+          }
+					examDate{
+            startDate
+            endDate
+          }
+          resultDate{
+            startDate
+            endDate
+          }
+          isFeaturedExam
+          examMode{
+            data{
+              id
+              attributes{
+                mode
+              }
+            }
+          }
+          examLevel{
+            data{
+              id
+              attributes{
+                name
+              }
+            }
+          }
+          url
+          description
         }
       }
     }
