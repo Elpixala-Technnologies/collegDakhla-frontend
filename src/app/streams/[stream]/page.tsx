@@ -3,7 +3,7 @@ import Carousel from "@/components/carousel/carousel";
 import CarouselComponent from "@/components/carousel/carousel";
 import CollegeFilters from "@/components/filters/collegeFilters/collegeFilters";
 import CollegeListItem from "@/components/collegeListItem/collegeListItem";
-import { getColleges, getStream, getStreamColleges } from "@/query/schema";
+import { getAllColleges, getStream, getStreamColleges } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";

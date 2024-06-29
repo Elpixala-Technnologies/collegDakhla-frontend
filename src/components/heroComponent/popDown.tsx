@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useState } from "react";
-import { getColleges, searchCollege } from "@/query/schema";
+import { getAllColleges, searchCollege } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
 import { RiSearchLine } from "react-icons/ri";
@@ -15,7 +15,7 @@ const PopDown = ({ inputValue, onChange , onRecentSearch }: any) => {
   const [searchValue, setSearchValue] = useState("");
 
   // get college data
-  const { data: initialData } = useQuery(getColleges);
+  const { data: initialData } = useQuery(getAllColleges);
 
   const handleSearch = (event: any) => {
     const value = event.target.value.slice(0, 2);

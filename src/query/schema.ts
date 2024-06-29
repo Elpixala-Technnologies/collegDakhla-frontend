@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-// query to get all college types
+// Query to get all college types
 export const collegeTypes = gql`
   query CollegeTypes {
     collegeTypes {
@@ -17,8 +17,8 @@ export const collegeTypes = gql`
   }
 `;
 
-// query to get all colleges count
-let totalColleges = gql`
+// Query to get all colleges count
+export const totalColleges = gql`
   query Colleges {
     colleges {
       id
@@ -82,94 +82,95 @@ export const getAllColleges = gql`
               }
             }
           }
-        navbars {
-          data {
-            id
-            attributes {
-              name
+          navbars {
+            data {
+              id
+              attributes {
+                name
+              }
             }
           }
-        }
-        city {
-          data {
-            id
-            attributes {
-              name
+          city {
+            data {
+              id
+              attributes {
+                name
+              }
             }
           }
-        }
-        collegeName
-        createdAt
-        establishmentYear
-        publishedAt
-        updatedAt
-        url
-        collegeLogo {
-          data {
-            id
-            attributes {
-              url
+          collegeName
+          createdAt
+          establishmentYear
+          publishedAt
+          updatedAt
+          url
+          collegeLogo {
+            data {
+              id
+              attributes {
+                url
+              }
             }
           }
-        }
-        banner {
-          data {
-            attributes {
-              url
+          banner {
+            data {
+              attributes {
+                url
+              }
             }
           }
-        }
-        college_type {
-          data {
-            id
-            attributes {
-              type
+          college_type {
+            data {
+              id
+              attributes {
+                type
+              }
             }
           }
-        }
-        rankedBy {
-          data {
-            id
-            attributes {
-              description
-              name
+          rankedBy {
+            data {
+              id
+              attributes {
+                description
+                name
+              }
             }
           }
-        }
-        approvedBy {
-          data {
-            id
-            attributes {
-              name
+          approvedBy {
+            data {
+              id
+              attributes {
+                name
+              }
             }
           }
-        }
-        collegeStreams {
-          data {
-            id
-            attributes {
-              streamName
+          collegeStreams {
+            data {
+              id
+              attributes {
+                streamName
+              }
             }
           }
-        }
-        country {
-          data {
-            id
-            attributes {
-              name
+          country {
+            data {
+              id
+              attributes {
+                name
+              }
             }
           }
-        }
-        isTopCollege
-        state {
-          data {
-            id
-            attributes {
-              name
+          isTopCollege
+          state {
+            data {
+              id
+              attributes {
+                name
+              }
             }
           }
+          pincode
         }
-        pincode
       }
     }
     meta {
@@ -178,11 +179,9 @@ export const getAllColleges = gql`
       }
     }
   }
-}
-
 `;
 
-// query to get college data from college id
+// Query to get college data from college id
 export const getCollege = gql`
   query College($collegeId: ID!) {
     college(id: $collegeId) {
@@ -321,7 +320,7 @@ export const getCollege = gql`
   }
 `;
 
-// query to get default images
+// Query to get default images
 export const getDefaultImageUrl = gql`
   query UploadFiles($name: String!) {
     uploadFiles(filters: { name: { containsi: $name } }) {
@@ -335,7 +334,7 @@ export const getDefaultImageUrl = gql`
   }
 `;
 
-//query to search for college
+// Query to search for college
 export const searchCollege = gql`
   query Colleges($Search: String!) {
     colleges(
@@ -429,10 +428,10 @@ export const searchCollege = gql`
   }
 `;
 
-//query to get all streams
+// Query to get all streams
 export const getStreams = gql`
   query Streams {
-    streams(filters: { streamName: { not: { eqi: "default" } } }) {
+    streams(filters: { streamName: { not: { eq: "default" } } }) {
       data {
         id
         attributes {
@@ -443,7 +442,7 @@ export const getStreams = gql`
   }
 `;
 
-//query to get description of stream
+// Query to get description of stream
 export const getStream = gql`
   query Streams($streamName: String!) {
     streams(filters: { streamName: { containsi: $streamName } }) {
@@ -457,7 +456,7 @@ export const getStream = gql`
   }
 `;
 
-// query to get colleges based on stream
+// Query to get colleges based on stream
 export const getStreamColleges = gql`
   query Colleges($streamName: String!) {
     colleges(
@@ -553,7 +552,7 @@ export const getStreamColleges = gql`
   }
 `;
 
-//query to get colleges based on filters
+// Query to get colleges based on filters
 export const getCollegesFilter = gql`
   query Colleges($StreamFilter: String!, $StateFilter: String!) {
     colleges(
@@ -641,19 +640,14 @@ export const getCollegesFilter = gql`
           }
         }
       }
-      meta {
-        pagination {
-          total
-        }
-      }
     }
   }
 `;
 
-//query to get all states
+// Query to get all states
 export const getStates = gql`
   query States {
-    states {
+    states(filters: { name: { not: { eq: "default" } } }) {
       data {
         id
         attributes {
@@ -1203,55 +1197,56 @@ export const getExam = gql`
   }
 `;
 
-//query to get featured exams
-// export const getFeaturedExams = gql`
-//   query Exams {
-//     exams(filters: { isFeaturedExam: { eq: true } }) {
-//       data {
-//         id
-//         attributes {
-//           name
-//           examDate {
-//             id
-//             startDate
-//           }
-//           banner {
-//             data {
-//               id
-//               attributes {
-//                 url
-//               }
-//             }
-//           }
-//           logo {
-//             data {
-//               id
-//               attributes {
-//                 url
-//               }
-//             }
-//           }
-//           examLevel {
-//             data {
-//               id
-//               attributes {
-//                 name
-//               }
-//             }
-//           }
-//           examMode {
-//             data {
-//               id
-//               attributes {
-//                 mode*
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// `;
+// query to get featured exams
+export const getFeaturedExams = gql`
+  query Exams {
+    exams(filters: { isFeaturedExam: { eq: true } }) {
+      data {
+        id
+        attributes {
+          name
+          examDate {
+            id
+            startDate
+          }
+          banner {
+            data {
+              id
+              attributes {
+                url
+              }
+            }
+          }
+          logo {
+            data {
+              id
+              attributes {
+                url
+              }
+            }
+          }
+          examLevel {
+            data {
+              id
+              attributes {
+                name
+              }
+            }
+          }
+          examMode {
+            data {
+              id
+              attributes {
+                mode
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 
 //query to get all specializations
 export const getSpecializations = gql`

@@ -1,5 +1,5 @@
 import { GetReviewByID, GetReviewForUserId, WriteReviews } from "@/graphql/collegeSchema/collegeSchema";
-import { getColleges } from "@/query/schema";
+import { getAllColleges } from "@/query/schema";
 import { useMutation, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 
@@ -34,7 +34,7 @@ const useColleges = () => {
     loading: allCollegeLoading,
     error: allCollegeError,
     data: allCollegeData,
-  } = useQuery<any>(getColleges);
+  } = useQuery<any>(getAllColleges);
   const AllCollegesData = allCollegeData?.colleges?.data;
   const [CollegeListData, setCollegeListData] = useState<any[]>([]);
 
