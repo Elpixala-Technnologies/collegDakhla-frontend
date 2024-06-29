@@ -173,11 +173,7 @@ export const getAllColleges = gql`
         }
       }
     }
-    meta {
-      pagination {
-        total
-      }
-    }
+   
   }
 `;
 
