@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const getAllColleges = gql`
+export const getColleges = gql`
   query Colleges {
     colleges(pagination: { limit: 100 }) {
       data {

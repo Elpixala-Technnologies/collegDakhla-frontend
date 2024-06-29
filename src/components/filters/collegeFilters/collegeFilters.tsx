@@ -9,7 +9,7 @@ import {
   getCollegesFilter,
   getCourses,
   collegeTypes,
-  getColleges,
+  getAllColleges,
 } from "@/query/schema";
 import { useQuery } from "@apollo/client";
 import Tabs from "@mui/material/Tabs";
@@ -72,7 +72,7 @@ export default function CollegeFilters(params?: any) {
     },
   });
 
-  const { loading, error, data: initialData } = useQuery(getColleges);
+  const { loading, error, data: initialData } = useQuery(getAllColleges);
 
   //tab state
   const [value, setValue] = useState(0);

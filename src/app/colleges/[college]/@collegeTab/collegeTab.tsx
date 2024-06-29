@@ -47,7 +47,7 @@ export default function CollegeTab(props: any) {
     (item: { pageGallery: { data: any } }) => item.pageGallery?.data || []
   );
 
-  const [activeSection, setActiveSection] = useState("gallery"); // Default to 'gallery' section
+  const [activeSection, setActiveSection] = useState("gallery");
 
   const handleSectionChange = (section: string) => {
     setActiveSection(section);
@@ -86,7 +86,7 @@ export default function CollegeTab(props: any) {
                         <div
                           className="content rounded-xl"
                           key={index}
-                          ref={(el) => (accordionRefs.current[index] = el)} // Assign ref
+                          ref={(el) => (accordionRefs.current[index] = el)} 
                         >
                           <PageData data={item} />
                         </div>
