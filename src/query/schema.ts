@@ -1197,55 +1197,56 @@ export const getExam = gql`
   }
 `;
 
-//query to get featured exams
-// export const getFeaturedExams = gql`
-//   query Exams {
-//     exams(filters: { isFeaturedExam: { eq: true } }) {
-//       data {
-//         id
-//         attributes {
-//           name
-//           examDate {
-//             id
-//             startDate
-//           }
-//           banner {
-//             data {
-//               id
-//               attributes {
-//                 url
-//               }
-//             }
-//           }
-//           logo {
-//             data {
-//               id
-//               attributes {
-//                 url
-//               }
-//             }
-//           }
-//           examLevel {
-//             data {
-//               id
-//               attributes {
-//                 name
-//               }
-//             }
-//           }
-//           examMode {
-//             data {
-//               id
-//               attributes {
-//                 mode*
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// `;
+// query to get featured exams
+export const getFeaturedExams = gql`
+  query Exams {
+    exams(filters: { isFeaturedExam: { eq: true } }) {
+      data {
+        id
+        attributes {
+          name
+          examDate {
+            id
+            startDate
+          }
+          banner {
+            data {
+              id
+              attributes {
+                url
+              }
+            }
+          }
+          logo {
+            data {
+              id
+              attributes {
+                url
+              }
+            }
+          }
+          examLevel {
+            data {
+              id
+              attributes {
+                name
+              }
+            }
+          }
+          examMode {
+            data {
+              id
+              attributes {
+                mode
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 
 //query to get all specializations
 export const getSpecializations = gql`
