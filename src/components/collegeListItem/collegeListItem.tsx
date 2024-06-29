@@ -30,7 +30,7 @@ import {
 
 export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
   // useEffect(() => {
-  //   console.log(collegeData?.[0], "cccc");
+  //   console.log(collegeData?.[0]?.attributes?.navbars?.data, "cccc");
   // }, [collegeData]);
 
   const { CollegeApplicatonListData } = userFrom();
@@ -281,17 +281,11 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                   {/* <Separator /> */}
                   <div className="w-full flex max-sm:flex-col gap-y-2 sm:items-center justify-between px-4 pr-2 py-2 border-t text-semibold border-zinc-300">
                     <ul className="flex flex-wrap gap-x-3 text-primary capitalize max-sm:text-sm">
-                      {[
-                        "Info",
-                        "Courses",
-                        "Scholarship",
-                        "Review",
-                        "Placement",
-                      ].map((item, index) => (
+                      {college?.attributes?.navbars?.data?.map((item:any, index:number) => (
                         <React.Fragment key={index}>
-                          <Link href={`/colleges/${college.id}`}>
+                          <Link href={`/colleges/${college?.id}`}>
                             <li className="cursor-pointer hover:underline">
-                              {item}
+                              {item?.attributes?.name}
                             </li>
                           </Link>
                           {index !== 4 && <li>|</li>}

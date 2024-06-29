@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 
 import Image from "next/image";
@@ -10,7 +11,7 @@ import { BsCalendarDate } from "react-icons/bs";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { Rating } from "@mui/material";
 import { RiFlagLine } from "react-icons/ri";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import userFrom from "@/hooks/userFrom";
 import ApplyNowModal from "../consultingModule/ApplyNowModal/ApplyNowModal";
 import useUserMetaData from "@/query/hooks/useUserMetaData";
@@ -28,6 +29,9 @@ export default function ExamListItem({ exams }: any) {
   const { CollegeApplicatonListData } = userFrom();
 
   const [selectedId, setSelectedId] = useState(null);
+  useEffect(() => {
+    console.log(exams, "cccc");
+  }, [exams]);
 
   const handleOpenModal = (id: any) => {
     setIsModalOpen(true);

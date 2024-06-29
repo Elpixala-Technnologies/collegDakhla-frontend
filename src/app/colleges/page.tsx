@@ -60,9 +60,6 @@ export default function CollegeList() {
 
   // get college data
   const { loading, error, data: initialData } = useQuery(getAllColleges);
-  useEffect(() => {
-    console.log(initialData, "cccc");
-  }, [initialData]);
 
   const {
     loading: filterLoader,
@@ -180,6 +177,11 @@ export default function CollegeList() {
     }
   }, [searchValue, initialData, displayCount]);
 
+  useEffect(() => {
+    console.log(initialData?.colleges?.data, "initial");
+    console.log(filteredData, "filtered");
+  },[initialData])
+
   const { GetUserMetaData } = useUserMetaData();
   const { userID } = useAppSelector((store: any) => store.auth);
 
@@ -191,7 +193,6 @@ export default function CollegeList() {
 
   const AppliedCollege = userData?.userAllMetaData?.appliedColleges;
 
-  //  console.log(initialData?.colleges?.data, "ppppp");
 
   return (
     <>

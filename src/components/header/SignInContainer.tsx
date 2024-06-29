@@ -81,7 +81,7 @@ export function SignInContainer({ setIsLogin, isLogIn, closeLoginPopup }: any) {
 	return (
 		<div className="[flex:5] relative flex flex-col justify-center  text-black p-8 rounded-r rounded-b">
 			<button
-				className="absolute top-[0.05rem] right-[0.05rem] w-max text-sm  text-white   hover:underline p-3"
+				className="absolute top-[0.05rem] right-[0.05rem] w-max text-sm  text-orange-600   hover:underline p-3"
 				onClick={closeLoginPopup}
 				type="button"
 			>

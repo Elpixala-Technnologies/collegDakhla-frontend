@@ -38,50 +38,7 @@ export const getAllColleges = gql`
     data {
       id
       attributes {
-        pageData {
-            ... on ComponentCommonTabData {
-              content
-              heading
-              navbar {
-                data {
-                  id
-                  attributes {
-                    name
-                  }
-                }
-              }
-            }
-            ... on ComponentCommonGallery {
-              heading
-              navbar {
-                data {
-                  id
-                  attributes {
-                    name
-                  }
-                }
-              }
-              pageGallery {
-                data {
-                  id
-                  attributes {
-                    url
-                  }
-                }
-              }
-            }
-            ... on ComponentCommonFaqS {
-              Answer
-              Question
-              navbar {
-                data {
-                  attributes {
-                    name
-                  }
-                }
-              }
-            }
-          }
+
           navbars {
             data {
               id
