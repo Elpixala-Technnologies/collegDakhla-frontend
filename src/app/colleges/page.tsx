@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { MdEmail, MdOutlineSort } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
 import {
-  getColleges,
+  getAllColleges,
   getCollegesFilter,
   getStreamData,
   searchCollege,
@@ -59,7 +59,10 @@ export default function CollegeList() {
   };
 
   // get college data
-  const { loading, error, data: initialData } = useQuery(getColleges);
+  const { loading, error, data: initialData } = useQuery(getAllColleges);
+  useEffect(() => {
+    console.log(initialData, "cccc");
+  }, [initialData]);
 
   const {
     loading: filterLoader,

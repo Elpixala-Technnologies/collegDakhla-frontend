@@ -18,14 +18,21 @@ import {
   RupeeBaves,
 } from "@/Asset";
 import ApplyNowModal from "../consultingModule/ApplyNowModal/ApplyNowModal";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import userFrom from "@/hooks/userFrom";
 import { CiLocationOn } from "react-icons/ci";
 import { Rating } from "@mui/material";
-import { formatNumber, getRandomRatingValue, getRandomReviews } from "@/utils/randomValues";
+import {
+  formatNumber,
+  getRandomRatingValue,
+  getRandomReviews,
+} from "@/utils/randomValues";
 
 export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
-  console.log(collegeData, "cccc");
+  // useEffect(() => {
+  //   console.log(collegeData?.[0], "cccc");
+  // }, [collegeData]);
+
   const { CollegeApplicatonListData } = userFrom();
 
   // query to get all states
@@ -114,17 +121,28 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                     </div>
                     {/* Right Side  */}
                     <div className="flex flex-col gap-1 md:col-span-8">
+                      {/* line 2 - Mobile  */}
+                      <Link
+                        href={`/colleges/${college.id}`}
+                        className="sm:hidden"
+                      >
+                        <h2 className="text-xl text-[#202020] font-semibold">
+                          {college?.attributes?.collegeName}
+                        </h2>
+                      </Link>
                       {/* line 1  */}
                       <div className="flex max-sm:flex-col gap-2">
-                      <p className="text-[#0F4988] flex gap-1 items-center text-sm">
-                        <Rating
-                          name="half-rating"
-                          defaultValue={getRandomRatingValue()}
-                          precision={0.5}
-                          className="text-sm"
-                          readOnly
-                        />
-                        <span className="text-nowrap">({formatNumber(getRandomReviews())} reviews)</span>
+                        <p className="text-[#0F4988] flex gap-1 items-center text-sm">
+                          <Rating
+                            name="half-rating"
+                            defaultValue={getRandomRatingValue()}
+                            precision={0.5}
+                            className="text-sm"
+                            readOnly
+                          />
+                          <span className="text-nowrap">
+                            ({formatNumber(getRandomReviews())} reviews)
+                          </span>
                         </p>
                         <p className="text-[#0F4988] flex gap-1 items-center text-sm text-nowrap">
                           <CiLocationOn className="text-xl text-gray-400" />
@@ -163,8 +181,12 @@ export default function CollegeListItem({ collegeData, AppliedCollege }: any) {
                           | {"Rank 6"}
                         </p>
                       </div>
+
                       {/* line 2  */}
-                      <Link href={`/colleges/${college.id}`}>
+                      <Link
+                        href={`/colleges/${college.id}`}
+                        className="max-sm:hidden"
+                      >
                         <h2 className="text-xl text-[#202020] font-semibold">
                           {college?.attributes?.collegeName}
                         </h2>
